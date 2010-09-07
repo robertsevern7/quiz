@@ -1,5 +1,6 @@
 module Freebase where
 
+import System.Random
 import Text.JSON
 import Network.HTTP
 import Network.URI
@@ -7,6 +8,10 @@ import Network.URI
 import Control.Monad
 
 import Data.Maybe (fromJust)
+
+getFirst :: Result JSValue -> Result JSValue
+getFirst (Ok (JSArray (x:xs))) = Ok x
+getFirst _ = Error "Not an array"
 
 -- Should this use fmap?
 lookupValue :: JSON a => Result JSValue -> String -> Result a
@@ -34,29 +39,60 @@ makeQuery s = liftM decode (simpleHTTP (getRequest (mqlReadUri ++ "?query=" ++ u
 mkSimpleQuery :: [(String,JSValue)] -> JSValue
 mkSimpleQuery x = JSObject $ toJSObject [("query", JSArray [JSObject $ toJSObject x])]
 
+runSimpleQuery :: String -> String -> String -> IO (Result [String])
+runSimpleQuery qtype key name = do
+  response <- makeQuery $ mkSimpleQuery [("type",showJSON qtype),("name",showJSON name),(key, JSArray [])]
+  let k = lookupValue response "result"
+      l = lookupValue (getFirst k) key
+      m = fmap (\(JSArray x) -> x) l
+  return $ fmap (map (\(JSString x) -> fromJSString x)) m
+
 getAlbumList :: String -> IO (Result [String])
-getAlbumList artist = do
-  response <- makeQuery $ mkSimpleQuery [("type",showJSON "/music/artist")
-                                        ,("name",showJSON artist)
-                                        ,("album", JSArray [])]
-  let albums = (lookupValue (lookupValue response "result") "album")
-  return (fmap (map (\(JSString x) -> fromJSString x)) albums)
+getAlbumList = runSimpleQuery "/music/artist" "album" 
 
---getFilmList :: String -> IO (Result [String])
-getFilmList director = do
-  response <- makeQuery $ mkSimpleQuery [("type",showJSON "/film/film")
-										,("directed_by",JSObject $ toJSObject [("name", showJSON director)])
-										,("name", JSNull)]
-  let a = lookupValue response "result" :: Result JSValue
-      oka = (\(Ok x) -> x) a
-      jsvalues = (\(JSArray x) -> x) oka
-      films = map (\(JSObject p) -> valFromObj "name" p :: Result JSValue) jsvalues  
-  return $ fmap (\(Ok (JSString a)) -> fromJSString a) films
+getFilmList :: String -> IO (Result [String])
+getFilmList = runSimpleQuery "/film/director" "film"
 
-getReleaseDate :: String -> IO (Result String)
-getReleaseDate film = do
-  response <- makeQuery $ mkSimpleQuery [("type", showJSON "/film/film")
-                                        ,("name", showJSON film)
-                                        ,("initial_release_date",  JSNull)]
-  let releaseDate = (lookupValue (lookupValue response "result") "initial_release_date")
-  return (fmap fromJSString releaseDate)
+getRandomFilmList :: IO (Result [String])
+getRandomFilmList = do
+  gen <- newStdGen
+  let len = length listOfDirectors
+      (a,_) = randomR (0,len-1) gen
+  getFilmList (listOfDirectors !! a)
+
+
+-- don't hardcode, but easy for now!
+listOfDirectors :: [String]
+listOfDirectors = ["Blake Edwards",
+                   "D. A. Pennebaker",
+                   "Chris Hegedus",
+                   "David Dawkins",
+                   "Zack Snyder",
+                   "Bernardo Bertolucci",
+                   "Steven Spielberg",
+                   "Michael Radford",
+                   "Wong Kar-wai",
+                   "John Landis",
+                   "Luis Mandoki",
+                   "Norman Jewison",
+                   "Pedro Almodóvar",
+                   "Francis Delia",
+                   "Scott Norlund",
+                   "Mark Osborne",
+                   "Dror Soref",
+                   "Robert K. Weiss",
+                   "Hal Warren",
+                   "Michael Dimich",
+                   "Bharathiraja",
+                   "Aparna Sen",
+                   "Nathan Juran",
+                   "George Seaton",
+                   "John Singleton",
+                   "Phil Karlson",
+                   "Jean-Jacques Beineix",
+                   "Joel Schumacher",
+                   "Henry Hathaway",
+                   "Richard Fleischer",
+                   "Selvaraghavan",
+                   "Kim Ki-duk",
+                   "Delmer Daves"]
