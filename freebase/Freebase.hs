@@ -41,54 +41,16 @@ makeQuery s = liftM decode (simpleHTTP (getRequest (mqlReadUri ++ "?query=" ++ u
 mkSimpleQuery :: [(String,JSValue)] -> JSValue
 mkSimpleQuery x = JSObject $ toJSObject [("query", JSArray [JSObject $ toJSObject x])]
 
-runSimpleQuery :: String -> String -> String -> IO (Result [String])
+runSimpleQuery :: String -> String -> String -> IO (String,(Result [String]))
 runSimpleQuery qtype key name = do
-  response <- makeQuery $ mkSimpleQuery [("type",showJSON qtype),("name",showJSON name),(key, JSArray [])]
+  response <- makeQuery $ mkSimpleQuery [("type",showJSON qtype),("id",showJSON name),(key, JSArray [])]
   let k = lookupValue response "result"
       l = lookupValue (getFirst k) key
       m = fmap (\(JSArray x) -> x) l
-  return $ fmap (map (\(JSString x) -> fromJSString x)) m
-  
+  return (name,fmap (map (\(JSString x) -> fromJSString x)) m)
 
-getDirectorBigBudgetFilms :: IO (Result [(String, Int)])
-getDirectorBigBudgetFilms = do
-  let budgetQueryObject = showJSON (toJSObject [("amount", JSNull), ("currency", showJSON "US$")])
-      filmQueryObject = showJSON (toJSObject [("name", JSNull), ("limit", showJSON (5 :: Int)), ("sort", showJSON "-estimated_budget.amount"), ("estimated_budget", budgetQueryObject)]);
-  response <- makeQuery $ mkSimpleQuery [("type",showJSON "/film/director"),("id",showJSON JSNull), ("limit",showJSON (600 :: Int)),("film", JSArray [filmQueryObject])]
-  let arrayOfDirAndFilms = (lookupValue response "result" :: Result JSValue)
-  return (fmap extractDirAndBudgets arrayOfDirAndFilms)
-  
-extractDirAndBudgets :: JSValue -> [(String,Int)]
-extractDirAndBudgets (JSArray xs) = sortBy (\(_,a) (_,b) -> compare b a) $ map extractDirAndBudget xs
-extractDirAndBudgets _ = error "Freebase screwed us."
-  
-extractDirAndBudget :: JSValue -> (String,Int)
-extractDirAndBudget (JSObject s) = (idDir, extractBudget $ fromJust $ get_field s "film")
-	where
-		idDir = (\(JSString z) -> fromJSString z) (fromJust $ get_field s "id")
-extractDirAndBudget _ = undefined
-
-extractBudget :: JSValue -> Int
-extractBudget (JSArray films) = sum $ map getFilmBudget films
-
-getFilmBudget :: JSValue -> Int
-getFilmBudget (JSObject film) = truncate cost 
-	where
-		(JSObject estimatedBudget) = fromJust $ get_field film "estimated_budget"
-		(JSRational _ cost) = fromJust $ get_field estimatedBudget "amount"
-getAlbumList :: String -> IO (Result [String])
+getAlbumList :: String -> IO (String,Result [String])
 getAlbumList = runSimpleQuery "/music/artist" "album" 
-
-getFilmList :: String -> IO (Result [String])
-getFilmList = runSimpleQuery "/film/director" "film"
-
-getRandomFilmList :: IO (Result [String])
-getRandomFilmList = do
-  gen <- newStdGen
-  let len = length listOfDirectors
-      (a,_) = randomR (0,len-1) gen
-  getFilmList (listOfDirectors !! a)
-
 
 -- don't hardcode, but easy for now!
 listOfDirectors :: [String]
