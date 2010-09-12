@@ -14,7 +14,6 @@ staticFiles "static/"
 mkYesod "QuizMaster" [$parseRoutes|
   /       HomeR   GET
   /static StaticR Static ajaxStatic
-  /albums/#String AlbumsR GET
 |]
 
 instance Yesod QuizMaster where
@@ -38,15 +37,14 @@ getHomeR = hamletToRepHtml [$hamlet|
     %p Written using 
         %a!href="http://docs.yesodweb.com/Yesod" Yesod Web Framework
 |]              
-
-
-
+{-
 getAlbumsR :: String -> GHandler sub master RepJson
 getAlbumsR band = do
   albumsResult <- liftIO $ getAlbumList band
   case albumsResult of
     (Ok albums) -> jsonToRepJson $ jsonMap [("name", jsonList $ map jsonScalar albums)]
     (Error _)   -> jsonToRepJson $ jsonMap [("error", jsonScalar "Unknown band")]
+-}
 
 main :: IO ()
 main = do
