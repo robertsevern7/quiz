@@ -20,9 +20,19 @@ actorPath = "film/film_actors.txt"
 
 getDirectorBigBudgetFilms :: IO (Result [(String, Int)])
 getDirectorBigBudgetFilms = do
-  let budgetQueryObject = showJSON (toJSObject [("amount", JSNull), ("currency", showJSON "US$")])
-      filmQueryObject = showJSON (toJSObject [("name", JSNull), ("limit", showJSON (5 :: Int)), ("sort", showJSON "-estimated_budget.amount"), ("estimated_budget", budgetQueryObject)]);
-  response <- runQuery $ mkSimpleQuery [("type",showJSON "/film/director"),("id",showJSON JSNull), ("limit",showJSON (600 :: Int)),("film", JSArray [filmQueryObject])]
+  let budgetQueryObject = showJSON (toJSObject [("amount", JSNull)
+                                               ,("currency", showJSON "US$")])
+
+      filmQueryObject = showJSON (toJSObject [("name", JSNull)
+                                             ,("limit", showJSON (5 :: Int))
+                                             ,("sort", showJSON "-estimated_budget.amount")
+                                             ,("estimated_budget", budgetQueryObject)])
+
+  response <- runQuery $ mkSimpleQuery [("type",showJSON "/film/director")
+                                       ,("id",showJSON JSNull)
+                                       ,("limit",showJSON (600 :: Int))
+                                       ,("film", JSArray [filmQueryObject])]
+
   let arrayOfDirAndFilms = (lookupValue response "result" :: Result JSValue)
   return (fmap extractDirAndBudgets arrayOfDirAndFilms)
   
