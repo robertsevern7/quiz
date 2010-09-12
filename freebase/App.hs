@@ -5,22 +5,22 @@ import Yesod.Helpers.Static
 import Freebase
 import Text.JSON
 
-data AlbumLister = AlbumLister {
+data QuizMaster = QuizMaster {
       ajaxStatic :: Static
 }
 
 staticFiles "static/"
 
-mkYesod "AlbumLister" [$parseRoutes|
+mkYesod "QuizMaster" [$parseRoutes|
   /       HomeR   GET
   /static StaticR Static ajaxStatic
   /albums/#String AlbumsR GET
 |]
 
-instance Yesod AlbumLister where
+instance Yesod QuizMaster where
     approot _ = ""
    
-getHomeR :: GHandler sub AlbumLister RepHtml
+getHomeR :: GHandler sub QuizMaster RepHtml
 getHomeR = hamletToRepHtml [$hamlet|
 %html
   %head
@@ -39,17 +39,16 @@ getHomeR = hamletToRepHtml [$hamlet|
         %a!href="http://docs.yesodweb.com/Yesod" Yesod Web Framework
 |]              
 
+
+
 getAlbumsR :: String -> GHandler sub master RepJson
 getAlbumsR band = do
   albumsResult <- liftIO $ getAlbumList band
   case albumsResult of
-    (Ok albums) -> jsonToRepJson $ jsonMap [("name", jsonList $ map jsString albums)]
-    (Error _)   -> jsonToRepJson $ jsonMap [("error", jsString "Unknown band")]
-
-jsString :: String -> Json
-jsString = jsonScalar
+    (Ok albums) -> jsonToRepJson $ jsonMap [("name", jsonList $ map jsonScalar albums)]
+    (Error _)   -> jsonToRepJson $ jsonMap [("error", jsonScalar "Unknown band")]
 
 main :: IO ()
 main = do
   let static = fileLookupDir "static/" typeByExt
-  basicHandler 3000 $ AlbumLister static
+  basicHandler 3000 $ QuizMaster static
