@@ -61,6 +61,4 @@ getDirector = do
 	return (films !! i)
 
 getDirectorFilmList :: IO (String,Result [String])
-getDirectorFilmList = do
-  director <- getDirector
-  runSimpleQuery "/film/director" "film" director
+getDirectorFilmList = runSimpleQuery "/film/director" "film" =<< getDirector
