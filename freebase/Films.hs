@@ -65,10 +65,10 @@ readDirectorsFromDisk = liftM read (readFile directorPath)
 
 getDirector :: IO String
 getDirector = do
-	films <- readDirectorsFromDisk
-	gen <- newStdGen
-	let (i,_) = randomR (0,99) gen 
-	return (films !! i)
+  films <- readDirectorsFromDisk
+  gen <- newStdGen
+  let (i,_) = randomR (0,99) gen 
+  return (films !! i)
 
 getDirectorFilmList :: IO (String,Result [String])
 getDirectorFilmList = runSimpleQuery "/film/director" "film" =<< getDirector
