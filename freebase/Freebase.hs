@@ -35,15 +35,15 @@ simpleService s = liftM decode (simpleHTTP (mkRequest GET s) >>= getResponseBody
 mqlReadUri :: String
 mqlReadUri = "http://api.freebase.com/api/service/mqlread"
 
-makeQuery :: JSValue -> IO (Result JSValue)
-makeQuery s = liftM decode (simpleHTTP (getRequest (mqlReadUri ++ "?query=" ++ urlEncode (encode s))) >>= getResponseBody) 
+runQuery :: JSValue -> IO (Result JSValue)
+runQuery s = liftM decode (simpleHTTP (getRequest (mqlReadUri ++ "?query=" ++ urlEncode (encode s))) >>= getResponseBody) 
 
 mkSimpleQuery :: [(String,JSValue)] -> JSValue
 mkSimpleQuery x = JSObject $ toJSObject [("query", JSArray [JSObject $ toJSObject x])]
 
 runSimpleQuery :: String -> String -> String -> IO (String,(Result [String]))
 runSimpleQuery qtype key name = do
-  response <- makeQuery $ mkSimpleQuery [("type",showJSON qtype),("id",showJSON name),(key, JSArray [])]
+  response <- runQuery $ mkSimpleQuery [("type",showJSON qtype),("id",showJSON name),(key, JSArray [])]
   let k = lookupValue response "result"
       l = lookupValue (getFirst k) key
       m = fmap (\(JSArray x) -> x) l
