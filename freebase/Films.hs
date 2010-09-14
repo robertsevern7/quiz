@@ -78,12 +78,12 @@ getDirector = do
 getDirectorFilmList :: IO (String,Result [String])
 getDirectorFilmList = do
   director <- getDirector
-  runSimpleQuery "/film/director" "film" director
+  runSimpleQuery "/film/director" "film" director (\(JSString x) -> fromJSString x)
 
 getActorFilmList :: IO (String,Result [String])
 getActorFilmList = do
   actor <- getActor
-  runSimpleQuery "/film/performance" "film" actor
+  runSimpleQuery "/film/performance" "film" actor (\_ -> error "COCK MONKEY")
 
   
 getActorBigBudgetFilms :: IO (Result [(String, Int)])

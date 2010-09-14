@@ -10,6 +10,7 @@ import Data.Ord (comparing)
 import Control.Monad
 
 import Data.Maybe (fromJust)
+import Debug.Trace
 
 getFirst :: Result JSValue -> Result JSValue
 getFirst (Ok (JSArray (x:xs))) = Ok x
@@ -41,11 +42,11 @@ runQuery s = liftM decode (simpleHTTP (getRequest (mqlReadUri ++ "?query=" ++ ur
 mkSimpleQuery :: [(String,JSValue)] -> JSValue
 mkSimpleQuery x = JSObject $ toJSObject [("query", JSArray [JSObject $ toJSObject x])]
 
-runSimpleQuery :: String -> String -> String -> IO (String,(Result [String]))
-runSimpleQuery qtype key name = do
+runSimpleQuery :: String -> String -> String -> (JSValue -> String) -> IO (String,(Result [String]))
+runSimpleQuery qtype key name extractor = do
   response <- runQuery $ mkSimpleQuery [("type",showJSON qtype),("id",showJSON name),(key, JSArray [])]
   let k = lookupValue response "result"
       l = lookupValue (getFirst k) key
       m = fmap (\(JSArray x) -> x) l
-  return (name,fmap (map (\(JSString x) -> fromJSString x)) m)
+  return (name,fmap (map extractor) m)
 
