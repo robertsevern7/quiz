@@ -12,6 +12,8 @@ import Control.Monad
 import Freebase
 
 import Data.Maybe (fromJust)
+import Debug.Trace
+
 directorPath :: FilePath
 directorPath = "film/film_directors.txt"
 
@@ -40,24 +42,28 @@ extractBudget :: JSValue -> Int
 extractBudget (JSArray films) = sum $ map getFilmBudget films
 
 getFilmBudget :: JSValue -> Int
-getFilmBudget (JSObject film) = truncate cost
+getFilmBudget f@(JSObject film) = truncate cost
     where
-      (JSObject filmObject) = getFilmObject film
+      (JSObject filmObject) = getFilmObject f
       (JSObject estimatedBudget) = fromJust $ get_field filmObject "estimated_budget"
       (JSRational _ cost) = fromJust $ get_field estimatedBudget "amount"
 
-getFilmObject :: JSObject a -> a
-getFilmObject filmInput = case (get_field filmInput "film") of
-                            Nothing  -> fromJust $ get_field filmInput "film"
-                            (Just x) -> x --fromJust $ get_field filmInput "film"
+getFilmObject :: JSValue -> JSValue
+getFilmObject f@(JSObject filmInput) = case (valFromObj "film" filmInput) of
+                                         (Error x) ->  f
+                                         (Ok x) -> x
+
+getOk :: Result x -> x
+getOk (Ok x) = x
+getOk (Error x) = trace x undefined
 
 getDirectorBigBudgetFilms :: IO (Result [(String, Int)])
 getDirectorBigBudgetFilms = getBigBudgetFilms "/film/director"
 
 saveDirectorsToDisk :: IO ()
 saveDirectorsToDisk = do
-        (Ok films) <- getDirectorBigBudgetFilms
-        writeFile directorPath (show $ map fst films)
+  (Ok films) <- getDirectorBigBudgetFilms
+  writeFile directorPath (show $ map fst films)
         
 readDirectorsFromDisk :: IO [String]
 readDirectorsFromDisk = liftM read (readFile directorPath)
@@ -73,6 +79,12 @@ getDirectorFilmList :: IO (String,Result [String])
 getDirectorFilmList = do
   director <- getDirector
   runSimpleQuery "/film/director" "film" director
+
+getActorFilmList :: IO (String,Result [String])
+getActorFilmList = do
+  actor <- getActor
+  runSimpleQuery "/film/performance" "film" actor
+
   
 getActorBigBudgetFilms :: IO (Result [(String, Int)])
 getActorBigBudgetFilms = do
@@ -97,7 +109,3 @@ getActor = do
   let (i,_) = randomR (0,99) gen 
   return (actors !! i)
 
-getActorFilmList :: IO (String,Result [String])
-getActorFilmList = do
-  actor <- getActor
-  runSimpleQuery "/film/performance" "film" actor
