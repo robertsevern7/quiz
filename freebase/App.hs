@@ -5,13 +5,14 @@ import Yesod.Helpers.Static
 import Freebase
 import Text.JSON
 
+-- Site specific data is stored here
 data QuizMaster = QuizMaster {
       ajaxStatic :: Static
 }
 
 staticFiles "static/"
 
-mkYesod "QuizMaster" [$parseRoutes|
+mkYesod "QuizMaster" [$parseRoutes|                      
   /       HomeR   GET
   /static StaticR Static ajaxStatic
 |]
@@ -23,28 +24,17 @@ getHomeR :: GHandler sub QuizMaster RepHtml
 getHomeR = hamletToRepHtml [$hamlet|
 %html
   %head
-    %title Album Lister
+    %title Quiz Master
     %link!rel="stylesheet"!href=@StaticR.albums_css@
     %script!src="http://code.jquery.com/jquery-1.4.2.min.js"
     %script!src=@StaticR.script_js@
   %body
-    %h1 Album Lister
-    %p Enter the name of a band:
-    %input!type=text!onchange="listAlbums(this.value)"
-    %hr
-    #output
+    %h1 AwesomeQuiz.com
+    %p AwesomeQuiz provides a wide ranging set of questions to tax your brain.
     %hr
     %p Written using 
         %a!href="http://docs.yesodweb.com/Yesod" Yesod Web Framework
 |]              
-{-
-getAlbumsR :: String -> GHandler sub master RepJson
-getAlbumsR band = do
-  albumsResult <- liftIO $ getAlbumList band
-  case albumsResult of
-    (Ok albums) -> jsonToRepJson $ jsonMap [("name", jsonList $ map jsonScalar albums)]
-    (Error _)   -> jsonToRepJson $ jsonMap [("error", jsonScalar "Unknown band")]
--}
 
 main :: IO ()
 main = do

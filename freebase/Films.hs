@@ -7,68 +7,97 @@ import Network.HTTP
 import Network.URI
 import Data.List (sortBy)
 import Data.Ord (comparing)
+import Data.Maybe (isNothing)
 import Control.Monad
 import Freebase
 
 import Data.Maybe (fromJust)
-
 directorPath :: FilePath
 directorPath = "film/film_directors.txt"
 
 actorPath :: FilePath
 actorPath = "film/film_actors.txt"
 
-getDirectorBigBudgetFilms :: IO (Result [(String, Int)])
-getDirectorBigBudgetFilms = do
-  let budgetQueryObject = showJSON (toJSObject [("amount", JSNull)
-                                               ,("currency", showJSON "US$")])
-
-      filmQueryObject = showJSON (toJSObject [("name", JSNull)
-                                             ,("limit", showJSON (5 :: Int))
-                                             ,("sort", showJSON "-estimated_budget.amount")
-                                             ,("estimated_budget", budgetQueryObject)])
-
-  response <- runQuery $ mkSimpleQuery [("type",showJSON "/film/director")
-                                       ,("id",showJSON JSNull)
-                                       ,("limit",showJSON (600 :: Int))
-                                       ,("film", JSArray [filmQueryObject])]
-
-  let arrayOfDirAndFilms = (lookupValue response "result" :: Result JSValue)
-  return (fmap extractDirAndBudgets arrayOfDirAndFilms)
+getBigBudgetFilms :: String -> IO (Result [(String, Int)])
+getBigBudgetFilms query_type = do
+  let budgetQueryObject = showJSON (toJSObject [("amount", JSNull), ("currency", showJSON "US$")])
+      filmQueryObject = showJSON (toJSObject [("name", JSNull), ("limit", showJSON (5 :: Int)), ("sort", showJSON "-estimated_budget.amount"), ("estimated_budget", budgetQueryObject)]);
+  response <- runQuery $ mkSimpleQuery [("type",showJSON query_type),("id",showJSON JSNull), ("limit",showJSON (600 :: Int)),("film", JSArray [filmQueryObject])]
+  let arrayOfIdAndFilms = (lookupValue response "result" :: Result JSValue)
+  return (fmap extractIdAndBudgets arrayOfIdAndFilms)
   
-extractDirAndBudgets :: JSValue -> [(String,Int)]
-extractDirAndBudgets (JSArray xs) = sortBy (\(_,a) (_,b) -> compare b a) $ map extractDirAndBudget xs
-extractDirAndBudgets _ = error "Freebase screwed us."
+extractIdAndBudgets :: JSValue -> [(String,Int)]
+extractIdAndBudgets (JSArray xs) = sortBy (\(_,a) (_,b) -> compare b a) $ map extractIdAndBudget xs
+extractIdAndBudgets _ = error "Freebase screwed us."
   
-extractDirAndBudget :: JSValue -> (String,Int)
-extractDirAndBudget (JSObject s) = (idDir, extractBudget $ fromJust $ get_field s "film")
+extractIdAndBudget :: JSValue -> (String,Int)
+extractIdAndBudget (JSObject s) = (_id, extractBudget $ fromJust $ get_field s "film")
     where
-      idDir = (\(JSString z) -> fromJSString z) (fromJust $ get_field s "id")
-extractDirAndBudget _ = error "Failed to extract director and budget, unexpected response"
+      _id = (\(JSString z) -> fromJSString z) (fromJust $ get_field s "id")
+extractIdAndBudget _ = undefined
 
 extractBudget :: JSValue -> Int
 extractBudget (JSArray films) = sum $ map getFilmBudget films
 
 getFilmBudget :: JSValue -> Int
-getFilmBudget (JSObject film) = truncate cost 
+getFilmBudget (JSObject film) = truncate cost
     where
-      (JSObject estimatedBudget) = fromJust $ get_field film "estimated_budget"
+      (JSObject filmObject) = getFilmObject film
+      (JSObject estimatedBudget) = fromJust $ get_field filmObject "estimated_budget"
       (JSRational _ cost) = fromJust $ get_field estimatedBudget "amount"
+
+getFilmObject :: JSObject a -> a
+getFilmObject filmInput = case (get_field filmInput "film") of
+                            Nothing  -> fromJust $ get_field filmInput "film"
+                            (Just x) -> x --fromJust $ get_field filmInput "film"
+
+getDirectorBigBudgetFilms :: IO (Result [(String, Int)])
+getDirectorBigBudgetFilms = getBigBudgetFilms "/film/director"
 
 saveDirectorsToDisk :: IO ()
 saveDirectorsToDisk = do
-  (Ok films) <- getDirectorBigBudgetFilms
-  writeFile directorPath (show $ map fst films)
-	
+        (Ok films) <- getDirectorBigBudgetFilms
+        writeFile directorPath (show $ map fst films)
+        
 readDirectorsFromDisk :: IO [String]
 readDirectorsFromDisk = liftM read (readFile directorPath)
 
 getDirector :: IO String
 getDirector = do
-  films <- readDirectorsFromDisk
+  directors <- readDirectorsFromDisk
   gen <- newStdGen
   let (i,_) = randomR (0,99) gen 
-  return (films !! i)
+  return (directors !! i)
 
 getDirectorFilmList :: IO (String,Result [String])
-getDirectorFilmList = runSimpleQuery "/film/director" "film" =<< getDirector
+getDirectorFilmList = do
+  director <- getDirector
+  runSimpleQuery "/film/director" "film" director
+  
+getActorBigBudgetFilms :: IO (Result [(String, Int)])
+getActorBigBudgetFilms = do
+  let budgetQueryObject = showJSON (toJSObject [("amount", JSNull), ("currency", showJSON "US$")])
+      filmQueryObject = showJSON (toJSObject [("film", showJSON (toJSObject [("name", JSNull), ("limit", showJSON (5 :: Int)), ("sort", showJSON "-estimated_budget.amount"), ("estimated_budget", budgetQueryObject)]))])
+  response <- runQuery $ mkSimpleQuery [("type",showJSON "/film/actor"),("id",showJSON JSNull), ("limit",showJSON (110 :: Int)),("film", JSArray [filmQueryObject])]
+  let arrayOfActorsAndFilms = (lookupValue response "result" :: Result JSValue)
+  return (fmap extractIdAndBudgets arrayOfActorsAndFilms)
+  
+saveActorsToDisk :: IO ()
+saveActorsToDisk = do
+  (Ok films) <- getActorBigBudgetFilms
+  writeFile actorPath (show $ map fst films)
+        
+readActorsFromDisk :: IO [String]
+readActorsFromDisk = liftM read (readFile actorPath)
+
+getActor :: IO String
+getActor = do
+  actors <- readActorsFromDisk
+  gen <- newStdGen
+  let (i,_) = randomR (0,99) gen 
+  return (actors !! i)
+
+getActorFilmList :: IO (String,Result [String])
+getActorFilmList = do
+  actor <- getActor
+  runSimpleQuery "/film/performance" "film" actor
