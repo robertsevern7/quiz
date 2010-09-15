@@ -78,12 +78,19 @@ getDirector = do
 getDirectorFilmList :: IO (String,Result [String])
 getDirectorFilmList = do
   director <- getDirector
-  runSimpleQuery "/film/director" "film" director (\(JSString x) -> fromJSString x)
+  runSimpleQuery "/film/director" "film" director (JSArray []) (\(JSString x) -> fromJSString x)
 
 getActorFilmList :: IO (String,Result [String])
 getActorFilmList = do
   actor <- getActor
-  runSimpleQuery "/film/performance" "film" actor (\_ -> error "COCK MONKEY")
+  let filmQueryObject = showJSON (toJSObject [("film", showJSON (toJSObject [("name", JSNull)]))])
+  runSimpleQuery "/film/actor" "film" actor (JSArray [filmQueryObject]) extractFilmName
+                      
+extractFilmName :: JSValue -> String
+extractFilmName (JSObject x) = fromJSString name
+    where
+      (Ok film) = valFromObj "film" x 
+      (Ok (JSString name)) = valFromObj "name" film 
 
   
 getActorBigBudgetFilms :: IO (Result [(String, Int)])
