@@ -13,7 +13,7 @@ mkString = JSString . toJSString
 -- TODO hideous duplication here
 -- TODO nicer way of expressing the answer would be good
 instance JSON QuestionFormat where
-    readJSON jsValue = undefined
+    readJSON jsValue = Error "No need to support this just yet"
     showJSON (MultipleChoice choices answer) = makeObj [("questionType", mkString "multipleChoice")
                                                        ,("choices", JSArray (map mkString choices))
                                                        ,("answer", mkString answer)]
@@ -30,7 +30,7 @@ data Question = Question Description QuestionFormat
 
 -- |When a Question is 
 instance JSON Question where
-    readJSON jsValue = undefined
+    readJSON jsValue = Error "No need to support this just yet"
     showJSON (Question description questionFormat) = makeObj [("question", mkString description)
                                                              ,("format", showJSON questionFormat)]
 
