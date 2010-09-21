@@ -95,12 +95,12 @@ getDirector = do
   let (i,_) = randomR (0,99) gen 
   return (directors !! i)
 
-getDirectorFilmList :: IO (String,Result [String])
+getDirectorFilmList :: IO (String,String,Result [String])
 getDirectorFilmList = do
   director <- getDirector
   runSimpleQuery "/film/director" "film" director (JSArray []) (\(JSString x) -> fromJSString x)
 
-getActorFilmList :: IO (String,Result [String])
+getActorFilmList :: IO (String,String,Result [String])
 getActorFilmList = do
   actor <- getActor
   let filmQueryObject = showJSON (toJSObject [("film", showJSON (toJSObject [("name", JSNull)]))])
