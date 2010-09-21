@@ -14,6 +14,14 @@ import Freebase
 import Data.Maybe (fromJust)
 import Debug.Trace
 
+data DirectorQuestionMaker = DirectorQuestionMaker {
+      director :: [String] -- |^Directors from which to choose questions
+}
+
+instance QuestionMaker DirectorQuestionMaker where
+    generateQuestion :: DirectorQuestionMaker -> Question
+    generateQuestion = undefined
+
 directorPath :: FilePath
 directorPath = "film/film_directors.txt"
 
