@@ -2,10 +2,12 @@ module Logic where
 
 import Text.JSON
 
+-- TODO some of these question types are less than self-explanatory
 -- |All the different types of questions
-data QuestionFormat = MultipleChoice [String] String
-                    | FreeText String
-                    | MultipleFreeText [String]
+data QuestionFormat = MultipleChoice [String] String -- ^ Choose one from a set
+                    | FreeText String -- |^ Free text to compare against supplied text
+                    | MultipleFreeText [String] -- |^ Multiple choices of free text 
+                    | IdentifyFrom [String] String -- |^ Given a set of strings identify some known answer
 
 mkString :: String -> JSValue
 mkString = JSString . toJSString
