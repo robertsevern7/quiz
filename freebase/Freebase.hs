@@ -42,14 +42,14 @@ runQuery s = liftM decode (simpleHTTP (getRequest (mqlReadUri ++ "?query=" ++ ur
 mkSimpleQuery :: [(String,JSValue)] -> JSValue
 mkSimpleQuery x = JSObject $ toJSObject [("query", JSArray [JSObject $ toJSObject x])]
 
-runSimpleQuery :: String -> String -> String -> JSValue -> (JSValue -> String) -> IO (String, String, (Result [String]))
+runSimpleQuery :: String -> String -> String -> JSValue -> (JSValue -> String) -> IO (String, (Result [String]))
 runSimpleQuery qtype key id_ arr extractor = do
   response <- runQuery $ mkSimpleQuery [("type",showJSON qtype),("id",showJSON id_), ("name", JSNull),(key,arr)]
   let k = lookupValue response "result"
       name = lookupValue (getFirst k) "name"
       l = lookupValue (getFirst k) key
       m = fmap (\(JSArray x) -> x) l
-  return (id_, getString name, fmap (map extractor) m)
+  return (getString name, fmap (map extractor) m)
 
 getString :: Result JSValue -> String
 getString (Ok (JSString x)) = fromJSString x
