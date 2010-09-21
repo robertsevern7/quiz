@@ -23,6 +23,9 @@ instance JSON QuestionFormat where
                                          ,("answer", mkString answer)]
     showJSON (MultipleFreeText answers) = makeObj [("questionType", mkString "multipleFreeText")
                                                   ,("answers", JSArray (map mkString answers))]
+    showJSON (IdentifyFrom hints answer) = makeObj [("questionType", mkString "identifyFrom")
+                                                   ,("answer", mkString answer)
+                                                   ,("hints", JSArray (map mkString hints))]
 
 -- |May want to change this to something "formattable"
 type Description = String
