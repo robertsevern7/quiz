@@ -7,11 +7,19 @@ data QuestionFormat = MultipleChoice [String] String
                     | FreeText String
                     | MultipleFreeText [String]
 
+mkString :: String -> JSValue
+mkString = JSString . toJSString
+
+-- TODO hideous duplication here
 instance JSON QuestionFormat where
     readJSON jsValue = undefined
-    showJSON (MultipleChoice choices answer) = undefined
-    showJSON (FreeText answer) = undefined
-    showJSON (MultipleFreeText answers) = undefined
+    showJSON (MultipleChoice choices answer) = makeObj [("questionType", mkString "multipleChoice")
+                                                       ,("choices", JSArray (map mkString choices))
+                                                       ,("answer", mkString answer)]
+    showJSON (FreeText answer) = makeObj [("questionType", mkString "freeText")
+                                         ,("answer", mkString answer)]
+    showJSON (MultipleFreeText answers) = makeObj [("questionType", mkString "multipleFreeText")
+                                                  ,("choices", JSArray (map mkString answers))]
 
 -- |May want to change this to something "formattable"
 type Description = String
@@ -22,7 +30,7 @@ data Question = Question Description QuestionFormat
 -- |When a Question is 
 instance JSON Question where
     readJSON jsValue = undefined
-    showJSON (Question description questionFormat) = makeObj [("question", JSString $ toJSString description)
+    showJSON (Question description questionFormat) = makeObj [("question", mkString description)
                                                              ,("format", showJSON questionFormat)]
 
 -- |A question maker uses some logic to generate questions
