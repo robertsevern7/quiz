@@ -11,6 +11,7 @@ mkString :: String -> JSValue
 mkString = JSString . toJSString
 
 -- TODO hideous duplication here
+-- TODO nicer way of expressing the answer would be good
 instance JSON QuestionFormat where
     readJSON jsValue = undefined
     showJSON (MultipleChoice choices answer) = makeObj [("questionType", mkString "multipleChoice")
@@ -19,7 +20,7 @@ instance JSON QuestionFormat where
     showJSON (FreeText answer) = makeObj [("questionType", mkString "freeText")
                                          ,("answer", mkString answer)]
     showJSON (MultipleFreeText answers) = makeObj [("questionType", mkString "multipleFreeText")
-                                                  ,("choices", JSArray (map mkString answers))]
+                                                  ,("answers", JSArray (map mkString answers))]
 
 -- |May want to change this to something "formattable"
 type Description = String
