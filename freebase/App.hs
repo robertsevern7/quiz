@@ -3,6 +3,9 @@ import Yesod
 import Yesod.Helpers.Static
 
 import Freebase
+import Films
+import Logic
+
 import Text.JSON
 
 -- Site specific data is stored here
