@@ -15,11 +15,20 @@ import Data.Maybe (fromJust)
 import Debug.Trace
 import Logic
 
+{- We should only need to expose the question makers from this module -}
+
 data DirectorQuestionMaker = DirectorQuestionMaker {
-      director :: [String] -- |^Directors from which to choose questions
+      directors :: [String] -- |^Directors from which to choose questions
 }
 
 instance QuestionMaker DirectorQuestionMaker where
+    generateQuestion = undefined
+ 
+data ActorQuestionMaker = ActorQuestionMaker {
+      actors :: [String] -- |^Actors from which to choose questions
+}
+
+instance QuestionMaker ActorQuestionMaker where
     generateQuestion = undefined
 
 directorPath :: FilePath
