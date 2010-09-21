@@ -16,17 +16,17 @@ import Debug.Trace
 import Logic
 
 {- We should only need to expose the question makers from this module -}
-
-data DirectorQuestionMaker = DirectorQuestionMaker {
-      directors :: [String] -- |^Directors from which to choose questions
-}
+{- We should only need to expose the question makers from this module -}
+-- uncomment this lot
+data DirectorQuestionMaker = DirectorQuestionMaker
 
 instance QuestionMaker DirectorQuestionMaker where
-    generateQuestion _ = return $ Question "Name as many films directed by Peter Jackson as you can"
-                                             (MultipleFreeText ["Film 1","Film 2","Film 3","Film 4"])
+    generateQuestion _ = do
+        films <- getDirectorFilmList
+        return $ generateQuestionFromResponse films
  
 data ActorQuestionMaker = ActorQuestionMaker {
-      actors :: [String] -- |^Actors from which to choose questions
+    actors :: [String] -- |^Actors from which to choose questions
 }
 
 -- TODO get rid of canned implementation
@@ -39,6 +39,9 @@ directorPath = "film/film_directors.txt"
 
 actorPath :: FilePath
 actorPath = "film/film_actors.txt"
+
+generateQuestionFromResponse :: (String,Result [String]) -> Question
+generateQuestionFromResponse (director, Ok films) = Question "Who directed the following films?" (IdentifyFrom films director)
 
 getBigBudgetFilms :: String -> IO (Result [(String, Int)])
 getBigBudgetFilms query_type = do

@@ -8,6 +8,7 @@ data QuestionFormat = MultipleChoice [String] String -- ^ Choose one from a set
                     | FreeText String -- |^ Free text to compare against supplied text
                     | MultipleFreeText [String] -- |^ Multiple choices of free text 
                     | IdentifyFrom [String] String -- |^ Given a set of strings identify some known answer
+					deriving Show
 
 mkString :: String -> JSValue
 mkString = JSString . toJSString
@@ -31,7 +32,7 @@ instance JSON QuestionFormat where
 type Description = String
 
 -- |A question is a question format, together with a description
-data Question = Question Description QuestionFormat
+data Question = Question Description QuestionFormat deriving Show
 
 -- |When a Question is 
 instance JSON Question where
@@ -40,7 +41,7 @@ instance JSON Question where
                                                              ,("format", showJSON questionFormat)]
 
 -- |A question maker uses some logic to generate questions
-class QuestionMaker a where
+class QuestionMaker a where 
     generateQuestion :: a -> IO Question
 
     
