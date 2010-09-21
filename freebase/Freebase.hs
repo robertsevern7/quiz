@@ -44,7 +44,7 @@ mkSimpleQuery x = JSObject $ toJSObject [("query", JSArray [JSObject $ toJSObjec
 
 runSimpleQuery :: String -> String -> String -> JSValue -> (JSValue -> String) -> IO (String,(Result [String]))
 runSimpleQuery qtype key name arr extractor = do
-  response <- runQuery $ mkSimpleQuery [("type",showJSON qtype),("id",showJSON name),(key,arr)]
+  response <- runQuery $ mkSimpleQuery [("type",showJSON qtype),("id",showJSON name), ("name", JSNull),(key,arr)]
   let k = lookupValue response "result"
       l = lookupValue (getFirst k) key
       m = fmap (\(JSArray x) -> x) l
