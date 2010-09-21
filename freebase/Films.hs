@@ -13,13 +13,13 @@ import Freebase
 
 import Data.Maybe (fromJust)
 import Debug.Trace
+import Logic
 
 data DirectorQuestionMaker = DirectorQuestionMaker {
       director :: [String] -- |^Directors from which to choose questions
 }
 
 instance QuestionMaker DirectorQuestionMaker where
-    generateQuestion :: DirectorQuestionMaker -> Question
     generateQuestion = undefined
 
 directorPath :: FilePath
