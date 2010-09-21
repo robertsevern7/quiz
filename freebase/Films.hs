@@ -19,20 +19,18 @@ import Logic
 {- We should only need to expose the question makers from this module -}
 -- uncomment this lot
 data DirectorQuestionMaker = DirectorQuestionMaker
+data ActorQuestionMaker = ActorQuestionMaker
 
 instance QuestionMaker DirectorQuestionMaker where
     generateQuestion _ = do
         films <- getDirectorFilmList
-        return $ generateQuestionFromResponse films
- 
-data ActorQuestionMaker = ActorQuestionMaker {
-    actors :: [String] -- |^Actors from which to choose questions
-}
+        return $ generateQuestionFromResponse "Who directed the following films?" films
 
 -- TODO get rid of canned implementation
 instance QuestionMaker ActorQuestionMaker where
-    generateQuestion _ = return $ Question "Name as many films starring Donald Sutherland as you can"
-                                          (MultipleFreeText ["Film 1","Film 2","Film 3","Film 4"])
+	generateQuestion _ = do
+		films <- getActorFilmList
+		return $ generateQuestionFromResponse "Who acted in the following films?" films
 
 directorPath :: FilePath
 directorPath = "film/film_directors.txt"
@@ -40,8 +38,8 @@ directorPath = "film/film_directors.txt"
 actorPath :: FilePath
 actorPath = "film/film_actors.txt"
 
-generateQuestionFromResponse :: (String,Result [String]) -> Question
-generateQuestionFromResponse (director, Ok films) = Question "Who directed the following films?" (IdentifyFrom films director)
+generateQuestionFromResponse :: String -> (String,Result [String]) -> Question
+generateQuestionFromResponse question (director, Ok films) = Question question (IdentifyFrom films director)
 
 getBigBudgetFilms :: String -> IO (Result [(String, Int)])
 getBigBudgetFilms query_type = do
