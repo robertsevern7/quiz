@@ -77,6 +77,10 @@ getOk :: Result x -> x
 getOk (Ok x) = x
 getOk (Error x) = trace x undefined
 
+getString :: Result JSValue -> String
+getString (Ok (JSString x)) = fromJSString x
+getString _ = error "No string found when expected."
+
 getDirectorBigBudgetFilms :: IO (Result [(String, Int)])
 getDirectorBigBudgetFilms = getBigBudgetFilms "/film/director"
 
