@@ -22,8 +22,8 @@ data DirectorQuestionMaker = DirectorQuestionMaker {
 }
 
 instance QuestionMaker DirectorQuestionMaker where
-    generateQuestion _ = Question "Name as many films directed by Peter Jackson as you can"
-                          (MultipleFreeText ["Film 1","Film 2","Film 3","Film 4"])
+    generateQuestion _ = return $ Question "Name as many films directed by Peter Jackson as you can"
+                                             (MultipleFreeText ["Film 1","Film 2","Film 3","Film 4"])
  
 data ActorQuestionMaker = ActorQuestionMaker {
       actors :: [String] -- |^Actors from which to choose questions
@@ -31,8 +31,8 @@ data ActorQuestionMaker = ActorQuestionMaker {
 
 -- TODO get rid of canned implementation
 instance QuestionMaker ActorQuestionMaker where
-    generateQuestion _ = Question "Name as many films starring Donald Sutherland as you can"
-                          (MultipleFreeText ["Film 1","Film 2","Film 3","Film 4"])
+    generateQuestion _ = return $ Question "Name as many films starring Donald Sutherland as you can"
+                                          (MultipleFreeText ["Film 1","Film 2","Film 3","Film 4"])
 
 directorPath :: FilePath
 directorPath = "film/film_directors.txt"

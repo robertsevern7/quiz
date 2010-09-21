@@ -41,6 +41,6 @@ instance JSON Question where
 
 -- |A question maker uses some logic to generate questions
 class QuestionMaker a where
-    generateQuestion :: a -> Question
+    generateQuestion :: a -> IO Question
 
     
