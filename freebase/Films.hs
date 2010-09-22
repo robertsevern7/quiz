@@ -16,21 +16,32 @@ import Debug.Trace
 import Logic
 
 {- We should only need to expose the question makers from this module -}
-{- We should only need to expose the question makers from this module -}
--- uncomment this lot
-data DirectorQuestionMaker = DirectorQuestionMaker
-data ActorQuestionMaker = ActorQuestionMaker
+data WhichDirectorQuestionMaker = WhichDirectorQuestionMaker
+data FilmListDirectorQuestionMaker = FilmListDirectorQuestionMaker
+data WhichActorQuestionMaker = WhichActorQuestionMaker
+data FilmListActorQuestionMaker = FilmListActorQuestionMaker
 
-instance QuestionMaker DirectorQuestionMaker where
+instance QuestionMaker WhichDirectorQuestionMaker where
     generateQuestion _ = do
         films <- getDirectorFilmList
-        return $ generateQuestionFromResponse "Who directed the following films?" films
+        return $ generateQuestionWhoMadeThese "Who directed the following films?" films
 
+instance QuestionMaker FilmListDirectorQuestionMaker where
+    generateQuestion _ = do
+        films <- getDirectorFilmList
+        return $ generateQuestionNameTheFilm films
+		
 -- TODO get rid of canned implementation
-instance QuestionMaker ActorQuestionMaker where
+instance QuestionMaker WhichActorQuestionMaker where
 	generateQuestion _ = do
 		films <- getActorFilmList
-		return $ generateQuestionFromResponse "Who acted in the following films?" films
+		return $ generateQuestionWhoMadeThese "Who acted in the following films?" films
+		
+instance QuestionMaker FilmListActorQuestionMaker where
+    generateQuestion _ = do
+        films <- getActorFilmList
+        return $ generateQuestionNameTheFilm films
+
 
 directorPath :: FilePath
 directorPath = "film/film_directors.txt"
@@ -38,8 +49,11 @@ directorPath = "film/film_directors.txt"
 actorPath :: FilePath
 actorPath = "film/film_actors.txt"
 
-generateQuestionFromResponse :: String -> (String,Result [String]) -> Question
-generateQuestionFromResponse question (director, Ok films) = Question question (IdentifyFrom films director)
+generateQuestionWhoMadeThese :: String -> (String,Result [String]) -> Question
+generateQuestionWhoMadeThese question (director, Ok films) = Question question (IdentifyFrom films director)
+
+generateQuestionNameTheFilm :: (String,Result [String]) -> Question
+generateQuestionNameTheFilm (name, Ok films) = Question ("Name as many films by " ++ name ++ " as possible.") (MultipleFreeText films)
 
 getBigBudgetFilms :: String -> IO (Result [(String, Int)])
 getBigBudgetFilms query_type = do
@@ -138,6 +152,6 @@ getActor :: IO String
 getActor = do
   actors <- readActorsFromDisk
   gen <- newStdGen
-  let (i,_) = randomR (0,99) gen 
+  let (i,_) = randomR (0,20) gen 
   return (actors !! i)
 
