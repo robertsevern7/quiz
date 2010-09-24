@@ -16,10 +16,10 @@ type Handler = GHandler QuizMaster QuizMaster
 staticFiles "static/"
 
 mkYesod "QuizMaster" [$parseRoutes|                      
-  /       HomeR   GET
-  /static StaticR Static ajaxStatic
-  /actors ActorsR GET
-  /films  FilmsR GET
+  /          HomeR   GET
+  /static    StaticR Static ajaxStatic
+  /actors    ActorsR GET
+  /directors DirectorsR GET
 |]
 
 instance Yesod QuizMaster where
@@ -42,8 +42,8 @@ identifyFromTemplate description choices answer = undefined [$hamlet|
 getActorsR :: Handler RepHtml
 getActorsR = undefined
 
-getFilmsR :: Handler RepHtml
-getFilmsR = undefined
+getDirectorsR :: Handler RepHtml
+getDirectorsR = undefined
    
 getHomeR :: Handler RepHtml
 getHomeR = hamletToRepHtml [$hamlet|
