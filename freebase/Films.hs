@@ -126,7 +126,7 @@ getDirectorFilmList = do
 
 getActorFilmList :: IO (String,Result [String])
 getActorFilmList = do
-  actor <- getActor
+  actor <- getActor actorPath
   let filmQueryObject = showJSON (toJSObject [("film", showJSON (toJSObject [("name", JSNull)]))])
   runSimpleQuery "/film/actor" "film" actor (JSArray [filmQueryObject]) extractFilmName
                       
@@ -150,12 +150,12 @@ saveActorsToDisk = do
   (Ok films) <- getActorBigBudgetFilms
   writeFile actorPath (show $ map fst films)
         
-readActorsFromDisk :: IO [String]
-readActorsFromDisk = liftM read (readFile actorPath)
+readActorsFromDisk :: String -> IO [String]
+readActorsFromDisk path = liftM read (readFile path)
 
-getActor :: IO String
-getActor = do
-  actors <- readActorsFromDisk
+getActor :: String -> IO String
+getActor path = do
+  actors <- readActorsFromDisk path
   gen <- newStdGen
   let (i,_) = randomR (0,20) gen 
   return (actors !! i)
