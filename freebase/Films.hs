@@ -17,18 +17,23 @@ import Data.List (sortBy)
 import Data.Maybe (fromJust)
 import Control.Monad
 
-data WhichDirector = WhichDirector
+data WhichDirector = WhichDirector {
+      films :: (String,Result [String])
+}
+
 data FilmListDirectorQuestionMaker = FilmListDirectorQuestionMaker
-data WhichActor = WhichActor
+
+data WhichActor = WhichActor {
+      actors :: (String,Result [String])
+}
+
 data FilmListActorQuestionMaker = FilmListActorQuestionMaker
 
 mkWhichDirector :: IO WhichDirector
-mkWhichDirector = undefined
+mkWhichDirector = liftM WhichDirector getDirectorFilmList
 
 instance QuestionMaker WhichDirector where
-    generateQuestion _ = do
-        films <- getDirectorFilmList
-        return $ generateQuestionWhoMadeThese "Who directed the following films?" films
+    generateQuestion (WhichDirector films) = return $ generateQuestionWhoMadeThese "Who directed the following films?" films
 
 instance QuestionMaker FilmListDirectorQuestionMaker where
     generateQuestion _ = do
@@ -36,12 +41,10 @@ instance QuestionMaker FilmListDirectorQuestionMaker where
         return $ generateQuestionNameTheFilm films
 		
 mkWhichActor :: IO WhichActor
-mkWhichActor = undefined
+mkWhichActor = liftM WhichActor getActorFilmList
 
 instance QuestionMaker WhichActor where
-	generateQuestion _ = do
-		films <- getActorFilmList
-		return $ generateQuestionWhoMadeThese "Who acted in the following films?" films
+	generateQuestion (WhichActor films) = return $ generateQuestionWhoMadeThese "Who acted in the following films?" films
 		
 instance QuestionMaker FilmListActorQuestionMaker where
     generateQuestion _ = do
