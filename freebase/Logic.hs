@@ -1,5 +1,6 @@
 module Logic where
 
+import System.Random (newStdGen,randomR)
 import Text.JSON
 
 -- TODO some of these question types are less than self-explanatory
@@ -43,3 +44,11 @@ instance JSON Question where
 -- |A question maker uses some logic to generate questions
 class QuestionMaker a where 
     generateQuestion :: a -> IO Question
+
+-- |Choose a random element from a list
+chooseFromList :: [String] -> IO String
+chooseFromList xs = do
+  g <- newStdGen
+  let len = length xs
+      (i,_) = randomR (0,len) g
+  return (xs !! i)
