@@ -26,8 +26,11 @@ instance Yesod QuizMaster where
     approot _ = ""
 
 questionTemplate :: Question -> Hamlet (Route QuizMaster)
-questionTemplate (Question description (IdentifyFrom choices answer)) = undefined
+questionTemplate (Question description (IdentifyFrom choices answer)) = identifyFromTemplate description choices answer
 questionTemplate (Question description _) = error "This has not been implemented yet."
+
+identifyFromTemplate :: Description -> [String] -> String -> Hamlet (Route QuizMaster)
+identifyFromTemplate description choices answer = undefined
 
 getActorsR :: Handler RepHtml
 getActorsR = undefined
