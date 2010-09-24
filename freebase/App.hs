@@ -3,6 +3,7 @@ import Yesod
 import Yesod.Helpers.Static
 
 import Films
+import Logic
 
 data QuizMaster = QuizMaster {
       ajaxStatic :: Static
@@ -24,13 +25,9 @@ mkYesod "QuizMaster" [$parseRoutes|
 instance Yesod QuizMaster where
     approot _ = ""
 
-data TemplateArgs = TemplateArgs {
-      templateTitle :: Html
-    , templateContent :: Html
-}
-
-whichTemplate :: TemplateArgs -> Hamlet (Route QuizMaster)
-whichTemplate = undefined
+questionTemplate :: Question -> Hamlet (Route QuizMaster)
+questionTemplate (Question description (IdentifyFrom choices answer)) = undefined
+questionTemplate (Question description _) = error "This has not been implemented yet."
 
 getActorsR :: Handler RepHtml
 getActorsR = undefined
