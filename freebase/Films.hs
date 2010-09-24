@@ -18,13 +18,10 @@ import Data.Maybe (fromJust)
 import Control.Monad
 
 data WhichDirector = WhichDirector [String]
+data WhichActor = WhichActor [String]
 
+-- TODO These guys haven't been tested since the great reshuffle.
 data FilmListDirectorQM = FilmListDirectorQM [String]
-
-data WhichActor = WhichActor {
-      actors :: (String,Result [String])
-}
-
 data FilmListActorQM = FilmListActorQM
 
 mkWhichDirector :: IO WhichDirector
@@ -41,10 +38,12 @@ instance QuestionMaker FilmListDirectorQM where
         return $ generateQuestionNameTheFilm films
 		
 mkWhichActor :: IO WhichActor
-mkWhichActor = liftM WhichActor (getActorFilmList actorPath)
+mkWhichActor = liftM WhichActor (readActorsFromDisk actorPath)
 
 instance QuestionMaker WhichActor where
-	generateQuestion (WhichActor films) = return $ generateQuestionWhoMadeThese "Who acted in the following films?" films
+	generateQuestion (WhichActor films) = do
+                                    actors <- getActorFilmList =<< (chooseFromList films)
+                                    return $ generateQuestionWhoMadeThese "Who acted in the following films?" actors
 		
 instance QuestionMaker FilmListActorQM where
     generateQuestion _ = do
@@ -124,10 +123,9 @@ getDirectorFilmList :: String -> IO (String,Result [String])
 getDirectorFilmList director = runSimpleQuery "/film/director" "film" director (JSArray []) (\(JSString x) -> fromJSString x)
 
 getActorFilmList :: String -> IO (String,Result [String])
-getActorFilmList path = do
-  actor <- getActor path
-  let filmQueryObject = showJSON (toJSObject [("film", showJSON (toJSObject [("name", JSNull)]))])
-  runSimpleQuery "/film/actor" "film" actor (JSArray [filmQueryObject]) extractFilmName
+getActorFilmList actor = runSimpleQuery "/film/actor" "film" actor (JSArray [filmQueryObject]) extractFilmName
+    where
+      filmQueryObject = showJSON (toJSObject [("film", showJSON (toJSObject [("name", JSNull)]))])
                       
 extractFilmName :: JSValue -> String
 extractFilmName (JSObject x) = fromJSString name
