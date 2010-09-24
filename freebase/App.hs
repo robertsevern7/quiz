@@ -2,13 +2,8 @@
 import Yesod
 import Yesod.Helpers.Static
 
-import Freebase
 import Films
-import Logic
 
-import Text.JSON
-
--- Site specific data is stored here
 data QuizMaster = QuizMaster {
       ajaxStatic :: Static
     , whichDirector :: WhichDirector
@@ -57,6 +52,6 @@ getHomeR = hamletToRepHtml [$hamlet|
 main :: IO ()
 main = do
   let static = fileLookupDir "static/" typeByExt
-  whichDirector <- undefined
-  whichActor <- undefined
-  basicHandler 3000 $ QuizMaster static whichDirector whichActor
+  wDirector <- mkWhichDirector
+  wActor <- mkWhichActor
+  basicHandler 3000 $ QuizMaster static wDirector wActor

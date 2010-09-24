@@ -1,7 +1,9 @@
 module Films (
                WhichDirector
+             , mkWhichDirector
              , FilmListDirectorQuestionMaker
              , WhichActor
+             , mkWhichActor
              , FilmListActorQuestionMaker
              ) where 
 
@@ -20,6 +22,9 @@ data FilmListDirectorQuestionMaker = FilmListDirectorQuestionMaker
 data WhichActor = WhichActor
 data FilmListActorQuestionMaker = FilmListActorQuestionMaker
 
+mkWhichDirector :: IO WhichDirector
+mkWhichDirector = undefined
+
 instance QuestionMaker WhichDirector where
     generateQuestion _ = do
         films <- getDirectorFilmList
@@ -30,6 +35,9 @@ instance QuestionMaker FilmListDirectorQuestionMaker where
         films <- getDirectorFilmList
         return $ generateQuestionNameTheFilm films
 		
+mkWhichActor :: IO WhichActor
+mkWhichActor = undefined
+
 instance QuestionMaker WhichActor where
 	generateQuestion _ = do
 		films <- getActorFilmList
