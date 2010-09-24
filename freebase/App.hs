@@ -38,8 +38,7 @@ identifyFromTemplate description choices answer = [$hamlet|
       %h1 $description$
       %ul#c
         $forall choices c
-          %li $c$
-            
+          %li $c$            
   |]
                                              
 getQuestionSource :: QuestionMaker a => (QuizMaster -> a) -> Handler RepHtml
@@ -67,8 +66,10 @@ getHomeR = hamletToRepHtml [$hamlet|
       %h1 AwesomeQuiz.com
       %p AwesomeQuiz provides a wide ranging set of questions to tax your brain.  Pick from one of the following categories to get a randomly selected question.  Yes, it's crap at the moment, but that's because it's a beta.
       %ul
-        %li Film Directors
-        %li Film Actors
+        %li
+          %a!href=@DirectorsR@ Film Directors
+        %li
+          %a!href=@ActorsR@ Film Actors
       %hr
       %p Written using 
           %a!href="http://docs.yesodweb.com/Yesod" Yesod Web Framework
