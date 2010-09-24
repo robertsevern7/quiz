@@ -30,7 +30,7 @@ questionTemplate (Question description (IdentifyFrom choices answer)) = identify
 questionTemplate (Question description _) = error "This has not been implemented yet."
 
 identifyFromTemplate :: Description -> [String] -> String -> Hamlet (Route QuizMaster)
-identifyFromTemplate description choices answer = undefined [$hamlet|
+identifyFromTemplate description choices answer = [$hamlet|
   %html
     %head
       %title $description$
@@ -38,12 +38,18 @@ identifyFromTemplate description choices answer = undefined [$hamlet|
       %h1 $description$
       %p And some rendering of said question here.
   |]
-                                                   
+                                             
+getQuestionSource :: QuestionMaker a => (QuizMaster -> a) -> Handler RepHtml
+getQuestionSource getQuestion = do
+  quizMaster <- getYesod
+  question <- liftIO $ generateQuestion (getQuestion quizMaster)
+  hamletToRepHtml (questionTemplate question)
+
 getActorsR :: Handler RepHtml
-getActorsR = undefined
+getActorsR = getQuestionSource (\x -> whichActor x)
 
 getDirectorsR :: Handler RepHtml
-getDirectorsR = undefined
+getDirectorsR = getQuestionSource (\x -> whichDirector x)
    
 getHomeR :: Handler RepHtml
 getHomeR = hamletToRepHtml [$hamlet|
