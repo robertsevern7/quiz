@@ -1,7 +1,7 @@
 module Films (
-               WhichDirectorQuestionMaker
+               WhichDirector
              , FilmListDirectorQuestionMaker
-             , WhichActorQuestionMaker
+             , WhichActor
              , FilmListActorQuestionMaker
              ) where 
 
@@ -15,12 +15,12 @@ import Data.List (sortBy)
 import Data.Maybe (fromJust)
 import Control.Monad
 
-data WhichDirectorQuestionMaker = WhichDirectorQuestionMaker
+data WhichDirector = WhichDirector
 data FilmListDirectorQuestionMaker = FilmListDirectorQuestionMaker
-data WhichActorQuestionMaker = WhichActorQuestionMaker
+data WhichActor = WhichActor
 data FilmListActorQuestionMaker = FilmListActorQuestionMaker
 
-instance QuestionMaker WhichDirectorQuestionMaker where
+instance QuestionMaker WhichDirector where
     generateQuestion _ = do
         films <- getDirectorFilmList
         return $ generateQuestionWhoMadeThese "Who directed the following films?" films
@@ -30,7 +30,7 @@ instance QuestionMaker FilmListDirectorQuestionMaker where
         films <- getDirectorFilmList
         return $ generateQuestionNameTheFilm films
 		
-instance QuestionMaker WhichActorQuestionMaker where
+instance QuestionMaker WhichActor where
 	generateQuestion _ = do
 		films <- getActorFilmList
 		return $ generateQuestionWhoMadeThese "Who acted in the following films?" films
