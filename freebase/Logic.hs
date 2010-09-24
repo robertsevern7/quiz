@@ -41,5 +41,5 @@ instance JSON Question where
                                                              ,("format", showJSON questionFormat)]
 
 -- |A question maker uses some logic to generate questions
-class QuestionMaker a where
+class QuestionMaker a where 
     generateQuestion :: a -> IO Question
