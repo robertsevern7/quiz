@@ -1,10 +1,10 @@
 module Films (
                WhichDirector
              , mkWhichDirector
-             , FilmListDirectorQuestionMaker
+             , FilmListDirectorQM
              , WhichActor
              , mkWhichActor
-             , FilmListActorQuestionMaker
+             , FilmListActorQM
              ) where 
 
 import Logic
@@ -17,25 +17,26 @@ import Data.List (sortBy)
 import Data.Maybe (fromJust)
 import Control.Monad
 
-data WhichDirector = WhichDirector {
-      films :: (String,Result [String])
-}
+data WhichDirector = WhichDirector [String]
 
-data FilmListDirectorQuestionMaker = FilmListDirectorQuestionMaker
+data FilmListDirectorQM = FilmListDirectorQM [String]
 
 data WhichActor = WhichActor {
       actors :: (String,Result [String])
 }
 
-data FilmListActorQuestionMaker = FilmListActorQuestionMaker
+data FilmListActorQM = FilmListActorQM
 
 mkWhichDirector :: IO WhichDirector
-mkWhichDirector = liftM WhichDirector (getDirectorFilmList directorPath)
+mkWhichDirector = liftM WhichDirector (readDirectorsFromDisk directorPath)
 
 instance QuestionMaker WhichDirector where
-    generateQuestion (WhichDirector films) = return $ generateQuestionWhoMadeThese "Who directed the following films?" films
+    generateQuestion (WhichDirector directors) = do
+                                       director <- chooseFromList directors
+                                       films <- getDirectorFilmList director
+                                       return $ generateQuestionWhoMadeThese "Who directed the following films?" films
 
-instance QuestionMaker FilmListDirectorQuestionMaker where
+instance QuestionMaker FilmListDirectorQM where
     generateQuestion _ = do
         films <- getDirectorFilmList directorPath
         return $ generateQuestionNameTheFilm films
@@ -46,7 +47,7 @@ mkWhichActor = liftM WhichActor (getActorFilmList actorPath)
 instance QuestionMaker WhichActor where
 	generateQuestion (WhichActor films) = return $ generateQuestionWhoMadeThese "Who acted in the following films?" films
 		
-instance QuestionMaker FilmListActorQuestionMaker where
+instance QuestionMaker FilmListActorQM where
     generateQuestion _ = do
         films <- getActorFilmList actorPath
         return $ generateQuestionNameTheFilm films
@@ -112,6 +113,7 @@ saveDirectorsToDisk = do
 readDirectorsFromDisk :: String -> IO [String]
 readDirectorsFromDisk path = liftM read (readFile path)
 
+
 getDirector :: String -> IO String
 getDirector path = do
   directors <- readDirectorsFromDisk path
@@ -120,9 +122,7 @@ getDirector path = do
   return (directors !! i)
 
 getDirectorFilmList :: String -> IO (String,Result [String])
-getDirectorFilmList path = do
-  director <- getDirector path
-  runSimpleQuery "/film/director" "film" director (JSArray []) (\(JSString x) -> fromJSString x)
+getDirectorFilmList director = runSimpleQuery "/film/director" "film" director (JSArray []) (\(JSString x) -> fromJSString x)
 
 getActorFilmList :: String -> IO (String,Result [String])
 getActorFilmList path = do
