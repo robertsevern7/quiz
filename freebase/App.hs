@@ -36,7 +36,10 @@ identifyFromTemplate description choices answer = [$hamlet|
       %title $description$
     %body
       %h1 $description$
-      %p And some rendering of said question here.
+      %ul#c
+        $forall choices c
+          %li $c$
+            
   |]
                                              
 getQuestionSource :: QuestionMaker a => (QuizMaster -> a) -> Handler RepHtml
