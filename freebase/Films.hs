@@ -1,4 +1,12 @@
-module Films where
+module Films (
+               WhichDirectorQuestionMaker
+             , FilmListDirectorQuestionMaker
+             , WhichActorQuestionMaker
+             , FilmListActorQuestionMaker
+             ) where 
+
+import Logic
+import Freebase
 
 import System.Random
 import Text.JSON
@@ -7,15 +15,9 @@ import Network.HTTP
 import Network.URI
 import Data.List (sortBy)
 import Data.Ord (comparing)
-import Data.Maybe (isNothing)
+import Data.Maybe (isNothing,fromJust)
 import Control.Monad
-import Freebase
 
-import Data.Maybe (fromJust)
-import Debug.Trace
-import Logic
-
-{- We should only need to expose the question makers from this module -}
 data WhichDirectorQuestionMaker = WhichDirectorQuestionMaker
 data FilmListDirectorQuestionMaker = FilmListDirectorQuestionMaker
 data WhichActorQuestionMaker = WhichActorQuestionMaker
@@ -31,7 +33,6 @@ instance QuestionMaker FilmListDirectorQuestionMaker where
         films <- getDirectorFilmList
         return $ generateQuestionNameTheFilm films
 		
--- TODO get rid of canned implementation
 instance QuestionMaker WhichActorQuestionMaker where
 	generateQuestion _ = do
 		films <- getActorFilmList
@@ -90,7 +91,7 @@ getFilmObject f@(JSObject filmInput) = case (valFromObj "film" filmInput) of
 
 getOk :: Result x -> x
 getOk (Ok x) = x
-getOk (Error x) = trace x undefined
+getOk (Error x) = error "Undefined error, expected OK"
 
 getString :: Result JSValue -> String
 getString (Ok (JSString x)) = fromJSString x
