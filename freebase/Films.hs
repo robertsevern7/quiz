@@ -32,8 +32,7 @@ mkWhichDirector = liftM WhichDirector (readDirectorsFromDisk directorPath)
 
 instance QuestionMaker WhichDirector where
     generateQuestion (WhichDirector directors) = do
-                                       director <- chooseFromList directors
-                                       films <- getDirectorFilmList director
+                                       films <- getDirectorFilmList =<< (chooseFromList directors)
                                        return $ generateQuestionWhoMadeThese "Who directed the following films?" films
 
 instance QuestionMaker FilmListDirectorQM where
