@@ -1,16 +1,10 @@
 module Freebase where
 
-import System.Random
 import Text.JSON
-import Text.JSON.Types
 import Network.HTTP
 import Network.URI
-import Data.List (sortBy)
-import Data.Ord (comparing)
 import Control.Monad
-
 import Data.Maybe (fromJust)
-import Debug.Trace
 
 getFirst :: Result JSValue -> Result JSValue
 getFirst (Ok (JSArray (x:xs))) = Ok x

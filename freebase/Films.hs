@@ -11,11 +11,8 @@ import Freebase
 import System.Random
 import Text.JSON
 import Text.JSON.Types
-import Network.HTTP
-import Network.URI
 import Data.List (sortBy)
-import Data.Ord (comparing)
-import Data.Maybe (isNothing,fromJust)
+import Data.Maybe (fromJust)
 import Control.Monad
 
 data WhichDirectorQuestionMaker = WhichDirectorQuestionMaker
@@ -55,6 +52,7 @@ generateQuestionWhoMadeThese question (director, Ok films) = Question question (
 
 generateQuestionNameTheFilm :: (String,Result [String]) -> Question
 generateQuestionNameTheFilm (name, Ok films) = Question ("Name as many films by " ++ name ++ " as possible.") (MultipleFreeText films)
+generateQuestionNameTheFilm (_, Error err) = error $ "Failed to generate name the film: " ++ show err
 
 getBigBudgetFilms :: String -> IO (Result [(String, Int)])
 getBigBudgetFilms query_type = do
@@ -78,7 +76,7 @@ extractBudget :: JSValue -> Int
 extractBudget (JSArray films) = sum $ map getFilmBudget films
 
 getFilmBudget :: JSValue -> Int
-getFilmBudget f@(JSObject film) = truncate cost
+getFilmBudget f@(JSObject _) = truncate cost
     where
       (JSObject filmObject) = getFilmObject f
       (JSObject estimatedBudget) = fromJust $ get_field filmObject "estimated_budget"
@@ -86,12 +84,8 @@ getFilmBudget f@(JSObject film) = truncate cost
 
 getFilmObject :: JSValue -> JSValue
 getFilmObject f@(JSObject filmInput) = case (valFromObj "film" filmInput) of
-                                         (Error x) ->  f
+                                         (Error _) ->  f
                                          (Ok x) -> x
-
-getOk :: Result x -> x
-getOk (Ok x) = x
-getOk (Error x) = error "Undefined error, expected OK"
 
 getString :: Result JSValue -> String
 getString (Ok (JSString x)) = fromJSString x
