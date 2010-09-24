@@ -24,6 +24,14 @@ mkYesod "QuizMaster" [$parseRoutes|
 instance Yesod QuizMaster where
     approot _ = ""
 
+data TemplateArgs = TemplateArgs {
+      templateTitle :: Html
+    , templateContent :: Html
+}
+
+whichTemplate :: TemplateArgs -> Hamlet (Route QuizMaster)
+whichTemplate = undefined
+
 getActorsR :: Handler RepHtml
 getActorsR = undefined
 
@@ -40,7 +48,7 @@ getHomeR = hamletToRepHtml [$hamlet|
     %script!src=@StaticR.script_js@
   %body
     %h1 AwesomeQuiz.com
-    %p AwesomeQuiz provides a wide ranging set of questions to tax your brain.  Pick from one of the following categories to get a randomly selected question.
+    %p AwesomeQuiz provides a wide ranging set of questions to tax your brain.  Pick from one of the following categories to get a randomly selected question.  Yes, it's crap at the moment, but that's because it's a beta.
     %ul
       %li Film Directors
       %li Film Actors
