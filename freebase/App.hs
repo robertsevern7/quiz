@@ -11,7 +11,11 @@ import Text.JSON
 -- Site specific data is stored here
 data QuizMaster = QuizMaster {
       ajaxStatic :: Static
+    , whichDirector :: WhichDirector
+    , whichActor :: WhichActor
 }
+
+type Handler = GHandler QuizMaster QuizMaster
 
 staticFiles "static/"
 
@@ -25,13 +29,13 @@ mkYesod "QuizMaster" [$parseRoutes|
 instance Yesod QuizMaster where
     approot _ = ""
 
-getActorsR :: GHandler sub QuizMaster RepHtml
+getActorsR :: Handler RepHtml
 getActorsR = undefined
 
-getFilmsR :: GHandler sub QuizMaster RepHtml
+getFilmsR :: Handler RepHtml
 getFilmsR = undefined
    
-getHomeR :: GHandler sub QuizMaster RepHtml
+getHomeR :: Handler RepHtml
 getHomeR = hamletToRepHtml [$hamlet|
 %html
   %head
@@ -53,4 +57,6 @@ getHomeR = hamletToRepHtml [$hamlet|
 main :: IO ()
 main = do
   let static = fileLookupDir "static/" typeByExt
-  basicHandler 3000 $ QuizMaster static
+  whichDirector <- undefined
+  whichActor <- undefined
+  basicHandler 3000 $ QuizMaster static whichDirector whichActor
