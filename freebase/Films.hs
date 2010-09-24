@@ -51,7 +51,6 @@ instance QuestionMaker FilmListActorQuestionMaker where
         films <- getActorFilmList
         return $ generateQuestionNameTheFilm films
 
-
 directorPath :: FilePath
 directorPath = "film/film_directors.txt"
 
