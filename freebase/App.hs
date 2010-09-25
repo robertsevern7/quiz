@@ -6,6 +6,21 @@ import Yesod.Helpers.Static
 import Films
 import Logic
 
+{-
+  TODO List
+  * Templates
+    http://docs.yesodweb.com/book/templates/
+    Use Cassius for the stylesheet everywhere
+    Load the files externally allowing work
+
+  * Application
+    Perhaps sim-hash can do finding out if the answer is right?
+
+  * Quick wins
+    Send the answer back in the HTML as a hidden thing, use JQuery
+    to style things up based on the name of a div, client side scoring
+-}
+
 data QuizMaster = QuizMaster {
       ajaxStatic :: Static
     , whichDirector :: WhichDirector
