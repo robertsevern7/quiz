@@ -12,6 +12,7 @@ import Logic
     http://docs.yesodweb.com/book/templates/
     Use Cassius for the stylesheet everywhere
     Load the files externally allowing work
+    Use a default Layout (instance of Yesod)
 
   * Application
     Perhaps sim-hash can do finding out if the answer is right?
