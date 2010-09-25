@@ -38,7 +38,8 @@ identifyFromTemplate description choices answer = [$hamlet|
       %h1 $description$
       %ul#c
         $forall choices c
-          %li $c$            
+          %li $c$  
+      %input!type="submit"!name="mysubmit"!value="Click!"          
   |]
                                              
 getQuestionSource :: QuestionMaker a => (QuizMaster -> a) -> Handler RepHtml
