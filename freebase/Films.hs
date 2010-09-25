@@ -56,6 +56,9 @@ directorPath = "film/film_directors.txt"
 actorPath :: FilePath
 actorPath = "film/film_actors.txt"
 
+listLimit:: JSValue
+listLimit = JSRational False 10
+
 generateQuestionWhoMadeThese :: String -> (String,Result [String]) -> Question
 generateQuestionWhoMadeThese question (director, Ok films) = Question question (IdentifyFrom films director)
 
@@ -98,7 +101,7 @@ getFilmObject f@(JSObject filmInput) = case (valFromObj "film" filmInput) of
 
 getString :: Result JSValue -> String
 getString (Ok (JSString x)) = fromJSString x
-getString _ = error "No string found when expected."
+getString x = error $ "No string found when expected. =" ++ show x
 
 getDirectorBigBudgetFilms :: IO (Result [(String, Int)])
 getDirectorBigBudgetFilms = getBigBudgetFilms "/film/director"
@@ -120,12 +123,20 @@ getDirector path = do
   return (directors !! i)
 
 getDirectorFilmList :: String -> IO (String,Result [String])
-getDirectorFilmList director = runSimpleQuery "/film/director" "film" director (JSArray []) (\(JSString x) -> fromJSString x)
-
+getDirectorFilmList director = runSimpleQuery "/film/director" "film" director (JSArray [filmQueryObject]) extractFilmName2
+	where
+      filmQueryObject = showJSON (toJSObject [("estimated_budget", showJSON (toJSObject [("amount", JSNull), ("currency", showJSON "US$")])), ("name", JSNull), ("limit", listLimit), ("sort", showJSON "-estimated_budget.amount")])
+	  
+extractFilmName2 :: JSValue -> String
+extractFilmName2 (JSObject x) = fromJSString film
+    where
+      (Ok film) = valFromObj "name" x 
+	  
 getActorFilmList :: String -> IO (String,Result [String])
 getActorFilmList actor = runSimpleQuery "/film/actor" "film" actor (JSArray [filmQueryObject]) extractFilmName
     where
-      filmQueryObject = showJSON (toJSObject [("film", showJSON (toJSObject [("name", JSNull)]))])
+		filmQueryObject = showJSON $ toJSObject [("film", filmObj), ("limit", listLimit), ("sort", showJSON "-film.estimated_budget.amount")]
+		filmObj = showJSON (toJSObject [("estimated_budget", showJSON (toJSObject [("amount", JSNull), ("currency", showJSON "US$")])), ("name", JSNull)])
                       
 extractFilmName :: JSValue -> String
 extractFilmName (JSObject x) = fromJSString name
