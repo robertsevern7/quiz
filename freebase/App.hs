@@ -51,15 +51,9 @@ identifyFromTemplate description choices answer = [$hamlet|
   %h1 $description$
   %ul#c
     $forall choices c
-  %html
-    %head
-      %title $description$
-    %body
-      %h1 $description$
-      %ul#c
-        $forall choices c
       %li $c$  
-    %input!type="submit"!name="mysubmit"!value="Click!"              
+    %input!type="text"!id="answer"              
+	%div!text=$answer$!id="hiddenanswer"
   |]
 
 layout :: Cassius (Route QuizMaster)
@@ -67,12 +61,21 @@ layout = [$cassius|
   h1
     color: red
 |]          
+
+headTemplate :: Hamlet (Route QuizMaster)
+headTemplate = [$hamlet|
+  %title Quiz Master
+  %link!rel="stylesheet"!href=@StaticR.albums_css@
+  %script!src="http://code.jquery.com/jquery-1.4.2.min.js"
+  %script!src=@StaticR.script_js@
+|]
                                              
 getQuestionSource :: QuestionMaker a => (QuizMaster -> a) -> Handler RepHtml
 getQuestionSource getQuestion = do
   quizMaster <- getYesod
   question <- liftIO $ generateQuestion (getQuestion quizMaster)
   defaultLayout $ do
+    addHead  headTemplate
     addBody  (questionTemplate question)
     addStyle layout
 

@@ -13,3 +13,11 @@ function listAlbums (band) {
         url: '/albums/' + band
     });
 }
+
+$(document).ready(function() {
+	$('#answer').keypress(function() {
+		if ($('#answer').val() === $('#hiddenanswer').attr('text')) {
+			alert('fd');
+		}
+	})
+});
