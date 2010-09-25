@@ -15,9 +15,14 @@ function listAlbums (band) {
 }
 
 $(document).ready(function() {
-	$('#answer').keypress(function() {
-		if ($('#answer').val() === $('#hiddenanswer').attr('text')) {
-			alert('fd');
+	$('#answer').keyup(function() {
+		if (sanitise($('#answer').val()) === sanitise($('#hiddenanswer').attr('text'))) {
+			alert('Correct!!');
+			location.reload();
 		}
 	})
 });
+
+function sanitise(input) {
+	return input.toLowerCase().replace(" ", "");
+}
