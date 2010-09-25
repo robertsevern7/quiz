@@ -1,5 +1,6 @@
 {-# LANGUAGE TypeFamilies, QuasiQuotes, TemplateHaskell #-}
 import Yesod
+import Yesod.Hamlet
 import Yesod.Helpers.Static
 
 import Films
@@ -31,21 +32,25 @@ questionTemplate (Question description _) = error "This has not been implemented
 
 identifyFromTemplate :: Description -> [String] -> String -> Hamlet (Route QuizMaster)
 identifyFromTemplate description choices answer = [$hamlet|
-  %html
-    %head
-      %title $description$
-    %body
-      %h1 $description$
-      %ul#c
-        $forall choices c
-          %li $c$            
+  %h1 $description$
+  %ul#c
+    $forall choices c
+      %li $c$            
   |]
+
+layout :: Cassius (Route QuizMaster)
+layout = [$cassius|
+  h1
+    color: red
+|]          
                                              
 getQuestionSource :: QuestionMaker a => (QuizMaster -> a) -> Handler RepHtml
 getQuestionSource getQuestion = do
   quizMaster <- getYesod
   question <- liftIO $ generateQuestion (getQuestion quizMaster)
-  hamletToRepHtml (questionTemplate question)
+  defaultLayout $ do
+    addBody  (questionTemplate question)
+    addStyle layout
 
 getActorsR :: Handler RepHtml
 getActorsR = getQuestionSource (\x -> whichActor x)
