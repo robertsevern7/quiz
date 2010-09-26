@@ -190,15 +190,6 @@ extractFilmName (JSObject x) = fromJSString name
     where
       (Ok film) = valFromObj "film" x
       (Ok (JSString name)) = valFromObj "name" film
-
-
-getActorBigBudgetFilms :: IO (Result [(String, Int)])
-getActorBigBudgetFilms = do
-  let budgetQueryObject = showJSON (toJSObject [("amount", JSNull), ("currency", showJSON "US$")])
-      filmQueryObject = showJSON (toJSObject [("film", showJSON (toJSObject [("name", JSNull), ("limit", showJSON (5 :: Int)), ("sort", showJSON "-estimated_budget.amount"), ("estimated_budget", budgetQueryObject)]))])
-  response <- runQuery $ mkSimpleQuery [("type",showJSON "/film/actor"),("id",showJSON JSNull), ("limit",showJSON (110 :: Int)),("film", JSArray [filmQueryObject])]
-  let arrayOfActorsAndFilms = (lookupValue response "result" :: Result JSValue)
-  return (fmap extractIdAndBudgets arrayOfActorsAndFilms)
   
 saveActorsToDisk :: IO ()
 saveActorsToDisk = do
