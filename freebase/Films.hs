@@ -141,7 +141,7 @@ extractActors (JSArray xs) = map extractActor xs
 extractActors _ = error "Freebase screwed us."
 
 debug :: Show a => a -> a
-debug x = trace (show x) x
+debug x = traceShow x x
 
 extractActor :: JSValue -> String
 extractActor (JSObject s) = _id
