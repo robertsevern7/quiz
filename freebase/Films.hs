@@ -81,10 +81,8 @@ extractIdAndBudgets (JSArray xs) = sortBy (\(_,a) (_,b) -> compare b a) $ map ex
 extractIdAndBudgets _ = error "Freebase screwed us."
 
 extractIdAndBudget :: JSValue -> (String,Int)
-extractIdAndBudget (JSObject s) = (_id, extractBudget $ fromJust $ get_field s "film")
-    where
-      _id = getString (fromJust $ get_field s "id")
-extractIdAndBudget _ = undefined
+extractIdAndBudget jsValue = (getString (fromJust $ getJSValue jsValue [mkPath "id"])
+                             ,extractBudget $ fromJust $ getJSValue jsValue [mkPath "film"])
 
 extractBudget :: JSValue -> Int
 extractBudget (JSArray films) = sum $ map getFilmBudget films
@@ -146,12 +144,11 @@ saveDirectorsToDisk = do
 readDirectorsFromDisk :: IO [String]
 readDirectorsFromDisk = liftM read (readFile directorPath)
 
--- TODO 99?
 getDirector :: IO String
 getDirector = do
   directors <- readDirectorsFromDisk
   gen <- newStdGen
-  let (i,_) = randomR (0,99) gen
+  let (i,_) = randomR (0,min 99 $ length directors) gen
   return (directors !! i)
 
 getDirectorFilmList :: String -> IO (String,Result [String])
