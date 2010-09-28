@@ -9,7 +9,7 @@ module Films (
 
 import Logic
 import Freebase
-import JsonHelper (lookupValue)
+import JsonHelper (lookupValue,getJSValue,getString)
 
 import System.Random
 import Text.JSON
@@ -190,15 +190,3 @@ getActor path = do
   let (i,_) = randomR (0,20) gen
   return (actors !! i)
 
-{- Boring helper functions -}
--- Get JS values by following a path indexing into fields as required
-getJSValue :: JSValue -> [String] -> Maybe JSValue
-getJSValue j p = getJSValue' (Just j) p
-    where
-      getJSValue' Nothing _                    = Nothing
-      getJSValue' (Just jsvalue) []            = Just jsvalue
-      getJSValue' (Just (JSObject obj)) (x:xs) = getJSValue' (get_field obj x) xs
-
-getString :: JSValue -> String
-getString (JSString x) = fromJSString x
-getString x = error $ "No string found when expected. =" ++ show x
