@@ -95,18 +95,6 @@ getFilmBudget f@(JSObject _) = truncate cost
       paths = [["film","estimated_budget","amount"],["estimated_budget","amount"]]
       (JSRational _ cost) = fromJust $ listToMaybe $ mapMaybe (getJSValue f) paths
 
--- Get JS values by following a path indexing into fields as required
-getJSValue :: JSValue -> [String] -> Maybe JSValue
-getJSValue j p = getJSValue' (Just j) p
-    where
-      getJSValue' Nothing _                    = Nothing
-      getJSValue' (Just jsvalue) []            = Just jsvalue
-      getJSValue' (Just (JSObject obj)) (x:xs) = getJSValue' (get_field obj x) xs
-
-getString2 :: JSValue -> String
-getString2 (JSString x) = fromJSString x
-getString2 x = error $ "No string found when expected. =" ++ show x
-
 getDirectorBigBudgetFilms :: IO (Result [(String, Int)])
 getDirectorBigBudgetFilms = getBigBudgetFilms "/film/director"
 
@@ -133,7 +121,12 @@ getActors = do
   let professionFilter = JSArray[showJSON (toJSObject [("id", "/en/actor"), ("type", "/people/profession")])]
       heatObject = showJSON (toJSObject [("value", JSNull), ("optional", JSBool False)]);
       idObject = JSArray [showJSON (toJSObject [("type", showJSON "/type/id"), ("value", JSNull)])];
-  response <- runQuery $ mkSimpleQuery [("type",showJSON "/base/popstra/celebrity"),("/people/person/profession", professionFilter), ("heat", heatObject), ("limit",showJSON (200 :: Int)),("id", idObject), ("sort", showJSON "-heat.value")]
+  response <- runQuery $ mkSimpleQuery [("type",showJSON "/base/popstra/celebrity")
+                                       ,("/people/person/profession", professionFilter)
+                                       ,("heat", heatObject)
+                                       ,("limit",showJSON (200 :: Int))
+                                       ,("id", idObject)
+                                       ,("sort", showJSON "-heat.value")]
   let arrayActors = (lookupValue response "result" :: Result JSValue)
       
   return (fmap extractActors arrayActors)
@@ -145,12 +138,11 @@ extractActors _ = error "Freebase screwed us."
 extractActor :: JSValue -> String
 extractActor (JSObject s) = _id
     where
-	  idJust = get_field s "id"
-	  (JSArray idArray) = fromJust idJust
+	  (JSArray idArray) = fromJust $ get_field s "id"
 	  (JSObject idObj) = head idArray
 	  value = get_field idObj "value"
 	  _id = getString2 (fromJust value)
-extractActor _ = undefined
+extractActor x = error $ "Unexpected type " ++ show x
 
 saveDirectorsToDisk :: IO ()
 saveDirectorsToDisk = do
@@ -170,7 +162,7 @@ getDirector = do
 
 getDirectorFilmList :: String -> IO (String,Result [String])
 getDirectorFilmList director = runSimpleQuery "/film/director" "film" director (JSArray [filmQueryObject]) extractFilmName2
-	where
+    where
       filmQueryObject = showJSON (toJSObject [("estimated_budget", showJSON (toJSObject [("amount", JSNull), ("currency", showJSON "US$")])), ("name", JSNull), ("limit", listLimit), ("sort", showJSON "-estimated_budget.amount")])
 
 extractFilmName2 :: JSValue -> String
@@ -205,3 +197,15 @@ getActor path = do
   let (i,_) = randomR (0,20) gen
   return (actors !! i)
 
+{- Boring helper functions -}
+-- Get JS values by following a path indexing into fields as required
+getJSValue :: JSValue -> [String] -> Maybe JSValue
+getJSValue j p = getJSValue' (Just j) p
+    where
+      getJSValue' Nothing _                    = Nothing
+      getJSValue' (Just jsvalue) []            = Just jsvalue
+      getJSValue' (Just (JSObject obj)) (x:xs) = getJSValue' (get_field obj x) xs
+
+getString2 :: JSValue -> String
+getString2 (JSString x) = fromJSString x
+getString2 x = error $ "No string found when expected. =" ++ show x

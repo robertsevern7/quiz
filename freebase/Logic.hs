@@ -1,7 +1,6 @@
 module Logic where
 
 import System.Random (newStdGen,randomR)
-import Text.JSON
 
 -- TODO some of these question types are less than self-explanatory
 -- |All the different types of questions
@@ -10,9 +9,6 @@ data QuestionFormat = MultipleChoice [String] String -- ^ Choose one from a set
                     | MultipleFreeText [String] -- |^ Multiple choices of free text 
                     | IdentifyFrom [String] String -- |^ Given a set of strings identify some known answer
                       deriving Show
-
-mkString :: String -> JSValue
-mkString = JSString . toJSString
 
 -- |May want to change this to something "formattable"
 type Description = String
