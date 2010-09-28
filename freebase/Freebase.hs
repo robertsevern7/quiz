@@ -37,7 +37,7 @@ runSimpleQuery :: String -> String -> String -> JSValue -> (JSValue -> String) -
 runSimpleQuery qtype key id_ arr extractor = do
   response <- runQuery $ mkSimpleQuery [("type",showJSON qtype),("id",showJSON id_), ("name", JSNull),(key,arr)]
   let k = lookupValue response "result"
-      name = lookupValue (getFirst k) "name"
+      (Ok name) = lookupValue (getFirst k) "name"
       l = lookupValue (getFirst k) key
       m = fmap (\(JSArray x) -> x) l
   return (getString name, fmap (map extractor) m)
