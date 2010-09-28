@@ -45,7 +45,7 @@ mkWhichActor = liftM WhichActor readActorsFromDisk
 instance QuestionMaker WhichActor where
     generateQuestion (WhichActor films) = do
                                     actors <- getActorFilmList =<< chooseFromList films
-                                    return $ generateQuestionWhoMadeThese "Who acted in the following films?" actors
+                                    return $ generateQuestionWhoMadeThese "Who starred in the following films?" actors
 
 instance QuestionMaker FilmListActorQM where
     generateQuestion _ = do
