@@ -236,6 +236,6 @@ getActor :: String -> IO String
 getActor path = do
   actors <- readActorsFromDisk
   gen <- newStdGen
-  let (i,_) = randomR (0,99) gen
+  let (i,_) = randomR (0,min 99 $ length actors) gen
   return (actors !! i)
 
