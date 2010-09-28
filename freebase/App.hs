@@ -80,10 +80,10 @@ getQuestionSource getQuestion = do
     addStyle layout
 
 getActorsR :: Handler RepHtml
-getActorsR = getQuestionSource (\x -> whichActor x)
+getActorsR = getQuestionSource whichActor
 
 getDirectorsR :: Handler RepHtml
-getDirectorsR = getQuestionSource (\x -> whichDirector x)
+getDirectorsR = getQuestionSource whichDirector
    
 getHomeR :: Handler RepHtml
 getHomeR = hamletToRepHtml [$hamlet|

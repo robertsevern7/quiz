@@ -31,7 +31,7 @@ mkWhichDirector = liftM WhichDirector readDirectorsFromDisk
 
 instance QuestionMaker WhichDirector where
     generateQuestion (WhichDirector directors) = do
-                                       films <- getDirectorFilmList =<< (chooseFromList directors)
+                                       films <- getDirectorFilmList =<< chooseFromList directors
                                        return $ generateQuestionWhoMadeThese "Who directed the following films?" films
 
 instance QuestionMaker FilmListDirectorQM where
@@ -40,17 +40,17 @@ instance QuestionMaker FilmListDirectorQM where
         return $ generateQuestionNameTheFilm films
 
 mkWhichActor :: IO WhichActor
-mkWhichActor = liftM WhichActor (readActorsFromDisk)
+mkWhichActor = liftM WhichActor readActorsFromDisk
 
 instance QuestionMaker WhichActor where
-	generateQuestion (WhichActor films) = do
-                                    actors <- getActorFilmList =<< (chooseFromList films)
+    generateQuestion (WhichActor films) = do
+                                    actors <- getActorFilmList =<< chooseFromList films
                                     return $ generateQuestionWhoMadeThese "Who acted in the following films?" actors
 
 instance QuestionMaker FilmListActorQM where
     generateQuestion _ = do
-        films <- getActorFilmList actorPath
-        return $ generateQuestionNameTheFilm films
+      films <- getActorFilmList actorPath
+      return $ generateQuestionNameTheFilm films
 
 directorPath :: FilePath
 directorPath = "film/film_directors.txt"
@@ -161,7 +161,7 @@ saveDirectorsToDisk = do
 readDirectorsFromDisk :: IO [String]
 readDirectorsFromDisk = liftM read (readFile directorPath)
 
-
+-- TODO 99?
 getDirector :: IO String
 getDirector = do
   directors <- readDirectorsFromDisk
