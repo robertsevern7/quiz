@@ -2,23 +2,15 @@ module Freebase (
                  mkSimpleQuery
                 ,runSimpleQuery
                 ,runQuery
-                ,lookupValue -- TODO Does not belong here!
                 ) where
 
 import Text.JSON
+import JsonHelper
+
 import Network.HTTP
 import Network.URI
 import Control.Monad
 import Data.Maybe (fromJust)
-
-getFirst :: Result JSValue -> Result JSValue
-getFirst (Ok (JSArray (x:xs))) = Ok x
-getFirst _ = Error "Not an array"
-
--- Should this use fmap?
-lookupValue :: JSON a => Result JSValue -> String -> Result a
-lookupValue (Ok (JSObject o)) key = valFromObj key o
-lookupValue _ _                   = Error "Unsupported JSON response" 
 
 touch :: URI
 touch = fromJust $ parseURI "http://api.freebase.com/api/service/touch" 
@@ -49,7 +41,3 @@ runSimpleQuery qtype key id_ arr extractor = do
       l = lookupValue (getFirst k) key
       m = fmap (\(JSArray x) -> x) l
   return (getString name, fmap (map extractor) m)
-
-getString :: Result JSValue -> String
-getString (Ok (JSString x)) = fromJSString x
-getString _ = error "No string found when expected."
