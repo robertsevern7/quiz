@@ -83,7 +83,7 @@ extractIdAndBudgets _ = error "Freebase screwed us."
 extractIdAndBudget :: JSValue -> (String,Int)
 extractIdAndBudget (JSObject s) = (_id, extractBudget $ fromJust $ get_field s "film")
     where
-      _id = (\(JSString z) -> fromJSString z) (fromJust $ get_field s "id")
+      _id = getString (fromJust $ get_field s "id")
 extractIdAndBudget _ = undefined
 
 extractBudget :: JSValue -> Int
