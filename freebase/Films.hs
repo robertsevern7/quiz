@@ -165,11 +165,11 @@ getDirectorFilmList director = runSimpleQuery "/film/director" "film" director (
     where
       filmQueryObject = showJSON (toJSObject [("estimated_budget", showJSON (toJSObject [("amount", JSNull), ("currency", showJSON "US$")])), ("name", JSNull), ("limit", listLimit), ("sort", showJSON "-estimated_budget.amount")])
 
-extract :: JSValue -> [String] -> String
-extract jsValue path = getString $ fromJust $ getJSValue jsValue path
+extract :: [String] -> JSValue -> String
+extract path jsValue = getString $ fromJust $ getJSValue jsValue path
 
 extractFilmName2 :: JSValue -> String
-extractFilmName2 jsValue = extract jsValue ["name"]
+extractFilmName2 = extract ["name"]
 
 getActorFilmList :: String -> IO (String,Result [String])
 getActorFilmList actor = runSimpleQuery "/film/actor" "film" actor (JSArray [filmQueryObject]) extractFilmName
@@ -180,7 +180,7 @@ getActorFilmList actor = runSimpleQuery "/film/actor" "film" actor (JSArray [fil
       filmObj = showJSON (toJSObject [("estimated_budget", showJSON (toJSObject [("amount", JSNull), ("currency", showJSON "US$")])), ("name", JSNull)])
 
 extractFilmName :: JSValue -> String
-extractFilmName jsValue = extract jsValue ["film","name"]
+extractFilmName = extract ["film","name"]
   
 saveActorsToDisk :: IO ()
 saveActorsToDisk = do
