@@ -9,7 +9,7 @@ module Films (
 
 import Logic
 import Freebase
-import JsonHelper (lookupValue,getJSValue,getString)
+import JsonHelper (lookupValue,getJSValue,getString,mkPath)
 
 import System.Random
 import Text.JSON
@@ -93,7 +93,7 @@ extractBudget (JSArray films) = sum $ map getFilmBudget films
 getFilmBudget :: JSValue -> Int
 getFilmBudget f@(JSObject _) = truncate cost
     where
-      paths = [["film","estimated_budget","amount"],["estimated_budget","amount"]]
+      paths = [map mkPath ["film","estimated_budget","amount"],map mkPath ["estimated_budget","amount"]]
       (JSRational _ cost) = fromJust $ listToMaybe $ mapMaybe (getJSValue f) paths
 
 getDirectorBigBudgetFilms :: IO (Result [(String, Int)])
@@ -165,7 +165,7 @@ getDirectorFilmList director = runSimpleQuery "/film/director" "film" director (
       filmQueryObject = showJSON (toJSObject [("estimated_budget", showJSON (toJSObject [("amount", JSNull), ("currency", showJSON "US$")])), ("name", JSNull), ("limit", listLimit), ("sort", showJSON "-estimated_budget.amount")])
 
 extract :: [String] -> JSValue -> String
-extract path jsValue = getString $ fromJust $ getJSValue jsValue path
+extract path jsValue = getString $ fromJust $ getJSValue jsValue (map mkPath path)
 
 getActorFilmList :: String -> IO (String,Result [String])
 getActorFilmList actor = runSimpleQuery "/film/actor" "film" actor (JSArray [filmQueryObject]) (extract ["film","name"])
