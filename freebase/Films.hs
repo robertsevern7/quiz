@@ -127,8 +127,7 @@ getActors = do
                                        ,("limit",showJSON (200 :: Int))
                                        ,("id", idObject)
                                        ,("sort", showJSON "-heat.value")]
-  let arrayActors = (lookupValue response "result" :: Result JSValue)
-      
+  let arrayActors = lookupValue response "result" 
   return (fmap extractActors arrayActors)
   
 extractActors :: JSValue -> [String]
@@ -136,12 +135,11 @@ extractActors (JSArray xs) = map extractActor xs
 extractActors _ = error "Freebase screwed us."
 
 extractActor :: JSValue -> String
-extractActor (JSObject s) = _id
+extractActor (JSObject s) = getString (fromJust value)
     where
 	  (JSArray idArray) = fromJust $ get_field s "id"
 	  (JSObject idObj) = head idArray
 	  value = get_field idObj "value"
-	  _id = getString (fromJust value)
 extractActor x = error $ "Unexpected type " ++ show x
 
 saveDirectorsToDisk :: IO ()
@@ -161,27 +159,21 @@ getDirector = do
   return (directors !! i)
 
 getDirectorFilmList :: String -> IO (String,Result [String])
-getDirectorFilmList director = runSimpleQuery "/film/director" "film" director (JSArray [filmQueryObject]) extractFilmName2
+getDirectorFilmList director = runSimpleQuery "/film/director" "film" director (JSArray [filmQueryObject]) (extract ["name"])
     where
       filmQueryObject = showJSON (toJSObject [("estimated_budget", showJSON (toJSObject [("amount", JSNull), ("currency", showJSON "US$")])), ("name", JSNull), ("limit", listLimit), ("sort", showJSON "-estimated_budget.amount")])
 
 extract :: [String] -> JSValue -> String
 extract path jsValue = getString $ fromJust $ getJSValue jsValue path
 
-extractFilmName2 :: JSValue -> String
-extractFilmName2 = extract ["name"]
-
 getActorFilmList :: String -> IO (String,Result [String])
-getActorFilmList actor = runSimpleQuery "/film/actor" "film" actor (JSArray [filmQueryObject]) extractFilmName
+getActorFilmList actor = runSimpleQuery "/film/actor" "film" actor (JSArray [filmQueryObject]) (extract ["film","name"])
     where
       filmQueryObject = showJSON $ toJSObject [("film", filmObj)
                                               ,("limit", listLimit)
                                               ,("sort", showJSON "-film.estimated_budget.amount")]
       filmObj = showJSON (toJSObject [("estimated_budget", showJSON (toJSObject [("amount", JSNull), ("currency", showJSON "US$")])), ("name", JSNull)])
 
-extractFilmName :: JSValue -> String
-extractFilmName = extract ["film","name"]
-  
 saveActorsToDisk :: IO ()
 saveActorsToDisk = do
   (Ok films) <- getActors
