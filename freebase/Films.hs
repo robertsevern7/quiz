@@ -9,6 +9,7 @@ module Films (
 
 import Logic
 import Freebase
+import JsonHelper (lookupValue)
 
 import System.Random
 import Text.JSON
