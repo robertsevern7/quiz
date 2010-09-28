@@ -59,6 +59,9 @@ directorPath = "film/film_directors.txt"
 actorPath :: FilePath
 actorPath = "film/film_actors.txt"
 
+filmPath :: FilePath
+filmPath = "film/film_films.txt"
+
 listLimit:: JSValue
 listLimit = JSRational False 10
 
@@ -175,10 +178,64 @@ saveActorsToDisk = do
 readActorsFromDisk :: IO [String]
 readActorsFromDisk = liftM read (readFile actorPath)
 
+saveFilmsToDisk :: IO ()
+saveFilmsToDisk = do
+  (Ok films) <- getFilms
+  writeFile filmPath (show $ map id films)
+
+{- The query for actors
+[{
+  "!pd:/award/ranked_list/ranked_list_items": [{
+    "!index": null,
+    "id": "/en/the_movie_list_the_first_9200",
+    "type": "/award/ranked_list"
+  }],   
+  "item": [{
+    "tagline": [{
+      "value": null
+    }],
+    "type": "/film/film"
+  }],
+  "limit": 1,
+  "rank": null,
+  "sort": "!pd:/award/ranked_list/ranked_list_items.!index",
+  "summary:item": [{
+    "id": null,
+    "optional": false,
+    "type": "/award/ranked_item"
+  }],
+  "type": "/award/ranking"
+}]
+
+​
+-}
+getFilms :: IO (Result [String])
+getFilms = do
+  let taglineObject = JSArray[showJSON (toJSObject [("value", JSNull)])]
+      rankedListObject = JSArray[showJSON (toJSObject [("!index", JSNull), ("id", showJSON "/en/the_movie_list_the_first_9200"), ("type", showJSON "/award/ranked_list")])]
+      itemObject = showJSON (toJSObject [("tagline", taglineObject), ("type", showJSON "/film/film")]);
+      summaryItemObject = JSArray[showJSON (toJSObject [("id", JSNull), ("optional", JSBool False), ("type", showJSON "/award/ranked_item")])];
+  response <- runQuery $ mkSimpleQuery [("!pd:/award/ranked_list/ranked_list_items", rankedListObject)
+                                       ,("item", itemObject)
+                                       ,("summary:item", summaryItemObject)
+                                       ,("limit",showJSON (500 :: Int))
+                                       ,("rank", JSNull)
+                                       ,("sort", showJSON "!pd:/award/ranked_list/ranked_list_items.!index")
+									   ,("type", showJSON "/award/ranking")]
+  let arrayFilms = lookupValue response "result" 
+  return (fmap extractFilms arrayFilms)
+  
+extractFilms :: JSValue -> [String]
+extractFilms (JSArray xs) = map extractFilm xs
+extractFilms _ = error "Freebase screwed us."
+
+extractFilm :: JSValue -> String
+extractFilm jsValue = getString (fromJust $ getJSValue jsValue [mkPath "summary:item", mkIndex 0, mkPath "id"])
+
 getActor :: String -> IO String
 getActor path = do
   actors <- readActorsFromDisk
   gen <- newStdGen
-  let (i,_) = randomR (0,20) gen
+  let (i,_) = randomR (0,99) gen
   return (actors !! i)
 
