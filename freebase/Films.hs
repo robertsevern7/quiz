@@ -14,7 +14,7 @@ import System.Random
 import Text.JSON
 import Text.JSON.Types
 import Data.List (sortBy)
-import Data.Maybe (fromJust)
+import Data.Maybe (fromJust,mapMaybe,listToMaybe)
 import Control.Monad
 
 import Debug.Trace
@@ -89,12 +89,12 @@ extractIdAndBudget _ = undefined
 extractBudget :: JSValue -> Int
 extractBudget (JSArray films) = sum $ map getFilmBudget films
 
+-- There are two possible paths - try both and pick the one that works
 getFilmBudget :: JSValue -> Int
 getFilmBudget f@(JSObject _) = truncate cost
     where
-      (JSObject filmObject) = getFilmObject f
-      (JSObject estimatedBudget) = fromJust $ get_field filmObject "estimated_budget"
-      (JSRational _ cost) = fromJust $ get_field estimatedBudget "amount"
+      paths = [["film","estimated_budget","amount"],["estimated_budget","amount"]]
+      (JSRational _ cost) = fromJust $ listToMaybe $ mapMaybe (getJSValue f) paths
 
 getFilmObject :: JSValue -> JSValue
 getFilmObject f@(JSObject filmInput) = case (valFromObj "film" filmInput) of
