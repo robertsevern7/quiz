@@ -9,7 +9,7 @@ module Films (
 
 import Logic
 import Freebase
-import JsonHelper (lookupValue,getJSValue,getString,mkPath)
+import JsonHelper (lookupValue,getJSValue,getString,mkPath,mkIndex)
 
 import System.Random
 import Text.JSON
@@ -136,12 +136,7 @@ extractActors (JSArray xs) = map extractActor xs
 extractActors _ = error "Freebase screwed us."
 
 extractActor :: JSValue -> String
-extractActor (JSObject s) = getString (fromJust value)
-    where
-	  (JSArray idArray) = fromJust $ get_field s "id"
-	  (JSObject idObj) = head idArray
-	  value = get_field idObj "value"
-extractActor x = error $ "Unexpected type " ++ show x
+extractActor jsValue = getString (fromJust $ getJSValue jsValue [mkPath "id", mkIndex 0, mkPath "value"])
 
 saveDirectorsToDisk :: IO ()
 saveDirectorsToDisk = do
