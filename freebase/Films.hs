@@ -73,8 +73,7 @@ getBigBudgetFilms query_type = do
   let budgetQueryObject = showJSON (toJSObject [("amount", JSNull), ("currency", showJSON "US$")])
       filmQueryObject = showJSON (toJSObject [("name", JSNull), ("limit", showJSON (5 :: Int)), ("sort", showJSON "-estimated_budget.amount"), ("estimated_budget", budgetQueryObject)]);
   response <- runQuery $ mkSimpleQuery [("type",showJSON query_type),("id",showJSON JSNull), ("limit",showJSON (600 :: Int)),("film", JSArray [filmQueryObject])]
-  let arrayOfIdAndFilms = (lookupValue response "result" :: Result JSValue)
-  return (fmap extractIdAndBudgets arrayOfIdAndFilms)
+  return (fmap extractIdAndBudgets $ lookupValue response "result")
 
 extractIdAndBudgets :: JSValue -> [(String,Int)]
 extractIdAndBudgets (JSArray xs) = sortBy (\(_,a) (_,b) -> compare b a) $ map extractIdAndBudget xs
