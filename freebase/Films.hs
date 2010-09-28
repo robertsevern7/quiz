@@ -141,7 +141,7 @@ extractActor (JSObject s) = _id
 	  (JSArray idArray) = fromJust $ get_field s "id"
 	  (JSObject idObj) = head idArray
 	  value = get_field idObj "value"
-	  _id = getString2 (fromJust value)
+	  _id = getString (fromJust value)
 extractActor x = error $ "Unexpected type " ++ show x
 
 saveDirectorsToDisk :: IO ()
@@ -206,6 +206,6 @@ getJSValue j p = getJSValue' (Just j) p
       getJSValue' (Just jsvalue) []            = Just jsvalue
       getJSValue' (Just (JSObject obj)) (x:xs) = getJSValue' (get_field obj x) xs
 
-getString2 :: JSValue -> String
-getString2 (JSString x) = fromJSString x
-getString2 x = error $ "No string found when expected. =" ++ show x
+getString :: JSValue -> String
+getString (JSString x) = fromJSString x
+getString x = error $ "No string found when expected. =" ++ show x

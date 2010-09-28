@@ -1,4 +1,9 @@
-module Freebase where
+module Freebase (
+                 mkSimpleQuery
+                ,runSimpleQuery
+                ,runQuery
+                ,lookupValue -- TODO Does not belong here!
+                ) where
 
 import Text.JSON
 import Network.HTTP
