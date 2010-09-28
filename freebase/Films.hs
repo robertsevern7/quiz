@@ -173,12 +173,15 @@ extractFilmName2 (JSObject x) = fromJSString film
 getActorFilmList :: String -> IO (String,Result [String])
 getActorFilmList actor = runSimpleQuery "/film/actor" "film" actor (JSArray [filmQueryObject]) extractFilmName
     where
-		filmQueryObject = showJSON $ toJSObject [("film", filmObj), ("limit", listLimit), ("sort", showJSON "-film.estimated_budget.amount")]
-		filmObj = showJSON (toJSObject [("estimated_budget", showJSON (toJSObject [("amount", JSNull), ("currency", showJSON "US$")])), ("name", JSNull)])
+      filmQueryObject = showJSON $ toJSObject [("film", filmObj)
+                                              , ("limit", listLimit)
+                                              , ("sort", showJSON "-film.estimated_budget.amount")]
+      filmObj = showJSON (toJSObject [("estimated_budget", showJSON (toJSObject [("amount", JSNull), ("currency", showJSON "US$")])), ("name", JSNull)])
 
 extractFilmName :: JSValue -> String
 extractFilmName (JSObject x) = fromJSString name
     where
+      
       (Ok film) = valFromObj "film" x
       (Ok (JSString name)) = valFromObj "name" film
   
