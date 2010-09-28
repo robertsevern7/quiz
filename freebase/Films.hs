@@ -101,6 +101,14 @@ getFilmObject f@(JSObject filmInput) = case (valFromObj "film" filmInput) of
                                          (Error _) ->  f
                                          (Ok x) -> x
 
+-- Get JS values by following a path indexing into fields as required
+getJSValue :: JSValue -> [String] -> Maybe JSValue
+getJSValue j p = getJSValue' (Just j) p
+    where
+      getJSValue' Nothing _                    = Nothing
+      getJSValue' (Just jsvalue) []            = Just jsvalue
+      getJSValue' (Just (JSObject obj)) (x:xs) = getJSValue' (get_field obj x) xs
+
 getString2 :: JSValue -> String
 getString2 (JSString x) = fromJSString x
 getString2 x = error $ "No string found when expected. =" ++ show x
