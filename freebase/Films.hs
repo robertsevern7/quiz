@@ -96,11 +96,6 @@ getFilmBudget f@(JSObject _) = truncate cost
       paths = [["film","estimated_budget","amount"],["estimated_budget","amount"]]
       (JSRational _ cost) = fromJust $ listToMaybe $ mapMaybe (getJSValue f) paths
 
-getFilmObject :: JSValue -> JSValue
-getFilmObject f@(JSObject filmInput) = case (valFromObj "film" filmInput) of
-                                         (Error _) ->  f
-                                         (Ok x) -> x
-
 -- Get JS values by following a path indexing into fields as required
 getJSValue :: JSValue -> [String] -> Maybe JSValue
 getJSValue j p = getJSValue' (Just j) p
