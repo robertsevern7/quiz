@@ -11,6 +11,7 @@ import Text.JSON
 import Text.JSON.Types
 import Data.List ((!!))
 
+-- TODO syntax for this could be greatly simplified
 data PathSegment = NamedField String
                  | ArrayIndex Int
 
@@ -28,15 +29,6 @@ lookupValue _ _                   = Error "Unsupported JSON response"
 getFirst :: Result JSValue -> Result JSValue
 getFirst (Ok (JSArray (x:xs))) = Ok x
 getFirst _ = Error "Not an array"
-
--- Get JS values by following a path indexing into fields as required
-{-
-getJSValue :: JSValue -> [String] -> Maybe JSValue
-getJSValue j p = getJSValue' (Just j) p
-    where
-      getJSValue' Nothing _                    = Nothing
-      getJSValue' (Just jsvalue) []            = Just jsvalue
-      getJSValue' (Just (JSObject obj)) (x:xs) = getJSValue' (get_field obj x) xs -}
 
 getJSValue :: JSValue -> [PathSegment] -> Maybe JSValue
 getJSValue j p = getJSValue' (Just j) p
