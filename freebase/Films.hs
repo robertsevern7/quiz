@@ -16,7 +16,9 @@ import Text.JSON
 import Text.JSON.Types
 import Data.List (sortBy)
 import Data.Maybe (fromJust,mapMaybe,listToMaybe)
+import Data.Array.MArray
 import Control.Monad
+import Control.Monad.Trans (liftIO)
 
 import Debug.Trace
 
@@ -26,9 +28,13 @@ data WhichActor = WhichActor [String]
 -- TODO These guys haven't been tested since the great reshuffle.
 data FilmListDirectorQM = FilmListDirectorQM [String]
 data FilmListActorQM = FilmListActorQM
+data FilmListQM = FilmListQM
 
 mkWhichDirector :: IO WhichDirector
 mkWhichDirector = liftM WhichDirector readDirectorsFromDisk
+
+debug :: Show a => a -> a
+debug x = trace (show x) x
 
 instance QuestionMaker WhichDirector where
     generateQuestion (WhichDirector directors) = do
@@ -238,4 +244,35 @@ getActor path = do
   gen <- newStdGen
   let (i,_) = randomR (0,min 99 $ length actors) gen
   return (actors !! i)
+  
+readFilmsFromDisk :: IO [String]
+readFilmsFromDisk = liftM read (readFile filmPath)
 
+getFilmIds :: IO [String]
+getFilmIds = do
+  films <- readFilmsFromDisk
+  rnd_select films 10
+  
+rnd_select xs n 
+    | n < 0     = error "N must be greater than zero."
+    | otherwise = replicateM n rand
+        where rand = do r <- randomRIO (0, (length xs) - 1)
+                        return (xs!!r)
+						
+getTaglineFilmPairs :: JSValue -> [(String, String)]						
+getTaglineFilmPairs (JSArray xs) = map getTaglineFilmPair xs
+						
+getTaglineFilmPair :: JSValue -> (String, String)
+getTaglineFilmPair filmTagJs = (getString (fromJust $ getJSValue filmTagJs [mkPath "name"]), tagline)
+  where
+	tagline = getString (fromJust $ getJSValue filmTagJs [mkPath "tagline", mkIndex 0, mkPath "value"])
+
+getTaglineFilmList :: IO (Result [(String, String)])
+getTaglineFilmList = do
+  filmIds <- getFilmIds
+  let filmJSValues = map showJSON filmIds
+  let taglineObj = JSArray[showJSON (toJSObject [("value", JSNull), ("limit", showJSON (1 :: Int))])]
+  response <- runQuery $ mkSimpleQuery [("type",showJSON "/film/film"),("id|=",JSArray filmJSValues), ("name", JSNull),("tagline",taglineObj)]
+  let arrayFilmsAndTags = lookupValue response "result"
+  return (fmap getTaglineFilmPairs arrayFilmsAndTags)
+  
