@@ -8,6 +8,7 @@ data QuestionFormat = MultipleChoice [String] String -- ^ Choose one from a set
                     | FreeText String -- |^ Free text to compare against supplied text
                     | MultipleFreeText [String] -- |^ Multiple choices of free text 
                     | IdentifyFrom [String] String -- |^ Given a set of strings identify some known answer
+					| Identify [(String, String)] -- |^ A list of answer/hint pairs
                       deriving Show
 
 -- |May want to change this to something "formattable"

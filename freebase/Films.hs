@@ -29,6 +29,7 @@ data WhichActor = WhichActor [String]
 data FilmListDirectorQM = FilmListDirectorQM [String]
 data FilmListActorQM = FilmListActorQM
 data FilmListQM = FilmListQM
+data FilmTaglinesQM = FilmTaglinesQM
 
 mkWhichDirector :: IO WhichDirector
 mkWhichDirector = liftM WhichDirector readDirectorsFromDisk
@@ -59,6 +60,11 @@ instance QuestionMaker FilmListActorQM where
       films <- getActorFilmList actorPath
       return $ generateQuestionNameTheFilm films
 
+instance QuestionMaker FilmTaglinesQM where
+    generateQuestion _ = do
+      filmTaglines <- getTaglineFilmList
+      return $ generateQuestionFilmTaglines filmTaglines
+	  
 directorPath :: FilePath
 directorPath = "film/film_directors.txt"
 
@@ -77,6 +83,10 @@ generateQuestionWhoMadeThese question (director, Ok films) = Question question (
 generateQuestionNameTheFilm :: (String,Result [String]) -> Question
 generateQuestionNameTheFilm (name, Ok films) = Question ("Name as many films by " ++ name ++ " as possible.") (MultipleFreeText films)
 generateQuestionNameTheFilm (_, Error err) = error $ "Failed to generate name the film: " ++ show err
+
+generateQuestionFilmTaglines :: Result [(String,String)] -> Question
+generateQuestionFilmTaglines (Ok filmTaglines) = Question "Name the films from their taglines" (Identify filmTaglines)
+generateQuestionFilmTaglines (Error err) = error $ "Failed to generate film taglines: " ++ show err
 
 getBigBudgetFilms :: String -> IO (Result [(String, Int)])
 getBigBudgetFilms query_type = do
