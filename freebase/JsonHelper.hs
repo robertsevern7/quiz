@@ -9,7 +9,6 @@ module JsonHelper (
 
 import Text.JSON
 import Text.JSON.Types
-import Data.List ((!!))
 
 -- TODO syntax for this could be greatly simplified
 data PathSegment = NamedField String
@@ -27,7 +26,7 @@ lookupValue (Ok (JSObject o)) key = valFromObj key o
 lookupValue _ _                   = Error "Unsupported JSON response" 
 
 getFirst :: Result JSValue -> Result JSValue
-getFirst (Ok (JSArray (x:xs))) = Ok x
+getFirst (Ok (JSArray (x:_))) = Ok x
 getFirst _ = Error "Not an array"
 
 getJSValue :: JSValue -> [PathSegment] -> Maybe JSValue
