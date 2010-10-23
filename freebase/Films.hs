@@ -13,16 +13,9 @@ import JsonHelper (lookupValue,getJSValue,getString,mkPath,mkIndex)
 
 import System.Random
 import Text.JSON
-import Text.JSON.Types
 import Data.List (sortBy)
 import Data.Maybe (fromJust,mapMaybe,listToMaybe)
-import Data.Array.MArray
 import Control.Monad
-
-import Debug.Trace
-
-debug :: Show a => a -> a
-debug x = trace (show x) x
 
 -- These will be question makers supplied with the information
 -- necessary to construct a question
@@ -72,6 +65,7 @@ listLimit = JSRational False 10
 generateQuestionWhoMadeThese :: String -> (String,Result [String]) -> Question
 generateQuestionWhoMadeThese question (director, Ok films) = Question question (IdentifyFrom films director)
 
+-- TODO Doesn't match all patterns
 generateQuestionNameTheFilm :: (String,Result [String]) -> Question
 generateQuestionNameTheFilm (name, Ok films) = Question ("Name as many films by " ++ name ++ " as possible.") (MultipleFreeText films)
 generateQuestionNameTheFilm (_, Error err) = error $ "Failed to generate name the film: " ++ show err
@@ -155,13 +149,6 @@ saveDirectorsToDisk = do
 readDirectorsFromDisk :: IO [String]
 readDirectorsFromDisk = liftM read (readFile directorPath)
 
-getDirector :: IO String
-getDirector = do
-  directors <- readDirectorsFromDisk
-  gen <- newStdGen
-  let (i,_) = randomR (0,min 99 $ length directors) gen
-  return (directors !! i)
-
 getDirectorFilmList :: String -> IO (String,Result [String])
 getDirectorFilmList director = runSimpleQuery "/film/director" "film" director (JSArray [filmQueryObject]) (extract ["name"])
     where
@@ -240,16 +227,10 @@ extractFilms _ = error "Freebase screwed us."
 extractFilm :: JSValue -> String
 extractFilm jsValue = getString (fromJust $ getJSValue jsValue [mkPath "summary:item", mkIndex 0, mkPath "id"])
 
-getActor :: String -> IO String
-getActor path = do
-  actors <- readActorsFromDisk
-  gen <- newStdGen
-  let (i,_) = randomR (0,min 99 $ length actors) gen
-  return (actors !! i)
-  
 readFilmsFromDisk :: IO [String]
 readFilmsFromDisk = liftM read (readFile filmPath)
   
+rnd_select :: [a] -> Int -> IO [a]
 rnd_select xs n 
     | n < 0     = error "N must be greater than zero."
     | otherwise = replicateM n rand
