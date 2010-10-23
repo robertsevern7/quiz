@@ -1,9 +1,12 @@
-{-# LANGUAGE TypeFamilies, QuasiQuotes #-}
+{-# LANGUAGE TypeFamilies, QuasiQuotes, TemplateHaskell #-}
 import Yesod
 import Yesod.Helpers.Static
 
 import Films
 import Logic
+
+-- We can use "hamletFile" instead for debug
+import Text.Hamlet (hamletFileDebug)
 
 {-
   TODO List
@@ -49,25 +52,11 @@ questionTemplate (Question description (Identify pairs)) = identifyTemplate desc
 questionTemplate (Question _ _) = error "This has not been implemented yet."
 
 identifyFromTemplate :: Description -> [String] -> String -> Hamlet (Route QuizMaster)
-identifyFromTemplate description choices answer = [$hamlet|
-  %h1 $description$
-  %ul#c
-    $forall choices c
-      %li $c$  
-    %input!type="text"!id="identifyFromAnswer"              
-	%div!text=$answer$!id="identifyFromHiddenAnswer"
-  |]
+identifyFromTemplate description choices answer = $(hamletFileDebug "templates/identifyFromTemplate.hamlet")
 
 identifyTemplate :: Description -> [(String,String)] -> Hamlet (Route QuizMaster)
-identifyTemplate description pairs = [$hamlet|
-  %h1 $description$
-  %input!type="text"!id="identifyAnswer"
-  %ul#c
-    $forall pairs p
-      %li $snd p$
-	  %li!class="hiddenAnswer" $fst p$
-  |]
-  
+identifyTemplate description pairs = $(hamletFileDebug "templates/identifyTemplate.hamlet")
+
 layout :: Cassius (Route QuizMaster)
 layout = [$cassius|
   h1
@@ -75,13 +64,7 @@ layout = [$cassius|
 |]          
 
 headTemplate :: Hamlet (Route QuizMaster)
-headTemplate = [$hamlet|
-  %title Quiz Master
-  %link!rel="stylesheet"!href=@StaticR.albums_css@
-  %link!rel="stylesheet"!href=@StaticR.app_css@
-  %script!src="http://code.jquery.com/jquery-1.4.2.min.js"
-  %script!src=@StaticR.script_js@
-|]
+headTemplate = $(hamletFileDebug "templates/headTemplate.hamlet")
                                              
 getQuestionSource :: QuestionMaker a => (QuizMaster -> a) -> Handler RepHtml
 getQuestionSource getQuestion = do
@@ -102,29 +85,7 @@ getTaglinesR :: Handler RepHtml
 getTaglinesR = getQuestionSource whichFilm
    
 getHomeR :: Handler RepHtml
-getHomeR = hamletToRepHtml [$hamlet|
-  !!!
-  %html
-    %head
-      %title Quiz Master
-      %link!rel="stylesheet"!href=@StaticR.albums_css@
-	  %link!rel="stylesheet"!href=@StaticR.app_css@
-      %script!src="http://code.jquery.com/jquery-1.4.2.min.js"
-      %script!src=@StaticR.script_js@
-    %body
-      %h1 AwesomeQuiz.com
-      %p AwesomeQuiz provides a wide ranging set of questions to tax your brain.  Pick from one of the following categories to get a randomly selected question.  Yes, it's crap at the moment, but that's because it's a beta.
-      %ul
-        %li
-          %a!href=@DirectorsR@ Film Directors
-        %li
-          %a!href=@ActorsR@ Film Actors
-        %li
-          %a!href=@TaglinesR@ Film Taglines
-      %hr
-      %p Written using 
-          %a!href="http://docs.yesodweb.com/" Yesod Web Framework
-  |]              
+getHomeR = hamletToRepHtml $(hamletFileDebug "templates/homeTemplate.hamlet")
 
 -- Note that you'll need to remember to ensure that the data files are present
 -- by using the GenFilms package
