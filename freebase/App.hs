@@ -123,7 +123,7 @@ getHomeR = hamletToRepHtml [$hamlet|
           %a!href=@TaglinesR@ Film Taglines
       %hr
       %p Written using 
-          %a!href="http://docs.yesodweb.com/Yesod" Yesod Web Framework
+          %a!href="http://docs.yesodweb.com/" Yesod Web Framework
   |]              
 
 -- Note that you'll need to remember to ensure that the data files are present
