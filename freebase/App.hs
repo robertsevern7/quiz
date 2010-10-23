@@ -26,6 +26,7 @@ data QuizMaster = QuizMaster {
       ajaxStatic :: Static
     , whichDirector :: WhichDirector
     , whichActor :: WhichActor
+	, whichFilm :: WhichFilm
 }
 
 type Handler = GHandler QuizMaster QuizMaster
@@ -37,6 +38,7 @@ mkYesod "QuizMaster" [$parseRoutes|
   /static    StaticR Static ajaxStatic
   /actors    ActorsR GET
   /directors DirectorsR GET
+  /taglines  TaglinesR GET
 |]
 
 instance Yesod QuizMaster where
@@ -44,6 +46,7 @@ instance Yesod QuizMaster where
 
 questionTemplate :: Question -> Hamlet (Route QuizMaster)
 questionTemplate (Question description (IdentifyFrom choices answer)) = identifyFromTemplate description choices answer
+questionTemplate (Question description (Identify pairs)) = identifyTemplate description pairs 
 questionTemplate (Question description _) = error "This has not been implemented yet."
 
 identifyFromTemplate :: Description -> [String] -> String -> Hamlet (Route QuizMaster)
@@ -52,10 +55,20 @@ identifyFromTemplate description choices answer = [$hamlet|
   %ul#c
     $forall choices c
       %li $c$  
-    %input!type="text"!id="answer"              
-	%div!text=$answer$!id="hiddenanswer"
+    %input!type="text"!id="identifyFromAnswer"              
+	%div!text=$answer$!id="identifyFromHiddenAnswer"
   |]
 
+identifyTemplate :: Description -> [(String,String)] -> Hamlet (Route QuizMaster)
+identifyTemplate description pairs = [$hamlet|
+  %h1 $description$
+  %input!type="text"!id="identifyAnswer"
+  %ul#c
+    $forall pairs p
+      %li $snd p$
+	  %div!text=$fst p$!id="identifyHiddenAnswer"!class="hiddenAnswer"
+  |]
+  
 layout :: Cassius (Route QuizMaster)
 layout = [$cassius|
   h1
@@ -84,6 +97,9 @@ getActorsR = getQuestionSource whichActor
 
 getDirectorsR :: Handler RepHtml
 getDirectorsR = getQuestionSource whichDirector
+
+getTaglinesR :: Handler RepHtml
+getTaglinesR = getQuestionSource whichFilm
    
 getHomeR :: Handler RepHtml
 getHomeR = hamletToRepHtml [$hamlet|
@@ -102,6 +118,8 @@ getHomeR = hamletToRepHtml [$hamlet|
           %a!href=@DirectorsR@ Film Directors
         %li
           %a!href=@ActorsR@ Film Actors
+		%li
+          %a!href=@TaglinesR@ Film Taglines
       %hr
       %p Written using 
           %a!href="http://docs.yesodweb.com/Yesod" Yesod Web Framework
@@ -112,4 +130,5 @@ main = do
   let static = fileLookupDir "static/" typeByExt
   wDirector <- mkWhichDirector
   wActor <- mkWhichActor
-  basicHandler 3000 $ QuizMaster static wDirector wActor
+  wFilm <- mkWhichFilm
+  basicHandler 3000 $ QuizMaster static wDirector wActor wFilm
