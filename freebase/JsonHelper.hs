@@ -34,9 +34,9 @@ getJSValue j p = getJSValue' (Just j) p
     where
       getJSValue' Nothing _ = Nothing
       getJSValue' (Just jsValue) [] = Just jsValue
-      getJSValue' (Just (JSArray array)) ((ArrayIndex x):xs) | x <= (length array - 1) = getJSValue' (Just (array !! x)) xs
-                                                             | otherwise = getJSValue' Nothing xs
-      getJSValue' (Just (JSObject obj)) ((NamedField x):xs) = getJSValue' (get_field obj x) xs
+      getJSValue' (Just (JSArray array)) (ArrayIndex x:xs) | x <= (length array - 1) = getJSValue' (Just (array !! x)) xs
+                                                           | otherwise = getJSValue' Nothing xs
+      getJSValue' (Just (JSObject obj)) (NamedField x:xs) = getJSValue' (get_field obj x) xs
       getJSValue' _ _ = Nothing
 
 -- Get the string value or error
