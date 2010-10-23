@@ -25,7 +25,7 @@ data QuizMaster = QuizMaster {
       ajaxStatic :: Static
     , whichDirector :: WhichDirector
     , whichActor :: WhichActor
-	, whichFilm :: WhichFilm
+    , whichFilm :: WhichFilm
 }
 
 type Handler = GHandler QuizMaster QuizMaster
@@ -119,7 +119,7 @@ getHomeR = hamletToRepHtml [$hamlet|
           %a!href=@DirectorsR@ Film Directors
         %li
           %a!href=@ActorsR@ Film Actors
-		%li
+        %li
           %a!href=@TaglinesR@ Film Taglines
       %hr
       %p Written using 
