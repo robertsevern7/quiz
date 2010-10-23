@@ -1,4 +1,4 @@
-{-# LANGUAGE TypeFamilies, QuasiQuotes, TemplateHaskell #-}
+{-# LANGUAGE TypeFamilies, QuasiQuotes #-}
 import Yesod
 import Yesod.Helpers.Static
 
