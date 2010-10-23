@@ -2,15 +2,17 @@ module Freebase (
                  mkSimpleQuery
                 ,runSimpleQuery
                 ,runQuery
+                ,touch
+                ,status
+                ,version
+                ,simpleService
                 ) where
 
 import Text.JSON
 import JsonHelper
 
 import Network.HTTP
-import Network.URI (URI,parseURI)
 import Control.Monad
-import Data.Maybe (fromJust)
 
 touch :: String
 touch = "http://api.freebase.com/api/service/touch" 
