@@ -47,7 +47,7 @@ instance QuestionMaker WhichActor where
 									--this is not code
 instance QuestionMaker WhichFilm where
     generateQuestion (WhichFilm films) = do
-                                    (Ok tagLines) <- getTaglineFilmList =<< rnd_select films 10
+                                    (Ok tagLines) <- getTaglineFilmList =<< rndSelect films 10
                                     return $ Question "Name the films from the taglines" (Identify tagLines)
 	  
 listLimit:: JSValue
@@ -73,8 +73,8 @@ getActorFilmList actor = runSimpleQuery "/film/actor" "film" actor (JSArray [fil
                                               ,("sort", showJSON "-film.estimated_budget.amount")]
       filmObj = showJSON (toJSObject [("estimated_budget", showJSON (toJSObject [("amount", JSNull), ("currency", showJSON "US$")])), ("name", JSNull)])
 
-rnd_select :: [a] -> Int -> IO [a]
-rnd_select xs n 
+rndSelect :: [a] -> Int -> IO [a]
+rndSelect xs n 
     | n < 0     = error "N must be greater than zero."
     | otherwise = replicateM n rand
         where rand = do r <- randomRIO (0, (length xs) - 1)
