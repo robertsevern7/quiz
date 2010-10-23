@@ -66,7 +66,7 @@ identifyTemplate description pairs = [$hamlet|
   %ul#c
     $forall pairs p
       %li $snd p$
-	  %div!text=$fst p$!id="identifyHiddenAnswer"!class="hiddenAnswer"
+	  %li!class="hiddenAnswer" $fst p$
   |]
   
 layout :: Cassius (Route QuizMaster)
@@ -79,6 +79,7 @@ headTemplate :: Hamlet (Route QuizMaster)
 headTemplate = [$hamlet|
   %title Quiz Master
   %link!rel="stylesheet"!href=@StaticR.albums_css@
+  %link!rel="stylesheet"!href=@StaticR.app_css@
   %script!src="http://code.jquery.com/jquery-1.4.2.min.js"
   %script!src=@StaticR.script_js@
 |]
@@ -108,6 +109,7 @@ getHomeR = hamletToRepHtml [$hamlet|
     %head
       %title Quiz Master
       %link!rel="stylesheet"!href=@StaticR.albums_css@
+	  %link!rel="stylesheet"!href=@StaticR.app_css@
       %script!src="http://code.jquery.com/jquery-1.4.2.min.js"
       %script!src=@StaticR.script_js@
     %body
