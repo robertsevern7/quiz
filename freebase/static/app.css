@@ -1,0 +1,8 @@
+.hiddenAnswer { 
+  visibility:hidden;
+}
+
+.revealedAnswer { 
+  font-weight: bold;
+  visibility:visible;
+}

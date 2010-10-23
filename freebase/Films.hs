@@ -250,11 +250,6 @@ getActor path = do
   
 readFilmsFromDisk :: IO [String]
 readFilmsFromDisk = liftM read (readFile filmPath)
-
-getFilmIds :: IO [String]
-getFilmIds = do
-  films <- readFilmsFromDisk
-  rnd_select films 10
   
 rnd_select xs n 
     | n < 0     = error "N must be greater than zero."
