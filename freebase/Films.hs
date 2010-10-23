@@ -36,20 +36,20 @@ mkWhichFilm = liftM WhichFilm readFilmsFromDisk
 --[Create QuestionMaker instances]
 instance QuestionMaker WhichDirector where
     generateQuestion (WhichDirector directors) = do
-                                       films <- getDirectorFilmList =<< chooseFromList directors
-                                       return $ generateQuestionWhoMadeThese "Who directed the following films?" films
+      films <- getDirectorFilmList =<< chooseFromList directors
+      return $ generateQuestionWhoMadeThese "Who directed the following films?" films
 
 instance QuestionMaker WhichActor where
     generateQuestion (WhichActor films) = do
-                                    actors <- getActorFilmList =<< chooseFromList films
-                                    return $ generateQuestionWhoMadeThese "Who starred in the following films?" actors
+      actors <- getActorFilmList =<< chooseFromList films
+      return $ generateQuestionWhoMadeThese "Who starred in the following films?" actors
 									
 									--this is not code
 instance QuestionMaker WhichFilm where
     generateQuestion (WhichFilm films) = do
-                                    (Ok tagLines) <- getTaglineFilmList =<< rndSelect films 10
-                                    return $ Question "Name the films from the taglines" (Identify tagLines)
-	  
+      (Ok tagLines) <- getTaglineFilmList =<< rndSelect films 10
+      return $ Question "Name the films from the taglines" (Identify tagLines)
+                       
 listLimit:: JSValue
 listLimit = JSRational False 10
 
@@ -75,10 +75,11 @@ getActorFilmList actor = runSimpleQuery "/film/actor" "film" actor (JSArray [fil
 
 rndSelect :: [a] -> Int -> IO [a]
 rndSelect xs n 
-    | n < 0     = error "N must be greater than zero."
-    | otherwise = replicateM n rand
-        where rand = do r <- randomRIO (0, length xs - 1)
-                        return (xs!!r)
+  | n < 0     = error "N must be greater than zero."
+  | otherwise = replicateM n rand
+    where 
+      rand = do r <- randomRIO (0, length xs - 1)
+                return (xs!!r)
 						
 getTaglineFilmPairs :: JSValue -> [(String, String)]						
 getTaglineFilmPairs (JSArray xs) = map getTaglineFilmPair xs
@@ -86,8 +87,8 @@ getTaglineFilmPairs _ = error "Unexpected type in getTaglineFilmPairs"
 						
 getTaglineFilmPair :: JSValue -> (String, String)
 getTaglineFilmPair filmTagJs = (getString (fromJust $ getJSValue filmTagJs [mkPath "name"]), tagline)
-  where
-	tagline = getString (fromJust $ getJSValue filmTagJs [mkPath "tagline", mkIndex 0, mkPath "value"])
+    where
+    tagline = getString (fromJust $ getJSValue filmTagJs [mkPath "tagline", mkIndex 0, mkPath "value"])
 
 getTaglineFilmList :: [String] -> IO (Result [(String, String)])
 getTaglineFilmList filmIds = do
