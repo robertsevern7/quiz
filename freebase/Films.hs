@@ -1,10 +1,10 @@
 module Films (
                WhichDirector
              , mkWhichDirector
-             , FilmListDirectorQM
              , WhichActor
              , mkWhichActor
-             , FilmListActorQM
+			 , WhichFilm
+			 , mkWhichFilm
              ) where
 
 import Logic
@@ -22,48 +22,41 @@ import Control.Monad.Trans (liftIO)
 
 import Debug.Trace
 
+debug :: Show a => a -> a
+debug x = trace (show x) x
+
+-- These will be question makers supplied with the information
+-- necessary to construct a question
 data WhichDirector = WhichDirector [String]
 data WhichActor = WhichActor [String]
+data WhichFilm = WhichFilm [String]
 
--- TODO These guys haven't been tested since the great reshuffle.
-data FilmListDirectorQM = FilmListDirectorQM [String]
-data FilmListActorQM = FilmListActorQM
-data FilmListQM = FilmListQM
-data FilmTaglinesQM = FilmTaglinesQM
+--[Read in list from disk to memory]
+mkWhichActor :: IO WhichActor
+mkWhichActor = liftM WhichActor readActorsFromDisk
 
 mkWhichDirector :: IO WhichDirector
 mkWhichDirector = liftM WhichDirector readDirectorsFromDisk
 
-debug :: Show a => a -> a
-debug x = trace (show x) x
+mkWhichFilm :: IO WhichFilm
+mkWhichFilm = liftM WhichFilm readFilmsFromDisk
 
+--[Create QuestionMaker instances]
 instance QuestionMaker WhichDirector where
     generateQuestion (WhichDirector directors) = do
                                        films <- getDirectorFilmList =<< chooseFromList directors
                                        return $ generateQuestionWhoMadeThese "Who directed the following films?" films
 
-instance QuestionMaker FilmListDirectorQM where
-    generateQuestion _ = do
-        films <- getDirectorFilmList directorPath
-        return $ generateQuestionNameTheFilm films
-
-mkWhichActor :: IO WhichActor
-mkWhichActor = liftM WhichActor readActorsFromDisk
-
 instance QuestionMaker WhichActor where
     generateQuestion (WhichActor films) = do
                                     actors <- getActorFilmList =<< chooseFromList films
                                     return $ generateQuestionWhoMadeThese "Who starred in the following films?" actors
-
-instance QuestionMaker FilmListActorQM where
-    generateQuestion _ = do
-      films <- getActorFilmList actorPath
-      return $ generateQuestionNameTheFilm films
-
-instance QuestionMaker FilmTaglinesQM where
-    generateQuestion _ = do
-      filmTaglines <- getTaglineFilmList
-      return $ generateQuestionFilmTaglines filmTaglines
+									
+									--this is not code
+instance QuestionMaker WhichFilm where
+    generateQuestion (WhichFilm films) = do
+                                    (Ok tagLines) <- getTaglineFilmList =<< rnd_select films 10
+                                    return $ Question "Name the films from the taglines" (Identify tagLines)
 	  
 directorPath :: FilePath
 directorPath = "film/film_directors.txt"
@@ -277,11 +270,10 @@ getTaglineFilmPair filmTagJs = (getString (fromJust $ getJSValue filmTagJs [mkPa
   where
 	tagline = getString (fromJust $ getJSValue filmTagJs [mkPath "tagline", mkIndex 0, mkPath "value"])
 
-getTaglineFilmList :: IO (Result [(String, String)])
-getTaglineFilmList = do
-  filmIds <- getFilmIds
+getTaglineFilmList :: [String] -> IO (Result [(String, String)])
+getTaglineFilmList filmIds = do
   let filmJSValues = map showJSON filmIds
-  let taglineObj = JSArray[showJSON (toJSObject [("value", JSNull), ("limit", showJSON (1 :: Int))])]
+      taglineObj = JSArray[showJSON (toJSObject [("value", JSNull), ("limit", showJSON (1 :: Int))])]
   response <- runQuery $ mkSimpleQuery [("type",showJSON "/film/film"),("id|=",JSArray filmJSValues), ("name", JSNull),("tagline",taglineObj)]
   let arrayFilmsAndTags = lookupValue response "result"
   return (fmap getTaglineFilmPairs arrayFilmsAndTags)
