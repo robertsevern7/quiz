@@ -94,6 +94,7 @@ extractIdAndBudget jsValue = (getString (fromJust $ getJSValue jsValue [mkPath "
 
 extractBudget :: JSValue -> Int
 extractBudget (JSArray films) = sum $ map getFilmBudget films
+extractBudget _ = error "Unexpected response in extractBudget"
 
 -- There are two possible paths - try both and pick the one that works
 getFilmBudget :: JSValue -> Int
@@ -101,6 +102,7 @@ getFilmBudget f@(JSObject _) = truncate cost
     where
       paths = [map mkPath ["film","estimated_budget","amount"],map mkPath ["estimated_budget","amount"]]
       (JSRational _ cost) = fromJust $ listToMaybe $ mapMaybe (getJSValue f) paths
+getFilmBudget _ = error "Unexpected response in getFilmBudget"
 
 getDirectorBigBudgetFilms :: IO (Result [(String, Int)])
 getDirectorBigBudgetFilms = getBigBudgetFilms "/film/director"
