@@ -126,6 +126,8 @@ getHomeR = hamletToRepHtml [$hamlet|
           %a!href="http://docs.yesodweb.com/Yesod" Yesod Web Framework
   |]              
 
+-- Note that you'll need to remember to ensure that the data files are present
+-- by using the GenFilms package
 main :: IO ()
 main = do
   let static = fileLookupDir "static/" typeByExt
