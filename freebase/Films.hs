@@ -44,7 +44,6 @@ instance QuestionMaker WhichActor where
       actors <- getActorFilmList =<< chooseFromList films
       return $ generateQuestionWhoMadeThese "Who starred in the following films?" actors
 									
-									--this is not code
 instance QuestionMaker WhichFilm where
     generateQuestion (WhichFilm films) = do
       (Ok tagLines) <- getTaglineFilmList =<< rndSelect films 10
