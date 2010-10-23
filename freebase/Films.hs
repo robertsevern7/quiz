@@ -55,15 +55,7 @@ listLimit = JSRational False 10
 
 generateQuestionWhoMadeThese :: String -> (String,Result [String]) -> Question
 generateQuestionWhoMadeThese question (director, Ok films) = Question question (IdentifyFrom films director)
-
--- TODO Doesn't match all patterns
-generateQuestionNameTheFilm :: (String,Result [String]) -> Question
-generateQuestionNameTheFilm (name, Ok films) = Question ("Name as many films by " ++ name ++ " as possible.") (MultipleFreeText films)
-generateQuestionNameTheFilm (_, Error err) = error $ "Failed to generate name the film: " ++ show err
-
-generateQuestionFilmTaglines :: Result [(String,String)] -> Question
-generateQuestionFilmTaglines (Ok filmTaglines) = Question "Name the films from their taglines" (Identify filmTaglines)
-generateQuestionFilmTaglines (Error err) = error $ "Failed to generate film taglines: " ++ show err
+generateQuestionWhoMadeThese _ (_, Error err) = error $ "Failed to generate question " ++ err
 
 getDirectorFilmList :: String -> IO (String,Result [String])
 getDirectorFilmList director = runSimpleQuery "/film/director" "film" director (JSArray [filmQueryObject]) (extract ["name"])
@@ -90,6 +82,7 @@ rnd_select xs n
 						
 getTaglineFilmPairs :: JSValue -> [(String, String)]						
 getTaglineFilmPairs (JSArray xs) = map getTaglineFilmPair xs
+getTaglineFilmPairs _ = error "Unexpected type in getTaglineFilmPairs"
 						
 getTaglineFilmPair :: JSValue -> (String, String)
 getTaglineFilmPair filmTagJs = (getString (fromJust $ getJSValue filmTagJs [mkPath "name"]), tagline)
