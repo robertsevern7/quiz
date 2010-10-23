@@ -5,8 +5,9 @@ import Yesod.Helpers.Static
 import Films
 import Logic
 
--- We can use "hamletFile" instead for debug
+-- We can remove the debug suffix in production
 import Text.Hamlet (hamletFileDebug)
+import Text.Cassius (cassiusFileDebug)
 
 {-
   TODO List
@@ -58,10 +59,7 @@ identifyTemplate :: Description -> [(String,String)] -> Hamlet (Route QuizMaster
 identifyTemplate description pairs = $(hamletFileDebug "templates/identifyTemplate.hamlet")
 
 layout :: Cassius (Route QuizMaster)
-layout = [$cassius|
-  h1
-    color: red
-|]          
+layout = $(cassiusFileDebug "templates/style.cassius")
 
 headTemplate :: Hamlet (Route QuizMaster)
 headTemplate = $(hamletFileDebug "templates/headTemplate.hamlet")
