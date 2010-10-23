@@ -18,7 +18,6 @@ import Data.List (sortBy)
 import Data.Maybe (fromJust,mapMaybe,listToMaybe)
 import Data.Array.MArray
 import Control.Monad
-import Control.Monad.Trans (liftIO)
 
 import Debug.Trace
 
