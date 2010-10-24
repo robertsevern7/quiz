@@ -3,5 +3,6 @@
   $forall choices c
     %li $c$ 
   %div!class="hiddenAnswer" $answer$
-  %input!type="text"!id="identifyAnswer"              
+  %input!type="text"!id="identifyAnswer"    
+^footTemplate^  
   
