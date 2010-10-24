@@ -1,13 +1,5 @@
 $(document).ready(function() {
-	$('#identifyFromAnswer').val("");
 	$('#identifyAnswer').val("");
-	
-	$('#identifyFromAnswer').keyup(function() {
-		if (sanitise($('#identifyFromAnswer').val()) === sanitise($('#identifyFromHiddenAnswer').attr('text'))) {
-			alert('Correct!!');
-			location.reload();
-		}
-	});
     
     function showNextButton() {
         $('#nextQuestion').removeClass('hiddenButton');
