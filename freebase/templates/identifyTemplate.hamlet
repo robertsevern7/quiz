@@ -4,3 +4,4 @@
   $forall pairs p
     %li $snd p$
     %li!class="hiddenAnswer" $fst p$
+^footTemplate^

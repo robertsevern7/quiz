@@ -70,10 +70,11 @@ getQuestionSource :: QuestionMaker a => (QuizMaster -> a) -> Handler RepHtml
 getQuestionSource getQuestion = do
   quizMaster <- getYesod
   question <- liftIO $ generateQuestion (getQuestion quizMaster)
+  let body = (questionTemplate question)
+      questions = $(hamletFileDebug "templates/bodybase.hamlet")
   defaultLayout $ do
     addHead  headTemplate
-    addBody  (questionTemplate question)
-    addBody  footTemplate
+    addBody  questions
     addStyle layout
 
 getActorsR :: Handler RepHtml
@@ -85,8 +86,16 @@ getDirectorsR = getQuestionSource whichDirector
 getTaglinesR :: Handler RepHtml
 getTaglinesR = getQuestionSource whichFilm
    
+homeTemplate :: Hamlet (Route QuizMaster)
+homeTemplate = do
+  let body = $(hamletFileDebug "templates/homeTemplate.hamlet")
+  $(hamletFileDebug "templates/bodybase.hamlet")
+   
 getHomeR :: Handler RepHtml
-getHomeR = hamletToRepHtml $(hamletFileDebug "templates/homeTemplate.hamlet")
+getHomeR = 
+  defaultLayout $ do
+    addHead  headTemplate
+    addBody  homeTemplate
 
 -- Note that you'll need to remember to ensure that the data files are present
 -- by using the GenFilms package
