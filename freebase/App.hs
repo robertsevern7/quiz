@@ -62,6 +62,9 @@ layout = $(cassiusFileDebug "templates/style.cassius")
 
 headTemplate :: Hamlet (Route QuizMaster)
 headTemplate = $(hamletFileDebug "templates/headTemplate.hamlet")
+
+footTemplate :: Hamlet (Route QuizMaster)
+footTemplate = $(hamletFileDebug "templates/footTemplate.hamlet")
                                              
 getQuestionSource :: QuestionMaker a => (QuizMaster -> a) -> Handler RepHtml
 getQuestionSource getQuestion = do
@@ -70,6 +73,7 @@ getQuestionSource getQuestion = do
   defaultLayout $ do
     addHead  headTemplate
     addBody  (questionTemplate question)
+    addBody  footTemplate
     addStyle layout
 
 getActorsR :: Handler RepHtml
