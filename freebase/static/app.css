@@ -6,3 +6,11 @@
   font-weight: bold;
   visibility:visible;
 }
+
+.hiddenButton {
+  visibility:hidden; 
+}
+
+.visibleButton {
+  visibility:visible; 
+}

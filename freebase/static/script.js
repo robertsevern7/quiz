@@ -8,24 +8,33 @@ $(document).ready(function() {
 			location.reload();
 		}
 	});
+    
+    function showNextButton() {
+        $('#nextQuestion').removeClass('hiddenButton');
+        $('#nextQuestion').addClass('visibleButton');
+    }
+    
+    function showAnswer(index, answer) {
+        $(answer).removeClass('hiddenAnswer');
+        $(answer).addClass('revealedAnswer');
+    }
 	
 	$('#identifyAnswer').keyup(function() {
 		$('.hiddenAnswer').each(function(index, answer) {
 			if (sanitise($('#identifyAnswer').val()) === sanitise($(this).text())) {
-				$(answer).removeClass('hiddenAnswer');
-				$(answer).addClass('revealedAnswer');
+				showAnswer(index, answer);
 				$('#identifyAnswer').val("");
 				
-				//TODO when only 1 remains show the next button
+                if (!$('.hiddenAnswer').size()) {
+                    showNextButton();
+                }
 			}
 		});
 	});
     
     $('#revealAnswers').click(function() {
-        $('.hiddenAnswer').each(function(index, answer) {
-            $(answer).removeClass('hiddenAnswer');
-            $(answer).addClass('revealedAnswer');
-		});
+        $('.hiddenAnswer').each(showAnswer);
+        showNextButton()
     })
     
     $('#nextQuestion').click(function() {
