@@ -19,7 +19,18 @@ $(document).ready(function() {
 				//TODO when only 1 remains show the next button
 			}
 		});
-	})
+	});
+    
+    $('#revealAnswers').click(function() {
+        $('.hiddenAnswer').each(function(index, answer) {
+            $(answer).removeClass('hiddenAnswer');
+            $(answer).addClass('revealedAnswer');
+		});
+    })
+    
+    $('#nextQuestion').click(function() {
+        location.reload();
+    })
 });
 
 function sanitise(input) {
