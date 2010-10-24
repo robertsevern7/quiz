@@ -2,27 +2,29 @@ module Freebase (
                  mkSimpleQuery
                 ,runSimpleQuery
                 ,runQuery
+                ,touch
+                ,status
+                ,version
+                ,simpleService
                 ) where
 
 import Text.JSON
 import JsonHelper
 
 import Network.HTTP
-import Network.URI
 import Control.Monad
-import Data.Maybe (fromJust)
 
-touch :: URI
-touch = fromJust $ parseURI "http://api.freebase.com/api/service/touch" 
+touch :: String
+touch = "http://api.freebase.com/api/service/touch" 
 
-status :: URI
-status = fromJust $ parseURI "http://api.freebase.com/api/status" 
+status :: String
+status = "http://api.freebase.com/api/status" 
 
-version :: URI
-version = fromJust $ parseURI "http://api.freebase.com/api/version" 
+version :: String
+version = "http://api.freebase.com/api/version" 
 
-simpleService :: URI -> IO (Result JSValue)
-simpleService s = liftM decode (simpleHTTP (mkRequest GET s) >>= getResponseBody)
+simpleService :: String -> IO (Result JSValue)
+simpleService s = liftM decode (simpleHTTP (getRequest s) >>= getResponseBody)
 
 mqlReadUri :: String
 mqlReadUri = "http://api.freebase.com/api/service/mqlread"

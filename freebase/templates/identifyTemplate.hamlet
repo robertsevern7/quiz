@@ -1,0 +1,6 @@
+%h1 $description$     
+%input!type="text"!id="identifyAnswer"
+%ul#c
+  $forall pairs p
+    %li $snd p$
+    %li!class="hiddenAnswer" $fst p$
