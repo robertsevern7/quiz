@@ -69,6 +69,37 @@ body {
     }
 }
 
+.footer {
+    color: $tb-text-color;
+    background-color: $tb-bg-color;
+    text-align: center;
+    height: $footer-height;
+    width: 80%;
+    margin: 0 auto 0;
+    @include font;
+    @include rounded;
+    a:link {
+        color: $tb-text-color;
+    }
+    a:visited {
+        color: $tb-text-color;
+    }
+    a:hover {
+        @include darken
+    } 
+    a:active {
+        color: $tb-text-color;
+    }
+    ul li {
+        float: left;
+        padding: 0 15px 0 0;
+        list-style:none outside none;
+    }
+    .copyright_notice {
+        color: gray;
+    }
+}
+
 .link-button {
    outline: 0;
    margin:0 4px 0 0;
