@@ -66,6 +66,9 @@ headTemplate = $(hamletFileDebug "templates/headTemplate.hamlet")
 topbarTemplate :: Hamlet (Route QuizMaster)
 topbarTemplate = $(hamletFileDebug "templates/topbarTemplate.hamlet")
 
+bottombarTemplate :: Hamlet (Route QuizMaster)
+bottombarTemplate = $(hamletFileDebug "templates/bottombarTemplate.hamlet")
+
 footTemplate :: Hamlet (Route QuizMaster)
 footTemplate = $(hamletFileDebug "templates/footTemplate.hamlet")
                                              
