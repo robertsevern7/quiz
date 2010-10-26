@@ -4,3 +4,4 @@
     .mainbackground
       .contentcontainer
         ^body^
+  ^bottombarTemplate^
