@@ -7,6 +7,3 @@
       %a!href=@ActorsR@ Film Actors
     %li
       %a!href=@TaglinesR@ Film Taglines
-  %hr
-  %p Written using 
-    %a!href="http://docs.yesodweb.com/" Yesod Web Framework
