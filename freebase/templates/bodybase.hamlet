@@ -1,4 +1,5 @@
 %body
+  ^topbarTemplate^
   .mainbody
     .mainbackground
       .contentcontainer
