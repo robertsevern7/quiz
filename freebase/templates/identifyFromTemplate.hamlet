@@ -1,6 +1,8 @@
 %h1 $description$
 %ul#c
   $forall choices c
-    %li $c$  
-  %input!type="text"!id="identifyFromAnswer"              
-  %div!text=$answer$!id="identifyFromHiddenAnswer"
+    %li $c$ 
+  %div!class="hiddenAnswer" $answer$
+  %input!type="text"!id="identifyAnswer"    
+^footTemplate^  
+  

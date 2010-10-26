@@ -1,3 +1,39 @@
+/*$main-bg-color: white;
+$context-bg-color: #f8f8ff;
+$tb-bg-color: #222222;
+$tb-text-color: white;
+$footer-height: 40px;
+$application-font-style: 'Trebuchet MS',Verdana,Helvetica,Arial,sans-serif;
+$application-font-size: 14pt;*/
+
+body {
+    padding: 20px;
+    font: 75% arial, sans-serif;
+}
+
+div.mainbody {
+    /*background-color: $main-bg-color;*/
+    background-color: white;
+    margin: 0 auto 0;
+    padding: 20px 0 0;
+    width: 100%;
+    z-index: 0;
+}
+
+.mainbackground {
+    /*background-color: $context-bg-color;*/
+    background-color: #f8f8ff;
+    width: 80%;
+    padding: 20px 0 20px;
+    margin: 0 auto 0;
+    @include rounded;
+}
+
+.contentcontainer {
+    width: 90%;
+    margin: 0 auto 0;
+}
+
 .hiddenAnswer { 
   visibility:hidden;
 }
@@ -5,4 +41,12 @@
 .revealedAnswer { 
   font-weight: bold;
   visibility:visible;
+}
+
+.hiddenButton {
+  visibility:hidden; 
+}
+
+.visibleButton {
+  visibility:visible; 
 }

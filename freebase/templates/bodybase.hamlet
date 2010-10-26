@@ -1,0 +1,5 @@
+%body
+  .mainbody
+    .mainbackground
+      .contentcontainer
+        ^body^
