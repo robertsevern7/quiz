@@ -1,6 +1,8 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 module Exception (
-  QuizException(QuizException)
+  QuizException(QuizException),
+  message,
+  internal
   ) where
 
 import Control.Exception (Exception)
