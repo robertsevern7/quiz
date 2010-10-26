@@ -1,11 +1,7 @@
 .footer
-  %ul
+  %ul!class=copyright_notice
     %li
-      %a!href="#"
-        Terms &amp; Conditions
+      Written using 
+      %a!href="http://docs.yesodweb.com/" Yesod Web Framework
     %li
-      %a!href="#"
-        Privacy Policy
-    %li
-      %span!class=copyright_notice
-        &copy; MMX KingOfTheQuiz
+      &copy; MMX KingOfTheQuiz
