@@ -86,7 +86,7 @@ getTaglineFilmPairs _ = error "Unexpected type in getTaglineFilmPairs"
 						
 getTaglineFilmPair :: JSValue -> (String, String)
 getTaglineFilmPair filmTagJs = (getString (fromJust $ getJSValue filmTagJs [mkPath "name"]), tagline)
-    where
+  where
     tagline = getString (fromJust $ getJSValue filmTagJs [mkPath "tagline", mkIndex 0, mkPath "value"])
 
 getTaglineFilmList :: [String] -> IO (Result [(String, String)])
