@@ -7,6 +7,7 @@ module Films (
              , mkWhichFilm
              ) where
 
+import Exception (QuizException(QuizException))
 import Logic
 import Freebase
 import GenFilms (readDirectorsFromDisk,readActorsFromDisk,readFilmsFromDisk)
@@ -15,7 +16,8 @@ import JsonHelper (lookupValue,getJSValue,getString,mkPath,mkIndex)
 import System.Random
 import Text.JSON
 import Data.Maybe (fromJust)
-import Control.Monad
+import Control.Monad (liftM,replicateM)
+import Control.Exception (throw)
 
 -- These will be question makers supplied with the information
 -- necessary to construct a question
@@ -54,7 +56,7 @@ listLimit = JSRational False 10
 
 generateQuestionWhoMadeThese :: String -> (String,Result [String]) -> Question
 generateQuestionWhoMadeThese question (director, Ok films) = Question question (IdentifyFrom films director)
-generateQuestionWhoMadeThese _ (_, Error err) = error $ "Failed to generate question " ++ err
+generateQuestionWhoMadeThese _ (_, Error err) = throw $ QuizException "Failed to generate question " err
 
 getDirectorFilmList :: String -> IO (String,Result [String])
 getDirectorFilmList director = runSimpleQuery "/film/director" "film" director (JSArray [filmQueryObject]) (extract ["name"])
