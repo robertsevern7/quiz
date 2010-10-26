@@ -4,24 +4,27 @@ import Yesod.Helpers.Static
 
 import Films
 import Logic
+import Exception
 
 -- We can remove the debug suffix in production
 import Text.Hamlet (hamletFileDebug)
 import Text.Cassius (cassiusFileDebug)
+import Data.Either
+import Control.Exception (try,evaluate)
+
+import Prelude 
 
 {-
   TODO List
-  * Templates
-    http://docs.yesodweb.com/book/templates/
-    Use Cassius for the stylesheet everywhere
-    Use a default Layout (instance of Yesod)
-
   * Application
     Perhaps sim-hash can do finding out if the answer is right?
 
   * Quick wins
     Send the answer back in the HTML as a hidden thing, use JQuery
     to style things up based on the name of a div, client side scoring
+
+  * Configuration
+    Have a config file.  Use it
 -}
 
 data QuizMaster = QuizMaster {
@@ -71,17 +74,23 @@ bottombarTemplate = $(hamletFileDebug "templates/bottombarTemplate.hamlet")
 
 footTemplate :: Hamlet (Route QuizMaster)
 footTemplate = $(hamletFileDebug "templates/footTemplate.hamlet")
+
+runQuestion :: QuestionMaker a => a -> IO (Either QuizException Question)
+runQuestion qm = try (evaluate =<< generateQuestion qm)
                                              
 getQuestionSource :: QuestionMaker a => (QuizMaster -> a) -> Handler RepHtml
 getQuestionSource getQuestion = do
   quizMaster <- getYesod
-  question <- liftIO $ generateQuestion (getQuestion quizMaster)
-  let body = (questionTemplate question)
-      questions = $(hamletFileDebug "templates/bodybase.hamlet")
-  defaultLayout $ do
-    addHead  headTemplate
-    addBody  questions
-    addStyle layout
+  generatedQuestion <- liftIO $ runQuestion (getQuestion quizMaster)
+  case generatedQuestion of
+    (Left ex)        -> invalidArgs ["Failed to generate valid question.", message ex, internal ex]
+    (Right question) -> do
+      let body = (questionTemplate question)
+          questions = $(hamletFileDebug "templates/bodybase.hamlet")
+      defaultLayout $ do
+        addHead  headTemplate
+        addBody  questions
+        addStyle layout
 
 getActorsR :: Handler RepHtml
 getActorsR = getQuestionSource whichActor
