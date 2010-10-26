@@ -63,6 +63,9 @@ layout = $(cassiusFileDebug "templates/style.cassius")
 headTemplate :: Hamlet (Route QuizMaster)
 headTemplate = $(hamletFileDebug "templates/headTemplate.hamlet")
 
+topbarTemplate :: Hamlet (Route QuizMaster)
+topbarTemplate = $(hamletFileDebug "templates/topbarTemplate.hamlet")
+
 footTemplate :: Hamlet (Route QuizMaster)
 footTemplate = $(hamletFileDebug "templates/footTemplate.hamlet")
                                              

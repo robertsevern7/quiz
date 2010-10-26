@@ -1,52 +1,87 @@
-/*$main-bg-color: white;
-$context-bg-color: #f8f8ff;
-$tb-bg-color: #222222;
-$tb-text-color: white;
-$footer-height: 40px;
-$application-font-style: 'Trebuchet MS',Verdana,Helvetica,Arial,sans-serif;
-$application-font-size: 14pt;*/
-
 body {
-    padding: 20px;
-    font: 75% arial, sans-serif;
-}
+  padding: 20px;
+  font: 75% arial, sans-serif; }
+
+.header {
+  background-color: #222222;
+  width: 80%;
+  margin: 0 auto 0;
+  font-family: "Trebuchet MS", Verdana, Helvetica, Arial, sans-serif;
+  font-size: 14pt;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px; }
+  .header a:link {
+    color: white; }
+  .header a:visited {
+    color: white; }
+  .header a:hover {
+    color: #e6e6e6; }
+  .header a:active {
+    color: white; }
+  .header td {
+    padding-left: 15px;
+    padding-right: 15px; }
+  .header table.body {
+    border: none;
+    padding: 0;
+    border-spacing: 0;
+    margin: 0 0;
+    width: 100%; }
+  .header td.logoimage {
+    margin: 0;
+    padding: 0;
+    width: 10px; }
+  .header ul li {
+    float: right;
+    padding: 0 15px 0 0;
+    list-style: none outside none; }
+
+.link-button {
+  outline: 0;
+  margin: 0 4px 0 0;
+  padding: .4em 1em;
+  text-decoration: none !important;
+  cursor: pointer;
+  position: relative;
+  text-align: center;
+  zoom: 1; }
+
+.logotext {
+  color: white;
+  margin: 0px;
+  padding: 0px;
+  font-family: "Trebuchet MS", Verdana, Helvetica, Arial, sans-serif;
+  font-size: 60px;
+  font-weight: normal; }
 
 div.mainbody {
-    /*background-color: $main-bg-color;*/
-    background-color: white;
-    margin: 0 auto 0;
-    padding: 20px 0 0;
-    width: 100%;
-    z-index: 0;
-}
+  background-color: white;
+  margin: 0 auto 0;
+  padding: 20px 0 0;
+  width: 100%;
+  z-index: 0; }
 
 .mainbackground {
-    /*background-color: $context-bg-color;*/
-    background-color: #f8f8ff;
-    width: 80%;
-    padding: 20px 0 20px;
-    margin: 0 auto 0;
-    @include rounded;
-}
+  background-color: #f8f8ff;
+  width: 80%;
+  padding: 20px 0 20px;
+  margin: 0 auto 0;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px; }
 
 .contentcontainer {
-    width: 90%;
-    margin: 0 auto 0;
-}
+  width: 90%;
+  margin: 0 auto 0; }
 
-.hiddenAnswer { 
-  visibility:hidden;
-}
+.hiddenAnswer {
+  visibility: hidden; }
 
-.revealedAnswer { 
+.revealedAnswer {
   font-weight: bold;
-  visibility:visible;
-}
+  visibility: visible; }
 
 .hiddenButton {
-  visibility:hidden; 
-}
+  visibility: hidden; }
 
 .visibleButton {
-  visibility:visible; 
-}
+  visibility: visible; }
