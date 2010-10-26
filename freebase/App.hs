@@ -9,19 +9,19 @@ import Logic
 import Text.Hamlet (hamletFileDebug)
 import Text.Cassius (cassiusFileDebug)
 
+import Prelude hiding (catch)
+
 {-
   TODO List
-  * Templates
-    http://docs.yesodweb.com/book/templates/
-    Use Cassius for the stylesheet everywhere
-    Use a default Layout (instance of Yesod)
-
   * Application
     Perhaps sim-hash can do finding out if the answer is right?
 
   * Quick wins
     Send the answer back in the HTML as a hidden thing, use JQuery
     to style things up based on the name of a div, client side scoring
+
+  * Configuration
+    Have a config file.  Use it
 -}
 
 data QuizMaster = QuizMaster {
