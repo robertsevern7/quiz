@@ -1,6 +1,7 @@
 body {
   padding: 20px;
-  font: 75% arial, sans-serif; }
+  font-family: "Trebuchet MS", Verdana, Helvetica, Arial, sans-serif;
+  font-size: 8pt; }
 
 .header {
   background-color: #222222;

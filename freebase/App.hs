@@ -69,8 +69,8 @@ topbarTemplate = $(hamletFileDebug "templates/topbarTemplate.hamlet")
 bottombarTemplate :: Hamlet (Route QuizMaster)
 bottombarTemplate = $(hamletFileDebug "templates/bottombarTemplate.hamlet")
 
-footTemplate :: Hamlet (Route QuizMaster)
-footTemplate = $(hamletFileDebug "templates/footTemplate.hamlet")
+answerControlsTemplate :: Hamlet (Route QuizMaster)
+answerControlsTemplate = $(hamletFileDebug "templates/footTemplate.hamlet")
                                              
 getQuestionSource :: QuestionMaker a => (QuizMaster -> a) -> Handler RepHtml
 getQuestionSource getQuestion = do
