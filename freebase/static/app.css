@@ -1,7 +1,7 @@
 body {
   padding: 20px;
   font-family: "Trebuchet MS", Verdana, Helvetica, Arial, sans-serif;
-  font-size: 10pt; }
+  font-size: 12pt; }
 
 .header {
   background-color: #222222;
@@ -96,11 +96,12 @@ div.mainbody {
   width: 90%;
   margin: 0 auto 0; }
 
+.answer {
+  font-size: 16pt;
+  font-weight: bold; }
+
 .hiddenAnswer {
   display: none; }
-
-.revealedAnswer {
-  font-weight: bold; }
 
 .hiddenButton {
   visibility: hidden; }
