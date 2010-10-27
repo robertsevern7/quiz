@@ -5,7 +5,7 @@ $tb-text-color: white;
 $footer-height: 40px;
 $application-font-style: 'Trebuchet MS',Verdana,Helvetica,Arial,sans-serif;
 $application-font-size: 14pt;
-$body-font-size: 10pt;
+$body-font-size: 12pt;
 
 @mixin rounded {
   $radius: 10px;
@@ -138,12 +138,16 @@ div.mainbody {
     margin: 0 auto 0;
 }
 
+.answer {
+  font-size: 16pt;
+  font-weight: bold;
+}
+
 .hiddenAnswer { 
   display:none;
 }
 
 .revealedAnswer { 
-  font-weight: bold;
 }
 
 .hiddenButton {

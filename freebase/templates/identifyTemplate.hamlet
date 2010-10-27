@@ -3,5 +3,5 @@
 %ul#c
   $forall pairs p
     %li $snd p$
-    %li!class="hiddenAnswer" $fst p$
+    %li!class="answer hiddenAnswer" $fst p$
 ^answerControlsTemplate^
