@@ -5,7 +5,7 @@ $tb-text-color: white;
 $footer-height: 40px;
 $application-font-style: 'Trebuchet MS',Verdana,Helvetica,Arial,sans-serif;
 $application-font-size: 14pt;
-$body-font-size: 8pt;
+$body-font-size: 10pt;
 
 @mixin rounded {
   $radius: 10px;
@@ -58,11 +58,6 @@ body {
         border-spacing: 0;
         margin: 0 0;
         width: 100%;
-    }
-    td.logoimage {
-        margin:0;
-        padding: 0;
-        width:10px;
     }
     ul li {
         float: right;
@@ -118,7 +113,7 @@ body {
     margin:0px;
 	padding: 0px;
     font-family: $application-font-style;
-    font-size: 60px;
+    font-size: 40px;
     font-weight: normal;
 }
 
