@@ -72,8 +72,8 @@ topbarTemplate = $(hamletFileDebug "templates/topbarTemplate.hamlet")
 bottombarTemplate :: Hamlet (Route QuizMaster)
 bottombarTemplate = $(hamletFileDebug "templates/bottombarTemplate.hamlet")
 
-footTemplate :: Hamlet (Route QuizMaster)
-footTemplate = $(hamletFileDebug "templates/footTemplate.hamlet")
+answerControlsTemplate :: Hamlet (Route QuizMaster)
+answerControlsTemplate = $(hamletFileDebug "templates/footTemplate.hamlet")
 
 runQuestion :: QuestionMaker a => a -> IO (Either QuizException Question)
 runQuestion qm = try (evaluate =<< generateQuestion qm)
