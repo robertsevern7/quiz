@@ -1,8 +1,9 @@
 %h1 $description$
 %ul#c
   $forall choices c
-    %li $c$ 
+    %div $c$ 
   %div!class="answer hiddenAnswer" $answer$
-  %input!type="text"!id="identifyAnswer"    
+  %div
+    %input!type="text"!id="identifyAnswer"    
 ^answerControlsTemplate^  
   
