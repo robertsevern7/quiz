@@ -5,6 +5,7 @@ $tb-text-color: white;
 $footer-height: 40px;
 $application-font-style: 'Trebuchet MS',Verdana,Helvetica,Arial,sans-serif;
 $application-font-size: 14pt;
+$body-font-size: 8pt;
 
 @mixin rounded {
   $radius: 10px;
@@ -24,7 +25,8 @@ $application-font-size: 14pt;
 
 body {
     padding: 20px;
-    font: 75% arial, sans-serif;
+    font-family: $application-font-style;
+    font-size: $body-font-size;
 }
 
 .header {
