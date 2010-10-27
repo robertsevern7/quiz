@@ -88,9 +88,9 @@ getQuestionSource getQuestion = do
       let body = (questionTemplate question)
           questions = $(hamletFileDebug "templates/bodybase.hamlet")
       defaultLayout $ do
-        addHead  headTemplate
-        addBody  questions
-        addStyle layout
+        addHamletHead  headTemplate
+        addHamlet  questions
+        addCassius layout
 
 getActorsR :: Handler RepHtml
 getActorsR = getQuestionSource whichActor
@@ -109,8 +109,8 @@ homeTemplate = do
 getHomeR :: Handler RepHtml
 getHomeR = 
   defaultLayout $ do
-    addHead  headTemplate
-    addBody  homeTemplate
+    addHamletHead headTemplate
+    addHamlet homeTemplate
 
 -- Note that you'll need to remember to ensure that the data files are present
 -- by using the GenFilms package
