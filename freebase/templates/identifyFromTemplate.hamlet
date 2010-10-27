@@ -2,7 +2,7 @@
 %ul#c
   $forall choices c
     %li $c$ 
-  %div!class="hiddenAnswer" $answer$
+  %div!class="answer hiddenAnswer" $answer$
   %input!type="text"!id="identifyAnswer"    
 ^answerControlsTemplate^  
   
