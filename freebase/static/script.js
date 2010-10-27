@@ -10,6 +10,10 @@ $(document).ready(function() {
         $(answer).fadeIn('slow', function() {
             $(answer).removeClass('hiddenAnswer');
             $(answer).addClass('revealedAnswer');
+            
+            if (!$('.hiddenAnswer').size()) {
+                showNextButton();
+            }
         });
     }
 	
@@ -18,10 +22,6 @@ $(document).ready(function() {
 			if (sanitise($('#identifyAnswer').val()) === sanitise($(this).text())) {
 				showAnswer(index, answer);
 				$('#identifyAnswer').val("");
-				
-                if (!$('.hiddenAnswer').size()) {
-                    showNextButton();
-                }
 			}
 		});
 	});
