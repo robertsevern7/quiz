@@ -139,12 +139,11 @@ div.mainbody {
 }
 
 .hiddenAnswer { 
-  visibility:hidden;
+  display:none;
 }
 
 .revealedAnswer { 
   font-weight: bold;
-  visibility:visible;
 }
 
 .hiddenButton {

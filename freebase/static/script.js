@@ -7,8 +7,10 @@ $(document).ready(function() {
     }
     
     function showAnswer(index, answer) {
-        $(answer).removeClass('hiddenAnswer');
-        $(answer).addClass('revealedAnswer');
+        $(answer).fadeIn('slow', function() {
+            $(answer).removeClass('hiddenAnswer');
+            $(answer).addClass('revealedAnswer');
+        });
     }
 	
 	$('#identifyAnswer').keyup(function() {
