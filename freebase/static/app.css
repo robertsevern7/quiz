@@ -97,11 +97,10 @@ div.mainbody {
   margin: 0 auto 0; }
 
 .hiddenAnswer {
-  visibility: hidden; }
+  display: none; }
 
 .revealedAnswer {
-  font-weight: bold;
-  visibility: visible; }
+  font-weight: bold; }
 
 .hiddenButton {
   visibility: hidden; }
