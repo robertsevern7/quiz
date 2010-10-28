@@ -7,3 +7,5 @@
     %a!href=@ActorsR@ Film Actors
   %li
     %a!href=@TaglinesR@ Film Taglines
+  %li
+    %a!href=@CapitalsR@ Capital Cities                                                
