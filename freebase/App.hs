@@ -3,6 +3,8 @@ import Yesod
 import Yesod.Helpers.Static
 
 import Films
+import Country (CapitalQuiz,capitalQuiz)
+
 import Logic
 import Exception
 
@@ -32,6 +34,7 @@ data QuizMaster = QuizMaster {
     , whichDirector :: WhichDirector
     , whichActor :: WhichActor
     , whichFilm :: WhichFilm
+    , whichCapital :: CapitalQuiz
 }
 
 type Handler = GHandler QuizMaster QuizMaster
@@ -44,6 +47,7 @@ mkYesod "QuizMaster" [$parseRoutes|
   /actors    ActorsR GET
   /directors DirectorsR GET
   /taglines  TaglinesR GET
+  /capitals  CapitalsR GET
 |]
 
 instance Yesod QuizMaster where
@@ -100,6 +104,9 @@ getDirectorsR = getQuestionSource whichDirector
 
 getTaglinesR :: Handler RepHtml
 getTaglinesR = getQuestionSource whichFilm
+
+getCapitalsR :: Handler RepHtml
+getCapitalsR = getQuestionSource whichCapital
    
 homeTemplate :: Hamlet (Route QuizMaster)
 homeTemplate = do
@@ -120,4 +127,4 @@ main = do
   wDirector <- mkWhichDirector
   wActor <- mkWhichActor
   wFilm <- mkWhichFilm
-  basicHandler 3000 $ QuizMaster static wDirector wActor wFilm
+  basicHandler 3000 $ QuizMaster static wDirector wActor wFilm capitalQuiz

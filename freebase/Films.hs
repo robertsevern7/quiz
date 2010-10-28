@@ -73,15 +73,7 @@ getActorFilmList actor = runSimpleQuery "/film/actor" "film" actor (JSArray [fil
                                               ,("limit", listLimit)
                                               ,("sort", showJSON "-film.estimated_budget.amount")]
       filmObj = showJSON (toJSObject [("estimated_budget", showJSON (toJSObject [("amount", JSNull), ("currency", showJSON "US$")])), ("name", JSNull)])
-
-rndSelect :: [a] -> Int -> IO [a]
-rndSelect xs n 
-  | n < 0     = error "N must be greater than zero."
-  | otherwise = replicateM n rand
-    where 
-      rand = do r <- randomRIO (0, length xs - 1)
-                return (xs!!r)
-						
+	
 getTaglineFilmPairs :: JSValue -> [(String, String)]						
 getTaglineFilmPairs (JSArray xs) = map getTaglineFilmPair xs
 getTaglineFilmPairs _ = error "Unexpected type in getTaglineFilmPairs"
