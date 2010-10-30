@@ -1,24 +1,19 @@
 {-# LANGUAGE TypeFamilies, QuasiQuotes, TemplateHaskell, DeriveDataTypeable #-}
-import Yesod
-import Yesod.Helpers.Static
 
 import Films
 import Country (CapitalQuiz,capitalQuiz)
 import Logic
 import Exception
-
--- Generators
 import GenFilms
 
--- We can remove the debug suffix in production
-import Text.Hamlet (hamletFileDebug,hamletFile)
+import Yesod
+import Yesod.Helpers.Static
+import Text.Hamlet (hamletFileDebug,hamletFile) -- We can remove the debug suffix in production
 import Text.Cassius (cassiusFileDebug,cassiusFile)
-import Data.Either
 import Control.Exception (try,evaluate)
+import Network.Wai.Handler.FastCGI (run)
 
 import System.Console.CmdArgs
-
-import Prelude 
 
 {-
   TODO List
@@ -141,9 +136,11 @@ getHomeR =
 -- by using the GenFilms package
 main :: IO ()
 main = do
-  print =<< cmdArgs config
+  runConfig <- cmdArgs config
   let static = fileLookupDir "static/" typeByExt
   wDirector <- mkWhichDirector
   wActor <- mkWhichActor
   wFilm <- mkWhichFilm
-  basicHandler 3000 $ QuizMaster static wDirector wActor wFilm capitalQuiz
+  if (local runConfig)
+    then basicHandler 3000 $ QuizMaster static wDirector wActor wFilm capitalQuiz
+    else undefined
