@@ -1,0 +1,9 @@
+%h1 $description$     
+%input!type="text"!id="identifyAnswer"
+%ul#c
+  $forall pairs p
+    %div 
+      %span $snd p$ &nbsp
+      %span!class="answer hiddenAnswer" $fst p$
+    %br
+^answerControlsTemplate^

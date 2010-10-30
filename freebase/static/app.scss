@@ -1,0 +1,159 @@
+$main-bg-color: white;
+$context-bg-color: #f8f8ff;
+$tb-bg-color: #222222;
+$tb-text-color: white;
+$footer-height: 40px;
+$application-font-style: 'Trebuchet MS',Verdana,Helvetica,Arial,sans-serif;
+$application-font-size: 14pt;
+$body-font-size: 12pt;
+
+@mixin rounded {
+  $radius: 10px;
+
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+}
+
+@mixin darken {
+    color: darken($tb-text-color, 10%);
+}
+
+@mixin font {
+    font-family: $application-font-style;
+    font-size: $application-font-size;
+}
+
+body {
+    padding: 20px;
+    font-family: $application-font-style;
+    font-size: $body-font-size;
+}
+
+.header {
+    background-color: $tb-bg-color;
+    width: 80%;
+    margin: 0 auto 0;
+    @include font;
+   -moz-border-radius: 10px;
+   -webkit-border-radius: 10px;
+    a:link {
+        color: $tb-text-color;
+    }
+    a:visited {
+        color: $tb-text-color;
+    }
+    a:hover {
+        @include darken
+    }
+    a:active {
+        color: $tb-text-color;
+    }
+    td {
+        padding-left: 15px;
+        padding-right: 15px
+    }
+    table.body {
+        border:none;
+        padding: 0;
+        border-spacing: 0;
+        margin: 0 0;
+        width: 100%;
+    }
+    ul li {
+        float: right;
+        padding: 0 15px 0 0;
+        list-style:none outside none;
+    }
+}
+
+.footer {
+    color: $tb-text-color;
+    background-color: $tb-bg-color;
+    text-align: center;
+    height: $footer-height;
+    width: 80%;
+    margin: 0 auto 0;
+    @include font;
+    @include rounded;
+    a:link {
+        color: $tb-text-color;
+    }
+    a:visited {
+        color: $tb-text-color;
+    }
+    a:hover {
+        @include darken
+    } 
+    a:active {
+        color: $tb-text-color;
+    }
+    ul li {
+        float: left;
+        padding: 0 15px 0 0;
+        list-style:none outside none;
+    }
+    .copyright_notice {
+        color: gray;
+    }
+}
+
+.link-button {
+   outline: 0;
+   margin:0 4px 0 0;
+   padding: .4em 1em;
+   text-decoration:none !important;
+   cursor:pointer;
+   position: relative;
+   text-align: center;
+   zoom: 1;
+}
+
+.logotext {
+    color: $tb-text-color;
+    margin:0px;
+	padding: 0px;
+    font-family: $application-font-style;
+    font-size: 40px;
+    font-weight: normal;
+}
+
+div.mainbody {
+    background-color: $main-bg-color;
+    margin: 0 auto 0;
+    padding: 20px 0 0;
+    width: 100%;
+    z-index: 0;
+}
+
+.mainbackground {
+    background-color: $context-bg-color;
+    width: 80%;
+    padding: 20px 0 20px;
+    margin: 0 auto 0;
+    @include rounded;
+}
+
+.contentcontainer {
+    width: 90%;
+    margin: 0 auto 0;
+}
+
+.answer {
+  color: #551A8B;
+  font-weight: bold;
+}
+
+.hiddenAnswer { 
+  display:none;
+}
+
+.revealedAnswer { 
+}
+
+.hiddenButton {
+  visibility:hidden; 
+}
+
+.visibleButton {
+  visibility:visible; 
+}
