@@ -84,7 +84,7 @@ bottombarTemplate :: Hamlet (Route QuizMaster)
 bottombarTemplate = $(hamletFileDebug "templates/bottombarTemplate.hamlet")
 
 answerControlsTemplate :: QuizMasterRoute -> Hamlet (Route QuizMaster)
-answerControlsTemplate route = $(hamletFileDebug "templates/answersControlTemplate.hamlet")
+answerControlsTemplate route = $(hamletFileDebug "templates/answerControlTemplate.hamlet")
 
 runQuestion :: QuestionMaker a => Int -> a -> IO (Either QuizException Question)
 runQuestion seed qm = try (evaluate =<< generateQuestion seed qm)
