@@ -44,15 +44,28 @@ instance QuestionMaker WhichDirector where
 instance QuestionMaker WhichActor where
     generateQuestion (WhichActor films) = do
       actors <- getActorFilmList =<< chooseFromList films
-      return $ generateQuestionWhoMadeThese "Who starred in the following films?" actors
+      return $ generateQuestionWhoMadeThese "Who starred in the following films?" actors          
 									
 instance QuestionMaker WhichFilm where
     generateQuestion (WhichFilm films) = do
-      (Ok tagLines) <- getTaglineFilmList =<< rndSelect films 10
-      return $ Question "Name the films from the taglines" (Identify tagLines)
+      (Ok tagLines) <- getTaglineFilmList =<< rndSelect films 10      
+      return $ Question "Name the films from the taglines" (Identify $ hideFilmNames tagLines)
                        
 listLimit:: JSValue
 listLimit = JSRational False 10
+
+hideFilmNames :: [(String,String)] -> [(String,String)]
+hideFilmNames = map redact 
+
+redact :: (String,String) -> (String,String)
+redact (film,tagline) = (film,unwords $ replacer (words film) (words tagline))
+
+replacer :: [String] -> [String] -> [String]
+replacer movieWords = map (redactionReturner movieWords) 
+
+redactionReturner :: [String] -> String -> String
+redactionReturner movieWords taglineWord | taglineWord `elem` movieWords = "_____"
+                                         | otherwise = taglineWord
 
 generateQuestionWhoMadeThese :: String -> (String,Result [String]) -> Question
 generateQuestionWhoMadeThese question (director, Ok films) = Question question (IdentifyFrom films director)
