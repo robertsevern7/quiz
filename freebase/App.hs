@@ -1,20 +1,19 @@
-{-# LANGUAGE TypeFamilies, QuasiQuotes, TemplateHaskell #-}
-import Yesod
-import Yesod.Helpers.Static
+{-# LANGUAGE TypeFamilies, QuasiQuotes, TemplateHaskell, DeriveDataTypeable #-}
 
 import Films
 import Country (CapitalQuiz,capitalQuiz)
-
 import Logic
 import Exception
+import GenFilms
 
--- We can remove the debug suffix in production
-import Text.Hamlet (hamletFileDebug)
-import Text.Cassius (cassiusFileDebug)
-import Data.Either
+import Yesod
+import Yesod.Helpers.Static
+import Text.Hamlet (hamletFileDebug,hamletFile) -- We can remove the debug suffix in production
+import Text.Cassius (cassiusFileDebug,cassiusFile)
 import Control.Exception (try,evaluate)
+import Network.Wai.Handler.FastCGI (run)
 
-import Prelude 
+import System.Console.CmdArgs
 
 {-
   TODO List
@@ -24,10 +23,24 @@ import Prelude
   * Quick wins
     Send the answer back in the HTML as a hidden thing, use JQuery
     to style things up based on the name of a div, client side scoring
-
-  * Configuration
-    Have a config file.  Use it
 -}
+
+-- Command line parameters
+data Config = Config {
+  -- |If true, run using simple localhost server on port 3000
+  local :: Bool,
+  -- |If true, run using debug templates,
+  debug :: Bool,
+  -- |If true, regenerate the film data
+  generateBaseData :: Bool
+} deriving (Show,Data,Typeable)
+
+config :: Config
+config = Config{
+  local = def &= help "If true, runs on local host",
+  debug = def &= help "If true, then debug file handlers are used",
+  generateBaseData = def &= help "If true, regenerates the base data"
+}
 
 data QuizMaster = QuizMaster {
       ajaxStatic :: Static
@@ -51,7 +64,7 @@ mkYesod "QuizMaster" [$parseRoutes|
 |]
 
 instance Yesod QuizMaster where
-    approot _ = ""
+    approot _ = "http://localhost:3000"
 
 questionTemplate :: Question -> Hamlet (Route QuizMaster)
 questionTemplate (Question description (IdentifyFrom choices answer)) = identifyFromTemplate description choices answer
@@ -121,10 +134,16 @@ getHomeR =
 
 -- Note that you'll need to remember to ensure that the data files are present
 -- by using the GenFilms package
-main :: IO ()
-main = do
+startService :: Config -> IO ()    
+startService runConfig = do
   let static = fileLookupDir "static/" typeByExt
   wDirector <- mkWhichDirector
   wActor <- mkWhichActor
   wFilm <- mkWhichFilm
-  basicHandler 3000 $ QuizMaster static wDirector wActor wFilm capitalQuiz
+  let quiz = QuizMaster static wDirector wActor wFilm capitalQuiz
+  if (local runConfig)
+    then basicHandler 3000 quiz
+    else toWaiApp quiz >>= run
+    
+main :: IO ()
+main = startService =<< cmdArgs config
