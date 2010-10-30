@@ -57,10 +57,10 @@ staticFiles "static/"
 mkYesod "QuizMaster" [$parseRoutes|                      
   /          HomeR   GET
   /static    StaticR Static ajaxStatic
-  /actors/#Integer    ActorsR GET
-  /directors/#Integer DirectorsR GET
-  /taglines/#Integer  TaglinesR GET
-  /capitals/#Integer  CapitalsR GET
+  /actors/#Int    ActorsR GET
+  /directors/#Int DirectorsR GET
+  /taglines/#Int  TaglinesR GET
+  /capitals/#Int  CapitalsR GET
 |]
 
 instance Yesod QuizMaster where
@@ -92,10 +92,10 @@ bottombarTemplate = $(hamletFileDebug "templates/bottombarTemplate.hamlet")
 answerControlsTemplate :: Hamlet (Route QuizMaster)
 answerControlsTemplate = $(hamletFileDebug "templates/footTemplate.hamlet")
 
-runQuestion :: QuestionMaker a => Integer -> a -> IO (Either QuizException Question)
+runQuestion :: QuestionMaker a => Int -> a -> IO (Either QuizException Question)
 runQuestion seed qm = try (evaluate =<< generateQuestion seed qm)
                                              
-getQuestionSource :: QuestionMaker a => (QuizMaster -> a) -> Integer -> Handler RepHtml
+getQuestionSource :: QuestionMaker a => (QuizMaster -> a) -> Int -> Handler RepHtml
 getQuestionSource getQuestion seed = do
   quizMaster <- getYesod
   generatedQuestion <- liftIO $ runQuestion seed (getQuestion quizMaster)
@@ -109,16 +109,16 @@ getQuestionSource getQuestion seed = do
         addHamlet  questions
         addCassius layout
 
-getActorsR :: Integer -> Handler RepHtml
+getActorsR :: Int -> Handler RepHtml
 getActorsR = getQuestionSource whichActor 
 
-getDirectorsR :: Integer -> Handler RepHtml
+getDirectorsR :: Int -> Handler RepHtml
 getDirectorsR = getQuestionSource whichDirector 
 
-getTaglinesR :: Integer -> Handler RepHtml
+getTaglinesR :: Int -> Handler RepHtml
 getTaglinesR = getQuestionSource whichFilm
 
-getCapitalsR :: Integer -> Handler RepHtml
+getCapitalsR :: Int -> Handler RepHtml
 getCapitalsR = getQuestionSource whichCapital
    
 homeTemplate :: Hamlet (Route QuizMaster)
