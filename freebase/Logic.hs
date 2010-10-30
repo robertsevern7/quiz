@@ -20,8 +20,9 @@ type Description = String
 data Question = Question Description QuestionFormat deriving Show
 
 -- |A question maker uses some logic to generate questions
+-- |An integer is used to provide variation
 class QuestionMaker a where 
-    generateQuestion :: a -> IO Question
+    generateQuestion :: Integer -> a -> IO Question
 
 -- |Choose a random element from a list
 chooseFromList :: [String] -> IO String

@@ -93,7 +93,7 @@ answerControlsTemplate :: Hamlet (Route QuizMaster)
 answerControlsTemplate = $(hamletFileDebug "templates/footTemplate.hamlet")
 
 runQuestion :: QuestionMaker a => Integer -> a -> IO (Either QuizException Question)
-runQuestion seed qm = try (evaluate =<< generateQuestion qm)
+runQuestion seed qm = try (evaluate =<< generateQuestion seed qm)
                                              
 getQuestionSource :: QuestionMaker a => (QuizMaster -> a) -> Integer -> Handler RepHtml
 getQuestionSource getQuestion seed = do
