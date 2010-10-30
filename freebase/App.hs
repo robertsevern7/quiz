@@ -11,7 +11,7 @@ import Yesod.Helpers.Static
 import Text.Hamlet (hamletFileDebug,hamletFile) -- We can remove the debug suffix in production
 import Text.Cassius (cassiusFileDebug,cassiusFile)
 import Control.Exception (try,evaluate)
-import Network.Wai.Handler.FastCGI (run)
+-- import Network.Wai.Handler.FastCGI (run)
 
 import System.Console.CmdArgs
 
@@ -143,7 +143,7 @@ startService runConfig = do
   let quiz = QuizMaster static wDirector wActor wFilm capitalQuiz
   if (local runConfig)
     then basicHandler 3000 quiz
-    else toWaiApp quiz >>= run
+    else undefined -- toWaiApp quiz >>= run
     
 main :: IO ()
 main = startService =<< cmdArgs config
