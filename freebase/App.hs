@@ -121,17 +121,18 @@ getTaglinesR = getQuestionSource whichFilm
 getCapitalsR :: Int -> Handler RepHtml
 getCapitalsR = getQuestionSource whichCapital
    
-homeTemplate :: Hamlet (Route QuizMaster)
-homeTemplate = do
+homeTemplate :: Int -> Hamlet (Route QuizMaster)
+homeTemplate ran = do
   let body = $(hamletFileDebug "templates/homeTemplate.hamlet")
   $(hamletFileDebug "templates/bodybase.hamlet")
    
 getHomeR :: Handler RepHtml
 getHomeR = 
   defaultLayout $ do
-    gen <- liftIO newStdGen
+    gen <- liftIO $ newStdGen
+    let ran = fst $ random gen
     addHamletHead headTemplate
-    addHamlet homeTemplate
+    addHamlet (homeTemplate ran)
 
 -- Note that you'll need to remember to ensure that the data files are present
 -- by using the GenFilms package
