@@ -38,17 +38,17 @@ mkWhichFilm = liftM WhichFilm readFilmsFromDisk
 
 --[Create QuestionMaker instances]
 instance QuestionMaker WhichDirector where
-    generateQuestion (WhichDirector directors) = do
+    generateQuestion seed (WhichDirector directors) = do
       films <- getDirectorFilmList =<< chooseFromList directors
       return $ generateQuestionWhoMadeThese "Who directed the following films?" films
 
 instance QuestionMaker WhichActor where
-    generateQuestion (WhichActor films) = do
+    generateQuestion seed (WhichActor films) = do
       actors <- getActorFilmList =<< chooseFromList films
       return $ generateQuestionWhoMadeThese "Who starred in the following films?" actors          
 									
 instance QuestionMaker WhichFilm where
-    generateQuestion (WhichFilm films) = do
+    generateQuestion seed (WhichFilm films) = do
       (Ok tagLines) <- getTaglineFilmList =<< rndSelect films 10      
       return $ Question "Name the films from the taglines" (Identify $ hideFilmNames tagLines)
                        
