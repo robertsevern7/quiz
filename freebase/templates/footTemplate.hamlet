@@ -1,0 +1,2 @@
+%button!id="revealAnswers" Reveal
+%button!id="nextQuestion"!class="hiddenButton" Next

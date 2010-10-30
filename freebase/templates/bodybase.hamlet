@@ -1,0 +1,7 @@
+%body
+  ^topbarTemplate^
+  .mainbody
+    .mainbackground
+      .contentcontainer
+        ^body^
+  ^bottombarTemplate^

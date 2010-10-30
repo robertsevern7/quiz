@@ -1,0 +1,13 @@
+.header
+  %table.body
+    %tr
+      %td.logotext
+        KingOfTheQuiz
+      %td/
+      %td
+        %ul
+          %li
+            %a!href=@HomeR@!class="link-button" About Us
+          %li
+            %a!href="../"!class="link-button" Home
+          
