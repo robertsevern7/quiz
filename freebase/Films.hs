@@ -18,6 +18,7 @@ import Text.JSON
 import Data.Maybe (fromJust)
 import Control.Monad (liftM,replicateM)
 import Control.Exception (throw)
+import Data.Char (toLower) 
 
 -- These will be question makers supplied with the information
 -- necessary to construct a question
@@ -64,8 +65,11 @@ replacer :: [String] -> [String] -> [String]
 replacer movieWords = map (redactionReturner movieWords) 
 
 redactionReturner :: [String] -> String -> String
-redactionReturner movieWords taglineWord | taglineWord `elem` movieWords = "_____"
-                                         | otherwise = taglineWord
+redactionReturner movieWords taglineWord | tagWord `elem` mw || tagWord `elem` stopWords = "_____"
+                                         | otherwise = taglineWord 
+                                           where
+                                             mw = map lower movieWords
+                                             tagWord = lower taglineWord
 
 generateQuestionWhoMadeThese :: String -> (String,Result [String]) -> Question
 generateQuestionWhoMadeThese question (director, Ok films) = Question question (IdentifyFrom films director)
@@ -104,3 +108,8 @@ getTaglineFilmList filmIds = do
   let arrayFilmsAndTags = lookupValue response "result"
   return (fmap getTaglineFilmPairs arrayFilmsAndTags)
   
+lower :: String -> String
+lower = map toLower
+
+stopWords :: [String]
+stopWords = ["the","be","to","of","and","a","in","that","have","i","it","for","not","on","with","he","as","you","do","at","this","but","his","by","from","they","we","say","her","she","or","an","will","my","one","all","would","there","their","what","so","up","out","if","about","who","get","which","go","me","when","make","can","like","no","just","him","know","take","into","year","your","some","could","them","see","other","than","then","now","look","only","come","its","over","think","also","back","after","use","two","how","our","work","first","well","way","even","new","want","because","any","these","give","day","most","us"]
