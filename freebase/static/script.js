@@ -37,5 +37,5 @@ $(document).ready(function() {
 });
 
 function sanitise(input) {
-	return input.toLowerCase().replace(" ", "");
+	return input.toLowerCase().replace(/[^0-9A-Za-z]/g, "");
 }
