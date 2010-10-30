@@ -92,13 +92,13 @@ bottombarTemplate = $(hamletFileDebug "templates/bottombarTemplate.hamlet")
 answerControlsTemplate :: Hamlet (Route QuizMaster)
 answerControlsTemplate = $(hamletFileDebug "templates/footTemplate.hamlet")
 
-runQuestion :: QuestionMaker a => a -> IO (Either QuizException Question)
-runQuestion qm = try (evaluate =<< generateQuestion qm)
+runQuestion :: QuestionMaker a => Integer -> a -> IO (Either QuizException Question)
+runQuestion seed qm = try (evaluate =<< generateQuestion qm)
                                              
 getQuestionSource :: QuestionMaker a => (QuizMaster -> a) -> Integer -> Handler RepHtml
 getQuestionSource getQuestion seed = do
   quizMaster <- getYesod
-  generatedQuestion <- liftIO $ runQuestion (getQuestion quizMaster)
+  generatedQuestion <- liftIO $ runQuestion seed (getQuestion quizMaster)
   case generatedQuestion of
     (Left ex)        -> invalidArgs ["Failed to generate valid question.", message ex, internal ex]
     (Right question) -> do
