@@ -89,8 +89,8 @@ answerControlsTemplate = $(hamletFileDebug "templates/footTemplate.hamlet")
 runQuestion :: QuestionMaker a => Int -> a -> IO (Either QuizException Question)
 runQuestion seed qm = try (evaluate =<< generateQuestion seed qm)
                                              
-getQuestionSource :: QuestionMaker a => (QuizMaster -> a) -> Int -> Handler RepHtml
-getQuestionSource getQuestion seed = do
+getQuestionSource :: QuestionMaker a => (QuizMaster -> a) -> Int -> QuizMasterRoute -> Handler RepHtml
+getQuestionSource getQuestion seed route = do
   quizMaster <- getYesod
   generatedQuestion <- liftIO $ runQuestion seed (getQuestion quizMaster)
   case generatedQuestion of
@@ -104,16 +104,16 @@ getQuestionSource getQuestion seed = do
         addCassius layout
 
 getActorsR :: Int -> Handler RepHtml
-getActorsR seed = getQuestionSource whichActor seed
+getActorsR seed = getQuestionSource whichActor seed (ActorsR $ seed + 1)
 
 getDirectorsR :: Int -> Handler RepHtml
-getDirectorsR seed = getQuestionSource whichDirector seed
+getDirectorsR seed = getQuestionSource whichDirector seed (DirectorsR $ seed + 1)
 
 getTaglinesR :: Int -> Handler RepHtml
-getTaglinesR seed = getQuestionSource whichFilm seed
+getTaglinesR seed = getQuestionSource whichFilm seed (TaglinesR $ seed + 1)
 
 getCapitalsR :: Int -> Handler RepHtml
-getCapitalsR seed = getQuestionSource whichCapital seed
+getCapitalsR seed = getQuestionSource whichCapital seed (CapitalsR $ seed + 1)
    
 homeTemplate :: Int -> Hamlet (Route QuizMaster)
 homeTemplate ran = do
