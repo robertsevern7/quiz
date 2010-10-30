@@ -4,8 +4,8 @@
   %li
     %a!href=@DirectorsR.ran@ Film Directors
   %li
-    %a!href=@ActorsR.1@ Film Actors
+    %a!href=@ActorsR.ran@ Film Actors
   %li
-    %a!href=@TaglinesR.1@ Film Taglines
+    %a!href=@TaglinesR.ran@ Film Taglines
   %li
-    %a!href=@CapitalsR.1@ Capital Cities                                                
+    %a!href=@CapitalsR.ran@ Capital Cities                                                
