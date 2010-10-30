@@ -66,10 +66,10 @@ mkYesod "QuizMaster" [$parseRoutes|
 instance Yesod QuizMaster where
     approot _ = "http://localhost:3000"
 
-questionTemplate :: Question -> Hamlet (Route QuizMaster)
-questionTemplate (Question description (IdentifyFrom choices answer)) =  $(hamletFileDebug "templates/identifyFromTemplate.hamlet") 
-questionTemplate (Question description (Identify pairs)) = $(hamletFileDebug "templates/identifyTemplate.hamlet")
-questionTemplate (Question _ _) = error "This has not been implemented yet."
+questionTemplate :: QuizMasterRoute -> Question -> Hamlet (Route QuizMaster)
+questionTemplate route (Question description (IdentifyFrom choices answer)) =  $(hamletFileDebug "templates/identifyFromTemplate.hamlet") 
+questionTemplate route (Question description (Identify pairs)) = $(hamletFileDebug "templates/identifyTemplate.hamlet")
+questionTemplate _ (Question _ _) = error "This has not been implemented yet."
 
 layout :: Cassius (Route QuizMaster)
 layout = $(cassiusFileDebug "templates/style.cassius")
@@ -83,8 +83,8 @@ topbarTemplate = $(hamletFileDebug "templates/topbarTemplate.hamlet")
 bottombarTemplate :: Hamlet (Route QuizMaster)
 bottombarTemplate = $(hamletFileDebug "templates/bottombarTemplate.hamlet")
 
-answerControlsTemplate :: Hamlet (Route QuizMaster)
-answerControlsTemplate = $(hamletFileDebug "templates/footTemplate.hamlet")
+answerControlsTemplate :: QuizMasterRoute -> Hamlet (Route QuizMaster)
+answerControlsTemplate route = $(hamletFileDebug "templates/footTemplate.hamlet")
 
 runQuestion :: QuestionMaker a => Int -> a -> IO (Either QuizException Question)
 runQuestion seed qm = try (evaluate =<< generateQuestion seed qm)
@@ -96,7 +96,7 @@ getQuestionSource getQuestion seed route = do
   case generatedQuestion of
     (Left ex)        -> invalidArgs ["Failed to generate valid question.", message ex, internal ex]
     (Right question) -> do
-      let body = (questionTemplate question)
+      let body = (questionTemplate route question)
           questions = $(hamletFileDebug "templates/bodybase.hamlet")
       defaultLayout $ do
         addHamletHead  headTemplate
