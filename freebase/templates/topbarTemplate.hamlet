@@ -7,7 +7,7 @@
       %td
         %ul
           %li
-            %a!href=@HomeR@!class="link-button" About Us
+            %a!href="#"!class="link-button" About Us
           %li
-            %a!href="../"!class="link-button" Home
+            %a!href=@HomeR@!class="link-button" Home
           
