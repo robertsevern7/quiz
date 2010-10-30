@@ -1,9 +1,8 @@
 module Logic where
 
-import System.Random (newStdGen,randomR,randomRIO)
-import Control.Monad (replicateM)
-import Data.Random (shuffle,runRVar)
-import Data.Random.Source.DevRandom
+import System.Random (newStdGen,randomR)
+import System.Random.MWC 
+import Data.Random
 
 -- TODO some of these question types are less than self-explanatory
 -- |All the different types of questions
@@ -37,6 +36,7 @@ rndSelect xs n
   | n < 0     = error "N must be greater than zero."
   | otherwise = do
       let a = shuffle xs -- of type RVar [a]
-      shuffled <- runRVar a DevURandom
+      x <- create -- TODO broken
+      shuffled <- runRVar a x
       return $ take n shuffled
       
