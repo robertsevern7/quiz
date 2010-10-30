@@ -104,16 +104,16 @@ getQuestionSource getQuestion seed = do
         addCassius layout
 
 getActorsR :: Int -> Handler RepHtml
-getActorsR = getQuestionSource whichActor 
+getActorsR seed = getQuestionSource whichActor seed
 
 getDirectorsR :: Int -> Handler RepHtml
-getDirectorsR = getQuestionSource whichDirector 
+getDirectorsR seed = getQuestionSource whichDirector seed
 
 getTaglinesR :: Int -> Handler RepHtml
-getTaglinesR = getQuestionSource whichFilm
+getTaglinesR seed = getQuestionSource whichFilm seed
 
 getCapitalsR :: Int -> Handler RepHtml
-getCapitalsR = getQuestionSource whichCapital
+getCapitalsR seed = getQuestionSource whichCapital seed
    
 homeTemplate :: Int -> Hamlet (Route QuizMaster)
 homeTemplate ran = do
