@@ -1,18 +1,22 @@
-{-# LANGUAGE TypeFamilies, QuasiQuotes, TemplateHaskell #-}
+{-# LANGUAGE TypeFamilies, QuasiQuotes, TemplateHaskell, DeriveDataTypeable #-}
 import Yesod
 import Yesod.Helpers.Static
 
 import Films
 import Country (CapitalQuiz,capitalQuiz)
-
 import Logic
 import Exception
 
+-- Generators
+import GenFilms
+
 -- We can remove the debug suffix in production
-import Text.Hamlet (hamletFileDebug)
-import Text.Cassius (cassiusFileDebug)
+import Text.Hamlet (hamletFileDebug,hamletFile)
+import Text.Cassius (cassiusFileDebug,cassiusFile)
 import Data.Either
 import Control.Exception (try,evaluate)
+
+import System.Console.CmdArgs
 
 import Prelude 
 
@@ -24,10 +28,24 @@ import Prelude
   * Quick wins
     Send the answer back in the HTML as a hidden thing, use JQuery
     to style things up based on the name of a div, client side scoring
-
-  * Configuration
-    Have a config file.  Use it
 -}
+
+-- Command line parameters
+data Config = Config {
+  -- |If true, run using simple localhost server on port 3000
+  local :: Bool,
+  -- |If true, run using debug templates,
+  debug :: Bool,
+  -- |If true, regenerate the film data
+  generateBaseData :: Bool
+} deriving (Show,Data,Typeable)
+
+config :: Config
+config = Config{
+  local = def &= help "If true, runs on local host",
+  debug = def &= help "If true, then debug file handlers are used",
+  generateBaseData = def &= help "If true, regenerates the base data"
+}
 
 data QuizMaster = QuizMaster {
       ajaxStatic :: Static
@@ -123,6 +141,7 @@ getHomeR =
 -- by using the GenFilms package
 main :: IO ()
 main = do
+  print =<< cmdArgs config
   let static = fileLookupDir "static/" typeByExt
   wDirector <- mkWhichDirector
   wActor <- mkWhichActor
