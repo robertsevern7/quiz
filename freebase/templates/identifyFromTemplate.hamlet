@@ -5,5 +5,5 @@
   %div!class="answer hiddenAnswer" $answer$
   %div
     %input!type="text"!id="identifyAnswer"    
-^answerControlsTemplate^  
+^answerControlsTemplate route^  
   
