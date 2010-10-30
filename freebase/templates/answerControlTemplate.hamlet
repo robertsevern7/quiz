@@ -1,0 +1,2 @@
+%button!id="revealAnswers" Reveal
+%a!href=@route@!id="nextQuestion"!class="hiddenButton" Next

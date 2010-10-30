@@ -1,0 +1,13 @@
+.header
+  %table.body
+    %tr
+      %td.logotext
+        BustaQuiz
+      %td/
+      %td
+        %ul
+          %li
+            %a!href="#"!class="link-button" About Us
+          %li
+            %a!href=@HomeR@!class="link-button" Home
+          

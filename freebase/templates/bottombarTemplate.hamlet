@@ -1,0 +1,7 @@
+.footer
+  %ul!class=copyright_notice
+    %li
+      Written using 
+      %a!href="http://docs.yesodweb.com/" Yesod Web Framework
+    %li
+      &copy; MMX BustaQuiz
