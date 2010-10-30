@@ -5,4 +5,5 @@
     %div 
       %span $snd p$ &nbsp
       %span!class="answer hiddenAnswer" $fst p$
+    %br
 ^answerControlsTemplate^
