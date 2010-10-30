@@ -30,10 +30,6 @@ $(document).ready(function() {
         $('.hiddenAnswer').each(showAnswer);
         showNextButton()
     })
-    
-    $('#nextQuestion').click(function() {
-        location.reload();
-    })
 });
 
 function sanitise(input) {

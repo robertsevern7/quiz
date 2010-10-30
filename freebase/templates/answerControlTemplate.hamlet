@@ -1,3 +1,2 @@
 %button!id="revealAnswers" Reveal
-%button!id="nextQuestion"!class="hiddenButton" Next
-%a!href=@route@ BANANA MONKEY
+%a!href=@route@!id="nextQuestion"!class="hiddenButton" Next
