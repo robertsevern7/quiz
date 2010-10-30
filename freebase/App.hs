@@ -95,8 +95,8 @@ answerControlsTemplate = $(hamletFileDebug "templates/footTemplate.hamlet")
 runQuestion :: QuestionMaker a => a -> IO (Either QuizException Question)
 runQuestion qm = try (evaluate =<< generateQuestion qm)
                                              
-getQuestionSource :: QuestionMaker a => (QuizMaster -> a) -> Handler RepHtml
-getQuestionSource getQuestion = do
+getQuestionSource :: QuestionMaker a => Integer -> (QuizMaster -> a) -> Handler RepHtml
+getQuestionSource seed getQuestion = do
   quizMaster <- getYesod
   generatedQuestion <- liftIO $ runQuestion (getQuestion quizMaster)
   case generatedQuestion of
@@ -110,16 +110,16 @@ getQuestionSource getQuestion = do
         addCassius layout
 
 getActorsR :: Integer -> Handler RepHtml
-getActorsR seed = getQuestionSource whichActor
+getActorsR seed = getQuestionSource seed whichActor 
 
 getDirectorsR :: Integer -> Handler RepHtml
-getDirectorsR seed = getQuestionSource whichDirector
+getDirectorsR seed = getQuestionSource seed whichDirector 
 
 getTaglinesR :: Integer -> Handler RepHtml
-getTaglinesR seed = getQuestionSource whichFilm
+getTaglinesR seed = getQuestionSource seed whichFilm
 
 getCapitalsR :: Integer -> Handler RepHtml
-getCapitalsR seed = getQuestionSource whichCapital
+getCapitalsR seed = getQuestionSource seed whichCapital
    
 homeTemplate :: Hamlet (Route QuizMaster)
 homeTemplate = do
