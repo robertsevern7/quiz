@@ -64,7 +64,7 @@ mkYesod "QuizMaster" [$parseRoutes|
 |]
 
 instance Yesod QuizMaster where
-    approot _ = ""
+    approot _ = "http://localhost:3000"
 
 questionTemplate :: Question -> Hamlet (Route QuizMaster)
 questionTemplate (Question description (IdentifyFrom choices answer)) = identifyFromTemplate description choices answer
@@ -134,13 +134,16 @@ getHomeR =
 
 -- Note that you'll need to remember to ensure that the data files are present
 -- by using the GenFilms package
-main :: IO ()
-main = do
-  runConfig <- cmdArgs config
+startService :: Config -> IO ()    
+startService runConfig = do
   let static = fileLookupDir "static/" typeByExt
   wDirector <- mkWhichDirector
   wActor <- mkWhichActor
   wFilm <- mkWhichFilm
+  let quiz = QuizMaster static wDirector wActor wFilm capitalQuiz
   if (local runConfig)
-    then basicHandler 3000 $ QuizMaster static wDirector wActor wFilm capitalQuiz
-    else undefined
+    then basicHandler 3000 quiz
+    else toWaiApp quiz >>= run
+    
+main :: IO ()
+main = startService =<< cmdArgs config
