@@ -2,7 +2,7 @@
   %table.body
     %tr
       %td.logotext
-        KingOfTheQuiz
+        BustaQuiz
       %td/
       %td
         %ul
