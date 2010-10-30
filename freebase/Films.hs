@@ -65,7 +65,8 @@ replacer :: [String] -> [String] -> [String]
 replacer movieWords = map (redactionReturner movieWords) 
 
 redactionReturner :: [String] -> String -> String
-redactionReturner movieWords taglineWord | tagWord `elem` mw || tagWord `elem` stopWords = "_____"
+redactionReturner movieWords taglineWord | tagWord `elem` stopWords = taglineWord
+                                         | tagWord `elem` mw = "_____"
                                          | otherwise = taglineWord 
                                            where
                                              mw = map lower movieWords
