@@ -3,6 +3,8 @@ module Logic where
 import System.Random (newStdGen,randomR)
 import System.Random.MWC 
 import Data.Random
+import Data.Vector.Unboxed (singleton)
+import Data.Word
 
 -- TODO some of these question types are less than self-explanatory
 -- |All the different types of questions
@@ -37,7 +39,7 @@ rndSelect xs n
   | n < 0     = error "N must be greater than zero."
   | otherwise = do
       let a = shuffle xs -- of type RVar [a]
-      x <- create -- TODO broken
+      x <- initialize (singleton (fromInteger 42))
       shuffled <- runRVar a x
       return $ take n shuffled
       
