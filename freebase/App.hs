@@ -67,15 +67,9 @@ instance Yesod QuizMaster where
     approot _ = "http://localhost:3000"
 
 questionTemplate :: Question -> Hamlet (Route QuizMaster)
-questionTemplate (Question description (IdentifyFrom choices answer)) = identifyFromTemplate description choices answer
-questionTemplate (Question description (Identify pairs)) = identifyTemplate description pairs 
+questionTemplate (Question description (IdentifyFrom choices answer)) =  $(hamletFileDebug "templates/identifyFromTemplate.hamlet") 
+questionTemplate (Question description (Identify pairs)) = $(hamletFileDebug "templates/identifyTemplate.hamlet")
 questionTemplate (Question _ _) = error "This has not been implemented yet."
-
-identifyFromTemplate :: Description -> [String] -> String -> Hamlet (Route QuizMaster)
-identifyFromTemplate description choices answer = $(hamletFileDebug "templates/identifyFromTemplate.hamlet")
-
-identifyTemplate :: Description -> [(String,String)] -> Hamlet (Route QuizMaster)
-identifyTemplate description pairs = $(hamletFileDebug "templates/identifyTemplate.hamlet")
 
 layout :: Cassius (Route QuizMaster)
 layout = $(cassiusFileDebug "templates/style.cassius")
