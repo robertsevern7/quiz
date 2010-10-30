@@ -57,10 +57,10 @@ staticFiles "static/"
 mkYesod "QuizMaster" [$parseRoutes|                      
   /          HomeR   GET
   /static    StaticR Static ajaxStatic
-  /actors    ActorsR GET
-  /directors DirectorsR GET
-  /taglines  TaglinesR GET
-  /capitals  CapitalsR GET
+  /actors/#Integer    ActorsR GET
+  /directors/#Integer DirectorsR GET
+  /taglines/#Integer  TaglinesR GET
+  /capitals/#Integer  CapitalsR GET
 |]
 
 instance Yesod QuizMaster where
@@ -109,17 +109,17 @@ getQuestionSource getQuestion = do
         addHamlet  questions
         addCassius layout
 
-getActorsR :: Handler RepHtml
-getActorsR = getQuestionSource whichActor
+getActorsR :: Integer -> Handler RepHtml
+getActorsR seed = getQuestionSource whichActor
 
-getDirectorsR :: Handler RepHtml
-getDirectorsR = getQuestionSource whichDirector
+getDirectorsR :: Integer -> Handler RepHtml
+getDirectorsR seed = getQuestionSource whichDirector
 
-getTaglinesR :: Handler RepHtml
-getTaglinesR = getQuestionSource whichFilm
+getTaglinesR :: Integer -> Handler RepHtml
+getTaglinesR seed = getQuestionSource whichFilm
 
-getCapitalsR :: Handler RepHtml
-getCapitalsR = getQuestionSource whichCapital
+getCapitalsR :: Integer -> Handler RepHtml
+getCapitalsR seed = getQuestionSource whichCapital
    
 homeTemplate :: Hamlet (Route QuizMaster)
 homeTemplate = do
