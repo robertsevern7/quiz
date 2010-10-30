@@ -11,7 +11,9 @@ import Yesod.Helpers.Static
 import Text.Hamlet (hamletFileDebug,hamletFile) -- We can remove the debug suffix in production
 import Text.Cassius (cassiusFileDebug,cassiusFile)
 import Control.Exception (try,evaluate)
+import Control.Monad (when)
 
+import Data.Maybe (fromJust,isJust)
 import System.Random
 import System.Console.CmdArgs
 
@@ -23,6 +25,8 @@ import System.Console.CmdArgs
   * Quick wins
     Send the answer back in the HTML as a hidden thing, use JQuery
     to style things up based on the name of a div, client side scoring
+
+  * Custom JavaScript on a per question template basis
 -}
 
 -- Command line parameters
@@ -71,6 +75,11 @@ questionTemplate route (Question description (IdentifyFrom choices answer)) =  $
 questionTemplate route (Question description (Identify pairs)) = $(hamletFileDebug "templates/identifyTemplate.hamlet")
 questionTemplate _ (Question _ _) = error "This has not been implemented yet."
 
+jsSource :: Question -> Maybe (Julius (Route QuizMaster)) 
+jsSource (Question description (IdentifyFrom choices answer)) = Nothing
+jsSource (Question description (Identify pairs)) = Nothing
+jsSource _ = error "This hasn't been implemented yet." -- could safely return nothing but this feels nicer
+
 layout :: Cassius (Route QuizMaster)
 layout = $(cassiusFileDebug "templates/style.cassius")
 
@@ -97,9 +106,11 @@ getQuestionSource getQuestion seed route = do
     (Left ex)        -> invalidArgs ["Failed to generate valid question.", message ex, internal ex]
     (Right question) -> do
       let body = (questionTemplate route question)
+          additionalJS = (jsSource question)
           questions = $(hamletFileDebug "templates/bodybase.hamlet")
       defaultLayout $ do
-        addHamletHead  headTemplate
+        addHamletHead headTemplate
+        when (isJust additionalJS) (addJulius $ fromJust additionalJS)
         addHamlet  questions
         addCassius layout
 
