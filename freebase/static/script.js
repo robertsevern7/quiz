@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	$('#identifyAnswer').val("");
+    $('#revealAnswers,#nextQuestion').button();
     
     function showNextButton() {
         $('#nextQuestion').removeClass('hiddenButton');
