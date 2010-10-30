@@ -38,7 +38,7 @@ rndSelect seed xs n
   | n < 0     = error "N must be greater than zero."
   | otherwise = do
       let a = shuffle xs -- of type RVar [a]
-      x <- initialize (singleton $ toEnum seed)
+      x <- initialize (singleton $ toEnum (seed `mod` (2 ^ 32)))
       shuffled <- runRVar a x
       return $ take n shuffled
       
