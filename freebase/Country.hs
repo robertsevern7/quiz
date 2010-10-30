@@ -23,7 +23,7 @@ capitalQuiz = CapitalQuiz countries
 
 instance QuestionMaker CapitalQuiz where
   generateQuestion seed (CapitalQuiz countries) = do
-    match <- rndSelect (filter (\x -> not . null $ capital x) countries) 10
+    match <- rndSelect seed (filter (\x -> not . null $ capital x) countries) 10
     let capitals = map (\x -> (name x, capital x)) match
     return $ Question "Match the countries with the capitals" (Identify capitals)  
                     

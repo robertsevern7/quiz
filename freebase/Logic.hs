@@ -1,10 +1,9 @@
 module Logic where
 
-import System.Random (newStdGen,randomR)
+import System.Random (mkStdGen,randomR)
 import System.Random.MWC 
 import Data.Random
 import Data.Vector.Unboxed (singleton)
-import Data.Word
 
 -- TODO some of these question types are less than self-explanatory
 -- |All the different types of questions
@@ -24,22 +23,22 @@ data Question = Question Description QuestionFormat deriving Show
 -- |A question maker uses some logic to generate questions
 -- |An integer is used to provide variation
 class QuestionMaker a where 
-    generateQuestion :: Integer -> a -> IO Question
+    generateQuestion :: Int -> a -> IO Question
 
 -- |Choose a random element from a list
-chooseFromList :: [String] -> IO String
-chooseFromList xs = do
-  g <- newStdGen
-  let len = length xs
-      (i,_) = randomR (0,len) g
-  return (xs !! i)
+chooseFromList :: Int -> [String] -> String
+chooseFromList seed xs = (xs !! i) 
+  where
+    g = mkStdGen seed
+    len = length xs
+    (i,_) = randomR (0,len) g
   
-rndSelect :: [a] -> Int -> IO [a]
-rndSelect xs n 
+rndSelect :: Int -> [a] -> Int -> IO [a]
+rndSelect seed xs n 
   | n < 0     = error "N must be greater than zero."
   | otherwise = do
       let a = shuffle xs -- of type RVar [a]
-      x <- initialize (singleton (fromInteger 42))
+      x <- initialize (singleton $ toEnum seed)
       shuffled <- runRVar a x
       return $ take n shuffled
       
