@@ -11,8 +11,8 @@ import Yesod.Helpers.Static
 import Text.Hamlet (hamletFileDebug,hamletFile) -- We can remove the debug suffix in production
 import Text.Cassius (cassiusFileDebug,cassiusFile)
 import Control.Exception (try,evaluate)
--- import Network.Wai.Handler.FastCGI (run)
 
+import System.Random
 import System.Console.CmdArgs
 
 {-
@@ -129,6 +129,7 @@ homeTemplate = do
 getHomeR :: Handler RepHtml
 getHomeR = 
   defaultLayout $ do
+    gen <- liftIO newStdGen
     addHamletHead headTemplate
     addHamlet homeTemplate
 
