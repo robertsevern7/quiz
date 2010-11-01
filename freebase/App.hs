@@ -75,16 +75,16 @@ questionTemplate route (Question description (IdentifyFrom choices answer)) =  $
 questionTemplate route (Question description (Identify pairs)) = $(hamletFileDebug "templates/identifyTemplate.hamlet")
 questionTemplate _ (Question _ _) = error "This has not been implemented yet."
 
-jsSource :: Question -> Maybe (Julius (Route QuizMaster)) 
-jsSource (Question description (IdentifyFrom choices answer)) = Nothing
+jsSource :: Question -> Maybe (QuizMasterRoute)
+jsSource (Question description (IdentifyFrom choices answer)) = Just (StaticR scripts_identifyFrom_js)
 jsSource (Question description (Identify pairs)) = Nothing
 jsSource _ = error "This hasn't been implemented yet." -- could safely return nothing but this feels nicer
 
 layout :: Cassius (Route QuizMaster)
 layout = $(cassiusFileDebug "templates/style.cassius")
 
-headTemplate :: Hamlet (Route QuizMaster)
-headTemplate = $(hamletFileDebug "templates/headTemplate.hamlet")
+headTemplate :: Maybe QuizMasterRoute -> Hamlet (Route QuizMaster)
+headTemplate additionalJS = $(hamletFileDebug "templates/headTemplate.hamlet")
 
 topbarTemplate :: Hamlet (Route QuizMaster)
 topbarTemplate = $(hamletFileDebug "templates/topbarTemplate.hamlet")
@@ -109,8 +109,7 @@ getQuestionSource getQuestion seed route = do
           additionalJS = (jsSource question)
           questions = $(hamletFileDebug "templates/bodybase.hamlet")
       defaultLayout $ do
-        addHamletHead headTemplate
-        when (isJust additionalJS) (addJulius $ fromJust additionalJS)
+        addHamletHead (headTemplate additionalJS)
         addHamlet  questions
         addCassius layout
 
@@ -136,7 +135,7 @@ getHomeR =
   defaultLayout $ do
     gen <- liftIO $ newStdGen
     let ran = fst $ random gen
-    addHamletHead headTemplate
+    addHamletHead (headTemplate Nothing)
     addHamlet (homeTemplate ran)
 
 -- Note that you'll need to remember to ensure that the data files are present
