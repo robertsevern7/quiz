@@ -72,7 +72,7 @@ instance Yesod QuizMaster where
 
 questionTemplate :: QuizMasterRoute -> Question -> Hamlet (Route QuizMaster)
 questionTemplate route (Question description (IdentifyFrom choices answer)) =  $(hamletFileDebug "templates/identifyFromTemplate.hamlet") 
-questionTemplate route (Question description (Identify pairs)) = $(hamletFileDebug "templates/identifyTemplate.hamlet")
+questionTemplate route (Question description (Identify pairs shuffled)) = $(hamletFileDebug "templates/identifyMixupTemplate.hamlet")
 questionTemplate _ (Question _ _) = error "This has not been implemented yet."
 
 jsSource :: Question -> Maybe (QuizMasterRoute)
