@@ -77,7 +77,7 @@ questionTemplate _ (Question _ _) = error "This has not been implemented yet."
 
 jsSource :: Question -> Maybe (QuizMasterRoute)
 jsSource (Question description (IdentifyFrom choices answer)) = Just (StaticR scripts_identifyFrom_js)
-jsSource (Question description (Identify pairs)) = Nothing
+jsSource (Question description (Identify pairs shuffled)) = Nothing
 jsSource _ = error "This hasn't been implemented yet." -- could safely return nothing but this feels nicer
 
 layout :: Cassius (Route QuizMaster)
