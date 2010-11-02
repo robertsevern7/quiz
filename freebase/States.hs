@@ -8,6 +8,8 @@ data State = State {
   , areaSquareMiles :: Integer
 }
 
+-- Data source nabbed from:
+-- http://www.tellingmachine.com/post/all-50-states-as-xml-json-csv-xls-files.aspx
 states :: [State]
 states = [
   State "ALABAMA" "AL" "Montgomery" "Birmingham" 52423,
