@@ -116,16 +116,25 @@ div.mainbody {
   width: 40%; }
 
 .answerLeft {
-  background-color: #408080;
+  background-color: #ece5b6;
   padding: 5px;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px; }
 
 .answerRight {
-  background-color: #408080;
+  background-color: #ece5b6;
   padding: 5px;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px; }
+
+.answerHover {
+  background-color: #e1d78e; }
+
+.leftAnswerSelect {
+  background-color: #d7c865; }
+
+.rightAnswerSelect {
+  background-color: #d7c865; }
 
 .hiddenAnswer {
   display: none; }
