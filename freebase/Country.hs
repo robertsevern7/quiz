@@ -25,7 +25,8 @@ instance QuestionMaker CapitalQuiz where
   generateQuestion seed (CapitalQuiz countries) = do
     match <- rndSelect seed (filter (\x -> not . null $ capital x) countries) 10
     let capitals = map (\x -> (name x, capital x)) match
-    return $ Question "Match the countries with the capitals" (Identify capitals)  
+    shuffled <- shuffleHints seed capitals
+    return $ Question "Match the countries with the capitals" (Identify capitals shuffled)  
                     
 countries :: [CountryInfo]
 countries = [CountryInfo "Andorra" "Andorra la Vella" 468 ".ad" "Euro",
