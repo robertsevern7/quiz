@@ -1,5 +1,4 @@
-%h1 $description$     
-%input!type="text"!id="identifyAnswer"
+%h1 $description$
 %ul!class="clearFloat"#c
   %div!class="leftList"
     $forall pairs p    
