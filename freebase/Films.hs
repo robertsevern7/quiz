@@ -49,9 +49,11 @@ instance QuestionMaker WhichActor where
 									
 instance QuestionMaker WhichFilm where
     generateQuestion seed (WhichFilm films) = do
-      (Ok tagLines) <- getTaglineFilmList =<< rndSelect seed films 10      
-      return $ Question "Name the films from the taglines" (Identify $ hideFilmNames tagLines)
-                       
+      (Ok tagLines) <- getTaglineFilmList =<< rndSelect seed films 10   
+      let hidden = hideFilmNames tagLines
+      shuffled <- shuffleHints seed hidden
+      return $ Question "Name the films from the taglines" (Identify hidden shuffled)
+              
 listLimit:: JSValue
 listLimit = JSRational False 10
 

@@ -1,0 +1,12 @@
+%h1 $description$     
+%input!type="text"!id="identifyAnswer"
+%ul!class="clearFloat"#c
+  %div!class="leftList"
+    $forall pairs p    
+      %div!class="answerLeft" $fst p$
+      %br
+  %div!class="rightList"
+    $forall shuffled s
+      %div!class="answerRight" $s$
+      %br
+^answerControlsTemplate route^

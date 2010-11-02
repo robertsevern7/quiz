@@ -5,7 +5,8 @@ $tb-text-color: white;
 $footer-height: 40px;
 $application-font-style: 'Trebuchet MS',Verdana,Helvetica,Arial,sans-serif;
 $application-font-size: 14pt;
-$body-font-size: 12pt;
+$body-font-size: 10pt;
+$answer-bg-color: #408080;
 
 @mixin rounded {
   $radius: 10px;
@@ -141,6 +142,37 @@ div.mainbody {
 .answer {
   color: #551A8B;
   font-weight: bold;
+}
+
+.clearFloat {
+  overflow: auto;
+  width: 100%;
+}
+
+.leftList {
+  float: left;
+  width: 40%;
+}
+
+.middleSplit {
+  width:20%;
+}
+
+.rightList {
+  float: right;
+  width: 40%;
+}
+
+.answerLeft {
+  background-color: $answer-bg-color;
+  padding: 5px;
+  @include rounded;
+}
+
+.answerRight {
+  background-color: $answer-bg-color;
+  padding: 5px;
+  @include rounded;
 }
 
 .hiddenAnswer { 
