@@ -6,7 +6,7 @@ $footer-height: 40px;
 $application-font-style: 'Trebuchet MS',Verdana,Helvetica,Arial,sans-serif;
 $application-font-size: 14pt;
 $body-font-size: 10pt;
-$answer-bg-color: #408080;
+$answer-bg-color: #ECE5B6;
 
 @mixin rounded {
   $radius: 10px;
@@ -17,6 +17,14 @@ $answer-bg-color: #408080;
 
 @mixin darken {
     color: darken($tb-text-color, 10%);
+}
+
+@mixin darken-bg {
+    background-color: darken($answer-bg-color, 10%);
+}
+
+@mixin darken-select {
+    background-color: darken($answer-bg-color, 20%);
 }
 
 @mixin font {
@@ -173,6 +181,18 @@ div.mainbody {
   background-color: $answer-bg-color;
   padding: 5px;
   @include rounded;
+}
+
+.answerHover {
+  @include darken-bg
+}
+
+.leftAnswerSelect {
+  @include darken-select
+}
+
+.rightAnswerSelect {
+  @include darken-select
 }
 
 .hiddenAnswer { 
