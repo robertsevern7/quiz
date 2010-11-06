@@ -25,7 +25,7 @@ data Question = Question Description QuestionFormat deriving Show
 class QuestionMaker a where 
     generateQuestion :: Int -> a -> IO Question
 
--- |Choose a random element from a list
+-- |Choose a random element from a list given a seed
 chooseFromList :: Int -> [String] -> String
 chooseFromList seed xs = (xs !! i) 
   where
@@ -33,6 +33,7 @@ chooseFromList seed xs = (xs !! i)
     len = length xs
     (i,_) = randomR (0,len) g
   
+-- |Given a seed, select n items at random from the supplied list
 rndSelect :: Int -> [a] -> Int -> IO [a]
 rndSelect seed xs n 
   | n < 0     = error "N must be greater than zero."
@@ -42,6 +43,7 @@ rndSelect seed xs n
       shuffled <- runRVar a x
       return $ take n shuffled
       
+-- TODO unnecessary since we can do it in the JS
 shuffleHints :: Int -> [(String,  String)] -> IO [String]
 shuffleHints seed input = do
   shuffled <- rndSelect seed input (length input)
