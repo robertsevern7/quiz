@@ -13,10 +13,9 @@ import Freebase
 import GenFilms (readDirectorsFromDisk,readActorsFromDisk,readFilmsFromDisk)
 import JsonHelper (lookupValue,getJSValue,getString,mkPath,mkIndex)
 
-import System.Random
 import Text.JSON
 import Data.Maybe (fromJust)
-import Control.Monad (liftM,replicateM)
+import Control.Monad (liftM)
 import Control.Exception (throw)
 import Data.Char (toLower) 
 
