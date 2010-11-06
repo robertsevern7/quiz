@@ -75,7 +75,7 @@ questionTemplate route (Question description (IdentifyFrom choices answer)) =  $
 questionTemplate route (Question description (Identify pairs shuffled)) = $(hamletFileDebug "templates/identifyMixupTemplate.hamlet")
 questionTemplate _ (Question _ _) = error "This has not been implemented yet."
 
-jsSource :: Question -> Maybe (QuizMasterRoute)
+jsSource :: Question -> Maybe QuizMasterRoute
 jsSource (Question description (IdentifyFrom choices answer)) = Just (StaticR scripts_identifyFrom_js)
 jsSource (Question description (Identify pairs shuffled)) = Just (StaticR scripts_identify_js)
 jsSource _ = error "This hasn't been implemented yet." -- could safely return nothing but this feels nicer
@@ -133,7 +133,7 @@ homeTemplate ran = do
 getHomeR :: Handler RepHtml
 getHomeR = 
   defaultLayout $ do
-    gen <- liftIO $ newStdGen
+    gen <- liftIO newStdGen
     let ran = fst $ random gen
     addHamletHead (headTemplate Nothing)
     addHamlet (homeTemplate ran)
@@ -147,7 +147,7 @@ startService runConfig = do
   wActor <- mkWhichActor
   wFilm <- mkWhichFilm
   let quiz = QuizMaster static wDirector wActor wFilm capitalQuiz
-  if (local runConfig)
+  if local runConfig
     then basicHandler 3000 quiz
     else undefined -- toWaiApp quiz >>= run
     
