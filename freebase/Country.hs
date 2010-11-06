@@ -4,6 +4,7 @@ module Country (
   ) where
 
 import Logic
+import Control.Arrow
 
 -- For countries, the corpus of data is so tiny that
 -- we'll cheat http://download.geonames.org/export/dump/countryInfo.txt
@@ -24,7 +25,7 @@ capitalQuiz = CapitalQuiz countries
 instance QuestionMaker CapitalQuiz where
   generateQuestion seed (CapitalQuiz countries) = do
     match <- rndSelect seed (filter (\x -> not . null $ capital x) countries) 10
-    let capitals = map (\x -> (name x, capital x)) match
+    let capitals = map (name &&& capital) match
     shuffled <- shuffleHints seed capitals
     return $ Question "Match the countries with the capitals" (Identify capitals shuffled)  
                     

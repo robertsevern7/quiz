@@ -27,7 +27,7 @@ class QuestionMaker a where
 
 -- |Choose a random element from a list given a seed
 chooseFromList :: Int -> [String] -> String
-chooseFromList seed xs = (xs !! i) 
+chooseFromList seed xs = xs !! i
   where
     g = mkStdGen seed
     len = length xs
@@ -39,7 +39,7 @@ rndSelect seed xs n
   | n < 0     = error "N must be greater than zero."
   | otherwise = do
       let a = shuffle xs -- of type RVar [a]
-      x <- initialize (singleton $ fromIntegral ((abs seed) `mod` (2 ^ 30)))
+      x <- initialize (singleton $ fromIntegral (abs seed `mod` (2 ^ 30)))
       shuffled <- runRVar a x
       return $ take n shuffled
       
