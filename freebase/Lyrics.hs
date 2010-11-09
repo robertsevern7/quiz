@@ -4,7 +4,6 @@ module Lyrics where
 
 import Network.HTTP
 import Text.JSON
-import Network.HTTP
 import Control.Monad (liftM)
 
 newtype Artist = Artist String
@@ -16,22 +15,20 @@ restRoot = "http://lyrics.wikia.com/api.php"
 mkLyricJsonUrl :: Artist -> Song -> Request String
 mkLyricJsonUrl (Artist artist) (Song song) = getRequest $ restRoot 
                                              ++ "?artist=" 
-                                             ++ (urlEncode artist)
+                                             ++ urlEncode artist
                                              ++ "&song=" 
-                                             ++ (urlEncode song)
+                                             ++ urlEncode song
                                              ++ "&fmt=text"
 
 getLyrics' :: Artist -> Song -> IO String
-getLyrics' artist song = (simpleHTTP $ mkLyricJsonUrl artist song) >>= getResponseBody
+getLyrics' artist song = simpleHTTP mkLyricJsonUrl artist song >>= getResponseBody
 
 -- TODO Error handling could do with being improved!
 -- TODO Encoding ("\n" and other escapings.)
 getLyrics :: Artist -> Song -> IO (Maybe String)
 getLyrics artist song = do
   x <- getLyrics' artist song
-  if x == "Not Found"
-    then (return Nothing)
-    else (return (Just x))
+  if x == "Not Found" then return Nothing else return (Just x)
          
 -- The beatles did a lot of songs         
 beatles :: Artist 
