@@ -69,6 +69,10 @@ mkYesod "QuizMaster" [$parseRoutes|
 
 instance Yesod QuizMaster where
     approot _ = "http://localhost:3000"
+    errorHandler NotFound = fmap chooseRep $ defaultLayout $ do
+      setTitle (string "bustaquiz - Requested Page Not Found")
+      addHamlet errorPage404
+    errorHandler other = defaultErrorHandler other
 
 questionTemplate :: QuizMasterRoute -> Question -> Hamlet (Route QuizMaster)
 questionTemplate route (Question description (IdentifyFrom choices answer)) =  $(hamletFileDebug "templates/identifyFromTemplate.hamlet") 
@@ -80,11 +84,11 @@ jsSource (Question description (IdentifyFrom choices answer)) = Just (StaticR sc
 jsSource (Question description (Identify pairs shuffled)) = Just (StaticR scripts_identify_js)
 jsSource _ = error "This hasn't been implemented yet." -- could safely return nothing but this feels nicer
 
-layout :: Cassius (Route QuizMaster)
-layout = $(cassiusFileDebug "templates/style.cassius")
-
 headTemplate :: Maybe QuizMasterRoute -> Hamlet (Route QuizMaster)
 headTemplate additionalJS = $(hamletFileDebug "templates/headTemplate.hamlet")
+
+errorPage404 :: Hamlet (Route QuizMaster)
+errorPage404 = $(hamletFileDebug "templates/404.hamlet")
 
 topbarTemplate :: Hamlet (Route QuizMaster)
 topbarTemplate = $(hamletFileDebug "templates/topbarTemplate.hamlet")
@@ -111,7 +115,6 @@ getQuestionSource getQuestion seed route = do
       defaultLayout $ do
         addHamletHead (headTemplate additionalJS)
         addHamlet  questions
-        addCassius layout
 
 getActorsR :: Int -> Handler RepHtml
 getActorsR seed = getQuestionSource whichActor seed (ActorsR $ seed + 1)

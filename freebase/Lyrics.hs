@@ -25,6 +25,7 @@ getLyrics' artist song = simpleHTTP mkLyricJsonUrl artist song >>= getResponseBo
 
 -- TODO Error handling could do with being improved!
 -- TODO Encoding ("\n" and other escapings.)
+-- TODO Lookup everything via the API, rewrite URLs for amazon links in response
 getLyrics :: Artist -> Song -> IO (Maybe String)
 getLyrics artist song = do
   x <- getLyrics' artist song

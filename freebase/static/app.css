@@ -12,6 +12,11 @@ body {
   background: #99FAFF url(/static/bg.gif) repeat-x 50% 0%;
 }
 
+P { 
+  font-size: 12pt;
+  font-family: sans-serif;
+}
+
 .logoText { 
   font-size: 64pt;
   font-weight: bold;
