@@ -38,7 +38,7 @@ body {
     font-size: $body-font-size;
 }
 
-.header {
+#header {
     background-color: $tb-bg-color;
     width: 80%;
     margin: 0 auto 0;
@@ -75,7 +75,7 @@ body {
     }
 }
 
-.footer {
+#footer {
     color: $tb-text-color;
     background-color: $tb-bg-color;
     text-align: center;
