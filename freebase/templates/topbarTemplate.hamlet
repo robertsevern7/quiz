@@ -1,8 +1,8 @@
 #header!class="grid_12"
   %table.body
     %tr
-      %td.logotext
-        BustaQuiz
+      %td.logoText
+        bustaquiz
       %td/
       %td
         %ul
