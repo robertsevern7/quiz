@@ -1,6 +1,8 @@
 !class="grid_8"
-  %h1 BustaQuiz.com
-  %p BustaQuiz provides a wide ranging set of questions to tax your brain.  Pick from one of the following categories to get a randomly selected question.  Yes, it's crap at the moment, but that's because it's in alpha.
+  %p BustaQuiz provides a near infinite set of questions to tax your brain.  We cover a huge range of subjects (and if we don't cover something you are interested in then please contact us!).  You can use bustaquiz for a quick quiz, to revise specific subjects, or just to demonstrate that you do know more random trivia than everyone else!
+
+  %p Pick from one of the following categories to get a randomly selected question.  
+
   %ul
     %li
       %a!href=@DirectorsR.ran@ Film Directors
