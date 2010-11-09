@@ -1,4 +1,5 @@
 %body
+!class="container_12"
   ^topbarTemplate^
   .mainbody
     .mainbackground

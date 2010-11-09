@@ -1,4 +1,4 @@
-#footer
+#footer!class="grid_12"
   %ul!class=copyright_notice
     %li
       Written using 

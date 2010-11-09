@@ -1,11 +1,18 @@
-%h1 BustaQuiz.com
-%p BustaQuiz provides a wide ranging set of questions to tax your brain.  Pick from one of the following categories to get a randomly selected question.  Yes, it's crap at the moment, but that's because it's in alpha.
-%ul
-  %li
-    %a!href=@DirectorsR.ran@ Film Directors
-  %li
-    %a!href=@ActorsR.ran@ Film Actors
-  %li
-    %a!href=@TaglinesR.ran@ Film Taglines
-  %li
-    %a!href=@CapitalsR.ran@ Capital Cities                                                
+!class="grid_8"
+  %h1 BustaQuiz.com
+  %p BustaQuiz provides a wide ranging set of questions to tax your brain.  Pick from one of the following categories to get a randomly selected question.  Yes, it's crap at the moment, but that's because it's in alpha.
+  %ul
+    %li
+      %a!href=@DirectorsR.ran@ Film Directors
+    %li
+      %a!href=@ActorsR.ran@ Film Actors
+    %li
+      %a!href=@TaglinesR.ran@ Film Taglines
+    %li
+      %a!href=@CapitalsR.ran@ Capital Cities                                                
+!class="grid_4"
+  %h2 Latest News
+  %ul
+    %li Added Support for Capital Cities
+    %li Added Support for US Presidents
+!class="clear"
