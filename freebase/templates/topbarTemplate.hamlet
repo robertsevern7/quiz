@@ -1,4 +1,4 @@
-.header
+#header
   %table.body
     %tr
       %td.logotext
