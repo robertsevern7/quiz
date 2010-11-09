@@ -40,8 +40,6 @@ body {
 
 #header {
     background-color: $tb-bg-color;
-    width: 80%;
-    margin: 0 auto 0;
     @include font;
    -moz-border-radius: 10px;
    -webkit-border-radius: 10px;
@@ -80,8 +78,6 @@ body {
     background-color: $tb-bg-color;
     text-align: center;
     height: $footer-height;
-    width: 80%;
-    margin: 0 auto 0;
     @include font;
     @include rounded;
     a:link {
