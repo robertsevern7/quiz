@@ -17,5 +17,4 @@ getRootR = do
         h2id <- newIdent
         setTitle "bustaquiz homepage"
         addCassius $(cassiusFile "homepage")
-        addJulius $(juliusFile "homepage")
         addWidget $(hamletFile "homepage")
