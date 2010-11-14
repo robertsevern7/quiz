@@ -10,21 +10,23 @@ import Yesod.Helpers.Static
 import Yesod.Helpers.Auth
 import Database.Persist.GenericSql
 
--- Import all relevant handler modules here.
+-- Relevant handlers
 import Handler.Root
+import Handler.Capital
 
-import Country
+-- Quiz makers
+import Country (capitalQuiz)
 
 -- This line actually creates our YesodSite instance. It is the second half
 -- of the call to mkYesodData which occurs in Quiz.hs. Please see
 -- the comments there for more details.
 mkYesodDispatch "Quiz" resourcesQuiz
 
--- Some default handlers that ship with the Yesod site template. You will
--- very rarely need to modify this.
+-- TODO Customize the FavIcon
 getFaviconR :: Handler ()
 getFaviconR = sendFile "image/x-icon" "favicon.ico"
 
+-- TODO Customize the Robots.txt file 
 getRobotsR :: Handler RepPlain
 getRobotsR = return $ RepPlain $ toContent "User-agent: *"
 
