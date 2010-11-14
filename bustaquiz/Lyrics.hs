@@ -3,7 +3,6 @@ module Lyrics where
 -- TODO Export a question maker from here.
 
 import Network.HTTP
-import Text.JSON
 import Control.Monad (liftM)
 
 newtype Artist = Artist String
@@ -21,7 +20,7 @@ mkLyricJsonUrl (Artist artist) (Song song) = getRequest $ restRoot
                                              ++ "&fmt=text"
 
 getLyrics' :: Artist -> Song -> IO String
-getLyrics' artist song = simpleHTTP mkLyricJsonUrl artist song >>= getResponseBody
+getLyrics' artist song = simpleHTTP (mkLyricJsonUrl artist song) >>= getResponseBody
 
 -- TODO Error handling could do with being improved!
 -- TODO Encoding ("\n" and other escapings.)

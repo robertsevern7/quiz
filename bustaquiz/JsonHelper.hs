@@ -7,8 +7,7 @@ module JsonHelper (
                   ,mkIndex
                   ) where
 
-import Text.JSON
-import Text.JSON.Types
+import Data.Object.Json
 
 -- TODO syntax for this could be greatly simplified
 data PathSegment = NamedField String
