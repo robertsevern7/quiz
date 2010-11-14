@@ -35,7 +35,7 @@ import qualified Data.Text.Lazy.Encoding
 
 -- 
 import Presidents
-import Films
+-- import Films
 import States
 import Lyrics
 import Country
@@ -43,7 +43,6 @@ import Country
 data Quiz = Quiz{ 
   getStatic :: Static, -- ^ Settings for static file serving.
   connPool :: Settings.ConnectionPool, -- ^ Database connection pool.
-  whichFilm :: WhichFilm, -- ^ Tagline quiz
   whichCapital :: CapitalQuiz -- ^ Capital cities
 }
 
