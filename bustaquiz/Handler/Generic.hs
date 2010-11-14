@@ -8,7 +8,6 @@ import Exception
 import Quiz (Widget,QuizRoute)
 import Settings (hamletFile)
 
-
 runQuestion :: QuestionMaker a => Int -> a -> IO (Either QuizException Question)
 runQuestion seed qm = try (evaluate =<< generateQuestion seed qm)
                                              

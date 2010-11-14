@@ -140,8 +140,7 @@ instance YesodAuth Quiz where
         x <- getBy $ UniqueUser $ credsIdent creds
         case x of
             Just (uid, _) -> return $ Just uid
-            Nothing -> do
-                fmap Just $ insert $ User (credsIdent creds) Nothing
+            Nothing -> fmap Just $ insert $ User (credsIdent creds) Nothing
 
     showAuthId _ = showIntegral
     readAuthId _ = readIntegral
