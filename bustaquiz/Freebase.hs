@@ -1,18 +1,18 @@
 module Freebase (
-                 mkSimpleQuery
-                ,runSimpleQuery
-                ,runQuery
-                ,touch
+--                 mkSimpleQuery
+  --              ,runSimpleQuery
+--                ,runQuery
+                touch
                 ,status
                 ,version
                 ,simpleService
                 ) where
 
-import Text.JSON
-import JsonHelper
-
 import Network.HTTP
 import Control.Monad
+
+import Data.Object.Json
+import qualified Data.ByteString.Char8 as B
 
 touch :: String
 touch = "http://api.freebase.com/api/service/touch" 
@@ -23,15 +23,20 @@ status = "http://api.freebase.com/api/status"
 version :: String
 version = "http://api.freebase.com/api/version" 
 
-simpleService :: String -> IO (Result JSValue)
-simpleService s = liftM decode (simpleHTTP (getRequest s) >>= getResponseBody)
+simpleService :: String -> IO JsonObject
+simpleService s = do
+  a <- (simpleHTTP (getRequest s) >>= getResponseBody)
+  decode (B.pack a)
 
 mqlReadUri :: String
 mqlReadUri = "http://api.freebase.com/api/service/mqlread"
 
-runQuery :: JSValue -> IO (Result JSValue)
-runQuery s = liftM decode (simpleHTTP (getRequest (mqlReadUri ++ "?query=" ++ urlEncode (encode s))) >>= getResponseBody) 
+runQuery :: JsonObject -> IO JsonObject
+runQuery s = do
+  a <- simpleHTTP (getRequest (mqlReadUri ++ "?query=" ++ (urlEncode . B.unpack) (encode s))) >>= getResponseBody
+  decode (B.pack a)
 
+{-
 mkSimpleQuery :: [(String,JSValue)] -> JSValue
 mkSimpleQuery x = JSObject $ toJSObject [("query", JSArray [JSObject $ toJSObject x])]
 
@@ -43,3 +48,4 @@ runSimpleQuery qtype key id_ arr extractor = do
       l = lookupValue (getFirst k) key
       m = fmap (\(JSArray x) -> x) l
   return (getString name, fmap (map extractor) m)
+-}

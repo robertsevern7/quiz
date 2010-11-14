@@ -13,7 +13,6 @@ import Freebase
 import GenFilms (readDirectorsFromDisk,readActorsFromDisk,readFilmsFromDisk)
 import JsonHelper (lookupValue,getJSValue,getString,mkPath,mkIndex)
 
-import Text.JSON
 import Data.Maybe (fromJust)
 import Control.Monad (liftM)
 import Control.Exception (throw)

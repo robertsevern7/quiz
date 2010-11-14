@@ -7,7 +7,6 @@ module GenFilms (
    readActorsFromDisk
    ) where
 
-import Text.JSON
 import Freebase (runQuery, mkSimpleQuery)
 import JsonHelper (lookupValue,getString,mkPath,mkIndex,getJSValue)
 import Data.List (sortBy)
