@@ -1,6 +1,6 @@
 module Logic where
 
-import System.Random (mkStdGen,randomR)
+import System.Random (mkStdGen,random,randomR)
 
 -- TODO some of these question types are less than self-explanatory
 -- |All the different types of questions
@@ -34,7 +34,10 @@ chooseFromList seed xs = xs !! i
 rndSelect :: Int -> [a] -> Int -> [a]
 rndSelect seed xs n 
   | n < 0     = error "N must be greater than zero."
-  | otherwise = take n (perm xs seed)
+  | otherwise = take n (perm xs r)
+    where
+      g = mkStdGen seed
+      (r,_) = random g
     
 -- The following is based on http://en.literateprograms.org/Kth_permutation_(Haskell)
 -- which comes from IVerson's approach

@@ -6,9 +6,12 @@ module Handler.Generic (
 import Control.Exception (try,evaluate)
 import Logic
 import Exception
-import Quiz (Widget,QuizRoute)
+import Quiz (Widget,QuizRoute,StaticRoute)
 import Settings (hamletFile,juliusFile,jqueryURL)
 import Yesod.Widget (addHamlet,addJulius,addScriptRemote)
+import Yesod.Helpers.Static
+import StaticFiles
+import Data.Either
 
 runQuestion :: QuestionMaker a => Int -> a -> IO (Either QuizException Question)
 runQuestion seed qm = try (evaluate =<< generateQuestion seed qm)
