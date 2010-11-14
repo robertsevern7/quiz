@@ -5,6 +5,10 @@
   %p 
     %a!href=@AuthR.LoginR@ Login 
     and pick from one of the following categories to get a randomly selected question.  
+  
+  %ul
+    %li 
+      %a!href=@CapitalsR.1@ Capitals
 
 $maybe mu u
     %p
