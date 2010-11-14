@@ -1,0 +1,4 @@
+// Note the double escaping of the caret
+function sanitise(input) {
+	return input.toLowerCase().replace(/[^^0-9A-Za-z]/g, "");
+}
