@@ -83,6 +83,8 @@ mkYesodData "Quiz" [$parseRoutes|
 /robots.txt RobotsR GET
 
 / RootR GET
+
+/capitals/#Int CapitalsR GET
 |]
 
 -- Please see the documentation for the Yesod typeclass. There are a number
