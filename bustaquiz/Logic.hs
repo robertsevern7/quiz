@@ -8,7 +8,7 @@ data QuestionFormat = MultipleChoice [String] String -- ^ Choose one from a set
                     | FreeText String -- |^ Free text to compare against supplied text
                     | MultipleFreeText [String] -- |^ Multiple choices of free text 
                     | IdentifyFrom [String] String -- |^ Given a set of strings identify some known answer
-                    | Identify [(String, String)] [String] -- |^ A list of answer/hint pairs
+                    | Associate [(String, String)] -- |^ Associates of LHS to RHS
                       deriving Show
 
 -- |May want to change this to something "formattable"
@@ -31,17 +31,11 @@ chooseFromList seed xs = xs !! i
     (i,_) = randomR (0,len) g
   
 -- |Given a seed, select n items at random from the supplied list
-rndSelect :: Int -> [a] -> Int -> IO [a]
+rndSelect :: Int -> [a] -> Int -> [a]
 rndSelect seed xs n 
   | n < 0     = error "N must be greater than zero."
-  | otherwise = return $ take n (perm xs seed)
+  | otherwise = take n (perm xs seed)
     
--- TODO unnecessary since we can do it in the JS
-shuffleHints :: Int -> [(String,  String)] -> IO [String]
-shuffleHints seed input = do
-  shuffled <- rndSelect seed input (length input)
-  return $ map snd shuffled
-  
 -- The following is based on http://en.literateprograms.org/Kth_permutation_(Haskell)
 -- which comes from IVerson's approach
 radixRepresentation :: Int -> Int -> [Int]
