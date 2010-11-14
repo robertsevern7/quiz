@@ -1,8 +1,8 @@
 module Freebase (
 --                 mkSimpleQuery
   --              ,runSimpleQuery
---                ,runQuery
-                touch
+                 runQuery
+                ,touch
                 ,status
                 ,version
                 ,simpleService
@@ -36,10 +36,11 @@ runQuery s = do
   a <- simpleHTTP (getRequest (mqlReadUri ++ "?query=" ++ (urlEncode . B.unpack) (encode s))) >>= getResponseBody
   decode (B.pack a)
 
-{-
-mkSimpleQuery :: [(String,JSValue)] -> JSValue
+
+mkSimpleQuery :: [(String,JSValue)] -> JsonObject
 mkSimpleQuery x = JSObject $ toJSObject [("query", JSArray [JSObject $ toJSObject x])]
 
+{-
 runSimpleQuery :: String -> String -> String -> JSValue -> (JSValue -> String) -> IO (String, Result [String])
 runSimpleQuery qtype key id_ arr extractor = do
   response <- runQuery $ mkSimpleQuery [("type",showJSON qtype),("id",showJSON id_), ("name", JSNull),(key,arr)]
