@@ -33,6 +33,8 @@ import Network.Mail.Mime
 import qualified Data.Text.Lazy
 import qualified Data.Text.Lazy.Encoding
 
+import StaticFiles
+
 -- 
 import Presidents
 -- import Films
