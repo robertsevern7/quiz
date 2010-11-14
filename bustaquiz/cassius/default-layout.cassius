@@ -1,2 +1,61 @@
 body
     font-family: sans-serif
+    background: #99FFAF
+
+#footer
+
+#header
+    height: 120px
+
+#sidebar
+
+P
+    font-size: 12pt
+    font-family: sans-serif
+
+.hiddenAnswer
+    display: none
+
+.hiddenButton
+    visibility: hidden
+
+.visibleButton
+    visibility: visible
+
+.clearFloat 
+    overflow: auto
+    width: 100% 
+
+.leftList 
+    float: left
+    width: 40% 
+
+.middleSplit 
+    width: 20% 
+
+.rightList 
+    float: right
+    width: 40% 
+
+.answerLeft 
+    background-color: #ece5b6
+    padding: 5px
+    -moz-border-radius: 10px
+    -webkit-border-radius: 10px 
+
+.answerRight 
+    background-color: #ece5b6
+    padding: 5px
+    -moz-border-radius: 10px
+    -webkit-border-radius: 10px
+
+.answerHover 
+    background-color: #e1d78e 
+
+.leftAnswerSelect 
+    background-color: #d7c865 
+
+.rightAnswerSelect 
+    background-color: #d7c865 
+               
+        
