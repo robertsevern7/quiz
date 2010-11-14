@@ -6,7 +6,9 @@
         %script!src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js" 
         %script!src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js"
         %link!rel="stylesheet"!href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.3/themes/base/jquery-ui.css"!type="text/css"!media="all"
+        %link!rel="stylesheet"!href=@StaticR.s960_css@!type="text/css"!media="all"
     %body
+      !class="container_12"
         $maybe mmsg msg
-            #message $msg$
+          #message $msg$
         ^pageBody.pc^
