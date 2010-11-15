@@ -21,6 +21,7 @@ questionWidget :: QuizRoute -> Question -> Widget ()
 questionWidget route (Question description (Associate pairs)) = do
   addHamlet $(hamletFile "associate")
   addScriptRemote jqueryURL -- TODO use addScriptEither and get local copy
+  addJulius $(juliusFile "shuffle")
   addJulius $(juliusFile "text")
   addJulius $(juliusFile "associate")
 questionWidget _ (Question _ _) = error "This has not been implemented yet."

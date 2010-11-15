@@ -1,0 +1,13 @@
+%h1 $description$     
+%input!type="text"!id="identifyAnswer"
+%ul#c
+  .lhs
+    $forall pairs p   
+      %span $fst p$ &nbsp
+      %br
+  .rhs
+    $forall pairs p
+      %span $snd p$ &nbsp
+      %br
+
+%a!href=@route@ Go to the next question
