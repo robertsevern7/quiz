@@ -42,8 +42,7 @@ beatlesLyrics = BeatlesLyrics beatlesSongs
   
 instance QuestionMaker BeatlesLyrics where
   generateQuestion seed (BeatlesLyrics songs) = do
-    -- Pick 5 songs
-    let match = rndSelect seed songs 5
+    let match = rndSelect seed songs 3
     associations <- forM match (\s@(Song song) -> do
                                    lyrics <- getLyrics beatles s
                                    return (song,fromJust lyrics))

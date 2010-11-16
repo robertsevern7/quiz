@@ -1,10 +1,16 @@
+// In order to pick non-retarded colours
+// http://colorschemedesigner.com/#3L31Tw0w0w0w0
+
+H1
+    text-align: left
+
 body
     font-family: sans-serif
-    background: #99FFAF
 
-#footer
+#maincontent
 
 #header
+    font-size: 24pt
     height: 120px
 
 #sidebar
@@ -13,49 +19,3 @@ P
     font-size: 12pt
     font-family: sans-serif
 
-.hiddenAnswer
-    display: none
-
-.hiddenButton
-    visibility: hidden
-
-.visibleButton
-    visibility: visible
-
-.clearFloat 
-    overflow: auto
-    width: 100% 
-
-.leftList 
-    float: left
-    width: 40% 
-
-.middleSplit 
-    width: 20% 
-
-.rightList 
-    float: right
-    width: 40% 
-
-.answerLeft 
-    background-color: #ece5b6
-    padding: 5px
-    -moz-border-radius: 10px
-    -webkit-border-radius: 10px 
-
-.answerRight 
-    background-color: #ece5b6
-    padding: 5px
-    -moz-border-radius: 10px
-    -webkit-border-radius: 10px
-
-.answerHover 
-    background-color: #e1d78e 
-
-.leftAnswerSelect 
-    background-color: #d7c865 
-
-.rightAnswerSelect 
-    background-color: #d7c865 
-               
-        

@@ -1,3 +1,4 @@
+.clear
 %h1 $description$     
 %br
 .grid_6
