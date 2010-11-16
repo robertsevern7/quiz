@@ -16,5 +16,5 @@
 #lhs li
   background-color: blue
 
-#lhs .hidden
+#rhs .hidden
   display: none
