@@ -12,6 +12,8 @@
       %a!href=@CapitalsR.1@ Capitals
     %li
       %a!href=@BeatlesLyricsR.1@ Beatles Lyrics                                
+    %li
+      %a!href=@USPresidentsOrderR.1@ Order of Inauguration of US Presidents
 
 !id="sidebar"!class="grid_4"
   $maybe mu u
