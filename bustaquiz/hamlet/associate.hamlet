@@ -1,15 +1,15 @@
 %h1 $description$     
-%ul
-  .grid_4
-    %ul#lhs
-      $forall pairs p   
-        %li $fst p$ &nbsp
-        %br
-  .grid_4
-    %ul#rhs
-      $forall pairs p
-        %li $snd p$ &nbsp
-        %br
+%br
+.grid_4
+  %ul#lhs
+    $forall pairs p   
+      %li $fst p$ &nbsp
+      %br
+.grid_4
+  %ul#rhs
+    $forall pairs p
+      %li $snd p$ &nbsp
+      %br
 
 .clear
 .grid_12
