@@ -1,11 +1,13 @@
 module Freebase (
                  mkSimpleQuery
+                ,wrapInQuery
 --                ,runSimpleQuery
                 ,runQuery
                 ,touch
                 ,status
                 ,version
                 ,simpleService
+                ,mkObject
                 ) where
 
 import Network.HTTP
@@ -39,18 +41,25 @@ runQuery s = do
   let request = (getRequest (mqlReadUri ++ "?query=" ++ (urlEncode . B.unpack) (encode s)))
   a <- simpleHTTP request >>= getResponseBody
   decode (B.pack a)
+  
+mkObject :: [(String,JsonScalar)] -> JsonObject
+mkObject x = Mapping ((map (\(a,b) -> (B.pack a, Scalar b))) x)
+
+wrapInQuery :: JsonObject -> JsonObject
+wrapInQuery x = toJsonObject $ Mapping [(B.pack "query", x)]
 
 mkSimpleQuery :: [(String,JsonScalar)] -> JsonObject
-mkSimpleQuery x = toJsonObject $ Mapping [(B.pack "query",toJsonObject $ Mapping (map (\(a,b) -> (B.pack a,Scalar b)) x))]
+mkSimpleQuery = wrapInQuery . mkObject
 
 -- runSimpleQuery :: String -> String -> String -> JsonScalar -> (JsonScalar -> String) -> IO (String, Result [String])
-runSimpleQuery qtype key id_ arr extractor = do
-  response <- runQuery $ mkSimpleQuery [("type",toJsonScalar qtype),("id",toJsonScalar id_), ("name", JsonNull),(key,arr)]
-  return response
-  {-
-  let k = lookupValue response "result"
-      (Ok name) = lookupValue (getFirst k) "name"
-      l = lookupValue (getFirst k) key
-      m = fmap (\(JSArray x) -> x) l
-  return (getString name, fmap (map extractor) m)
--}
+-- runSimpleQuery qtype key id_ arr extractor = do
+--   response <- runQuery $ mkSimpleQuery [("type",toJsonScalar qtype),("id",toJsonScalar id_), ("name", JsonNull),(key,arr)]
+--   return response
+--   {-
+--   let k = lookupValue response "result"
+--       (Ok name) = lookupValue (getFirst k) "name"
+--       l = lookupValue (getFirst k) key
+--       m = fmap (\(JSArray x) -> x) l
+--   return (getString name, fmap (map extractor) m)
+
+
