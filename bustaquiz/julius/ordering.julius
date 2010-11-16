@@ -1,0 +1,6 @@
+$(document).ready(function() {
+  $('#ordering > li').shuffle(); 
+
+  $('#ordering').sortable();                            
+  $('#ordering').disableSelection();                            
+});

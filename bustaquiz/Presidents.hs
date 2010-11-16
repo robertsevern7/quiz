@@ -1,4 +1,7 @@
-module Presidents where
+module Presidents (
+  OrderOfService,
+  orderOfService
+  ) where
 
 import Logic (QuestionMaker,generateQuestion, rndSelect,Question(Question),QuestionFormat(Order))
 import Data.List (sortBy)
@@ -21,6 +24,9 @@ data President = President {
   , occupation :: String
   , college :: String
 }
+
+orderOfService :: OrderOfService
+orderOfService = OrderOfService presidents
 
 data OrderOfService = OrderOfService [President]
 

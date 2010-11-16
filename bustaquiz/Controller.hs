@@ -14,10 +14,12 @@ import Database.Persist.GenericSql
 import Handler.Root
 import Handler.Capital
 import Handler.BeatlesLyrics
+import Handler.USPresidentsOrder
 
 -- Quiz makers
 import Country (capitalQuiz)
 import Lyrics (beatlesLyrics)
+import Presidents (orderOfService)
 
 -- This line actually creates our YesodSite instance. It is the second half
 -- of the call to mkYesodData which occurs in Quiz.hs. Please see
@@ -39,7 +41,8 @@ getRobotsR = return $ RepPlain $ toContent "User-agent: *"
 withQuiz :: (Application -> IO a) -> IO a
 withQuiz f = Settings.withConnectionPool $ \pool -> do
     runConnectionPool (runMigration migrateAll) pool
-    let h = Quiz s pool capitalQuiz beatlesLyrics
+    -- TODO This all seems a bit nasty - perhaps centralizing this in the data base is a better idea?
+    let h = Quiz s pool capitalQuiz beatlesLyrics orderOfService
     toWaiApp h >>= f
   where
     s = fileLookupDir Settings.staticdir typeByExt

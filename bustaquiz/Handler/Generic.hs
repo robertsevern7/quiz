@@ -30,6 +30,16 @@ questionWidget route (Question description (Associate pairs)) = do
   addCassius $(cassiusFile "associate")
   addJulius $(juliusFile "associate")
   
+questionWidget route (Question description (Order ordering)) = do
+  addScriptRemote jqueryURL
+  addScriptRemote jqueryUIURL
+  addJulius $(juliusFile "shuffle")
+
+  addHamlet $(hamletFile "ordering")
+  addCassius $(cassiusFile "ordering")
+  addJulius $(juliusFile "ordering")
+
+  
 questionWidget _ (Question _ _) = error "This has not been implemented yet."
 
 
