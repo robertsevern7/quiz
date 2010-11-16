@@ -1,3 +1,11 @@
 $(document).ready(function() {
   $('#rhs > li').shuffle();
+
+  $('#lhs > li').click(function() {
+    alert('hi');
+  });
+
+  $('#rhs > li').click(function () {
+    alert('bye');
+  });
 });
