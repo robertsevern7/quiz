@@ -4,7 +4,7 @@ module Controller
     ( withQuiz
     ) where
 
-import Quiz
+import Quiz hiding (beatlesLyrics)
 import Settings
 import Yesod.Helpers.Static
 import Yesod.Helpers.Auth
@@ -13,9 +13,11 @@ import Database.Persist.GenericSql
 -- Relevant handlers
 import Handler.Root
 import Handler.Capital
+import Handler.BeatlesLyrics
 
 -- Quiz makers
 import Country (capitalQuiz)
+import Lyrics (beatlesLyrics)
 
 -- This line actually creates our YesodSite instance. It is the second half
 -- of the call to mkYesodData which occurs in Quiz.hs. Please see
@@ -37,7 +39,7 @@ getRobotsR = return $ RepPlain $ toContent "User-agent: *"
 withQuiz :: (Application -> IO a) -> IO a
 withQuiz f = Settings.withConnectionPool $ \pool -> do
     runConnectionPool (runMigration migrateAll) pool
-    let h = Quiz s pool capitalQuiz
+    let h = Quiz s pool capitalQuiz beatlesLyrics
     toWaiApp h >>= f
   where
     s = fileLookupDir Settings.staticdir typeByExt

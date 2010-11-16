@@ -1,4 +1,12 @@
-module Logic where
+module Logic (
+  QuestionFormat(Associate),
+  Question(Question),
+  QuestionMaker,
+  description,
+  generateQuestion,
+  chooseFromList,
+  rndSelect
+  ) where
 
 import System.Random (mkStdGen,random,randomR)
 
@@ -16,6 +24,9 @@ type Description = String
 
 -- |A question is a question format, together with a description
 data Question = Question Description QuestionFormat deriving Show
+
+description :: Question -> Description
+description (Question d _) = d
 
 -- |A question maker uses some logic to generate questions
 -- |An integer is used to provide variation
