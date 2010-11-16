@@ -14,3 +14,6 @@
 
 #lhs li
   background-color: blue
+
+#lhs .hidden
+  display: none
