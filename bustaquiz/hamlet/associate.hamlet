@@ -2,14 +2,14 @@
 %ul
   .grid_4
     %ul#lhs
-    $forall pairs p   
-      %li $fst p$ &nbsp
-      %br
+      $forall pairs p   
+        %li $fst p$ &nbsp
+        %br
   .grid_4
     %ul#rhs
-    $forall pairs p
-      %li $snd p$ &nbsp
-      %br
+      $forall pairs p
+        %li $snd p$ &nbsp
+        %br
 
 .clear
 .grid_12
