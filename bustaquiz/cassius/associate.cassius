@@ -1,10 +1,16 @@
-#lhs
+#lhs,#rhs
   font-family: sans-serif               
   font-size: 18pt
-
-#rhs
-  font-family: sans-serif
-  font-size: 18pt
+  list-style: none 
 
 #rhs li,#lhs li
   font-size: 24pt
+  border-style: outset
+  border-width: 3px
+  text-align: center
+
+#rhs li
+  background-color: red
+
+#lhs li
+  background-color: blue
