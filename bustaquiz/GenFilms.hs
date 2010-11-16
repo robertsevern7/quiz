@@ -65,27 +65,39 @@ getActors = do
   z <- mapM fromScalar values
   return $ map fromJsonScalar z
   
---   let arrayActors = lookupValue response "result" 
---   return (fmap extractActors arrayActors)
-  
--- extractActors :: JSValue -> [String]
--- extractActors (JSArray xs) = map extractActor xs
--- extractActors _ = error "Freebase screwed us."
+saveActorsToDisk :: IO ()
+saveActorsToDisk = do
+   actors <- getActors
+   writeFile actorPath (show actors)
 
--- extractActor :: JSValue -> String
--- extractActor jsValue = getString (fromJust $ getJSValue jsValue [mkPath "id", mkIndex 0, mkPath "value"])
+getBigBudgetFilmsQuery :: String -> JsonObject
+getBigBudgetFilmsQuery queryType = wrapInQuery $ toJsonObject $ Mapping [
+  (B.pack "type", Scalar $ toJsonScalar queryType),
+  (B.pack "id", Scalar $ JsonNull),
+  (B.pack "limit", Scalar $ JsonNumber 600),
+  (B.pack "film", Sequence [
+      toJsonObject $ Mapping [
+         (B.pack "name", Scalar JsonNull),
+         (B.pack "limit", Scalar $ JsonNumber 5),
+         (B.pack "sort", Scalar $ toJsonScalar "-estimated_budget.amount"),
+         (B.pack "estimated_budget", toJsonObject $ Mapping [
+             (B.pack "amount", Scalar JsonNull),
+             (B.pack "currency", Scalar $ toJsonScalar "US$")])
+      ]
+  ])]
 
--- saveActorsToDisk :: IO ()
--- saveActorsToDisk = do
---   (Ok films) <- getActors
---   writeFile actorPath (show $ map id films)
 
 -- getBigBudgetFilms :: String -> IO (Result [(String, Int)])
--- getBigBudgetFilms query_type = do
---   let budgetQueryObject = showJSON (toJSObject [("amount", JSNull), ("currency", showJSON "US$")])
---       filmQueryObject = showJSON (toJSObject [("name", JSNull), ("limit", showJSON (5 :: Int)), ("sort", showJSON "-estimated_budget.amount"), ("estimated_budget", budgetQueryObject)]);
+getBigBudgetFilms query_type = do
+   let query = getBigBudgetFilmsQuery query_type
+   queryResult <- runQuery query >>= fromMapping    
+   return queryResult
+
+   {-
+   --       filmQueryObject = showJSON (toJSObject [("name", JSNull), ("limit", showJSON (5 :: Int)), ("sort", showJSON "-estimated_budget.amount"), ("estimated_budget", budgetQueryObject)]);
 --   response <- runQuery $ mkSimpleQuery [("type",showJSON query_type),("id",showJSON JSNull), ("limit",showJSON (600 :: Int)),("film", JSArray [filmQueryObject])]
 --   return (fmap extractIdAndBudgets $ lookupValue response "result")
+-}
 
 -- extractIdAndBudgets :: JSValue -> [(String,Int)]
 -- extractIdAndBudgets (JSArray xs) = sortBy (\(_,a) (_,b) -> compare b a) $ map extractIdAndBudget xs
@@ -107,8 +119,8 @@ getActors = do
 --       (JSRational _ cost) = fromJust $ listToMaybe $ mapMaybe (getJSValue f) paths
 -- getFilmBudget _ = error "Unexpected response in getFilmBudget"
 
--- getDirectorBigBudgetFilms :: IO (Result [(String, Int)])
--- getDirectorBigBudgetFilms = getBigBudgetFilms "/film/director"
+--getDirectorBigBudgetFilms :: IO (Result [(String, Int)])
+getDirectorBigBudgetFilms = getBigBudgetFilms "/film/director"
 
 -- saveDirectorsToDisk :: IO ()
 -- saveDirectorsToDisk = do
