@@ -1,11 +1,11 @@
 %h1 $description$     
 %br
-.grid_4
+.grid_6
   %ul#lhs
     $forall pairs p   
       %li $fst p$ &nbsp
       %br
-.grid_4
+.grid_6
   %ul#rhs
     $forall pairs p
       %li $snd p$ &nbsp
