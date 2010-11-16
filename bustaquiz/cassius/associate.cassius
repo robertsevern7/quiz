@@ -1,6 +1,7 @@
-.lhs
+#lhs
   background-color: red
   font-size: 18pt
 
-.rhs
+#rhs
   background-color: blue
+  font-size: 18pt
