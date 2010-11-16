@@ -1,12 +1,14 @@
 %h1 $description$     
-%ul#c
+%ul
   .grid_4
+    %ul#lhs
     $forall pairs p   
-      %span $fst p$ &nbsp
+      %li $fst p$ &nbsp
       %br
   .grid_4
+    %ul#rhs
     $forall pairs p
-      %span $snd p$ &nbsp
+      %li $snd p$ &nbsp
       %br
 
 .clear
