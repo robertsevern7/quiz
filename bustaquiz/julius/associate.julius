@@ -1,11 +1,13 @@
 $(document).ready(function() {
   $('#rhs > li').shuffle();
 
-  $('#lhs > li').click(function() {
-    alert('hi');
-  });
+  $('#lhs > li').draggable();
 
-  $('#rhs > li').click(function () {
-    alert('bye');
-  });
+  $('#rhs > li').droppable({
+          drop: function( event, ui ) {
+             var dropped = event.srcElement.textContent;
+             var onto = event.target.textContent;
+             alert(dropped + ' onto ' + onto);
+          }
+  });       
 });
