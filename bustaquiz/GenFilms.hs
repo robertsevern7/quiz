@@ -11,7 +11,7 @@ module GenFilms where
 import Freebase (runQuery, mkSimpleQuery,wrapInQuery,mkObject)
 -- import JsonHelper (lookupValue,getString,mkPath,mkIndex,getJSValue)
 import Data.List (sortBy)
-import Control.Monad (liftM)
+import Control.Monad (liftM,forM)
 import Data.Maybe (fromJust,mapMaybe,listToMaybe)
 
 import Data.Object
@@ -53,23 +53,7 @@ getActorsQuery = wrapInQuery $ toJsonObject $ Mapping [
   (B.pack "type", Scalar $ toJsonScalar "/base/popstra/celebrity"),
   (B.pack "limit", Scalar $ JsonNumber 10), -- TODO update the limit
   (B.pack "sort", Scalar $ toJsonScalar "-heat.value")]
-  
-getActors :: IO [String]
-getActors = do
-  queryResult <- runQuery getActorsQuery >>= fromMapping 
-  result <- lookupObject (B.pack "result") queryResult >>= fromSequence
-  unmapped <- mapM fromMapping result
-  elements <- mapM (\a -> fmap head (lookupObject (B.pack "id") a >>= fromSequence)) unmapped
-  result <- mapM fromMapping elements
-  values <- mapM (lookupObject (B.pack "value")) result  
-  z <- mapM fromScalar values
-  return $ map fromJsonScalar z
-  
-saveActorsToDisk :: IO ()
-saveActorsToDisk = do
-   actors <- getActors
-   writeFile actorPath (show actors)
-
+                 
 getBigBudgetFilmsQuery :: String -> JsonObject
 getBigBudgetFilmsQuery queryType = wrapInQuery $ toJsonObject $ Mapping [
   (B.pack "type", Scalar $ toJsonScalar queryType),
@@ -87,11 +71,41 @@ getBigBudgetFilmsQuery queryType = wrapInQuery $ toJsonObject $ Mapping [
   ])]
 
 
--- getBigBudgetFilms :: String -> IO (Result [(String, Int)])
-getBigBudgetFilms query_type = do
-   let query = getBigBudgetFilmsQuery query_type
-   queryResult <- runQuery query >>= fromMapping    
-   return queryResult
+runQueryAndGetResult :: JsonObject -> IO [Object B.ByteString JsonScalar]
+runQueryAndGetResult query = do
+  queryResult <- runQuery query >>= fromMapping
+  lookupObject (B.pack "result") queryResult >>= fromSequence
+
+  
+getActors :: IO [String]
+getActors = do
+  result <- runQueryAndGetResult getActorsQuery
+  unmapped <- mapM fromMapping result
+  elements <- mapM (\a -> fmap head (lookupObject (B.pack "id") a >>= fromSequence)) unmapped
+  result <- mapM fromMapping elements
+  values <- mapM (lookupObject (B.pack "value")) result  
+  z <- mapM fromScalar values
+  return $ map fromJsonScalar z
+  
+saveActorsToDisk :: IO ()
+saveActorsToDisk = do
+   actors <- getActors
+   writeFile actorPath (show actors)
+
+-- getBigBudgetFilms :: String -> IO [(String, Int)] -- [Object B.ByteString JsonScalar])]
+getBigBudgetFilms queryType = do
+   let query = getBigBudgetFilmsQuery queryType
+   queryResult <- runQueryAndGetResult query
+   unmapped <- mapM fromMapping queryResult
+--   return queryResult 
+   forM unmapped (\x -> do
+            filmId <- lookupObject (B.pack "id") x >>= fromScalar
+            films <- lookupObject (B.pack "film") x >>= fromSequence
+            unmappedFilms <- mapM fromMapping films
+            budgets <- mapM (lookupObject (B.pack "estimated_budget")) unmappedFilms
+            unmappedBudgets <- mapM fromMapping films            
+            return (fromJsonScalar filmId :: String,budgets))
+
 
    {-
    --       filmQueryObject = showJSON (toJSObject [("name", JSNull), ("limit", showJSON (5 :: Int)), ("sort", showJSON "-estimated_budget.amount"), ("estimated_budget", budgetQueryObject)]);
