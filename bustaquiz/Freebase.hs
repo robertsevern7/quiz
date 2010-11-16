@@ -1,7 +1,7 @@
 module Freebase (
---                 mkSimpleQuery
-  --              ,runSimpleQuery
-                 runQuery
+                 mkSimpleQuery
+--                ,runSimpleQuery
+                ,runQuery
                 ,touch
                 ,status
                 ,version
@@ -11,6 +11,7 @@ module Freebase (
 import Network.HTTP
 import Control.Monad
 
+import Data.Object
 import Data.Object.Json
 import qualified Data.ByteString.Char8 as B
 
@@ -36,9 +37,9 @@ runQuery s = do
   a <- simpleHTTP (getRequest (mqlReadUri ++ "?query=" ++ (urlEncode . B.unpack) (encode s))) >>= getResponseBody
   decode (B.pack a)
 
+mkSimpleQuery :: [(String,JsonScalar)] -> JsonObject
+mkSimpleQuery x = toJsonObject $ Mapping (map (\(a,b) -> (B.pack a,Scalar b)) x)
 
-mkSimpleQuery :: [(String,JSValue)] -> JsonObject
-mkSimpleQuery x = JSObject $ toJSObject [("query", JSArray [JSObject $ toJSObject x])]
 
 {-
 runSimpleQuery :: String -> String -> String -> JSValue -> (JSValue -> String) -> IO (String, Result [String])
