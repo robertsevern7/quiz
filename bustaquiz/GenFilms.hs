@@ -36,25 +36,7 @@ readActorsFromDisk = liftM read (readFile actorPath)
 readFilmsFromDisk :: IO [String]
 readFilmsFromDisk = liftM read (readFile filmPath)
 
-
-{- The query for actors
-[{
-  "/people/person/profession": [
-      {
-        "id": "/en/actor",
-        "type": "/people/profession"
-      }
-    ]
-  "heat" : {"value": null, "optional": false},
-  "id": [{
-    "type": "/type/id",
-    "value": null
-  }],
-  "type": "/base/popstra/celebrity",
-  "limit": 10,
-  "sort": "-heat.value"
-}]
--}
+-- TODO remove unnecessary packing!
 getActorsQuery :: JsonObject
 getActorsQuery = wrapInQuery $ toJsonObject $ Mapping [
   (B.pack "/people/person/profession", mkObject [
@@ -67,6 +49,7 @@ getActorsQuery = wrapInQuery $ toJsonObject $ Mapping [
       ]),
   (B.pack "id",Sequence [mkObject [("type", toJsonScalar "/type/id"),("value", JsonNull)]]),
   (B.pack "type", Scalar $ toJsonScalar "/base/popstra/celebrity"),
+  (B.pack "limit", Scalar $ JsonNumber 10),
   (B.pack "sort", Scalar $ toJsonScalar "-heat.value")]
   
 
