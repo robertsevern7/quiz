@@ -1,6 +1,8 @@
 module Presidents where
 
-import Logic (QuestionMaker, generateQuestion, rndSelect)
+import Logic (QuestionMaker,generateQuestion, rndSelect,Question(Question),QuestionFormat(Order))
+import Data.List (sortBy)
+import Data.Ord (comparing)
 
 data Affiliation = Federalist 
                  | DemocraticRepublican
@@ -23,7 +25,11 @@ data President = President {
 data OrderOfService = OrderOfService [President]
 
 instance QuestionMaker OrderOfService where
-  generateQuestion seed (OrderOfService presidents) = undefined
+  generateQuestion seed (OrderOfService presidents) = return $ Question desc (Order $ map (\p -> (name p,show $ yearFirstInaugurated p)) sorted)
+    where 
+      pres = rndSelect seed presidents 10
+      sorted = sortBy (comparing yearFirstInaugurated) pres
+      desc = "Put the following President's in the order in which they were inaugurated, starting with the earliest"
 
 -- Data nabbed from 
 -- http://qrc.depaul.edu/Excel_Files/Presidents.xls

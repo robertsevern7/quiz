@@ -1,5 +1,5 @@
 module Logic (
-  QuestionFormat(Associate),
+  QuestionFormat(Associate,Order),
   Question(Question),
   QuestionMaker,
   description,
@@ -13,10 +13,9 @@ import System.Random (mkStdGen,random,randomR)
 -- TODO some of these question types are less than self-explanatory
 -- |All the different types of questions
 data QuestionFormat = MultipleChoice [String] String -- ^ Choose one from a set
-                    | FreeText String -- |^ Free text to compare against supplied text
-                    | MultipleFreeText [String] -- |^ Multiple choices of free text 
-                    | IdentifyFrom [String] String -- |^ Given a set of strings identify some known answer
-                    | Associate [(String, String)] -- |^ Associates of LHS to RHS
+                    | IdentifyFrom [String] String -- ^ Given a set of strings identify some known answer
+                    | Associate [(String, String)] -- ^ Associates of LHS to RHS
+                    | Order [(String, String)] -- ^ An ordering of the first element, with supporting information in the second
                       deriving Show
 
 -- |May want to change this to something "formattable"
