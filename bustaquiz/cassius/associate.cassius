@@ -8,6 +8,7 @@
   border-style: outset
   border-width: 3px
   text-align: center
+  cursor: pointer
 
 #rhs li
   background-color: red
