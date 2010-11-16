@@ -7,7 +7,7 @@ import Control.Exception (try,evaluate)
 import Logic
 import Exception
 import Quiz (Widget,QuizRoute,StaticRoute)
-import Settings (cassiusFile,hamletFile,juliusFile,jqueryURL)
+import Settings (cassiusFile,hamletFile,juliusFile,jqueryURL,jqueryUIURL)
 import Yesod.Widget (addCassius,addHamlet,addJulius,addScriptRemote)
 import Yesod.Helpers.Static
 import StaticFiles
@@ -21,6 +21,7 @@ questionWidget :: QuizRoute -> Question -> Widget ()
 questionWidget route (Question description (Associate pairs)) = do
   -- External requirements
   addScriptRemote jqueryURL
+  addScriptRemote jqueryUIURL
   addJulius $(juliusFile "shuffle")
   addJulius $(juliusFile "text")
   

@@ -16,6 +16,7 @@ module Settings
     , staticroot
     , staticdir
     , jqueryURL
+    , jqueryUIURL
     ) where
 
 import qualified Text.Hamlet as H
@@ -25,8 +26,20 @@ import Language.Haskell.TH.Syntax
 import Database.Persist.Sqlite
 import Yesod (MonadInvertIO)
 
+-- TDO 
 jqueryURL :: String
+#ifdef PRODUCTION
 jqueryURL = "https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js" 
+#else
+jqueryURL = "https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.js" 
+#endif
+
+jqueryUIURL :: String
+#ifdef PRODUCTION
+jqueryUIURL = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js"
+#else
+jqueryUIURL ="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.js" 
+#endif
 
 -- | The base URL for your application. This will usually be different for
 -- development and production. Yesod automatically constructs URLs for you,
