@@ -4,6 +4,7 @@
   %ul#lhs
     $forall pairs p   
       %li $fst p$ &nbsp
+      %div!class=hidden $snd p$
       %br
 .grid_6
   %ul#rhs
