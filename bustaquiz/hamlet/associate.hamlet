@@ -1,13 +1,14 @@
 %h1 $description$     
-%input!type="text"!id="identifyAnswer"
 %ul#c
-  .lhs
+  .grid_4
     $forall pairs p   
       %span $fst p$ &nbsp
       %br
-  .rhs
+  .grid_4
     $forall pairs p
       %span $snd p$ &nbsp
       %br
 
-%a!href=@route@ Go to the next question
+.clear
+.grid_12
+  %a!href=@route@ Go to the next question

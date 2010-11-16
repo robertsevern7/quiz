@@ -1,0 +1,5 @@
+.lhs
+  background-color: red
+
+.rhs
+  background-color: blue
