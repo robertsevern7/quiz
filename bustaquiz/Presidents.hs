@@ -1,6 +1,6 @@
 module Presidents where
 
-import Logic (QuestionMaker, generateQuestion)
+import Logic (QuestionMaker, generateQuestion, rndSelect)
 
 data Affiliation = Federalist 
                  | DemocraticRepublican
