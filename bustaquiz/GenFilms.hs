@@ -17,6 +17,8 @@ import Data.Maybe (fromJust,mapMaybe,listToMaybe)
 import Data.Object
 import Data.Object.Json
 import qualified Data.ByteString.Char8 as B
+import Data.Attempt
+import Data.Convertible.Base
 
 directorPath :: FilePath
 directorPath = "data/film/film_directors.txt"
@@ -49,12 +51,20 @@ getActorsQuery = wrapInQuery $ toJsonObject $ Mapping [
       ]),
   (B.pack "id",Sequence [mkObject [("type", toJsonScalar "/type/id"),("value", JsonNull)]]),
   (B.pack "type", Scalar $ toJsonScalar "/base/popstra/celebrity"),
-  (B.pack "limit", Scalar $ JsonNumber 10),
+  (B.pack "limit", Scalar $ JsonNumber 10), -- TODO update the limit
   (B.pack "sort", Scalar $ toJsonScalar "-heat.value")]
   
-
--- getActors :: IO (Result [String])
-getActors = runQuery getActorsQuery
+getActors :: IO [String]
+getActors = do
+  queryResult <- runQuery getActorsQuery >>= fromMapping 
+  result <- lookupObject (B.pack "result") queryResult >>= fromSequence
+  unmapped <- mapM fromMapping result
+  elements <- mapM (\a -> fmap head (lookupObject (B.pack "id") a >>= fromSequence)) unmapped
+  result <- mapM fromMapping elements
+  values <- mapM (lookupObject (B.pack "value")) result  
+  z <- mapM fromScalar values
+  return $ map fromJsonScalar z
+  
 --   let arrayActors = lookupValue response "result" 
 --   return (fmap extractActors arrayActors)
   
