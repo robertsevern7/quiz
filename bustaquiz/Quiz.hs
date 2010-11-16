@@ -39,13 +39,14 @@ import StaticFiles
 import Presidents
 -- import Films
 import States
-import Lyrics
+import Lyrics (BeatlesLyrics,beatlesLyrics)
 import Country
 
-data Quiz = Quiz{ 
+data Quiz = Quiz { 
   getStatic :: Static, -- ^ Settings for static file serving.
   connPool :: Settings.ConnectionPool, -- ^ Database connection pool.
-  whichCapital :: CapitalQuiz -- ^ Capital cities
+  whichCapital :: CapitalQuiz, -- ^ Capital cities
+  beatlesLyrics :: BeatlesLyrics
 }
 
 -- | A useful synonym; most of the handler functions in your application
@@ -85,6 +86,7 @@ mkYesodData "Quiz" [$parseRoutes|
 / RootR GET
 
 /capitals/#Int CapitalsR GET
+/beatlesLyrics/#Int BeatlesLyricsR GET
 |]
 
 -- Please see the documentation for the Yesod typeclass. There are a number
