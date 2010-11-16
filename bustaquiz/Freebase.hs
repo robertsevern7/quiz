@@ -38,7 +38,7 @@ mqlReadUri = "http://api.freebase.com/api/service/mqlread"
 
 runQuery :: JsonObject -> IO JsonObject
 runQuery s = do
-  let request = (getRequest (mqlReadUri ++ "?query=" ++ (urlEncode . B.unpack) (encode s)))
+  let request = traceShow (getRequest (mqlReadUri ++ "?query=" ++ (urlEncode . B.unpack) (encode s))) (getRequest (mqlReadUri ++ "?query=" ++ (urlEncode . B.unpack) (encode s)))
   a <- simpleHTTP request >>= getResponseBody
   decode (B.pack a)
   
@@ -46,7 +46,7 @@ mkObject :: [(String,JsonScalar)] -> JsonObject
 mkObject x = Mapping ((map (\(a,b) -> (B.pack a, Scalar b))) x)
 
 wrapInQuery :: JsonObject -> JsonObject
-wrapInQuery x = toJsonObject $ Mapping [(B.pack "query", x)]
+wrapInQuery x = toJsonObject $ Mapping [(B.pack "query", Sequence [x])]
 
 mkSimpleQuery :: [(String,JsonScalar)] -> JsonObject
 mkSimpleQuery = wrapInQuery . mkObject
