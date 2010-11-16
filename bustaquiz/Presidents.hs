@@ -1,5 +1,7 @@
 module Presidents where
 
+import Logic (QuestionMaker, generateQuestion)
+
 data Affiliation = Federalist 
                  | DemocraticRepublican
                  | Democrat
@@ -10,13 +12,18 @@ data Affiliation = Federalist
 data President = President {
     name :: String
   , yearsInOffice :: Double
-  , yearFirstInaugurated :: Int
+  , yearFirstInaugurated :: Double -- Needed to give ordering!
   , ageAtInauguration :: Int
   , stateElectedFrom :: String
   , affiliation :: Affiliation
   , occupation :: String
   , college :: String
 }
+
+data OrderOfService = OrderOfService [President]
+
+instance QuestionMaker OrderOfService where
+  generateQuestion seed (OrderOfService presidents) = undefined
 
 -- Data nabbed from 
 -- http://qrc.depaul.edu/Excel_Files/Presidents.xls
@@ -29,8 +36,8 @@ presidents = [
   President "John Quincy Adams" 4 1825 57 "Massachusetts" DemocraticRepublican "Lawyer" "Harvard",
   President "Andrew Jackson" 8 1829 61 "Tennessee" Democrat "Lawyer" "None",
   President "Martin Van Buren " 4 1837 54 "New York" Democrat "Lawyer" "None",
-  President "William Henry Harrison" 0.8 1841 68 "Ohio" Whig "Soldier" "Hampden-Sydney",
-  President "John Tyler" 4 1841 51 "Virginia" Whig "Lawyer" "William and Mary",
+  President "William Henry Harrison" 0.8 1841.0 68 "Ohio" Whig "Soldier" "Hampden-Sydney",
+  President "John Tyler" 4 1841.1 51 "Virginia" Whig "Lawyer" "William and Mary",
   President "James K. Polk" 4 1845 49 "Tennessee" Democrat "Lawyer" "U. of North Carolina",
   President "Zachary Taylor" 1 1849 64 "Louisiana" Whig "Soldier" "None",
   President "Millard Fillmore" 3 1850 50 "New York" Whig "Lawyer" "None",
