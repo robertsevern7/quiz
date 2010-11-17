@@ -1,19 +1,26 @@
-module States where
+module States (
+  stateFlags
+  ) where
 
 import Logic
 import StaticFiles
 import Yesod.Helpers.Static
 
+import Control.Arrow ((&&&)) 
+  
 data State = State {
     name :: String
   , abbreviation :: String
   , captial :: String
   , mostPopulusCity :: String
   , areaSquareMiles :: Integer
-  , stateFlag :: StaticRoute
+  , flag :: StaticRoute
 }
 
 data StateFlags = StateFlags [(String,StaticRoute)]
+
+stateFlags :: StateFlags
+stateFlags = StateFlags (map (name &&& flag) states)
 
 instance QuestionMaker StateFlags where
   generateQuestion seed (StateFlags stateFlags) = return $ Question "Which state has the following flag?" (Identify picture state)

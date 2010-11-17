@@ -54,7 +54,3 @@ questionWidget route (Question description (Identify resource answer)) = do
   addCassius $(cassiusFile "identify")
   addJulius $(juliusFile "identify")
 
-  
-questionWidget _ (Question _ _) = error "This has not been implemented yet."
-
-
