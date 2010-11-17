@@ -12,10 +12,12 @@ module Freebase (
 
 import Network.HTTP
 import Control.Monad
+import Control.Arrow ((***))
 
 import Data.Object
 import Data.Object.Json
 import qualified Data.ByteString.Char8 as B
+
 
 import Debug.Trace
 
@@ -43,7 +45,7 @@ runQuery s = do
   decode (B.pack a)
   
 mkObject :: [(String,JsonScalar)] -> JsonObject
-mkObject x = Mapping ((map (\(a,b) -> (B.pack a, Scalar b))) x)
+mkObject x = Mapping (map (B.pack *** Scalar) x)
 
 wrapInQuery :: JsonObject -> JsonObject
 wrapInQuery x = toJsonObject $ Mapping [(B.pack "query", Sequence [x])]

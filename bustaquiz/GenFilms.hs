@@ -57,7 +57,7 @@ getActorsQuery = wrapInQuery $ toJsonObject $ Mapping [
 getBigBudgetFilmsQuery :: String -> JsonObject
 getBigBudgetFilmsQuery queryType = wrapInQuery $ toJsonObject $ Mapping [
   (B.pack "type", Scalar $ toJsonScalar queryType),
-  (B.pack "id", Scalar $ JsonNull),
+  (B.pack "id", Scalar JsonNull),
   (B.pack "limit", Scalar $ JsonNumber 600),
   (B.pack "film", Sequence [
       toJsonObject $ Mapping [
