@@ -12,7 +12,7 @@ getUSPresidentsOrderR seed = do
   case generatedQuestion of
     (Left ex) -> invalidArgs ["Failed to generate valid question.", message ex, internal ex]
     (Right question) -> defaultLayout $ do
-      setTitle "Give the capital cities as quick as you can."
+      setTitle "Put the following US Presidents in order of inauguration."
       addWidget (questionWidget (CapitalsR (succ seed)) question)
 
 
