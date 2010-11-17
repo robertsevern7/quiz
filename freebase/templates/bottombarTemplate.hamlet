@@ -1,5 +1,0 @@
-#footer!class="grid_12"
-  %ul!class=copyright_notice
-      Written using 
-      %a!href="http://docs.yesodweb.com/" Yesod Web Framework
-      &copy; MMX BustaQuiz

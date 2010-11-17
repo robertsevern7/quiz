@@ -1,8 +1,0 @@
-%body
-!class="container_12"
-  ^topbarTemplate^
-  .mainbody
-    .mainbackground
-      .contentcontainer
-        ^body^
-  ^bottombarTemplate^
