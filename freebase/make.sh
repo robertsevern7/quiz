@@ -1,1 +1,0 @@
-ghc -O2 --make App.hs
