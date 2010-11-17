@@ -6,3 +6,5 @@
     $forall ordering p
       %li $fst p$
         %div!class=hidden $snd p$        
+
+  %button!type="button" Submit
