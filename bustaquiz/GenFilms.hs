@@ -9,7 +9,6 @@ module GenFilms where
    ) where -}
 
 import Freebase (runQuery, mkSimpleQuery,wrapInQuery,mkObject)
--- import JsonHelper (lookupValue,getString,mkPath,mkIndex,getJSValue)
 import Data.List (sortBy)
 import Control.Monad (liftM,forM)
 import Data.Maybe (fromJust,mapMaybe,listToMaybe)
@@ -69,6 +68,33 @@ getBigBudgetFilmsQuery queryType = wrapInQuery $ toJsonObject $ Mapping [
              (B.pack "currency", Scalar $ toJsonScalar "US$")])
       ]
   ])]
+                                   
+tagLineQuery :: JsonObject                                   
+tagLineQuery = wrapInQuery $ toJsonObject $ Mapping [
+  (B.pack "!pd:/award/ranked_list/ranked_list_items", Sequence [
+      toJsonObject $ Mapping [
+         (B.pack "!index", Scalar JsonNull),
+         (B.pack "id", Scalar $ toJsonScalar "/en/the_movie_list_the_first_9200"),
+         (B.pack "type", Scalar $ toJsonScalar "/award/ranked_list")
+      ]
+  ]),
+  (B.pack "item", Sequence [
+      toJsonObject $ Mapping [
+         (B.pack "tagline", toJsonObject $ Mapping [(B.pack "value", Scalar JsonNull)]),
+         (B.pack "type", Scalar $ toJsonScalar "/film/film")
+      ]
+  ]),
+  (B.pack "limit", Scalar $ JsonNumber 1),
+  (B.pack "rank", Scalar JsonNull),
+  (B.pack "sort", Scalar $ toJsonScalar "!pd:/award/ranked_list/ranked_list_items.!index"),
+  (B.pack "summary:item", Sequence [
+      toJsonObject $ Mapping [
+         (B.pack "id", Scalar JsonNull),
+         (B.pack "optional", Scalar $ JsonBoolean False),
+         (B.pack "type", Scalar $ toJsonScalar "/award/ranked_item")
+      ]
+  ]),
+  (B.pack "type", Scalar $ toJsonScalar "/award/ranking")]
 
 
 runQueryAndGetResult :: JsonObject -> IO [Object B.ByteString JsonScalar]
@@ -76,7 +102,6 @@ runQueryAndGetResult query = do
   queryResult <- runQuery query >>= fromMapping
   lookupObject (B.pack "result") queryResult >>= fromSequence
 
-  
 getActors :: IO [String]
 getActors = do
   result <- runQueryAndGetResult getActorsQuery
@@ -92,6 +117,7 @@ saveActorsToDisk = do
    actors <- getActors
    writeFile actorPath (show actors)
 
+-- TODO sum films if we need to
 -- getBigBudgetFilms :: String -> IO [(String, Int)] -- [Object B.ByteString JsonScalar])]
 getBigBudgetFilms queryType = do
    let query = getBigBudgetFilmsQuery queryType
@@ -106,92 +132,3 @@ getBigBudgetFilms queryType = do
             unmappedBudgets <- mapM fromMapping films            
             return (fromJsonScalar filmId :: String,budgets))
 
-
-   {-
-   --       filmQueryObject = showJSON (toJSObject [("name", JSNull), ("limit", showJSON (5 :: Int)), ("sort", showJSON "-estimated_budget.amount"), ("estimated_budget", budgetQueryObject)]);
---   response <- runQuery $ mkSimpleQuery [("type",showJSON query_type),("id",showJSON JSNull), ("limit",showJSON (600 :: Int)),("film", JSArray [filmQueryObject])]
---   return (fmap extractIdAndBudgets $ lookupValue response "result")
--}
-
--- extractIdAndBudgets :: JSValue -> [(String,Int)]
--- extractIdAndBudgets (JSArray xs) = sortBy (\(_,a) (_,b) -> compare b a) $ map extractIdAndBudget xs
--- extractIdAndBudgets _ = error "Freebase screwed us."
-
--- extractIdAndBudget :: JSValue -> (String,Int)
--- extractIdAndBudget jsValue = (getString (fromJust $ getJSValue jsValue [mkPath "id"])
---                              ,extractBudget $ fromJust $ getJSValue jsValue [mkPath "film"])
-
--- extractBudget :: JSValue -> Int
--- extractBudget (JSArray films) = sum $ map getFilmBudget films
--- extractBudget _ = error "Unexpected response in extractBudget"
-
--- -- There are two possible paths - try both and pick the one that works
--- getFilmBudget :: JSValue -> Int
--- getFilmBudget f@(JSObject _) = truncate cost
---     where
---       paths = [map mkPath ["film","estimated_budget","amount"],map mkPath ["estimated_budget","amount"]]
---       (JSRational _ cost) = fromJust $ listToMaybe $ mapMaybe (getJSValue f) paths
--- getFilmBudget _ = error "Unexpected response in getFilmBudget"
-
---getDirectorBigBudgetFilms :: IO (Result [(String, Int)])
-getDirectorBigBudgetFilms = getBigBudgetFilms "/film/director"
-
--- saveDirectorsToDisk :: IO ()
--- saveDirectorsToDisk = do
---   (Ok films) <- getDirectorBigBudgetFilms
---   writeFile directorPath (show $ map fst films)
-
--- {- The query for actors
--- [{
---   "!pd:/award/ranked_list/ranked_list_items": [{
---     "!index": null,
---     "id": "/en/the_movie_list_the_first_9200",
---     "type": "/award/ranked_list"
---   }],   
---   "item": [{
---     "tagline": [{
---       "value": null
---     }],
---     "type": "/film/film"
---   }],
---   "limit": 1,
---   "rank": null,
---   "sort": "!pd:/award/ranked_list/ranked_list_items.!index",
---   "summary:item": [{
---     "id": null,
---     "optional": false,
---     "type": "/award/ranked_item"
---   }],
---   "type": "/award/ranking"
--- }]
-
--- ​
--- -}
--- getFilms :: IO (Result [String])
--- getFilms = do
---   let taglineObject = JSArray[showJSON (toJSObject [("value", JSNull)])]
---       rankedListObject = JSArray[showJSON (toJSObject [("!index", JSNull), ("id", showJSON "/en/the_movie_list_the_first_9200"), ("type", showJSON "/award/ranked_list")])]
---       itemObject = showJSON (toJSObject [("tagline", taglineObject), ("type", showJSON "/film/film")]);
---       summaryItemObject = JSArray[showJSON (toJSObject [("id", JSNull), ("optional", JSBool False), ("type", showJSON "/award/ranked_item")])];
---   response <- runQuery $ mkSimpleQuery [("!pd:/award/ranked_list/ranked_list_items", rankedListObject)
---                                        ,("item", itemObject)
---                                        ,("summary:item", summaryItemObject)
---                                        ,("limit",showJSON (500 :: Int))
---                                        ,("rank", JSNull)
---                                        ,("sort", showJSON "!pd:/award/ranked_list/ranked_list_items.!index")
--- 									   ,("type", showJSON "/award/ranking")]
---   let arrayFilms = lookupValue response "result" 
---   return (fmap extractFilms arrayFilms)
-  
--- extractFilms :: JSValue -> [String]
--- extractFilms (JSArray xs) = map extractFilm xs
--- extractFilms _ = error "Freebase screwed us."
-
--- extractFilm :: JSValue -> String
--- extractFilm jsValue = getString (fromJust $ getJSValue jsValue [mkPath "summary:item", mkIndex 0, mkPath "id"])
-
--- saveFilmsToDisk :: IO ()
--- saveFilmsToDisk = do
---   (Ok films) <- getFilms
---   writeFile filmPath (show $ map id films)
--- -}
