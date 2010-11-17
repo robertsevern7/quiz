@@ -50,6 +50,8 @@ questionWidget route (Question description (Order ordering)) = do
 
 questionWidget route (Question description (Identify resource answer)) = do
   addScriptRemote jqueryURL
+  addJulius $(juliusFile "text")
+  
   addHamlet $(hamletFile "identify")
   addCassius $(cassiusFile "identify")
   addJulius $(juliusFile "identify")
