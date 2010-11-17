@@ -13,7 +13,9 @@ data State = State {
 }
 
 -- Data source nabbed from:
--- http://www.tellingmachine.com/post/all-50-states-as-xml-json-csv-xls-files.aspx
+--   http://www.tellingmachine.com/post/all-50-states-as-xml-json-csv-xls-files.aspx
+-- Images taken from 
+--   http://hilltopit.com/nation_flags.html
 states :: [State]
 states = [
   State "ALABAMA" "AL" "Montgomery" "Birmingham" 52423 images_flags_states_Flag_of_Alabama_png,
