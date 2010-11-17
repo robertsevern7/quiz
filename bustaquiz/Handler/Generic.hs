@@ -24,6 +24,8 @@ genericRoute seed quizFunc next = do
       addWidget (questionWidget next (question :: Question))
 
 -- TODO Bad things happen if I put a type signature in place here.
+-- TODO Not entirely sure why I can't get rid of the repetition here      
+-- TODO Something to do with Template Haskell
 -- Display the question as a widget
 questionWidget route (Question description (Associate pairs)) = do
   -- External requirements
@@ -45,6 +47,12 @@ questionWidget route (Question description (Order ordering)) = do
   addHamlet $(hamletFile "ordering")
   addCassius $(cassiusFile "ordering")
   addJulius $(juliusFile "ordering")
+
+questionWidget route (Question description (Identify resource answer)) = do
+  addScriptRemote jqueryURL
+  addHamlet $(hamletFile "identify")
+  addCassius $(cassiusFile "identify")
+  addJulius $(juliusFile "identify")
 
   
 questionWidget _ (Question _ _) = error "This has not been implemented yet."
