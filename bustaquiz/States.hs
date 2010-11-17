@@ -1,4 +1,5 @@
 module States (
+  StateFlags,
   stateFlags
   ) where
 

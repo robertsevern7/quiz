@@ -53,4 +53,3 @@ questionWidget route (Question description (Identify resource answer)) = do
   addHamlet $(hamletFile "identify")
   addCassius $(cassiusFile "identify")
   addJulius $(juliusFile "identify")
-
