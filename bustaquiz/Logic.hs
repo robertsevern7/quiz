@@ -12,9 +12,7 @@ import System.Random (mkStdGen,random,randomR)
 
 -- TODO some of these question types are less than self-explanatory
 -- |All the different types of questions
-data QuestionFormat = MultipleChoice [String] String -- ^ Choose one from a set
-                    | IdentifyFrom [String] String -- ^ Given a set of strings identify some known answer
-                    | Associate [(String, String)] -- ^ Associates of LHS to RHS
+data QuestionFormat = Associate [(String, String)] -- ^ Associates of LHS to RHS
                     | Order [(String, String)] -- ^ An ordering of the first element, with supporting information in the second
                       deriving Show
 

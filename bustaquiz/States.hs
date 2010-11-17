@@ -1,5 +1,6 @@
 module States where
 
+import Logic
 import StaticFiles
 import Yesod.Helpers.Static
 
@@ -11,6 +12,11 @@ data State = State {
   , areaSquareMiles :: Integer
   , stateFlag :: StaticRoute
 }
+
+data StateFlags = StateFlags [(String,StaticRoute)]
+
+instance QuestionMaker StateFlags where
+  generateQuestion seed (StateFlags stateFlags) = undefined
 
 -- Data source nabbed from:
 --   http://www.tellingmachine.com/post/all-50-states-as-xml-json-csv-xls-files.aspx
