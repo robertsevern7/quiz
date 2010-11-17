@@ -16,7 +16,9 @@ data State = State {
 data StateFlags = StateFlags [(String,StaticRoute)]
 
 instance QuestionMaker StateFlags where
-  generateQuestion seed (StateFlags stateFlags) = undefined
+  generateQuestion seed (StateFlags stateFlags) = return $ Question "Which state has the following flag?" (Identify picture state)
+    where
+      (state,picture) = chooseFromList seed stateFlags
 
 -- Data source nabbed from:
 --   http://www.tellingmachine.com/post/all-50-states-as-xml-json-csv-xls-files.aspx
