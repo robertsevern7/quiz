@@ -9,11 +9,13 @@
   
   %ul
     %li 
-      %a!href=@CapitalsR.1@ Capitals
+      %a!href=@CapitalsR.1@ Capitals of the World
     %li
       %a!href=@BeatlesLyricsR.1@ Beatles Lyrics                                
     %li
       %a!href=@USPresidentsOrderR.1@ Order of Inauguration of US Presidents
+    %li
+      %a!href=@StateFlagsR.1@ U.S. State Flags
 
 !id="sidebar"!class="grid_4"
   $maybe mu u

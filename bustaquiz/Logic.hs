@@ -39,7 +39,7 @@ chooseFromList seed xs = xs !! i
   where
     g = mkStdGen seed
     len = length xs
-    (i,_) = randomR (0,len) g
+    (i,_) = randomR (0,len - 1) g
   
 -- |Given a seed, select n items at random from the supplied list
 rndSelect :: Int -> [a] -> Int -> [a]

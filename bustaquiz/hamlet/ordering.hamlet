@@ -8,3 +8,7 @@
         %div!class=hidden $snd p$        
 
   %button!type="button"!id="order_submit" Submit
+
+.clear
+.grid_12
+  %a!href=@route@ Go to the next question

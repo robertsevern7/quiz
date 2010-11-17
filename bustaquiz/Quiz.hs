@@ -36,9 +36,9 @@ import qualified Data.Text.Lazy.Encoding
 import StaticFiles
 
 -- 
-import Presidents (OrderOfService,orderOfService)
-import States
-import Lyrics (BeatlesLyrics,beatlesLyrics)
+import Presidents (OrderOfService)
+import States (StateFlags)
+import Lyrics (BeatlesLyrics)
 import Country
 
 data Quiz = Quiz { 
@@ -46,7 +46,8 @@ data Quiz = Quiz {
   connPool :: Settings.ConnectionPool, -- ^ Database connection pool.
   whichCapital :: CapitalQuiz, -- ^ Capital cities
   beatlesLyrics :: BeatlesLyrics,
-  presidentOrder :: OrderOfService
+  presidentOrder :: OrderOfService,
+  stateFlags :: StateFlags
 }
 
 -- | A useful synonym; most of the handler functions in your application
@@ -88,6 +89,7 @@ mkYesodData "Quiz" [$parseRoutes|
 /capitals/#Int CapitalsR GET
 /beatlesLyrics/#Int BeatlesLyricsR GET
 /uspresidents/inauguration/#Int USPresidentsOrderR GET
+/flags/us-states/#Int StateFlagsR GET
 |]
 
 -- Please see the documentation for the Yesod typeclass. There are a number
