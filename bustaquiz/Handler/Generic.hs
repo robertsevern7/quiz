@@ -9,10 +9,6 @@ import Logic
 import Exception
 import Quiz 
 import Settings (cassiusFile,hamletFile,juliusFile,jqueryURL,jqueryUIURL)
-import Yesod.Widget
-import Yesod.Helpers.Static
-import StaticFiles
-import Data.Either
 
 runQuestion :: QuestionMaker a => Int -> a -> IO (Either QuizException Question)
 runQuestion seed qm = try (evaluate =<< generateQuestion seed qm)
@@ -25,11 +21,10 @@ genericRoute seed quizFunc next = do
   case generatedQuestion of
     (Left ex) -> invalidArgs ["Failed to generate valid question.", message ex, internal ex]
     (Right question) -> defaultLayout $ do
-      addWidget (questionWidget next question) 
+      addWidget (questionWidget next (question :: Question))
 
-
+-- TODO Bad things happen if I put a type signature in place here.
 -- Display the question as a widget
--- questionWidget :: QuizRoute -> Question -> Widget ()
 questionWidget route (Question description (Associate pairs)) = do
   -- External requirements
   addScriptRemote jqueryURL

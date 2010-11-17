@@ -14,7 +14,6 @@
     font-size: 1.4em
     height: 18px
     cursor: pointer
-    background-color: red
     text-align: center
     border-width: 3px
     border-style: outset;
@@ -22,3 +21,9 @@
 #ordering li span 
     position: absolute
     margin-left: -1.3em
+
+.order_correct
+    background-color: green
+
+.order_wrong
+    background-color: red

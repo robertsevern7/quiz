@@ -7,4 +7,4 @@
       %li $fst p$
         %div!class=hidden $snd p$        
 
-  %button!type="button" Submit
+  %button!type="button"!id="order_submit" Submit

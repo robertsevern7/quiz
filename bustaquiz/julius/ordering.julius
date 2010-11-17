@@ -1,6 +1,40 @@
+function makeObj(listItem) {
+  return {
+    name: listItem.innerText,
+    year: jQuery(listItem).children()[0].innerText
+  };         
+}
+
 $(document).ready(function() {
+
+  var rightAnswer = [];
+ 
+  $('#ordering > li').each( function(i,x) {
+    rightAnswer.push(makeObj(x));
+  });                               
+
   $('#ordering > li').shuffle(); 
 
   $('#ordering').sortable();                            
-  $('#ordering').disableSelection();                            
+  $('#ordering').disableSelection(); 
+
+  $('#order_submit').click(function() {
+
+    var score = 0;
+    var outOf = 0;
+
+    $('#ordering > li').each(function(i,x) {
+      attemptedAnswer = makeObj(x);
+      ++outOf;
+      if (attemptedAnswer.name === rightAnswer[i].name) {
+        jQuery(x).removeClass('order_wrong');
+        jQuery(x).addClass('order_correct');
+        ++score;
+      } else {
+        jQuery(x).removeClass('order_correct');
+        jQuery(x).addClass('order_wrong');
+      }
+    });
+//    alert('You scored ' + score + ' out of ' + outOf);
+  });                           
 });
