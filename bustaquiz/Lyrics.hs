@@ -6,7 +6,7 @@ module Lyrics (
 -- TODO Export a question maker from here.
 
 import Network.HTTP
-import Control.Monad (liftM,forM)
+import Control.Monad (forM)
 import Logic (rndSelect,QuestionMaker,generateQuestion,Question(Question),QuestionFormat(Associate))
 import Data.Maybe (fromJust)
 
