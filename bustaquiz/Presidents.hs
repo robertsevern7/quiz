@@ -25,6 +25,7 @@ data President = President {
   , college :: String
 }
 
+
 orderOfService :: OrderOfService
 orderOfService = OrderOfService presidents
 
