@@ -16,9 +16,10 @@ import Handler.Capital
 import Handler.BeatlesLyrics
 import Handler.USPresidentsOrder
 import Handler.StateFlags
+import Handler.CountryFlags
 
 -- Quiz makers
-import Country (capitalQuiz)
+import Country (capitalQuiz,countryFlagsQuiz)
 import Lyrics (beatlesLyrics)
 import Presidents (orderOfService)
 import States (stateFlags)
@@ -44,7 +45,8 @@ withQuiz :: (Application -> IO a) -> IO a
 withQuiz f = Settings.withConnectionPool $ \pool -> do
     runConnectionPool (runMigration migrateAll) pool
     -- TODO This all seems a bit nasty - perhaps centralizing this in the data base is a better idea?
-    let h = Quiz s pool capitalQuiz beatlesLyrics orderOfService stateFlags
+    -- TODO Or at least introducing a separate object!
+    let h = Quiz s pool capitalQuiz countryFlagsQuiz beatlesLyrics orderOfService stateFlags
     toWaiApp h >>= f
   where
     s = fileLookupDir Settings.staticdir typeByExt

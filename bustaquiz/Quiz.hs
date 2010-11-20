@@ -45,6 +45,7 @@ data Quiz = Quiz {
   getStatic :: Static, -- ^ Settings for static file serving.
   connPool :: Settings.ConnectionPool, -- ^ Database connection pool.
   whichCapital :: CapitalQuiz, -- ^ Capital cities
+  countryFlags :: CountryFlagsQuiz,
   beatlesLyrics :: BeatlesLyrics,
   presidentOrder :: OrderOfService,
   stateFlags :: StateFlags
@@ -86,10 +87,11 @@ mkYesodData "Quiz" [$parseRoutes|
 
 / RootR GET
 
-/capitals/#Int CapitalsR GET
+/countries/capitals/#Int CapitalsR GET
 /beatlesLyrics/#Int BeatlesLyricsR GET
 /uspresidents/inauguration/#Int USPresidentsOrderR GET
 /flags/us-states/#Int StateFlagsR GET
+/flags/countries/#Int CountryFlagsR GET
 |]
 
 -- Please see the documentation for the Yesod typeclass. There are a number
