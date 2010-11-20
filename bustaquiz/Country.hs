@@ -1,6 +1,8 @@
 module Country (
   CapitalQuiz,
-  capitalQuiz
+  capitalQuiz,
+  CountryFlagsQuiz,
+  countryFlagsQuiz
   ) where
 
 import Logic
@@ -25,6 +27,18 @@ data CapitalQuiz = CapitalQuiz [CountryInfo]
 capitalQuiz :: CapitalQuiz
 capitalQuiz = CapitalQuiz countries
 
+-- TODO there is some duplication here with the questions regarding states
+data CountryFlagsQuiz = CountryFlagsQuiz [(String,StaticRoute)]
+
+countryFlagsQuiz :: CountryFlagsQuiz
+countryFlagsQuiz = CountryFlagsQuiz (map (name &&& flag) countries)
+
+instance QuestionMaker CountryFlagsQuiz where
+  generateQuestion seed (CountryFlagsQuiz countryFlags) = return $ Question "Which country has the following flag?" (Identify picture country)
+    where
+      (country,picture) = chooseFromList seed countryFlags
+
+-- TODO probably insane to keep all the country info for just this - use just name and capital
 instance QuestionMaker CapitalQuiz where
   generateQuestion seed (CapitalQuiz countries) = do
     let match = rndSelect seed (filter (not . null . capital) countries) 10
