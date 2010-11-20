@@ -20,8 +20,7 @@ genericRoute seed quizFunc next = do
   generatedQuestion <- liftIO $ runQuestion seed (quizFunc quiz) 
   case generatedQuestion of
     (Left ex) -> invalidArgs ["Failed to generate valid question.", message ex, internal ex]
-    (Right question) -> defaultLayout $ do
-      addWidget (questionWidget next (question :: Question))
+    (Right question) -> defaultLayout $ addWidget (questionWidget next question)
 
 -- TODO Bad things happen if I put a type signature in place here.
 -- TODO Not entirely sure why I can't get rid of the repetition here      
