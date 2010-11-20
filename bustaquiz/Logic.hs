@@ -38,8 +38,7 @@ chooseFromList :: Int -> [a] -> a
 chooseFromList seed xs = xs !! i
   where
     g = mkStdGen seed
-    len = length xs
-    (i,_) = randomR (0,len - 1) g
+    (i,_) = randomR (0,length xs - 1) g
   
 -- |Given a seed, select n items at random from the supplied list
 rndSelect :: Int -> [a] -> Int -> [a]
@@ -51,7 +50,7 @@ rndSelect seed xs n
       (r,_) = random g
     
 -- The following is based on http://en.literateprograms.org/Kth_permutation_(Haskell)
--- which comes from IVerson's approach
+-- which comes from IVerson's approac
 radixRepresentation :: Int -> Int -> [Int]
 radixRepresentation 0 _ = []
 radixRepresentation n k = k `mod` n : radixRepresentation (n-1) (k `div` n)
