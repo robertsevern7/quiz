@@ -1,0 +1,14 @@
+!class="clear"
+%h1 $description$
+
+!class="push_2 grid_8"
+  !class="puzzle"
+    %img!src=@StaticR resource@
+  !class="hidden_answer"
+    $answer$
+  %br
+  %input!type="text"!id="answer_box"
+
+.clear
+.grid_12
+  %a!href=@route@ Go to the next question

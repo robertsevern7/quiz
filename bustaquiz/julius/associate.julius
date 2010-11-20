@@ -1,0 +1,24 @@
+$(document).ready(function() {
+  $('#rhs > li').shuffle();
+
+  $('#lhs > li').draggable({});
+
+  $('#rhs > li').droppable({
+          drop: function( event, ui ) {
+             var dropped = event.srcElement.innerText;
+             var onto = event.target.innerText;
+
+             // I'm not understanding why it's jquery and not $ here.
+             var rightAnswer = jQuery(event.target).children()[0].innerText;
+
+             if (dropped === rightAnswer) {
+                 jQuery(event.srcElement).draggable('disable');
+                 jQuery([event.srcElement,event.target]).fadeOut();
+             } else {
+                 // TODO would like to revert to previous location
+                 // Do not know how.
+                 return false;
+             }           
+          }
+  });       
+});

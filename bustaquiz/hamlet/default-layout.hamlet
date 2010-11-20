@@ -1,0 +1,14 @@
+!!!
+%html
+    %head
+        %title $pageTitle.pc$
+        ^pageHead.pc^
+        %link!rel="stylesheet"!href=@StaticR.s960_css@!type="text/css"!media="all"
+    %body
+      !class="container_12"
+        !class="grid_12"!id="header"
+          %h1 
+            %a!href=@RootR@ bustaquiz
+        .clear
+        !id="maincontent"
+          ^pageBody.pc^
