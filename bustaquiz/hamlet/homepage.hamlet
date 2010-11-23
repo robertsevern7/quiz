@@ -1,33 +1,34 @@
 !class="grid_8"
-  %p bustaquiz provides a near infinite set of questions to tax your brain.  We cover a huge range of subjects (and if we don't cover something you are interested in then please contact us!).  You can use bustaquiz for a quick quiz, to revise specific subjects, or just to demonstrate that you do know more random trivia than everyone else!
+  !class="curlycurly"
+    %p bustaquiz provides a near infinite set of questions to tax your brain.  We cover a huge range of subjects (and if we don't cover something you are interested in then please contact us!).  You can use bustaquiz for a quick quiz, to revise specific subjects, or just to demonstrate that you do know more random trivia than everyone else!
 
-  %p bustaquiz grabs information from various sources all over the web, massages the data and generates questions.  If you've got any ideas for another kind of quiz we can add, then please contact us and we'll see what we can do!
+    %p bustaquiz grabs information from various sources all over the web, massages the data and generates questions.  If you've got any ideas for another kind of quiz we can add, then please contact us and we'll see what we can do!
 
-  %p 
-    %a!href=@AuthR.LoginR@ Login 
-    and pick from one of the following categories to get a randomly selected question.  
+    %p 
+      %a!href=@AuthR.LoginR@ Login 
+      and pick from one of the following categories to get a randomly selected question.  
   
-  %ul
-    %li 
-      %a!href=@CapitalsR.1@ Capitals of the World
-    %li
-      %a!href=@BeatlesLyricsR.1@ Beatles Lyrics                                
-    %li
-      %a!href=@USPresidentsOrderR.1@ Order of Inauguration of US Presidents
-    %li
-      %a!href=@StateFlagsR.1@ U.S. State Flags
-    %li
-      %a!href=@CountryFlagsR.1@ Flags of the World
-
+    %ul
+      %li 
+        %a!href=@CapitalsR.1@ Capitals of the World
+      %li
+        %a!href=@BeatlesLyricsR.1@ Beatles Lyrics                                
+      %li
+        %a!href=@USPresidentsOrderR.1@ Order of Inauguration of US Presidents
+      %li
+        %a!href=@StateFlagsR.1@ U.S. State Flags
+      %li
+        %a!href=@CountryFlagsR.1@ Flags of the World
 
 !id="sidebar"!class="grid_4"
-  $maybe mu u
-      %p
-          You are logged in as $userIdent.snd.u$. $
-          %a!href=@AuthR.LogoutR@ Logout
-          \.
-  $nothing
-      %p
-          You are not logged in. $
-          %a!href=@AuthR.LoginR@ Login now
-          \.
+  !class="curlycurly"
+    $maybe mu u
+        %p
+            You are logged in as $userIdent.snd.u$. $
+            %a!href=@AuthR.LogoutR@ Logout
+            \.
+    $nothing
+        %p
+            You are not logged in. $
+            %a!href=@AuthR.LoginR@ Login now
+            \.
