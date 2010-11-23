@@ -1,5 +1,6 @@
 .clear
-%h1 $description$     
+!class="grid_12 curlycurly"
+  $description$     
 %br
 .grid_6
   %ul#lhs 
