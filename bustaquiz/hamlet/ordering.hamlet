@@ -1,5 +1,6 @@
 !class="clear"
-%h1 $description$
+!class="grid_12 curlycurly"
+  $description$
 
 !class="push_4 grid_8"
   %ul#ordering
