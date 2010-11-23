@@ -16,6 +16,7 @@ body
     background-color: #f8f8ff
     -moz-border-radius: 10px
     -webkit-border-radius: 10px
+    padding: 10px
 
 #header
     font-size: 24pt
