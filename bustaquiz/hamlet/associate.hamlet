@@ -1,0 +1,19 @@
+.clear
+%h1 $description$     
+%br
+.grid_6
+  %ul#lhs 
+    $forall pairs p   
+      %li $fst p$
+      %br
+.grid_6
+  %ul#rhs
+    
+    $forall pairs p
+      %li $snd p$
+        %div!class=hidden $fst p$
+      %br
+
+.clear
+.grid_12
+  %a!href=@route@ Go to the next question

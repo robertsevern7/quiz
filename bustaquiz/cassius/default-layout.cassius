@@ -1,0 +1,29 @@
+// In order to pick non-retarded colours
+// http://colorschemedesigner.com/#3L31Tw0w0w0w0
+
+H1
+    background-color: black
+    text-align: left
+    -moz-border-radius: 10px
+    -webkit-border-radius: 10px
+
+body
+    font-family: sans-serif
+
+#maincontent
+
+.curlycurly
+    background-color: #f8f8ff
+    -moz-border-radius: 10px
+    -webkit-border-radius: 10px
+
+#header
+    font-size: 24pt
+    height: 120px
+
+#sidebar
+
+P
+    font-size: 12pt
+    font-family: sans-serif
+
