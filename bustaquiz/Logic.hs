@@ -35,10 +35,7 @@ class QuestionMaker a where
 
 -- |Choose a random element from a list given a seed
 chooseFromList :: Int -> [a] -> a
-chooseFromList seed xs = xs !! i
-  where
-    g = mkStdGen seed
-    (i,_) = randomR (0,length xs - 1) g
+chooseFromList seed xs = head $ rndSelect seed xs 1
   
 -- |Given a seed, select n items at random from the supplied list
 rndSelect :: Int -> [a] -> Int -> [a]
