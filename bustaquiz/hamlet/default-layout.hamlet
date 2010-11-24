@@ -10,6 +10,7 @@
           %h1 
             %a!class="white prefix_0"!href=@RootR@ bustaquiz
             %a!class="headerlinks white prefix_5"!href=@RootR@ Home
+            %a!class="headerlinks white prefix_1"!href="mailto:busta\@quiz.com" Contact Us
         .clear
         !id="maincontent"
           ^pageBody.pc^
