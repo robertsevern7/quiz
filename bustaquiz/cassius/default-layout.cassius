@@ -21,9 +21,22 @@ body
     padding: 10px
     margin: 10px
 
-#header
+.header
     font-size: 16pt
-
+    
+    
+a
+    text-decoration: none
+    
+a:link.white
+    color: white
+a:visited.white
+    color: white
+a:hover.white
+    color: #e6e6e6
+a:active.white
+    color: white
+    
 #sidebar
 
 P
