@@ -8,7 +8,8 @@
       !class="container_12"
         !class="grid_12 header"
           %h1 
-            %a!class="white"!href=@RootR@ bustaquiz
+            %a!class="white prefix_0"!href=@RootR@ bustaquiz
+            %a!class="headerlinks white prefix_5"!href=@RootR@ Home
         .clear
         !id="maincontent"
           ^pageBody.pc^
