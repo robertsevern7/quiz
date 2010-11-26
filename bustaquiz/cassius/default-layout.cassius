@@ -24,6 +24,10 @@ body
 .header
     font-size: 16pt
     
+.footer
+    color: white
+    font-size: 4pt
+    
 .headerlinks
     font-size: 12px
     
