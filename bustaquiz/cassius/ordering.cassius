@@ -12,9 +12,3 @@
 #ordering li span 
     position: absolute
     margin-left: -1.3em
-
-.answer_correct
-    background-color: #33CC33!important
-
-.answer_wrong
-    background-color: #FF3333!important
