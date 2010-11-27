@@ -16,5 +16,3 @@
       %br
 
 .clear
-.grid_12
-  %a!href=@route@ Go to the next question
