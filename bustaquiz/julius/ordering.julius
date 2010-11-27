@@ -1,7 +1,8 @@
 function makeObj(listItem) {
+  console.log($(listItem).text())
   return {
-    name: listItem.innerText,
-    year: jQuery(listItem).children()[0].innerText
+    name: $(listItem).text(),
+    year: $(listItem).children().text()
   };         
 }
 
@@ -26,7 +27,6 @@ $(document).ready(function() {
   });
   
   $('#order_submit').click(function() {
-
     var score = 0;
     var outOf = 0;
 
@@ -34,12 +34,12 @@ $(document).ready(function() {
       attemptedAnswer = makeObj(x);
       ++outOf;
       if (attemptedAnswer.name === rightAnswer[i].name) {
-        jQuery(x).removeClass('order_wrong');
-        jQuery(x).addClass('order_correct');
+        $(x).removeClass('answer_wrong');
+        $(x).addClass('answer_correct');
         ++score;
       } else {
-        jQuery(x).removeClass('order_correct');
-        jQuery(x).addClass('order_wrong');
+        $(x).removeClass('answer_correct');
+        $(x).addClass('answer_wrong');
       }
     });
 //    alert('You scored ' + score + ' out of ' + outOf);

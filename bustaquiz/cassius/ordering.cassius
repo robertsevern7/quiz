@@ -13,8 +13,8 @@
     position: absolute
     margin-left: -1.3em
 
-.order_correct
-    background-color: green
+.answer_correct
+    background-color: #33CC33!important
 
-.order_wrong
-    background-color: red
+.answer_wrong
+    background-color: #FF3333!important
