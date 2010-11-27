@@ -7,11 +7,6 @@ function makeObj(listItem) {
 }
 
 $(document).ready(function() {
-
-  //TODO extract into common js class
-  $('button').button();
-  $('a.ourbutton').button();
-
   var rightAnswer = [];
  
   $('#ordering > li').each( function(i,x) {
