@@ -45,6 +45,7 @@ questionWidget route (Question description (Order ordering)) = do
   addJulius $(juliusFile "shuffle")
 
   addHamlet $(hamletFile "ordering")
+  addHamlet $(hamletFile "buttons")
   addCassius $(cassiusFile "ordering")
   addJulius $(juliusFile "ordering")
 

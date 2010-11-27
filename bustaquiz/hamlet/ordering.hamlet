@@ -10,5 +10,3 @@
   %button!id="order_submit"!class="ourbutton" Check
 
 .clear
-.grid_12
-  %a!href=@route@ Go to the next question
