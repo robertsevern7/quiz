@@ -10,7 +10,7 @@ H1
     padding: 10px
 
 body
-    font-family: Verdana, Arial, Sans
+    font-family: Verdana, Arial, Sans!important
 
 #maincontent
 
@@ -69,3 +69,6 @@ P
 
 .answer_wrong
     background-color: #FF3333!important
+    
+.ourbutton
+    font-size: 11pt!important
