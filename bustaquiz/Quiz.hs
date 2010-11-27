@@ -103,6 +103,8 @@ instance Yesod Quiz where
         mmsg <- getMessage
         pc <- widgetToPageContent $ do
             widget
+            addScriptRemote Settings.jqueryURL
+            addScriptRemote Settings.jqueryUIURL
             addCassius $(Settings.cassiusFile "default-layout")
             addJulius $(Settings.juliusFile "default-layout")
         hamletToRepHtml $(Settings.hamletFile "default-layout")

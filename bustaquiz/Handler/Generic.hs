@@ -29,8 +29,6 @@ genericRoute seed quizFunc next = do
 -- Display the question as a widget
 questionWidget route (Question description (Associate pairs)) = do
   -- External requirements
-  addScriptRemote jqueryURL
-  addScriptRemote jqueryUIURL
   addJulius $(juliusFile "shuffle")
   addJulius $(juliusFile "text")
   
@@ -41,8 +39,6 @@ questionWidget route (Question description (Associate pairs)) = do
   addJulius $(juliusFile "associate")
   
 questionWidget route (Question description (Order ordering)) = do
-  addScriptRemote jqueryURL
-  addScriptRemote jqueryUIURL
   addJulius $(juliusFile "shuffle")
 
   addHamlet $(hamletFile "ordering")
@@ -51,8 +47,6 @@ questionWidget route (Question description (Order ordering)) = do
   addJulius $(juliusFile "ordering")
 
 questionWidget route (Question description (Identify resource answer)) = do
-  addScriptRemote jqueryURL
-  addScriptRemote jqueryUIURL
   addJulius $(juliusFile "text")
   
   addHamlet $(hamletFile "identify")
