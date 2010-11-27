@@ -104,6 +104,7 @@ instance Yesod Quiz where
         pc <- widgetToPageContent $ do
             widget
             addCassius $(Settings.cassiusFile "default-layout")
+            addJulius $(Settings.juliusFile "default-layout")
         hamletToRepHtml $(Settings.hamletFile "default-layout")
 
     -- This is done to provide an optimization for serving static files from
