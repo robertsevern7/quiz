@@ -36,6 +36,7 @@ questionWidget route (Question description (Associate pairs)) = do
   
   -- Actual code
   addHamlet $(hamletFile "associate")
+  addHamlet $(hamletFile "buttons")
   addCassius $(cassiusFile "associate")
   addJulius $(juliusFile "associate")
   
@@ -51,8 +52,10 @@ questionWidget route (Question description (Order ordering)) = do
 
 questionWidget route (Question description (Identify resource answer)) = do
   addScriptRemote jqueryURL
+  addScriptRemote jqueryUIURL
   addJulius $(juliusFile "text")
   
   addHamlet $(hamletFile "identify")
+  addHamlet $(hamletFile "buttons")
   addCassius $(cassiusFile "identify")
   addJulius $(juliusFile "identify")

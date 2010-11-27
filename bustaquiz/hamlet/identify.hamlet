@@ -11,5 +11,3 @@
   %input!type="text"!id="answer_box"
 
 .clear
-.grid_12
-  %a!href=@route@ Go to the next question
