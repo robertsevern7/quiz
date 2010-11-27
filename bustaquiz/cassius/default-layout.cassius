@@ -48,3 +48,18 @@ a:active.white
 P
     font-size: 11pt
 
+.hidden
+    display: none
+    
+.answerholder
+    background-color: #F0F0F0 
+    -moz-border-radius: 10px
+    -webkit-border-radius: 10px
+    padding: 10px
+    margin: 10px
+
+.answerhover
+    background-color: #E8E8E8 
+
+.answerselect
+    background-color: #E0E0E0
