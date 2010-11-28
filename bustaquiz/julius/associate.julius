@@ -45,14 +45,23 @@ $(document).ready(function() {
         var lhsToFind = $(this).children().text();
         
         var possibleLhsMatches = $("li:contains('" + lhsToFind + "')", "#lhs");
+        
+        var addIfNotAlreadyMarked = function(node) {
+            if (!node.hasClass('answer_wrong') && !node.hasClass('answer_correct')) {
+                node.addClass('answerrevealed');
+            }
+        }
+        
         possibleLhsMatches.each(function() {
             if ($(this).text() === lhsToFind) {
                 $('#lhs').append($(this));
+                addIfNotAlreadyMarked($(this));
                 return false;
             }
         });
         
         $('#rhs').append(this);
+        addIfNotAlreadyMarked($(this));
     });
   });
 });
