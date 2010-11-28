@@ -32,13 +32,6 @@ $(document).ready(function() {
 
   $('#ordering').sortable();                            
   $('#ordering').disableSelection(); 
-
-  $('#ordering> li').hover(function() {
-    $(this).addClass('answerhover');
-  },
-  function() {
-    $(this).removeClass('answerhover');
-  });
   
   $('#order_submit').click(Ordering.checkAnswers);
 

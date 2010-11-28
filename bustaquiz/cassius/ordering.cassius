@@ -3,8 +3,3 @@
     margin: 0
     padding: 0
     width: 60%
-
-#ordering li 
-    cursor: pointer
-    text-align: center
-    font-size: 11pt
