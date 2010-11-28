@@ -1,7 +1,7 @@
 function makeObj(listItem) {
   console.log($(listItem).text())
   return {
-    name: $(listItem).text(),
+    name: $(listItem).clone().find("*").remove().end().text(),
     year: $(listItem).children().text()
   };         
 }
@@ -42,5 +42,13 @@ $(document).ready(function() {
       }
     });
 //    alert('You scored ' + score + ' out of ' + outOf);
-  });                           
+  });
+
+  $('#revealanswers').click(function() {
+    $('#ordering > li').remove();
+    
+    for (var i = 0, len = rightAnswer.length; i < len; ++i) {
+      $('#ordering').append('<li class=answerholder> ' + rightAnswer[i].name + '<div class=hidden> ' + rightAnswer[i].year + '</div></li>');
+    }
+  });  
 });
