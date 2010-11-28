@@ -1,20 +1,17 @@
-function getItemTextOnly(item) {
-  return $(item).clone().find("*").remove().end().text();
-}
-
-function makeObj(listItem) {
-  console.log($(listItem).text())
-  return {
-    name: getItemTextOnly(listItem),
-    year: parseInt($(listItem).children().text(), 10)
-  };         
+Ordering = {
+    makeObj: function(listItem) {
+      return {
+        name: $(listItem).clone().find("*").remove().end().text(),
+        year: parseInt($(listItem).children().text(), 10)
+      };         
+    }
 }
 
 $(document).ready(function() {
   var rightAnswer = [];
  
   $('#ordering > li').each( function(i,x) {
-    rightAnswer.push(makeObj(x));
+    rightAnswer.push(Ordering.makeObj(x));
   });                               
 
   $('#ordering > li').shuffle(); 
@@ -34,7 +31,7 @@ $(document).ready(function() {
     var outOf = 0;
 
     $('#ordering > li').each(function(i,x) {
-      attemptedAnswer = makeObj(x);
+      attemptedAnswer = Ordering.makeObj(x);
       ++outOf;
       if (attemptedAnswer.name === rightAnswer[i].name || attemptedAnswer.name === rightAnswer[i].name + ' - ' + rightAnswer[i].year) {
         $(x).removeClass('answer_wrong');
@@ -53,7 +50,7 @@ $(document).ready(function() {
     $('#ordering > li').remove();
     
     for (var i = 0, len = rightAnswer.length; i < len; ++i) {
-      $('#ordering').append('<li class=answerholder> ' + rightAnswer[i].name + '<div class=hidden> ' + rightAnswer[i].year + '</div></li>');
+      $('#ordering').append('<li class=answerholder>' + rightAnswer[i].name + '<div class=hidden> ' + rightAnswer[i].year + '</div></li>');
     }
   });  
 });
