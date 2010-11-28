@@ -49,19 +49,23 @@ $(document).ready(function() {
         var addIfNotAlreadyMarked = function(node) {
             if (!node.hasClass('answer_wrong') && !node.hasClass('answer_correct')) {
                 node.addClass('answerrevealed');
+                return 'answerrevealed';
             }
+            
+            return node.hasClass('answer_wrong') ? 'answer_wrong' : 'answer_correct';
         }
         
+        var classForRhs;
         possibleLhsMatches.each(function() {
             if ($(this).text() === lhsToFind) {
                 $('#lhs').append($(this));
-                addIfNotAlreadyMarked($(this));
+                classForRhs = addIfNotAlreadyMarked($(this));
                 return false;
             }
         });
         
         $('#rhs').append(this);
-        addIfNotAlreadyMarked($(this));
+        $(this).addClass(classForRhs);
     });
   });
 });
