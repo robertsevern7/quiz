@@ -5,8 +5,10 @@ Associate = {
     
     if (lhs.size() && rhs.size()) {
       if (lhs.text() === rhs.children().text()) {
-          lhs.fadeOut();
-          rhs.fadeOut();
+          $('#lhs').append(lhs);
+          $('#rhs').append(rhs);
+          lhs.addClass('answer_correct');
+          rhs.addClass('answer_correct');
       }
       else {
           lhs.addClass('answer_wrong');
