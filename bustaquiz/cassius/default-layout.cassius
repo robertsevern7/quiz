@@ -74,5 +74,7 @@ P
 .answer_wrong
     background-color: #FF3333!important
     
+.answerrevealed
+    background-color: #F88017!important
 .ourbutton
     font-size: 11pt!important
