@@ -76,9 +76,11 @@ P
     
 .answer_correct
     background-color: #33CC33!important
+    cursor: auto
 
 .answer_wrong
     background-color: #FF3333!important
+    cursor: auto
     
 .answerrevealed
     background-color: #F88017!important
