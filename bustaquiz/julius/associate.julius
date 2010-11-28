@@ -1,7 +1,44 @@
+Associate = {
+  checkAnswer: function() {
+    var lhs = $('#lhs > .answerselect');
+    var rhs = $('#rhs > .answerselect');
+    
+    if (lhs.size() && rhs.size()) {
+      if (lhs.text() === rhs.children().text()) {
+          lhs.fadeOut();
+          rhs.fadeOut();
+      }
+      else {
+          lhs.addClass('answer_wrong');
+      }
+      
+      $('.answerholder').removeClass('answerselect');
+    }
+  }
+}
+
 $(document).ready(function() {
   $('#rhs > li').shuffle();
 
-  $('#lhs > li').draggable({});
+  $('#lhs > .answerholder').click(function() {
+    $('#lhs > .answerholder').removeClass('answerselect');
+    
+    if (!$(this).hasClass('answer_wrong')) {
+      $(this).addClass('answerselect');
+      Associate.checkAnswer();
+    }
+  });
+  
+  $('#rhs > .answerholder').click(function() {
+    $('#rhs > .answerholder').removeClass('answerselect');
+    $(this).addClass('answerselect');
+    
+    if (!$('#lhs > .answerselect').hasClass('answer_wrong')) {
+      Associate.checkAnswer();
+    }
+  });
+  
+  /*$('#lhs > li').draggable({});
 
   $('#rhs > li').droppable({
           drop: function( event, ui ) {
@@ -20,5 +57,5 @@ $(document).ready(function() {
                  return false;
              }           
           }
-  });       
+  });*/       
 });
