@@ -1,5 +1,5 @@
 Associate = {
-  checkAnswer: function() {
+  checkAnswers: function() {
     var lhs = $('#lhs > .answerselect');
     var rhs = $('#rhs > .answerselect');
     
@@ -27,7 +27,7 @@ $(document).ready(function() {
     
     if (!$(this).hasClass('answer_wrong')) {
       $(this).addClass('answerselect');
-      Associate.checkAnswer();
+      Associate.checkAnswers();
     }
   });
   
@@ -36,28 +36,23 @@ $(document).ready(function() {
     $(this).addClass('answerselect');
     
     if (!$('#lhs > .answerselect').hasClass('answer_wrong')) {
-      Associate.checkAnswer();
+      Associate.checkAnswers();
     }
   });
   
-  /*$('#lhs > li').draggable({});
-
-  $('#rhs > li').droppable({
-          drop: function( event, ui ) {
-             var dropped = event.srcElement.innerText;
-             var onto = event.target.innerText;
-
-             // I'm not understanding why it's jquery and not $ here.
-             var rightAnswer = jQuery(event.target).children()[0].innerText;
-
-             if (dropped === rightAnswer) {
-                 jQuery(event.srcElement).draggable('disable');
-                 jQuery([event.srcElement,event.target]).fadeOut();
-             } else {
-                 // TODO would like to revert to previous location
-                 // Do not know how.
-                 return false;
-             }           
-          }
-  });*/       
+  $('#revealanswers').click(function() {
+    $('#rhs').children().each(function(index, element) {
+        var lhsToFind = $(this).children().text();
+        
+        var possibleLhsMatches = $("li:contains('" + lhsToFind + "')", "#lhs");
+        possibleLhsMatches.each(function() {
+            if ($(this).text() === lhsToFind) {
+                $('#lhs').append($(this));
+                return false;
+            }
+        });
+        
+        $('#rhs').append(this);
+    });
+  });
 });
