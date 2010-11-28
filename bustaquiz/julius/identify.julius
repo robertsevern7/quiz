@@ -1,9 +1,10 @@
 $(document).ready(function() {
     //  We should consider filtering the image, maybe doing some blurring?
     $('#answer_box').keyup(function(event) {
-        if (sanitise(jQuery('#answer_box')[0].value) === sanitise(jQuery('.hidden_answer').text())) {
-          alert('Correct!');
-          // Maybe follow the link?
+        if (sanitise($('#answer_box').val()) === sanitise($('.hidden').text())) {
+            $('#answer_box').fadeOut(function() {
+                $('<div class="answerholder answer_correct">' + $('.hidden').text() + '</div>').insertAfter($('.puzzle'));
+            });
         }       
     });
 });

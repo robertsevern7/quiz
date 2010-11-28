@@ -51,12 +51,15 @@ P
 .hidden
     display: none
     
+.padding
+    margin: 10px 0 10px 0
+    
 .answerholder
     background-color: #F0F0F0 
     -moz-border-radius: 10px
     -webkit-border-radius: 10px
     padding: 10px
-    margin: 10px
+    margin: 10px 0 10px 0
     text-align: center
     cursor: pointer
     font-size: 11pt
