@@ -1,8 +1,12 @@
+function getItemTextOnly(item) {
+  return $(item).clone().find("*").remove().end().text();
+}
+
 function makeObj(listItem) {
   console.log($(listItem).text())
   return {
-    name: $(listItem).clone().find("*").remove().end().text(),
-    year: $(listItem).children().text()
+    name: getItemTextOnly(listItem),
+    year: parseInt($(listItem).children().text(), 10)
   };         
 }
 
@@ -32,9 +36,10 @@ $(document).ready(function() {
     $('#ordering > li').each(function(i,x) {
       attemptedAnswer = makeObj(x);
       ++outOf;
-      if (attemptedAnswer.name === rightAnswer[i].name) {
+      if (attemptedAnswer.name === rightAnswer[i].name || attemptedAnswer.name === rightAnswer[i].name + ' - ' + rightAnswer[i].year) {
         $(x).removeClass('answer_wrong');
         $(x).addClass('answer_correct');
+        $(x).text(rightAnswer[i].name + ' - ' + rightAnswer[i].year);
         ++score;
       } else {
         $(x).removeClass('answer_correct');
