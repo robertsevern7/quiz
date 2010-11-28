@@ -1,17 +1,31 @@
 Ordering = {
+    rightAnswer: [],
+
     makeObj: function(listItem) {
       return {
         name: $(listItem).clone().find("*").remove().end().text(),
         year: parseInt($(listItem).children().text(), 10)
       };         
+    },
+    
+    checkAnswers: function() {
+      $('#ordering > li').each(function(i,x) {
+        attemptedAnswer = Ordering.makeObj(x);
+        if (attemptedAnswer.name === Ordering.rightAnswer[i].name || attemptedAnswer.name === Ordering.rightAnswer[i].name + ' - ' + Ordering.rightAnswer[i].year) {
+          $(x).removeClass('answer_wrong');
+          $(x).addClass('answer_correct');
+          $(x).text(Ordering.rightAnswer[i].name + ' - ' + Ordering.rightAnswer[i].year);
+        } else {
+          $(x).removeClass('answer_correct');
+          $(x).addClass('answer_wrong');
+        }
+      });
     }
 }
 
 $(document).ready(function() {
-  var rightAnswer = [];
- 
   $('#ordering > li').each( function(i,x) {
-    rightAnswer.push(Ordering.makeObj(x));
+    Ordering.rightAnswer.push(Ordering.makeObj(x));
   });                               
 
   $('#ordering > li').shuffle(); 
@@ -26,31 +40,15 @@ $(document).ready(function() {
     $(this).removeClass('answerhover');
   });
   
-  $('#order_submit').click(function() {
-    var score = 0;
-    var outOf = 0;
-
-    $('#ordering > li').each(function(i,x) {
-      attemptedAnswer = Ordering.makeObj(x);
-      ++outOf;
-      if (attemptedAnswer.name === rightAnswer[i].name || attemptedAnswer.name === rightAnswer[i].name + ' - ' + rightAnswer[i].year) {
-        $(x).removeClass('answer_wrong');
-        $(x).addClass('answer_correct');
-        $(x).text(rightAnswer[i].name + ' - ' + rightAnswer[i].year);
-        ++score;
-      } else {
-        $(x).removeClass('answer_correct');
-        $(x).addClass('answer_wrong');
-      }
-    });
-//    alert('You scored ' + score + ' out of ' + outOf);
-  });
+  $('#order_submit').click(Ordering.checkAnswers);
 
   $('#revealanswers').click(function() {
     $('#ordering > li').remove();
     
-    for (var i = 0, len = rightAnswer.length; i < len; ++i) {
-      $('#ordering').append('<li class=answerholder>' + rightAnswer[i].name + '<div class=hidden> ' + rightAnswer[i].year + '</div></li>');
+    for (var i = 0, len = Ordering.rightAnswer.length; i < len; ++i) {
+      $('#ordering').append('<li class=answerholder>' + Ordering.rightAnswer[i].name + '<div class=hidden> ' + Ordering.rightAnswer[i].year + '</div></li>');
     }
+    
+    Ordering.checkAnswers();
   });  
 });
