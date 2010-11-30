@@ -27,6 +27,8 @@ anagrams = [
   
 sevenLetterWordsIn = "./AnagramData/7LetterInput.txt"
 sevenLetterWordsOut = "./AnagramData/7LetterFiltered.txt"
+sixLetterWordsIn = "./AnagramData/6LetterInput.txt"
+sixLetterWordsOut = "./AnagramData/6LetterFiltered.txt"
 
 grabRandom :: String
 --grabRandom = rndSelect seed anagrams 1
@@ -36,12 +38,14 @@ shuffleWord :: [Char] -> [Char]
 shuffleWord toShuffle = rndSelect 4 toShuffle (length toShuffle)
 
 filterAnagramLists :: IO()
-filterAnagramLists = nonAnagramList sevenLetterWordsIn
+filterAnagramLists = do
+  nonAnagramList sevenLetterWordsIn sevenLetterWordsOut
+  nonAnagramList sixLetterWordsIn sixLetterWordsOut
 
-nonAnagramList :: String -> IO()
-nonAnagramList file = do
-  filecontent <- readFile file
-  writeFile sevenLetterWordsOut (unlines (sort (filterWords (lines filecontent))))
+nonAnagramList :: String -> String -> IO()
+nonAnagramList fileIn fileOut = do
+  filecontent <- readFile fileIn
+  writeFile fileOut (unlines (sort (filterWords (lines filecontent))))
   return ()
 
 orderLetters :: [Char] -> [Char]
