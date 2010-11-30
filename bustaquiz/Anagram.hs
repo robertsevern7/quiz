@@ -24,11 +24,15 @@ anagrams = [
   "abysmal",
   "abyssal"
   ]
-  
-sevenLetterWordsIn = "./AnagramData/7LetterInput.txt"
-sevenLetterWordsOut = "./AnagramData/7LetterFiltered.txt"
+
+fiveLetterWordsIn = "./AnagramData/5LetterInput.txt"
+fiveLetterWordsOut = "./AnagramData/5LetterFiltered.txt"
 sixLetterWordsIn = "./AnagramData/6LetterInput.txt"
 sixLetterWordsOut = "./AnagramData/6LetterFiltered.txt"
+sevenLetterWordsIn = "./AnagramData/7LetterInput.txt"
+sevenLetterWordsOut = "./AnagramData/7LetterFiltered.txt"
+eightLetterWordsIn = "./AnagramData/8LetterInput.txt"
+eightLetterWordsOut = "./AnagramData/8LetterFiltered.txt"
 
 grabRandom :: String
 --grabRandom = rndSelect seed anagrams 1
@@ -39,9 +43,11 @@ shuffleWord toShuffle = rndSelect 4 toShuffle (length toShuffle)
 
 filterAnagramLists :: IO()
 filterAnagramLists = do
-  nonAnagramList sevenLetterWordsIn sevenLetterWordsOut
+  nonAnagramList fiveLetterWordsIn fiveLetterWordsOut
   nonAnagramList sixLetterWordsIn sixLetterWordsOut
-
+  nonAnagramList sevenLetterWordsIn sevenLetterWordsOut
+  nonAnagramList eightLetterWordsIn eightLetterWordsOut
+  
 nonAnagramList :: String -> String -> IO()
 nonAnagramList fileIn fileOut = do
   filecontent <- readFile fileIn
