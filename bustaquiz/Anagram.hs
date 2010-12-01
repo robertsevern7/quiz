@@ -36,7 +36,6 @@ eightLetterWordsIn = "./AnagramData/8LetterInput.txt"
 eightLetterWordsOut = "./AnagramData/8LetterFiltered.txt"
 
 grabRandom :: String
---grabRandom = rndSelect seed anagrams 1
 grabRandom = head $ rndSelect 4 anagrams 1
 
 shuffleWord :: String -> String
