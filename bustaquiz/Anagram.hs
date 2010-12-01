@@ -4,6 +4,7 @@ module Anagram(
 import Logic (QuestionMaker,generateQuestion, rndSelect,Question(Question),QuestionFormat(Order))
 import Data.Char
 import Data.List
+import Data.Ord (comparing)
   
 --data Anagrams = Anagrams [(String,StaticRoute)]
   
@@ -38,7 +39,7 @@ grabRandom :: String
 --grabRandom = rndSelect seed anagrams 1
 grabRandom = head $ rndSelect 4 anagrams 1
 
-shuffleWord :: [Char] -> [Char]
+shuffleWord :: String -> String
 shuffleWord toShuffle = rndSelect 4 toShuffle (length toShuffle)
 
 filterAnagramLists :: IO()
@@ -54,8 +55,8 @@ nonAnagramList fileIn fileOut = do
   writeFile fileOut (unlines (sort (filterWords (lines filecontent))))
   return ()
 
-orderLetters :: [Char] -> [Char]
-orderLetters = sort.(map toLower)
+orderLetters :: String -> String
+orderLetters = sort. map toLower
 
 createKey :: String -> (String, String)
 createKey input = (orderLetters input, input)
@@ -66,15 +67,15 @@ createMap = map createKey
 groupWords :: [String] -> [[(String, String)]]
 groupWords words = groupBy cond (sortKeys words)
   where cond :: (String,String) -> (String,String) -> Bool
-        cond x y = (fst x) == (fst y)
+        cond x y = fst x == fst y
         
 sortKeys :: [String] -> [(String, String)]
 sortKeys words = sortBy cmp (createMap words)
   where cmp :: (String,String) -> (String,String) -> Ordering
-        cmp x y = compare (fst x) (fst y)
+        cmp = comparing fst
         
 filterRepeats :: [(String,String)] -> Bool
-filterRepeats input = (length input) == 1
+filterRepeats input = length input == 1
         
 retrieveWord :: [(String,String)] -> String
 retrieveWord input = snd (head input)
