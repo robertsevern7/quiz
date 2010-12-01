@@ -3,7 +3,7 @@ module Anagram(
   
 import Logic (QuestionMaker,generateQuestion, rndSelect,Question(Question),QuestionFormat(Order))
 import Data.Char
-import List
+import Data.List
   
 --data Anagrams = Anagrams [(String,StaticRoute)]
   
