@@ -1,14 +1,12 @@
 !class="clear"
-%h1 $description$
+!class="grid_12 curlycurly"
+  $description$
 
 !class="push_4 grid_8"
   %ul#ordering
     $forall ordering p
-      %li $fst p$
+      %li!class="answerholder" $fst p$
         %div!class=hidden $snd p$        
-
-  %button!type="button"!id="order_submit" Submit
+  %button!id="order_submit"!class="ourbutton" Check
 
 .clear
-.grid_12
-  %a!href=@route@ Go to the next question

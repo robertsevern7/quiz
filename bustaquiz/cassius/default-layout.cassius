@@ -2,20 +2,87 @@
 // http://colorschemedesigner.com/#3L31Tw0w0w0w0
 
 H1
+    background-color: black
     text-align: left
+    -moz-border-radius: 10px
+    -webkit-border-radius: 10px
+    margin: 5px
+    padding: 10px
 
 body
-    font-family: sans-serif
+    font-family: Verdana, Arial, Sans!important
 
 #maincontent
 
-#header
-    font-size: 24pt
-    height: 120px
+.curlycurly
+    background-color: #f8f8ff
+    -moz-border-radius: 10px
+    -webkit-border-radius: 10px
+    padding: 10px
+    margin: 10px
 
+.header
+    font-size: 16pt
+    
+.footer
+    color: white
+    font-size: 4pt
+    
+.headerlinks
+    font-size: 12px
+    
+a
+    text-decoration: none
+    
+a:link.white
+    color: white
+a:visited.white
+    color: white
+a:hover.white
+    color: #e6e6e6
+a:active.white
+    color: white
+    
 #sidebar
 
 P
-    font-size: 12pt
-    font-family: sans-serif
+    font-size: 11pt
 
+.hidden
+    display: none
+    
+.center
+    text-align: center
+    
+.padding
+    margin: 10px 0 10px 0
+    
+.answerholder
+    background-color: #F0F0F0 
+    -moz-border-radius: 10px
+    -webkit-border-radius: 10px
+    padding: 10px
+    margin: 10px 0 10px 0
+    text-align: center
+    cursor: pointer
+    font-size: 11pt
+    list-style: none
+
+.answerhover
+    background-color: #E8E8E8 
+
+.answerselect
+    background-color: #E0E0E0
+    
+.answer_correct
+    background-color: #33CC33!important
+    cursor: auto
+
+.answer_wrong
+    background-color: #FF3333!important
+    cursor: auto
+    
+.answerrevealed
+    background-color: #F88017!important
+.ourbutton
+    font-size: 11pt!important

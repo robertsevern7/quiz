@@ -36,7 +36,7 @@ instance QuestionMaker OrderOfService where
     where 
       pres = rndSelect seed presidents 10
       sorted = sortBy (comparing yearFirstInaugurated) pres
-      desc = "Put the following President's in the order in which they were inaugurated, starting with the earliest"
+      desc = "Put the following Presidents in the order in which they were inaugurated, starting with the earliest"
 
 -- Data nabbed from 
 -- http://qrc.depaul.edu/Excel_Files/Presidents.xls

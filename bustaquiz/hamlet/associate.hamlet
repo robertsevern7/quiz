@@ -1,19 +1,15 @@
 .clear
-%h1 $description$     
+!class="grid_12 curlycurly"
+  $description$     
 %br
 .grid_6
   %ul#lhs 
     $forall pairs p   
-      %li $fst p$
-      %br
+      %li!class=answerholder $fst p$
 .grid_6
   %ul#rhs
     
     $forall pairs p
-      %li $snd p$
+      %li!class=answerholder $snd p$
         %div!class=hidden $fst p$
-      %br
-
 .clear
-.grid_12
-  %a!href=@route@ Go to the next question
