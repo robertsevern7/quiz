@@ -4,11 +4,18 @@
         %title $pageTitle.pc$
         ^pageHead.pc^
         %link!rel="stylesheet"!href=@StaticR.s960_css@!type="text/css"!media="all"
+        %link!rel="stylesheet"!href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/base/jquery-ui.css"!type="text/css"!media="all"
     %body
       !class="container_12"
-        !class="grid_12"!id="header"
+        !class="grid_12 header"
           %h1 
-            %a!href=@RootR@ bustaquiz
+            %a!class="white prefix_0"!href=@RootR@ bustaquiz
+            %a!class="headerlinks white prefix_5"!href=@RootR@ Home
+            %a!class="headerlinks white prefix_1"!href="mailto:busta\@quiz.com" Contact Us
         .clear
         !id="maincontent"
           ^pageBody.pc^
+        !class="grid_12 footer"
+          %h1
+            %a!class="white prefix_0"!href=@RootR@ bustaquiz
+            %a!class="white prefix_7"!href="mailto:busta\@quiz.com" Brought to you by Jeff and Rob industries

@@ -1,14 +1,10 @@
 !class="clear"
-%h1 $description$
+!class="grid_12 curlycurly"
+  $description$
 
-!class="push_2 grid_8"
+!class="push_2 grid_8 center"
   !class="puzzle"
     %img!src=@StaticR resource@
-  !class="hidden_answer"
+  !class="hidden"
     $answer$
-  %br
-  %input!type="text"!id="answer_box"
-
-.clear
-.grid_12
-  %a!href=@route@ Go to the next question
+  %input!type="text"!id="answer_box"!class="padding"

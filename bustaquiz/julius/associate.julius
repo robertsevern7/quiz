@@ -1,24 +1,71 @@
+Associate = {
+  checkAnswers: function() {
+    var lhs = $('#lhs > .answerselect');
+    var rhs = $('#rhs > .answerselect');
+    
+    if (lhs.size() && rhs.size()) {
+      if (lhs.text() === rhs.children().text()) {
+          $('#lhs').append(lhs);
+          $('#rhs').append(rhs);
+          lhs.addClass('answer_correct');
+          rhs.addClass('answer_correct');
+      }
+      else {
+          lhs.addClass('answer_wrong');
+      }
+      
+      $('.answerholder').removeClass('answerselect');
+    }
+  }
+}
+
 $(document).ready(function() {
   $('#rhs > li').shuffle();
 
-  $('#lhs > li').draggable({});
-
-  $('#rhs > li').droppable({
-          drop: function( event, ui ) {
-             var dropped = event.srcElement.innerText;
-             var onto = event.target.innerText;
-
-             // I'm not understanding why it's jquery and not $ here.
-             var rightAnswer = jQuery(event.target).children()[0].innerText;
-
-             if (dropped === rightAnswer) {
-                 jQuery(event.srcElement).draggable('disable');
-                 jQuery([event.srcElement,event.target]).fadeOut();
-             } else {
-                 // TODO would like to revert to previous location
-                 // Do not know how.
-                 return false;
-             }           
-          }
-  });       
+  $('#lhs > .answerholder').click(function() {
+    $('#lhs > .answerholder').removeClass('answerselect');
+    
+    if (!$(this).hasClass('answer_wrong')) {
+      $(this).addClass('answerselect');
+      Associate.checkAnswers();
+    }
+  });
+  
+  $('#rhs > .answerholder').click(function() {
+    $('#rhs > .answerholder').removeClass('answerselect');
+    $(this).addClass('answerselect');
+    
+    if (!$('#lhs > .answerselect').hasClass('answer_wrong')) {
+      Associate.checkAnswers();
+    }
+  });
+  
+  $('#revealanswers').click(function() {
+    $('#rhs').children().each(function(index, element) {
+        var lhsToFind = $(this).children().text();
+        
+        var possibleLhsMatches = $("li:contains('" + lhsToFind + "')", "#lhs");
+        
+        var addIfNotAlreadyMarked = function(node) {
+            if (!node.hasClass('answer_wrong') && !node.hasClass('answer_correct')) {
+                node.addClass('answerrevealed');
+                return 'answerrevealed';
+            }
+            
+            return node.hasClass('answer_wrong') ? 'answer_wrong' : 'answer_correct';
+        }
+        
+        var classForRhs;
+        possibleLhsMatches.each(function() {
+            if ($(this).text() === lhsToFind) {
+                $('#lhs').append($(this));
+                classForRhs = addIfNotAlreadyMarked($(this));
+                return false;
+            }
+        });
+        
+        $('#rhs').append(this);
+        $(this).addClass(classForRhs);
+    });
+  });
 });

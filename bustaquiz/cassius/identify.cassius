@@ -1,6 +1,3 @@
-.hidden_answer
-    display: none       
-
 img
 	border-style: outset
 	border-color: black

@@ -28,29 +28,27 @@ genericRoute seed quizFunc next = do
 -- Display the question as a widget
 questionWidget route (Question description (Associate pairs)) = do
   -- External requirements
-  addScriptRemote jqueryURL
-  addScriptRemote jqueryUIURL
   addJulius $(juliusFile "shuffle")
   addJulius $(juliusFile "text")
   
   -- Actual code
   addHamlet $(hamletFile "associate")
+  addHamlet $(hamletFile "buttons")
   addCassius $(cassiusFile "associate")
   addJulius $(juliusFile "associate")
   
 questionWidget route (Question description (Order ordering)) = do
-  addScriptRemote jqueryURL
-  addScriptRemote jqueryUIURL
   addJulius $(juliusFile "shuffle")
 
   addHamlet $(hamletFile "ordering")
+  addHamlet $(hamletFile "buttons")
   addCassius $(cassiusFile "ordering")
   addJulius $(juliusFile "ordering")
 
 questionWidget route (Question description (Identify resource answer)) = do
-  addScriptRemote jqueryURL
   addJulius $(juliusFile "text")
   
   addHamlet $(hamletFile "identify")
+  addHamlet $(hamletFile "buttons")
   addCassius $(cassiusFile "identify")
   addJulius $(juliusFile "identify")
