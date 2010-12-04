@@ -27,8 +27,9 @@ eightLetterAnagrams :: Anagrams
 eightLetterAnagrams =  Anagrams eightLetterList
 
 instance QuestionMaker Anagrams where
-  generateQuestion seed (Anagrams wordList) = return $ Question desc (IdentifyText shuffled word)
+  generateQuestion seed (Anagrams wordList) = return $ Question desc (IdentifyText shuffled word link)
     where 
+      link = Just ("http://www.google.com/search?q=define:" ++ word)
       word = head $ rndSelect seed wordList 1
       shuffled = rndSelect seed word (length word)
       desc = "Unscramble this word"

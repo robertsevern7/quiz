@@ -52,7 +52,7 @@ questionWidget route (Question description (Identify resource answer)) = do
   addCassius $(cassiusFile "identify")
   addJulius $(juliusFile "identify")
 
-questionWidget route (Question description (IdentifyText question answer)) = do
+questionWidget route (Question description (IdentifyText question answer link)) = do
   addJulius $(juliusFile "text")
   
   addHamlet $(hamletFile "identifyText")
