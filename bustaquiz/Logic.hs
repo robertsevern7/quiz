@@ -16,7 +16,7 @@ import System.Random (mkStdGen,random)
 data QuestionFormat = Associate [(String, String)] -- ^ Associates of LHS to RHS
                     | Order [(String, String)] -- ^ An ordering of the first element, with supporting information in the second
                     | Identify StaticRoute String -- ^ Identify some static resource as a string
-                    | IdentifyText String String -- ^ Straight question and answer
+                    | IdentifyText String String (Maybe String)-- ^ Straight question and answer with optional link for answer
                       deriving Show
 
 -- |May want to change this to something "formattable"
