@@ -91,6 +91,7 @@ mkYesodData "Quiz" [$parseRoutes|
 / RootR GET
 
 /wordplay/anagrams/six/#Int SixLetterAnagramsR GET
+/wordplay/anagrams/seven/#Int SevenLetterAnagramsR GET
 /countries/capitals/#Int CapitalsR GET
 /beatlesLyrics/#Int BeatlesLyricsR GET
 /uspresidents/inauguration/#Int USPresidentsOrderR GET
