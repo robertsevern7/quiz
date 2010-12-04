@@ -7,12 +7,15 @@ import Logic (QuestionMaker,generateQuestion, rndSelect,Question(Question),Quest
 import Data.Char
 import Data.List
 import Data.Ord (comparing)
-import AnagramData.WordLists (fiveLetterList)
+import AnagramData.WordLists (fiveLetterList,sixLetterList,sevenLetterList,eightLetterList)
   
 data Anagrams = Anagrams [String]
 
 anagrams :: Anagrams
-anagrams =  Anagrams fiveLetterList
+anagrams =  Anagrams sevenLetterList
+
+sixLetterAnagrams :: Anagrams
+sixLetterAnagrams =  Anagrams sixLetterList
 
 instance QuestionMaker Anagrams where
   generateQuestion seed (Anagrams wordList) = return $ Question desc (IdentifyText shuffled word)
