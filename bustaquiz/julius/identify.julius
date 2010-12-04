@@ -2,6 +2,7 @@ $(document).ready(function() {
     //  We should consider filtering the image, maybe doing some blurring?
     $('#answer_box').keyup(function(event) {
         if (sanitise($('#answer_box').val()) === sanitise($('.hidden').text())) {
+            $(this).unbind('keyup');
             $('#answer_box').fadeOut(function() {
                 $('<div class="answerholder answer_correct">' + $('.hidden').text() + '</div>').insertAfter($('.puzzle'));
             });
