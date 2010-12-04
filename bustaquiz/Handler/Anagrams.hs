@@ -4,5 +4,5 @@ module Handler.Anagrams where
 import Quiz
 import Handler.Generic (genericRoute)
 
-getAnagramsR :: Int -> Handler RepHtml
-getAnagramsR seed = genericRoute seed anagrams (AnagramsR (succ seed))
+getSixLetterAnagramsR :: Int -> Handler RepHtml
+getSixLetterAnagramsR seed = genericRoute seed sixLetter (SixLetterAnagramsR (succ seed))

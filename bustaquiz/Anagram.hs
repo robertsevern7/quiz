@@ -1,6 +1,7 @@
 module Anagram(
   Anagrams,
-  anagrams
+  sixLetterAnagrams,
+  sevenLetterAnagrams
   ) where
   
 import Logic (QuestionMaker,generateQuestion, rndSelect,Question(Question),QuestionFormat(IdentifyText))
@@ -11,8 +12,8 @@ import AnagramData.WordLists (fiveLetterList,sixLetterList,sevenLetterList,eight
   
 data Anagrams = Anagrams [String]
 
-anagrams :: Anagrams
-anagrams =  Anagrams sevenLetterList
+sevenLetterAnagrams :: Anagrams
+sevenLetterAnagrams =  Anagrams sevenLetterList
 
 sixLetterAnagrams :: Anagrams
 sixLetterAnagrams =  Anagrams sixLetterList

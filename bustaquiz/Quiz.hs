@@ -50,7 +50,8 @@ data Quiz = Quiz {
   beatlesLyrics :: BeatlesLyrics,
   presidentOrder :: OrderOfService,
   stateFlags :: StateFlags,
-  anagrams :: Anagrams
+  sixLetter :: Anagrams,
+  sevenLetter :: Anagrams
 }
 
 -- | A useful synonym; most of the handler functions in your application
@@ -89,7 +90,7 @@ mkYesodData "Quiz" [$parseRoutes|
 
 / RootR GET
 
-/wordplay/anagrams/#Int AnagramsR GET
+/wordplay/anagrams/#Int SixLetterAnagramsR GET
 /countries/capitals/#Int CapitalsR GET
 /beatlesLyrics/#Int BeatlesLyricsR GET
 /uspresidents/inauguration/#Int USPresidentsOrderR GET
