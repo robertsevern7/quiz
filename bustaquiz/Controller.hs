@@ -4,7 +4,7 @@ module Controller
     ( withQuiz
     ) where
 
-import Quiz hiding (beatlesLyrics,stateFlags)
+import Quiz hiding (beatlesLyrics,stateFlags,anagrams)
 import Settings
 import Yesod.Helpers.Static
 import Yesod.Helpers.Auth
@@ -12,6 +12,7 @@ import Database.Persist.GenericSql
 
 -- Relevant handlers
 import Handler.Root
+import Handler.Anagrams
 import Handler.Capital
 import Handler.BeatlesLyrics
 import Handler.USPresidentsOrder
@@ -19,6 +20,7 @@ import Handler.StateFlags
 import Handler.CountryFlags
 
 -- Quiz makers
+import Anagram (anagrams)
 import Country (capitalQuiz,countryFlagsQuiz)
 import Lyrics (beatlesLyrics)
 import Presidents (orderOfService)
@@ -46,7 +48,7 @@ withQuiz f = Settings.withConnectionPool $ \pool -> do
     runConnectionPool (runMigration migrateAll) pool
     -- TODO This all seems a bit nasty - perhaps centralizing this in the data base is a better idea?
     -- TODO Or at least introducing a separate object!
-    let h = Quiz s pool capitalQuiz countryFlagsQuiz beatlesLyrics orderOfService stateFlags
+    let h = Quiz s pool capitalQuiz countryFlagsQuiz beatlesLyrics orderOfService stateFlags anagrams
     toWaiApp h >>= f
   where
     s = fileLookupDir Settings.staticdir typeByExt

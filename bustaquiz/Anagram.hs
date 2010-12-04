@@ -1,20 +1,27 @@
 module Anagram(
+  Anagrams,
+  anagrams
   ) where
   
-import Logic (QuestionMaker,generateQuestion, rndSelect,Question(Question),QuestionFormat(Order))
+import Logic (QuestionMaker,generateQuestion, rndSelect,Question(Question),QuestionFormat(IdentifyText))
 import Data.Char
 import Data.List
 import Data.Ord (comparing)
   
---data Anagrams = Anagrams [(String,StaticRoute)]
-  
---instance QuestionMaker Anagrams where
---  generateQuestion seed (Anagrams anagrams) = return $ Question "Unscramble this word?" (Identify scrambled word)
---    where
---      (scrambled, word) = chooseFromList seed anagrams
-  
-anagrams :: [String]
-anagrams = [
+data Anagrams = Anagrams [String]
+
+anagrams :: Anagrams
+anagrams =  Anagrams wordList
+
+instance QuestionMaker Anagrams where
+  generateQuestion seed (Anagrams wordList) = return $ Question desc (IdentifyText shuffled word)
+    where 
+      word = head $ rndSelect seed wordList 1
+      shuffled = rndSelect seed word (length word)
+      desc = "Unscramble this word"
+
+wordList :: [String]
+wordList = [
   "abusing",
   "abusive",
   "abuttal",
@@ -34,12 +41,6 @@ sevenLetterWordsIn = "./AnagramData/7LetterInput.txt"
 sevenLetterWordsOut = "./AnagramData/7LetterFiltered.txt"
 eightLetterWordsIn = "./AnagramData/8LetterInput.txt"
 eightLetterWordsOut = "./AnagramData/8LetterFiltered.txt"
-
-grabRandom :: String
-grabRandom = head $ rndSelect 4 anagrams 1
-
-shuffleWord :: String -> String
-shuffleWord toShuffle = rndSelect 4 toShuffle (length toShuffle)
 
 filterAnagramLists :: IO()
 filterAnagramLists = do

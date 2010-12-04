@@ -36,6 +36,7 @@ import qualified Data.Text.Lazy.Encoding
 import StaticFiles
 
 -- 
+import Anagram (Anagrams)
 import Presidents (OrderOfService)
 import States (StateFlags)
 import Lyrics (BeatlesLyrics)
@@ -48,7 +49,8 @@ data Quiz = Quiz {
   countryFlags :: CountryFlagsQuiz,
   beatlesLyrics :: BeatlesLyrics,
   presidentOrder :: OrderOfService,
-  stateFlags :: StateFlags
+  stateFlags :: StateFlags,
+  anagrams :: Anagrams
 }
 
 -- | A useful synonym; most of the handler functions in your application
@@ -87,6 +89,7 @@ mkYesodData "Quiz" [$parseRoutes|
 
 / RootR GET
 
+/wordplay/anagrams/#Int AnagramsR GET
 /countries/capitals/#Int CapitalsR GET
 /beatlesLyrics/#Int BeatlesLyricsR GET
 /uspresidents/inauguration/#Int USPresidentsOrderR GET
