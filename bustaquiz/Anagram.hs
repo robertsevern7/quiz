@@ -1,7 +1,9 @@
 module Anagram(
   Anagrams,
+  fiveLetterAnagrams,
   sixLetterAnagrams,
-  sevenLetterAnagrams
+  sevenLetterAnagrams,
+  eightLetterAnagrams
   ) where
   
 import Logic (QuestionMaker,generateQuestion, rndSelect,Question(Question),QuestionFormat(IdentifyText))
@@ -12,11 +14,17 @@ import AnagramData.WordLists (fiveLetterList,sixLetterList,sevenLetterList,eight
   
 data Anagrams = Anagrams [String]
 
-sevenLetterAnagrams :: Anagrams
-sevenLetterAnagrams =  Anagrams sevenLetterList
+fiveLetterAnagrams :: Anagrams
+fiveLetterAnagrams =  Anagrams fiveLetterList
 
 sixLetterAnagrams :: Anagrams
 sixLetterAnagrams =  Anagrams sixLetterList
+
+sevenLetterAnagrams :: Anagrams
+sevenLetterAnagrams =  Anagrams sevenLetterList
+
+eightLetterAnagrams :: Anagrams
+eightLetterAnagrams =  Anagrams eightLetterList
 
 instance QuestionMaker Anagrams where
   generateQuestion seed (Anagrams wordList) = return $ Question desc (IdentifyText shuffled word)
