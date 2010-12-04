@@ -6,5 +6,8 @@
   !class="puzzle"
     $question$
   !class="hidden"
-    $answer$
+    $maybe link l
+      %a!href=$l$ $answer$
+    $nothing
+      $answer$
   %input!type="text"!id="answer_box"!class="padding"
