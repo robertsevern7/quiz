@@ -8,7 +8,6 @@ import Control.Exception (try,evaluate)
 import Logic
 import Exception
 import Quiz 
-import Settings (cassiusFile,hamletFile,juliusFile,jqueryURL,jqueryUIURL)
 
 runQuestion :: QuestionMaker a => Int -> a -> IO (Either QuizException Question)
 runQuestion seed qm = try (evaluate =<< generateQuestion seed qm)
