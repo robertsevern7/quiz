@@ -7,11 +7,12 @@ import Logic (QuestionMaker,generateQuestion, rndSelect,Question(Question),Quest
 import Data.Char
 import Data.List
 import Data.Ord (comparing)
+import AnagramData.WordLists (fiveLetterList)
   
 data Anagrams = Anagrams [String]
 
 anagrams :: Anagrams
-anagrams =  Anagrams wordList
+anagrams =  Anagrams fiveLetterList
 
 instance QuestionMaker Anagrams where
   generateQuestion seed (Anagrams wordList) = return $ Question desc (IdentifyText shuffled word)
@@ -19,19 +20,6 @@ instance QuestionMaker Anagrams where
       word = head $ rndSelect seed wordList 1
       shuffled = rndSelect seed word (length word)
       desc = "Unscramble this word"
-
-wordList :: [String]
-wordList = [
-  "abusing",
-  "abusive",
-  "abuttal",
-  "abutted",
-  "abutter",
-  "abvolts",
-  "abwatts",
-  "abysmal",
-  "abyssal"
-  ]
 
 fiveLetterWordsIn = "./AnagramData/5LetterInput.txt"
 fiveLetterWordsOut = "./AnagramData/5LetterFiltered.txt"
