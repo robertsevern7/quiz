@@ -36,6 +36,7 @@ $(document).ready(function() {
   $('#order_submit').click(Ordering.checkAnswers);
 
   $('#revealanswers').click(function() {
+    $(this).unbind('click');
     $('#ordering > li').remove();
     
     for (var i = 0, len = Ordering.rightAnswer.length; i < len; ++i) {

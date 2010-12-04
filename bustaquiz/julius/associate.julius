@@ -41,6 +41,7 @@ $(document).ready(function() {
   });
   
   $('#revealanswers').click(function() {
+    $(this).unbind('click');
     $('#rhs').children().each(function(index, element) {
         var lhsToFind = $(this).children().text();
         
