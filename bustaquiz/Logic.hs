@@ -1,5 +1,5 @@
 module Logic (
-  QuestionFormat(Associate,Order,Identify),
+  QuestionFormat(Associate,Order,Identify,IdentifyText),
   Question(Question),
   QuestionMaker,
   description,
@@ -17,6 +17,7 @@ import System.Random (mkStdGen,random,randomR)
 data QuestionFormat = Associate [(String, String)] -- ^ Associates of LHS to RHS
                     | Order [(String, String)] -- ^ An ordering of the first element, with supporting information in the second
                     | Identify StaticRoute String -- ^ Identify some static resource as a string
+                    | IdentifyText String String -- ^ Straight question and answer
                       deriving Show
 
 -- |May want to change this to something "formattable"
