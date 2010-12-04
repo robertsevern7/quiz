@@ -9,6 +9,7 @@ $(document).ready(function() {
     });
     
     $('#revealanswers').click(function() {
+        $(this).unbind('click');
         $('#answer_box').fadeOut(function() {
             $('<div class="answerholder answerrevealed">' + $('.hidden').text() + '</div>').insertAfter($('.puzzle'));
         });
