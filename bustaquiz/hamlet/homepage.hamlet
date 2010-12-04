@@ -10,7 +10,7 @@
   
     %ul
       %li 
-        %a!href=@AnagramsR.1@ Anagrams
+        %a!href=@SixLetterAnagramsR.1@ Anagrams
       %li 
         %a!href=@CapitalsR.1@ Capitals of the World
       %li
