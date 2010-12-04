@@ -10,9 +10,13 @@
   
     %ul
       %li 
+        %a!href=@FiveLetterAnagramsR.1@ Five Letter Anagrams
+      %li 
         %a!href=@SixLetterAnagramsR.1@ Six Letter Anagrams
       %li 
         %a!href=@SevenLetterAnagramsR.1@ Seven Letter Anagrams
+      %li 
+        %a!href=@EightLetterAnagramsR.1@ Eight Letter Anagrams
       %li 
         %a!href=@CapitalsR.1@ Capitals of the World
       %li
