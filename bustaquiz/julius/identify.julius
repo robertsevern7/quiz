@@ -7,4 +7,10 @@ $(document).ready(function() {
             });
         }       
     });
+    
+    $('#revealanswers').click(function() {
+        $('#answer_box').fadeOut(function() {
+            $('<div class="answerholder answerrevealed">' + $('.hidden').text() + '</div>').insertAfter($('.puzzle'));
+        });
+    });
 });
