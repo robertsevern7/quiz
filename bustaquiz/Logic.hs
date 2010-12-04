@@ -8,9 +8,8 @@ module Logic (
   rndSelect
   ) where
 
-import StaticFiles
 import Yesod.Helpers.Static -- Too much coupling?
-import System.Random (mkStdGen,random,randomR)
+import System.Random (mkStdGen,random)
 
 -- TODO some of these question types are less than self-explanatory
 -- |All the different types of questions
@@ -55,9 +54,6 @@ radixRepresentation n k = k `mod` n : radixRepresentation (n-1) (k `div` n)
 
 dfr :: [Int] -> [Int]
 dfr = foldr (\x rs -> x : [r + (if x <= r then 1 else 0) | r <- rs]) []
-
-par :: [Int] -> Int
-par rs = sum rs `mod` 2
 
 perm :: [a] -> Int -> [a]
 perm xs k = [xs !! i | i <- dfr (radixRepresentation (length xs) k)]
