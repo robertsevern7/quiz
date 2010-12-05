@@ -43,6 +43,15 @@ a:hover.white
 a:active.white
     color: white
     
+a:link.black
+    color: black
+a:visited.black
+    color: black
+a:hover.black
+    color: black
+a:active.black
+    color: black
+    
 #sidebar
 
 P
@@ -84,5 +93,6 @@ P
     
 .answerrevealed
     background-color: #F88017!important
+    cursor: auto
 .ourbutton
     font-size: 11pt!important
