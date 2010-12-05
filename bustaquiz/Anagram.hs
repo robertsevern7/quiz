@@ -34,15 +34,17 @@ instance QuestionMaker Anagrams where
       shuffled = rndSelect seed word (length word)
       desc = "Unscramble this word"
 
+allWords = "./AnagramData/allWords.txt"
 popularWords = "./AnagramData/popularWords.txt"
 popularWordsFiltered = "./AnagramData/popularWordsFiltered.txt"
   
 sortOutRawInput :: IO()
 sortOutRawInput = do
-  filecontent <- readFile popularWords
-  writeFile popularWordsFiltered (unlines (sortBy stringLength (filterWords (cleanWords (lines filecontent)))))
-  where stringLength :: String -> String -> Ordering
-        stringLength = comparing length
+  popularFileContent <- readFile popularWords
+  allFileContent <- readFile allWords
+  writeFile popularWordsFiltered (unlines (sortBy (comparing length) (intersectLists (lines allFileContent) (cleanWords (lines popularFileContent)))))
+    --where stringLength :: String -> String -> Ordering
+    --      stringLength = comparing length
 
 orderLetters :: String -> String
 orderLetters = sort. map toLower
@@ -69,8 +71,13 @@ filterRepeats input = length input == 1
 retrieveWord :: [(String,String)] -> String
 retrieveWord input = snd (head input)
         
-filterWords :: [String] -> [String]
-filterWords words = map retrieveWord (filter filterRepeats (groupWords words))
+stripOutAnagrams :: [String] -> [String]
+stripOutAnagrams words = map retrieveWord (filter filterRepeats (groupWords words))
+
+intersectLists :: [String] -> [String] -> [String]
+intersectLists fullList popularWords = filter containedBy (stripOutAnagrams fullList)
+  where containedBy :: String -> Bool
+        containedBy word = word `elem` popularWords
 
 clean :: String -> Bool
 clean input = length input > 4 && length input < 9 && map toLower input == input
