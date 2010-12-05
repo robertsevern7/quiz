@@ -34,27 +34,15 @@ instance QuestionMaker Anagrams where
       shuffled = rndSelect seed word (length word)
       desc = "Unscramble this word"
 
-fiveLetterWordsIn = "./AnagramData/5LetterInput.txt"
-fiveLetterWordsOut = "./AnagramData/5LetterFiltered.txt"
-sixLetterWordsIn = "./AnagramData/6LetterInput.txt"
-sixLetterWordsOut = "./AnagramData/6LetterFiltered.txt"
-sevenLetterWordsIn = "./AnagramData/7LetterInput.txt"
-sevenLetterWordsOut = "./AnagramData/7LetterFiltered.txt"
-eightLetterWordsIn = "./AnagramData/8LetterInput.txt"
-eightLetterWordsOut = "./AnagramData/8LetterFiltered.txt"
-
-filterAnagramLists :: IO()
-filterAnagramLists = do
-  nonAnagramList fiveLetterWordsIn fiveLetterWordsOut
-  nonAnagramList sixLetterWordsIn sixLetterWordsOut
-  nonAnagramList sevenLetterWordsIn sevenLetterWordsOut
-  nonAnagramList eightLetterWordsIn eightLetterWordsOut
+popularWords = "./AnagramData/popularWords.txt"
+popularWordsFiltered = "./AnagramData/popularWordsFiltered.txt"
   
-nonAnagramList :: String -> String -> IO()
-nonAnagramList fileIn fileOut = do
-  filecontent <- readFile fileIn
-  writeFile fileOut (unlines (sort (filterWords (lines filecontent))))
-  return ()
+sortOutRawInput :: IO()
+sortOutRawInput = do
+  filecontent <- readFile popularWords
+  writeFile popularWordsFiltered (unlines (sortBy stringLength (filterWords (cleanWords (lines filecontent)))))
+  where stringLength :: String -> String -> Ordering
+        stringLength = comparing length
 
 orderLetters :: String -> String
 orderLetters = sort. map toLower
@@ -83,3 +71,9 @@ retrieveWord input = snd (head input)
         
 filterWords :: [String] -> [String]
 filterWords words = map retrieveWord (filter filterRepeats (groupWords words))
+
+clean :: String -> Bool
+clean input = length input > 4 && length input < 9 && map toLower input == input
+
+cleanWords :: [String] -> [String]
+cleanWords words = filter clean words
