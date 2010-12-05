@@ -4,7 +4,7 @@ $(document).ready(function() {
         if (sanitise($('#answer_box').val()) === sanitise($('.hidden').text())) {
             $(this).unbind('keyup');
             $('#answer_box').fadeOut(function() {
-                $('.hidden').removeClass('hidden').addClass('answerholder answerrevealed');
+                $('.hidden').removeClass('hidden').addClass('answerholder answer_correct');
             });
         }       
     });
@@ -15,4 +15,6 @@ $(document).ready(function() {
             $('.hidden').removeClass('hidden').addClass('answerholder answerrevealed');
         });
     });
+    
+    $('#answer_box').focus();
 });
