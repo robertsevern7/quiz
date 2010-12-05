@@ -7,7 +7,7 @@
     $question$
   !class="hidden"
     $maybe link l
-      %a!href=$l$ $answer$
+      %a!class="black"!href=$l$ $answer$
     $nothing
       $answer$
   %input!type="text"!id="answer_box"!class="padding"
