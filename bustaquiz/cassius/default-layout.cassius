@@ -76,9 +76,11 @@ P
     padding: 10px
     margin: 10px 0 10px 0
     text-align: center
-    cursor: pointer
     font-size: 11pt
     list-style: none
+    
+.pointer
+    cursor: pointer
 
 .noliststyle
     list-style: none

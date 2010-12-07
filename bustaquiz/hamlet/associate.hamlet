@@ -5,11 +5,11 @@
 .grid_6
   %ul#lhs 
     $forall pairs p   
-      %li!class=answerholder $fst p$
+      %li!class="answerholder pointer" $fst p$
 .grid_6
   %ul#rhs
     
     $forall pairs p
-      %li!class=answerholder $snd p$
+      %li!class="answerholder pointer" $snd p$
         %div!class=hidden $fst p$
 .clear
