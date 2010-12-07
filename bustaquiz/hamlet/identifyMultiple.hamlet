@@ -1,0 +1,13 @@
+.clear
+!class="grid_12 curlycurly"
+  $description$     
+%br
+  .container_12
+    %input!type="text"!id="answer_box"!class="allpadding"
+    %ul#lhs 
+      $forall pairs p  
+        %li!class="noliststyle" 
+          !class="grid_5 answerholder" $fst p$
+          !class="grid_5 answerholder hidden" $snd p$
+          .clear
+.clear

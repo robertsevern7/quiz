@@ -58,13 +58,16 @@ P
     font-size: 11pt
 
 .hidden
-    display: none
+    display: none!important
     
 .center
     text-align: center
     
 .padding
     margin: 10px 0 10px 0
+
+.allpadding
+    margin: 10px
     
 .answerholder
     background-color: #F0F0F0 
@@ -77,6 +80,9 @@ P
     font-size: 11pt
     list-style: none
 
+.noliststyle
+    list-style: none
+    
 .answerhover
     background-color: #E8E8E8 
 
