@@ -6,7 +6,7 @@ module Anagram(
   eightLetterAnagrams
   ) where
   
-import Logic (QuestionMaker,generateQuestion, rndSelect,Question(Question),QuestionFormat(IdentifyText))
+import Logic (QuestionMaker,generateQuestion,rndSelect,Question(IdentifyText),QuestionType(IdentifyTextType))
 import Data.Char
 import Data.List
 import Data.Ord (comparing)
@@ -27,12 +27,13 @@ eightLetterAnagrams :: Anagrams
 eightLetterAnagrams =  Anagrams eightLetterList
 
 instance QuestionMaker Anagrams where
-  generateQuestion seed (Anagrams wordList) = return $ Question (IdentifyText desc shuffled word link)
+  generateQuestion seed IdentifyTextType (Anagrams wordList) = return $ Just (IdentifyText desc shuffled word link)
     where 
       link = Just ("http://www.google.com/search?q=define:" ++ word)
       word = head $ rndSelect seed wordList 1
       shuffled = rndSelect seed word (length word)
       desc = "Unscramble this word"
+  generateQuestion _ _ _ = return Nothing
 
 allWords = "./AnagramData/allWords.txt"
 popularWords = "./AnagramData/popularWords.txt"

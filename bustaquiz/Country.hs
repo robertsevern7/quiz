@@ -34,16 +34,18 @@ countryFlagsQuiz :: CountryFlagsQuiz
 countryFlagsQuiz = CountryFlagsQuiz (map (name &&& flag) countries)
 
 instance QuestionMaker CountryFlagsQuiz where
-  generateQuestion seed (CountryFlagsQuiz countryFlags) = return $ Question (Identify "Which country has the following flag?" picture country)
+  generateQuestion seed IdentifyType (CountryFlagsQuiz countryFlags) = return (Just (Identify "Which country has the following flag?" picture country))
     where
       (country,picture) = chooseFromList seed countryFlags
+  generateQuestion _ _ _ = return Nothing
 
 -- TODO probably insane to keep all the country info for just this - use just name and capital
 instance QuestionMaker CapitalQuiz where
-  generateQuestion seed (CapitalQuiz countries) = do
+  generateQuestion seed AssociateType (CapitalQuiz countries) = do
     let match = rndSelect seed (filter (not . null . capital) countries) 10
     let capitals = map (name &&& capital) match
-    return $ Question (Associate "Match the countries with the capitals" capitals)  
+    return $ Just (Associate "Match the countries with the capitals" capitals)  
+  generateQuestion _ _ _ = return Nothing
                     
 countries :: [CountryInfo]
 countries = [CountryInfo "Andorra" "Andorra la Vella" 468 ".ad" "Euro" images_flags_countries_Flag_of_Andorra_png,

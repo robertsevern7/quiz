@@ -3,7 +3,7 @@ module Presidents (
   orderOfService
   ) where
 
-import Logic (QuestionMaker,generateQuestion, rndSelect,Question(Question),QuestionFormat(Order))
+import Logic (QuestionMaker,generateQuestion, rndSelect,Question(Order),QuestionType(OrderType))
 import Data.List (sortBy)
 import Data.Ord (comparing)
 
@@ -32,11 +32,12 @@ orderOfService = OrderOfService presidents
 data OrderOfService = OrderOfService [President]
 
 instance QuestionMaker OrderOfService where
-  generateQuestion seed (OrderOfService presidents) = return $ Question (Order desc $ map (\p -> (name p,show $ yearFirstInaugurated p)) sorted)
+  generateQuestion seed OrderType (OrderOfService presidents) = return (Just (Order desc $ map (\p -> (name p,show $ yearFirstInaugurated p)) sorted))
     where 
       pres = rndSelect seed presidents 10
       sorted = sortBy (comparing yearFirstInaugurated) pres
       desc = "Put the following Presidents in the order in which they were inaugurated, starting with the earliest"
+  generateQuestion _ _ _ = return Nothing
 
 -- Data nabbed from 
 -- http://qrc.depaul.edu/Excel_Files/Presidents.xls

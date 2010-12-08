@@ -41,6 +41,7 @@ import Presidents (OrderOfService)
 import States (StateFlags)
 import Lyrics (BeatlesLyrics)
 import Country
+import Logic (QuestionType)
 
 data Quiz = Quiz { 
   getStatic :: Static, -- ^ Settings for static file serving.
@@ -92,15 +93,15 @@ mkYesodData "Quiz" [$parseRoutes|
 
 / RootR GET
 
-/wordplay/anagrams/five/#Int FiveLetterAnagramsR GET
-/wordplay/anagrams/six/#Int SixLetterAnagramsR GET
-/wordplay/anagrams/seven/#Int SevenLetterAnagramsR GET
-/wordplay/anagrams/eight/#Int EightLetterAnagramsR GET
-/countries/capitals/#Int CapitalsR GET
-/beatlesLyrics/#Int BeatlesLyricsR GET
-/uspresidents/inauguration/#Int USPresidentsOrderR GET
-/flags/us-states/#Int StateFlagsR GET
-/flags/countries/#Int CountryFlagsR GET
+/wordplay/anagrams/five/#Int/#QuestionType FiveLetterAnagramsR GET
+/wordplay/anagrams/six/#Int/#QuestionType SixLetterAnagramsR GET
+/wordplay/anagrams/seven/#Int/#QuestionType SevenLetterAnagramsR GET
+/wordplay/anagrams/eight/#Int/#QuestionType EightLetterAnagramsR GET
+/countries/capitals/#Int/#QuestionType CapitalsR GET
+/beatlesLyrics/#Int/#QuestionType BeatlesLyricsR GET
+/uspresidents/inauguration/#Int/#QuestionType USPresidentsOrderR GET
+/flags/us-states/#Int/#QuestionType StateFlagsR GET
+/flags/countries/#Int/#QuestionType CountryFlagsR GET
 |]
 
 -- Please see the documentation for the Yesod typeclass. There are a number

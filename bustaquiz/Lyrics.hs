@@ -7,7 +7,7 @@ module Lyrics (
 
 import Network.HTTP
 import Control.Monad (forM)
-import Logic (rndSelect,QuestionMaker,generateQuestion,Question(Question),QuestionFormat(Associate))
+import Logic (rndSelect,QuestionMaker,generateQuestion,QuestionType(AssociateType),Question(Associate))
 import Data.Maybe (fromJust)
 
 newtype Artist = Artist String
@@ -41,14 +41,14 @@ beatlesLyrics :: BeatlesLyrics
 beatlesLyrics = BeatlesLyrics beatlesSongs
   
 instance QuestionMaker BeatlesLyrics where
-  generateQuestion seed (BeatlesLyrics songs) = do
+  generateQuestion seed AssociateType (BeatlesLyrics songs) = do
     let match = rndSelect seed songs 3
     associations <- forM match (\s@(Song song) -> do
                                    lyrics <- getLyrics beatles s
                                    return (song,fromJust lyrics))
-    return $ Question (Associate "Match the songs with the lyrics" associations)
+    return (Just (Associate "Match the songs with the lyrics" associations))
+  generateQuestion _ _ _ = return Nothing
     
-
 -- The beatles did a lot of songs         
 beatles :: Artist 
 beatles = Artist "Beatles"

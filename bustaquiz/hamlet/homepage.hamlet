@@ -10,23 +10,23 @@
   
     %ul
       %li 
-        %a!href=@FiveLetterAnagramsR.1@ Five Letter Anagrams
+        %a!href=@(FiveLetterAnagramsR.1).IdentifyTextType@ Five Letter Anagrams
       %li 
-        %a!href=@SixLetterAnagramsR.1@ Six Letter Anagrams
+        %a!href=@(SixLetterAnagramsR.1).IdentifyTextType@ Six Letter Anagrams
       %li 
-        %a!href=@SevenLetterAnagramsR.1@ Seven Letter Anagrams
+        %a!href=@(SevenLetterAnagramsR.1).IdentifyTextType@ Seven Letter Anagrams
       %li 
-        %a!href=@EightLetterAnagramsR.1@ Eight Letter Anagrams
+        %a!href=@(EightLetterAnagramsR.1).IdentifyTextType@ Eight Letter Anagrams
       %li 
-        %a!href=@CapitalsR.1@ Capitals of the World
+        %a!href=@(CapitalsR.1).IdentifyType@ Capitals of the World
       %li
-        %a!href=@BeatlesLyricsR.1@ Beatles Lyrics                                
+        %a!href=@(BeatlesLyricsR.1).AssociateType@ Beatles Lyrics                                
       %li
-        %a!href=@USPresidentsOrderR.1@ Order of Inauguration of US Presidents
+        %a!href=@(USPresidentsOrderR.1).OrderType@ Order of Inauguration of US Presidents
       %li
-        %a!href=@StateFlagsR.1@ U.S. State Flags
+        %a!href=@(StateFlagsR.1).AssociateType@ U.S. State Flags
       %li
-        %a!href=@CountryFlagsR.1@ Flags of the World
+        %a!href=@(CountryFlagsR.1).AssociateType@ Flags of the World
 
 !id="sidebar"!class="grid_4"
   !class="curlycurly"

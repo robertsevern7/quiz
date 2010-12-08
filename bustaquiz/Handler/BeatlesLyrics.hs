@@ -2,8 +2,9 @@
 module Handler.BeatlesLyrics where
 
 import Quiz
+import Logic (QuestionType)
 import Handler.Generic (genericRoute)
 
-getBeatlesLyricsR :: Int -> Handler RepHtml
-getBeatlesLyricsR seed = genericRoute seed beatlesLyrics (BeatlesLyricsR (succ seed))
+getBeatlesLyricsR :: Int -> QuestionType -> Handler RepHtml
+getBeatlesLyricsR seed questionType= genericRoute seed questionType beatlesLyrics (BeatlesLyricsR (succ seed) questionType)
     

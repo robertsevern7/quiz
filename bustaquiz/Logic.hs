@@ -1,6 +1,6 @@
 module Logic (
-  QuestionFormat(Associate,Order,Identify,IdentifyText),
-  Question(Question),
+  Question(Associate,Order,Identify,IdentifyText),
+  QuestionType(AssociateType,OrderType,IdentifyType,IdentifyTextType),
   QuestionMaker,
   generateQuestion,
   chooseFromList,
@@ -10,24 +10,30 @@ module Logic (
 import Yesod.Helpers.Static -- Too much coupling?
 import System.Random (mkStdGen,random)
 
+-- TODO This is awful?
+-- The various types of questions that we have
+data QuestionType = AssociateType 
+                  | OrderType 
+                  | IdentifyType 
+                  | IdentifyTextType
+                  deriving (Show,Read,Eq)
+                                                               
+
 -- TODO some of these question types are less than self-explanatory
 -- |All the different types of questions
-data QuestionFormat = Associate Description [(String, String)] -- ^ Associates of LHS to RHS
-                    | Order Description [(String, String)] -- ^ An ordering of the first element, with supporting information in the second
-                    | Identify Description StaticRoute String -- ^ Identify some static resource as a string
-                    | IdentifyText Description String String (Maybe String)-- ^ Straight question and answer with optional link for answer
-                      deriving Show
+data Question = Associate Description [(String, String)] -- ^ Associates of LHS to RHS
+              | Order Description [(String, String)] -- ^ An ordering of the first element, with supporting information in the second
+              | Identify Description StaticRoute String -- ^ Identify some static resource as a string
+              | IdentifyText Description String String (Maybe String)-- ^ Straight question and answer with optional link for answer
+              deriving Show
 
 -- |May want to change this to something "formattable"
 type Description = String
 
--- |A question is a question format, together with a description
-data Question = Question QuestionFormat deriving Show
-
--- |A question maker uses some logic to generate questions
+-- |A question maker uses some logic to generate questions given the requests question type
 -- |An integer is used to provide variation
 class QuestionMaker a where 
-    generateQuestion :: Int -> a -> IO Question
+    generateQuestion :: Int -> QuestionType -> a -> IO (Maybe Question)
 
 -- |Choose a random element from a list given a seed
 chooseFromList :: Int -> [a] -> a

@@ -2,9 +2,10 @@
 module Handler.Capital where
 
 import Quiz
+import Logic (QuestionType)
 import Handler.Generic (genericRoute)
 
-getCapitalsR :: Int -> Handler RepHtml
-getCapitalsR seed = genericRoute seed whichCapital (CapitalsR (succ seed))
+getCapitalsR :: Int -> QuestionType -> Handler RepHtml
+getCapitalsR seed questionType = genericRoute seed questionType whichCapital (CapitalsR (succ seed) questionType)
 
 
