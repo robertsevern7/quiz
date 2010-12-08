@@ -2,7 +2,6 @@ module Logic (
   QuestionFormat(Associate,Order,Identify,IdentifyText),
   Question(Question),
   QuestionMaker,
-  description,
   generateQuestion,
   chooseFromList,
   rndSelect
@@ -13,20 +12,17 @@ import System.Random (mkStdGen,random)
 
 -- TODO some of these question types are less than self-explanatory
 -- |All the different types of questions
-data QuestionFormat = Associate [(String, String)] -- ^ Associates of LHS to RHS
-                    | Order [(String, String)] -- ^ An ordering of the first element, with supporting information in the second
-                    | Identify StaticRoute String -- ^ Identify some static resource as a string
-                    | IdentifyText String String (Maybe String)-- ^ Straight question and answer with optional link for answer
+data QuestionFormat = Associate Description [(String, String)] -- ^ Associates of LHS to RHS
+                    | Order Description [(String, String)] -- ^ An ordering of the first element, with supporting information in the second
+                    | Identify Description StaticRoute String -- ^ Identify some static resource as a string
+                    | IdentifyText Description String String (Maybe String)-- ^ Straight question and answer with optional link for answer
                       deriving Show
 
 -- |May want to change this to something "formattable"
 type Description = String
 
 -- |A question is a question format, together with a description
-data Question = Question Description QuestionFormat deriving Show
-
-description :: Question -> Description
-description (Question d _) = d
+data Question = Question QuestionFormat deriving Show
 
 -- |A question maker uses some logic to generate questions
 -- |An integer is used to provide variation

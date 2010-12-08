@@ -25,7 +25,7 @@ genericRoute seed quizFunc next = do
 -- TODO Not entirely sure why I can't get rid of the repetition here      
 -- TODO Something to do with Template Haskell
 -- Display the question as a widget
-questionWidget route (Question description (Associate pairs)) = do
+questionWidget route (Question (Associate description pairs)) = do
   -- External requirements
   addJulius $(juliusFile "shuffle")
   addJulius $(juliusFile "text")
@@ -36,7 +36,7 @@ questionWidget route (Question description (Associate pairs)) = do
   addCassius $(cassiusFile "associate")
   addJulius $(juliusFile "associate")
   
-questionWidget route (Question description (Order ordering)) = do
+questionWidget route (Question (Order description ordering)) = do
   addJulius $(juliusFile "shuffle")
 
   addHamlet $(hamletFile "ordering")
@@ -44,7 +44,7 @@ questionWidget route (Question description (Order ordering)) = do
   addCassius $(cassiusFile "ordering")
   addJulius $(juliusFile "ordering")
 
-questionWidget route (Question description (Identify resource answer)) = do
+questionWidget route (Question (Identify description resource answer)) = do
   addJulius $(juliusFile "text")
   
   addHamlet $(hamletFile "identify")
@@ -52,7 +52,7 @@ questionWidget route (Question description (Identify resource answer)) = do
   addCassius $(cassiusFile "identify")
   addJulius $(juliusFile "identify")
 
-questionWidget route (Question description (IdentifyText question answer link)) = do
+questionWidget route (Question (IdentifyText description question answer link)) = do
   addJulius $(juliusFile "text")
   
   addHamlet $(hamletFile "identifyText")
