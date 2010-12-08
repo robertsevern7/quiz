@@ -2,16 +2,17 @@
 module Handler.Anagrams where
 
 import Quiz
+import Logic (QuestionType)
 import Handler.Generic (genericRoute)
 
-getFiveLetterAnagramsR :: Int -> Handler RepHtml
-getFiveLetterAnagramsR seed = genericRoute seed fiveLetter (FiveLetterAnagramsR (succ seed))
+getFiveLetterAnagramsR :: Int -> QuestionType -> Handler RepHtml
+getFiveLetterAnagramsR seed questionType = genericRoute seed questionType fiveLetter (FiveLetterAnagramsR (succ seed) questionType)
 
-getSixLetterAnagramsR :: Int -> Handler RepHtml
-getSixLetterAnagramsR seed = genericRoute seed sixLetter (SixLetterAnagramsR (succ seed))
+getSixLetterAnagramsR :: Int -> QuestionType -> Handler RepHtml
+getSixLetterAnagramsR seed questionType = genericRoute seed questionType sixLetter (SixLetterAnagramsR (succ seed) questionType)
 
-getSevenLetterAnagramsR :: Int -> Handler RepHtml
-getSevenLetterAnagramsR seed = genericRoute seed sevenLetter (SevenLetterAnagramsR (succ seed))
+getSevenLetterAnagramsR :: Int -> QuestionType -> Handler RepHtml
+getSevenLetterAnagramsR seed questionType = genericRoute seed questionType sevenLetter (SevenLetterAnagramsR (succ seed) questionType)
 
-getEightLetterAnagramsR :: Int -> Handler RepHtml
-getEightLetterAnagramsR seed = genericRoute seed eightLetter (EightLetterAnagramsR (succ seed))
+getEightLetterAnagramsR :: Int -> QuestionType -> Handler RepHtml
+getEightLetterAnagramsR seed questionType = genericRoute seed questionType eightLetter (EightLetterAnagramsR (succ seed) questionType)

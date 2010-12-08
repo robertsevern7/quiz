@@ -24,10 +24,11 @@ stateFlags :: StateFlags
 stateFlags = StateFlags (map (name &&& flag) states)
 
 instance QuestionMaker StateFlags where
-  generateQuestion seed (StateFlags stateFlags) = return $ Question (Identify "Which state has the following flag?" picture state)
-    where
+  generateQuestion seed IdentifyType (StateFlags stateFlags) = return (Just (Identify "Which state has the following flag?" picture state))
+     where
       (state,picture) = chooseFromList seed stateFlags
-
+  generateQuestion seed _ _ = return Nothing
+ 
 -- Data source nabbed from:
 --   http://www.tellingmachine.com/post/all-50-states-as-xml-json-csv-xls-files.aspx
 -- Images taken from 

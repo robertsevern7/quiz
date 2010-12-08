@@ -9,23 +9,26 @@ import Logic
 import Exception
 import Quiz 
 
-runQuestion :: QuestionMaker a => Int -> a -> IO (Either QuizException Question)
-runQuestion seed qm = try (evaluate =<< generateQuestion seed qm)
+runQuestion :: QuestionMaker a => Int -> QuestionType -> a -> IO (Either QuizException (Maybe Question))
+runQuestion seed questionType qm = try (evaluate =<< generateQuestion seed questionType qm)
                                              
 -- TODO - Should I try to set the title here?
-genericRoute :: QuestionMaker a => Int -> (Quiz -> a) -> QuizRoute -> Handler RepHtml
-genericRoute seed quizFunc next = do
+genericRoute :: QuestionMaker a => Int -> QuestionType -> (Quiz -> a) -> QuizRoute -> Handler RepHtml
+genericRoute seed questionType quizFunc next = do
   quiz <- getYesod
-  generatedQuestion <- liftIO $ runQuestion seed (quizFunc quiz) 
+  generatedQuestion <- liftIO $ runQuestion seed questionType (quizFunc quiz) 
   case generatedQuestion of
     (Left ex) -> invalidArgs ["Failed to generate valid question.", message ex, internal ex]
-    (Right question) -> defaultLayout $ addWidget (questionWidget next question)
+    (Right (Just question)) -> defaultLayout $ addWidget (questionWidget next question)
+    -- TODO more information needed?
+    -- TODO Push this into the type system?
+    (Right Nothing) -> invalidArgs ["Failed to generate a question of the specified type", "Failed to generate question", show questionType]
 
 -- TODO Bad things happen if I put a type signature in place here.
 -- TODO Not entirely sure why I can't get rid of the repetition here      
 -- TODO Something to do with Template Haskell
 -- Display the question as a widget
-questionWidget route (Question (Associate description pairs)) = do
+questionWidget route (Associate description pairs) = do
   -- External requirements
   addJulius $(juliusFile "shuffle")
   addJulius $(juliusFile "text")
@@ -36,7 +39,7 @@ questionWidget route (Question (Associate description pairs)) = do
   addCassius $(cassiusFile "associate")
   addJulius $(juliusFile "associate")
   
-questionWidget route (Question (Order description ordering)) = do
+questionWidget route (Order description ordering) = do
   addJulius $(juliusFile "shuffle")
 
   addHamlet $(hamletFile "ordering")
@@ -44,7 +47,7 @@ questionWidget route (Question (Order description ordering)) = do
   addCassius $(cassiusFile "ordering")
   addJulius $(juliusFile "ordering")
 
-questionWidget route (Question (Identify description resource answer)) = do
+questionWidget route (Identify description resource answer) = do
   addJulius $(juliusFile "text")
   
   addHamlet $(hamletFile "identify")
@@ -52,7 +55,7 @@ questionWidget route (Question (Identify description resource answer)) = do
   addCassius $(cassiusFile "identify")
   addJulius $(juliusFile "identify")
 
-questionWidget route (Question (IdentifyText description question answer link)) = do
+questionWidget route (IdentifyText description question answer link) = do
   addJulius $(juliusFile "text")
   
   addHamlet $(hamletFile "identifyText")

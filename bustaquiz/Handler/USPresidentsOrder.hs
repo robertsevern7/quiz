@@ -2,9 +2,10 @@
 module Handler.USPresidentsOrder where
 
 import Quiz
+import Logic (QuestionType)
 import Handler.Generic (genericRoute)
 
-getUSPresidentsOrderR :: Int -> Handler RepHtml
-getUSPresidentsOrderR seed = genericRoute seed presidentOrder (USPresidentsOrderR (succ seed))
+getUSPresidentsOrderR :: Int -> QuestionType ->  Handler RepHtml
+getUSPresidentsOrderR seed questionType = genericRoute seed questionType presidentOrder (USPresidentsOrderR (succ seed) questionType)
 
 
