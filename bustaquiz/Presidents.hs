@@ -32,7 +32,7 @@ orderOfService = OrderOfService presidents
 data OrderOfService = OrderOfService [President]
 
 instance QuestionMaker OrderOfService where
-  generateQuestion seed (OrderOfService presidents) = return $ Question desc (Order $ map (\p -> (name p,show $ yearFirstInaugurated p)) sorted)
+  generateQuestion seed (OrderOfService presidents) = return $ Question (Order desc $ map (\p -> (name p,show $ yearFirstInaugurated p)) sorted)
     where 
       pres = rndSelect seed presidents 10
       sorted = sortBy (comparing yearFirstInaugurated) pres
