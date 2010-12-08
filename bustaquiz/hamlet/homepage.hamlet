@@ -18,15 +18,15 @@
       %li 
         %a!href=@(EightLetterAnagramsR.1).IdentifyTextType@ Eight Letter Anagrams
       %li 
-        %a!href=@(CapitalsR.1).IdentifyType@ Capitals of the World
+        %a!href=@(CapitalsR.1).AssociateType@ Capitals of the World
       %li
         %a!href=@(BeatlesLyricsR.1).AssociateType@ Beatles Lyrics                                
       %li
         %a!href=@(USPresidentsOrderR.1).OrderType@ Order of Inauguration of US Presidents
       %li
-        %a!href=@(StateFlagsR.1).AssociateType@ U.S. State Flags
+        %a!href=@(StateFlagsR.1).IdentifyType@ U.S. State Flags
       %li
-        %a!href=@(CountryFlagsR.1).AssociateType@ Flags of the World
+        %a!href=@(CountryFlagsR.1).IdentifyType@ Flags of the World
 
 !id="sidebar"!class="grid_4"
   !class="curlycurly"

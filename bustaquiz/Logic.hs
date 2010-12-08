@@ -10,6 +10,8 @@ module Logic (
 import Yesod.Helpers.Static -- Too much coupling?
 import System.Random (mkStdGen,random)
 
+import Web.Routes.Quasi (SinglePiece,toSinglePiece,fromSinglePiece)
+
 -- TODO This is awful?
 -- The various types of questions that we have
 data QuestionType = AssociateType 
@@ -17,6 +19,11 @@ data QuestionType = AssociateType
                   | IdentifyType 
                   | IdentifyTextType
                   deriving (Show,Read,Eq)
+                           
+instance SinglePiece QuestionType where
+  toSinglePiece x = show x
+  -- TODO errr, error handling and important stuff like that?  return (Left x) on error
+  fromSinglePiece x = Right (read x)
                                                                
 
 -- TODO some of these question types are less than self-explanatory
