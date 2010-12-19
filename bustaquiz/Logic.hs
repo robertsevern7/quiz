@@ -1,6 +1,6 @@
 module Logic (
   Question(Associate,Order,Identify,IdentifyText),
-  QuestionType(AssociateType,OrderType,IdentifyType,IdentifyTextType),
+  QuestionType(AssociateType,OrderType,IdentifyType,IdentifyTextType,IdentifyMultipleType),
   QuestionMaker,
   generateQuestion,
   chooseFromList,
@@ -18,6 +18,7 @@ data QuestionType = AssociateType
                   | OrderType 
                   | IdentifyType 
                   | IdentifyTextType
+                  | IdentifyMultipleType
                   deriving (Show,Read,Eq)
                            
 instance SinglePiece QuestionType where

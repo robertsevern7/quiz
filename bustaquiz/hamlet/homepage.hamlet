@@ -19,6 +19,8 @@
         %a!href=@(EightLetterAnagramsR.1).IdentifyTextType@ Eight Letter Anagrams
       %li 
         %a!href=@(CapitalsR.1).AssociateType@ Capitals of the World
+      %li 
+        %a!href=@(CapitalsR.1).IdentifyMultipleType@ Capitals of the World Hard
       %li
         %a!href=@(BeatlesLyricsR.1).AssociateType@ Beatles Lyrics                                
       %li
