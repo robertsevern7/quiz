@@ -45,6 +45,10 @@ instance QuestionMaker CapitalQuiz where
     let match = rndSelect seed (filter (not . null . capital) countries) 10
     let capitals = map (name &&& capital) match
     return $ Just (Associate "Match the countries with the capitals" capitals)  
+  generateQuestion seed IdentifyMultipleType (CapitalQuiz countries) = do
+    let match = rndSelect seed (filter (not . null . capital) countries) 10
+    let capitals = map (name &&& capital) match
+    return $ Just (Associate "Name the capitals of these countries" capitals) 
   generateQuestion _ _ _ = return Nothing
                     
 countries :: [CountryInfo]
