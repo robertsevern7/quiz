@@ -8,27 +8,27 @@
       %a!href=@AuthR.LoginR@ Login 
       and pick from one of the following categories to get a randomly selected question.  
   
-    %ul
+    %ul!class="noliststyle homepageoptions"
       %li 
-        %a!href=@(FiveLetterAnagramsR.1).IdentifyTextType@ Five Letter Anagrams
+        %a!class=black!href=@(FiveLetterAnagramsR.1).IdentifyTextType@ Five Letter Anagrams
       %li 
-        %a!href=@(SixLetterAnagramsR.1).IdentifyTextType@ Six Letter Anagrams
+        %a!class=black!href=@(SixLetterAnagramsR.1).IdentifyTextType@ Six Letter Anagrams
       %li 
-        %a!href=@(SevenLetterAnagramsR.1).IdentifyTextType@ Seven Letter Anagrams
+        %a!class=black!href=@(SevenLetterAnagramsR.1).IdentifyTextType@ Seven Letter Anagrams
       %li 
-        %a!href=@(EightLetterAnagramsR.1).IdentifyTextType@ Eight Letter Anagrams
+        %a!class=black!href=@(EightLetterAnagramsR.1).IdentifyTextType@ Eight Letter Anagrams
       %li 
-        %a!href=@(CapitalsR.1).AssociateType@ Capitals of the World
+        %a!class=black!href=@(CapitalsR.1).AssociateType@ Capitals of the World
       %li 
-        %a!href=@(CapitalsR.1).IdentifyMultipleType@ Capitals of the World Hard
+        %a!class=black!href=@(CapitalsR.1).IdentifyMultipleType@ Capitals of the World Hard
       %li
-        %a!href=@(BeatlesLyricsR.1).AssociateType@ Beatles Lyrics                                
+        %a!class=black!href=@(BeatlesLyricsR.1).AssociateType@ Beatles Lyrics                                
       %li
-        %a!href=@(USPresidentsOrderR.1).OrderType@ Order of Inauguration of US Presidents
+        %a!class=black!href=@(USPresidentsOrderR.1).OrderType@ Order of Inauguration of US Presidents
       %li
-        %a!href=@(StateFlagsR.1).IdentifyType@ U.S. State Flags
+        %a!class=black!href=@(StateFlagsR.1).IdentifyType@ U.S. State Flags
       %li
-        %a!href=@(CountryFlagsR.1).IdentifyType@ Flags of the World
+        %a!class=black!href=@(CountryFlagsR.1).IdentifyType@ Flags of the World
 
 !id="sidebar"!class="grid_4"
   !class="curlycurly"

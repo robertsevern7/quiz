@@ -32,6 +32,7 @@ genericRoute seed questionType quizFunc next = do
 questionWidget (AssociateType) route (Associate description pairs) = do
   -- External requirements
   addJulius $(juliusFile "shuffle")
+  addJulius $(juliusFile "hover")
   addJulius $(juliusFile "text")
   
   -- Actual code
@@ -47,6 +48,7 @@ questionWidget (OrderType) route (Order description ordering) = do
   addHamlet $(hamletFile "buttons")
   addCassius $(cassiusFile "ordering")
   addJulius $(juliusFile "ordering")
+  addJulius $(juliusFile "hover")
 
 questionWidget (IdentifyType) route (Identify description resource answer) = do
   addJulius $(juliusFile "text")

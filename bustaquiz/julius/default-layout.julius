@@ -1,11 +1,4 @@
 $(document).ready(function() {
   $('button').button();
   $('a.ourbutton').button();
-  
-  $('.answerholder').hover(function() {
-    $(this).addClass('answerhover');
-  },
-  function() {
-    $(this).removeClass('answerhover');
-  });
 });
