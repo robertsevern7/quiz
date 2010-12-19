@@ -31,6 +31,9 @@ body
 .headerlinks
     font-size: 12px
     
+.small
+    font-size: 8px
+    
 a
     text-decoration: none
     
