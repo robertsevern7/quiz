@@ -43,6 +43,7 @@ a:visited.white
     color: white
 a:hover.white
     color: #e6e6e6
+    text-decoration:underline
 a:active.white
     color: white
     
@@ -52,6 +53,7 @@ a:visited.black
     color: black
 a:hover.black
     color: black
+    text-decoration:underline
 a:active.black
     color: black
     
