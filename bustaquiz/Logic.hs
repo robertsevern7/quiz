@@ -4,7 +4,8 @@ module Logic (
   QuestionMaker,
   generateQuestion,
   chooseFromList,
-  rndSelect
+  rndSelect,
+  myKingdomForASeed
   ) where
 
 import Yesod.Helpers.Static -- Too much coupling?
@@ -42,6 +43,11 @@ type Description = String
 -- |An integer is used to provide variation
 class QuestionMaker a where 
     generateQuestion :: Int -> QuestionType -> a -> IO (Maybe Question)
+    
+mySeeds = [1..10000]
+
+myKingdomForASeed :: Int -> Int
+myKingdomForASeed seed = chooseFromList seed mySeeds 
 
 -- |Choose a random element from a list given a seed
 chooseFromList :: Int -> [a] -> a
