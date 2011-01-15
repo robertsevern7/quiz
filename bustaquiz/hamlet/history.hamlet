@@ -1,0 +1,25 @@
+!class="grid_8"
+  !class="curlycurly"
+    %p We are history
+
+    %p 
+      %ul!class="noliststyle homepageoptions"
+        %div!class="grid_2 listheader" USA
+        %ul!class="grid_4 noliststyle"
+          %li
+            %a!class=black!href=@(USPresidentsOrderR.1).OrderType@ Order of Inauguration of US Presidents
+        .clear
+            
+!id="sidebar"!class="grid_4"
+  /*TODO add in login template*/
+  !class="curlycurly"
+    $maybe mu u
+      %p
+        You are logged in as $userIdent.snd.u$. $
+        %a!href=@AuthR.LogoutR@ Logout
+        \.
+    $nothing
+      %p
+        You are not logged in. $
+        %a!href=@AuthR.LoginR@ Login now
+        \.

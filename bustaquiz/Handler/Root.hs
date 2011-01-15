@@ -43,3 +43,11 @@ getMusicR = do
         h2id <- newIdent
         addCassius $(cassiusFile "homepage")
         addWidget $(hamletFile "music")
+
+getHistoryR :: Handler RepHtml
+getHistoryR = do
+    mu <- maybeAuth
+    defaultLayout $ do
+        h2id <- newIdent
+        addCassius $(cassiusFile "homepage")
+        addWidget $(hamletFile "history")
