@@ -102,7 +102,10 @@ mkYesodData "Quiz" [$parseRoutes|
 /geography GeographyR GET
 /geography/countries/capitals/#Int/#QuestionType CapitalsR GET
 /geography/countries/flags/#Int/#QuestionType CountryFlagsR GET
-/beatlesLyrics/#Int/#QuestionType BeatlesLyricsR GET
+
+/music MusicR GET
+/music/lyrics/beatles/#Int/#QuestionType BeatlesLyricsR GET
+
 /uspresidents/inauguration/#Int/#QuestionType USPresidentsOrderR GET
 /flags/us-states/#Int/#QuestionType StateFlagsR GET
 |]
