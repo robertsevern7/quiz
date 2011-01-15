@@ -18,3 +18,12 @@ getRootR = do
         setTitle "bustaquiz homepage"
         addCassius $(cassiusFile "homepage")
         addWidget $(hamletFile "homepage")
+
+getWordplayR :: Handler RepHtml
+getWordplayR = do
+    mu <- maybeAuth
+    defaultLayout $ do
+        h2id <- newIdent
+        --setTitle "bustaquiz homepage"
+        addCassius $(cassiusFile "homepage")
+        addWidget $(hamletFile "wordplay")

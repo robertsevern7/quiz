@@ -10,7 +10,7 @@
   
       
       %div!class="noliststyle homepageoptions container_6"
-        %div!class="grid_2 listheader" WORDPLAY
+        %a!class="grid_2 black listheader"!href=@WordplayR@ WORDPLAY
         %ul!class="grid_4 noliststyle"
           %li 
             %a!class=black!href=@(FiveLetterAnagramsR.1).IdentifyTextType@ Five Letter Anagrams
