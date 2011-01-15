@@ -17,6 +17,7 @@
         .clear
             
 !id="sidebar"!class="grid_4"
+  /*TODO add in login template*/
   !class="curlycurly"
     $maybe mu u
       %p

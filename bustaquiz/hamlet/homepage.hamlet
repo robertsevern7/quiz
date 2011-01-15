@@ -50,6 +50,7 @@
         .clear
             
 !id="sidebar"!class="grid_4"
+  --TODO add in loginpanel hamlet
   !class="curlycurly"
     $maybe mu u
       %p
