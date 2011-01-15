@@ -35,3 +35,11 @@ getGeographyR = do
         h2id <- newIdent
         addCassius $(cassiusFile "homepage")
         addWidget $(hamletFile "geography")
+        
+getMusicR :: Handler RepHtml
+getMusicR = do
+    mu <- maybeAuth
+    defaultLayout $ do
+        h2id <- newIdent
+        addCassius $(cassiusFile "homepage")
+        addWidget $(hamletFile "music")

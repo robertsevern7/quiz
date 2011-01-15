@@ -36,7 +36,7 @@
         .clear
 
       %ul!class="noliststyle homepageoptions"
-        %div!class="grid_2 listheader" MUSIC
+        %a!class="grid_2 black listheader"!href=@MusicR@ MUSIC
         %ul!class="grid_4 noliststyle"
           %li  
             %a!class=black!href=@(BeatlesLyricsR.1).AssociateType@ Beatles Lyrics                                
