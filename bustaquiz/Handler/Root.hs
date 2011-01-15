@@ -27,3 +27,11 @@ getWordplayR = do
         h2id <- newIdent
         addCassius $(cassiusFile "homepage")
         addWidget $(hamletFile "wordplay")
+        
+getGeographyR :: Handler RepHtml
+getGeographyR = do
+    mu <- maybeAuth
+    defaultLayout $ do
+        h2id <- newIdent
+        addCassius $(cassiusFile "homepage")
+        addWidget $(hamletFile "geography")

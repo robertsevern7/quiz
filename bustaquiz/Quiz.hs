@@ -98,11 +98,13 @@ mkYesodData "Quiz" [$parseRoutes|
 /wordplay/anagrams/six/#Int/#QuestionType SixLetterAnagramsR GET
 /wordplay/anagrams/seven/#Int/#QuestionType SevenLetterAnagramsR GET
 /wordplay/anagrams/eight/#Int/#QuestionType EightLetterAnagramsR GET
-/countries/capitals/#Int/#QuestionType CapitalsR GET
+
+/geography GeographyR GET
+/geography/countries/capitals/#Int/#QuestionType CapitalsR GET
+/geography/countries/flags/#Int/#QuestionType CountryFlagsR GET
 /beatlesLyrics/#Int/#QuestionType BeatlesLyricsR GET
 /uspresidents/inauguration/#Int/#QuestionType USPresidentsOrderR GET
 /flags/us-states/#Int/#QuestionType StateFlagsR GET
-/flags/countries/#Int/#QuestionType CountryFlagsR GET
 |]
 
 -- Please see the documentation for the Yesod typeclass. There are a number

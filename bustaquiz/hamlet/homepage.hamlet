@@ -23,7 +23,7 @@
         .clear
       
       %ul!class="noliststyle homepageoptions"
-        %div!class="grid_2 listheader" GEOGRAPHY
+        %a!class="grid_2 black listheader"!href=@GeographyR@ GEOGRAPHY
         %ul!class="grid_4 noliststyle"
           %li
             %a!class=black!href=@(CapitalsR.1).AssociateType@ Capitals of the World
