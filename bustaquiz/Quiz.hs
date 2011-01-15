@@ -93,6 +93,7 @@ mkYesodData "Quiz" [$parseRoutes|
 
 / RootR GET
 
+/wordplay WordplayR GET
 /wordplay/anagrams/five/#Int/#QuestionType FiveLetterAnagramsR GET
 /wordplay/anagrams/six/#Int/#QuestionType SixLetterAnagramsR GET
 /wordplay/anagrams/seven/#Int/#QuestionType SevenLetterAnagramsR GET
