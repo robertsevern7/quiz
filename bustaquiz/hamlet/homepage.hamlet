@@ -43,7 +43,7 @@
         .clear
               
       %ul!class="noliststyle homepageoptions"
-        %div!class="grid_2 listheader" HISTORY
+        %a!class="grid_2 black listheader"!href=@HistoryR@ HISTORY
         %ul!class="grid_4 noliststyle"
           %li
             %a!class=black!href=@(USPresidentsOrderR.1).OrderType@ Order of Inauguration of US Presidents

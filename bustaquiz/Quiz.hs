@@ -102,12 +102,13 @@ mkYesodData "Quiz" [$parseRoutes|
 /geography GeographyR GET
 /geography/countries/capitals/#Int/#QuestionType CapitalsR GET
 /geography/countries/flags/#Int/#QuestionType CountryFlagsR GET
+/geography/USA/states/flags/#Int/#QuestionType StateFlagsR GET
 
 /music MusicR GET
 /music/lyrics/beatles/#Int/#QuestionType BeatlesLyricsR GET
 
-/uspresidents/inauguration/#Int/#QuestionType USPresidentsOrderR GET
-/flags/us-states/#Int/#QuestionType StateFlagsR GET
+/history HistoryR GET
+/history/usa/presidents/inauguration/#Int/#QuestionType USPresidentsOrderR GET
 |]
 
 -- Please see the documentation for the Yesod typeclass. There are a number
