@@ -1,6 +1,7 @@
 .clear
-!class="grid_12 curlycurly"
-  $description$     
+!class="grid_12"
+  !class="curlycurly"
+    $description$     
 %br
 .grid_6
   %ul#lhs 

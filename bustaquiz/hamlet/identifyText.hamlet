@@ -1,6 +1,7 @@
 !class="clear"
-!class="grid_12 curlycurly"
-  $description$
+!class="grid_12"
+  !class="curlycurly"
+    $description$
 
 !class="push_2 grid_8 center"
   !class="puzzle"

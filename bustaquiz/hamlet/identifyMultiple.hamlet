@@ -1,5 +1,6 @@
 .clear
-!class="grid_12 curlycurly"
+!class="grid_12"
+  !class="curlycurly"
   $description$     
 %br
   .container_12
