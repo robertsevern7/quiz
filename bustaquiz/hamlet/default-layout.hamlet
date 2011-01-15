@@ -8,12 +8,18 @@
     %body
       !class="container_12"
         !class="grid_12 header"
-          %h1 
-            %a!class="white prefix_0"!href=@RootR@ bustaquiz
+          !class="menu"
+            %a!class="mainname white prefix_0"!href=@RootR@ bustaquiz
             %a!class="white small"!href=@RootR@ &nbsp&nbsp&nbsp&nbsp Stupid people look away now
             %a!class="headerlinks white prefix_4"!href=@RootR@ Home
             %a!class="headerlinks white prefix_1"!href="mailto:busta\@quiz.com" Contact Us
         .clear
+        !class="grid_12 header"
+          !class="menu"
+            %a!class="headerlinks white prefix_0"!href=@WordplayR@ Wordplay
+            %a!class="headerlinks white prefix_1"!href=@GeographyR@ Geography
+            %a!class="headerlinks white prefix_1"!href=@MusicR@ Music
+            %a!class="headerlinks white prefix_1"!href=@HistoryR@ History
         !id="maincontent"
           ^pageBody.pc^
         !class="grid_12 footer"
