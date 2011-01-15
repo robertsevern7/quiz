@@ -1,7 +1,11 @@
 // In order to pick non-retarded colours
-// http://colorschemedesigner.com/#3L31Tw0w0w0w0
+// http://colorschemedesigner.com/#3L31Tw0w0w0w0    
+body
+    font-family: Verdana, Arial, Sans!important
 
-H1
+#maincontent
+
+.menu
     background-color: black
     text-align: left
     -moz-border-radius: 10px
@@ -9,10 +13,6 @@ H1
     margin: 5px
     padding: 10px
 
-body
-    font-family: Verdana, Arial, Sans!important
-
-#maincontent
 
 .curlycurly
     background-color: #f8f8ff
@@ -27,6 +27,9 @@ body
 .footer
     color: white
     font-size: 4pt
+    
+.mainname
+    font-size: 38px
     
 .headerlinks
     font-size: 12px
