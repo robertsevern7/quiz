@@ -1,7 +1,7 @@
 $(document).ready(function() {
     //  We should consider filtering the image, maybe doing some blurring?
     $('#answer_box').keyup(function(event) {
-        if (sanitise($('#answer_box').val()) === sanitise($('.hidden').text())) {
+        if (similar($('#answer_box').val(), $('.hidden').text())) {
             $(this).unbind('keyup');
             $('#answer_box').fadeOut(function() {
                 $('.hidden').removeClass('hidden').addClass('answerholder answer_correct');

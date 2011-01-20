@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $('#answer_box').keyup(function(event) {
         $('.hidden').each(function(cmp) {
-            if (sanitise($('#answer_box').val()) === sanitise($(this).text())) {
+            if (similar($('#answer_box').val(), $(this).text())) {
                 $(this).removeClass('hidden').addClass('answer_correct');
                 $('#answer_box').attr("value","");
             }       
