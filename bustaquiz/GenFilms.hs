@@ -69,32 +69,17 @@ getBigBudgetFilmsQuery queryType = wrapInQuery $ toJsonObject $ Mapping [
       ]
   ])]
                                    
-tagLineQuery :: JsonObject                                   
-tagLineQuery = wrapInQuery $ toJsonObject $ Mapping [
-  (B.pack "!pd:/award/ranked_list/ranked_list_items", Sequence [
+tagLineQuery :: [String] -> JsonObject                                   
+tagLineQuery films = wrapInQuery $ toJsonObject $ Mapping [
+  (B.pack "id|=", Sequence $ map (Scalar . toJsonScalar) films),
+  (B.pack "name", Scalar JsonNull),
+  (B.pack "type", Scalar $ toJsonScalar "/film/film"),
+  (B.pack "tagline", Sequence [
       toJsonObject $ Mapping [
-         (B.pack "!index", Scalar JsonNull),
-         (B.pack "id", Scalar $ toJsonScalar "/en/the_movie_list_the_first_9200"),
-         (B.pack "type", Scalar $ toJsonScalar "/award/ranked_list")
+         (B.pack "limit", Scalar $ JsonNumber 1),
+         (B.pack "value", Scalar $ JsonNull)
       ]
-  ]),
-  (B.pack "item", Sequence [
-      toJsonObject $ Mapping [
-         (B.pack "tagline", toJsonObject $ Mapping [(B.pack "value", Scalar JsonNull)]),
-         (B.pack "type", Scalar $ toJsonScalar "/film/film")
-      ]
-  ]),
-  (B.pack "limit", Scalar $ JsonNumber 1),
-  (B.pack "rank", Scalar JsonNull),
-  (B.pack "sort", Scalar $ toJsonScalar "!pd:/award/ranked_list/ranked_list_items.!index"),
-  (B.pack "summary:item", Sequence [
-      toJsonObject $ Mapping [
-         (B.pack "id", Scalar JsonNull),
-         (B.pack "optional", Scalar $ JsonBoolean False),
-         (B.pack "type", Scalar $ toJsonScalar "/award/ranked_item")
-      ]
-  ]),
-  (B.pack "type", Scalar $ toJsonScalar "/award/ranking")]
+  ])]
 
 
 runQueryAndGetResult :: JsonObject -> IO [Object B.ByteString JsonScalar]
