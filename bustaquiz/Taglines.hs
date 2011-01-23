@@ -1,6 +1,7 @@
 module Taglines (
   FilmTaglines,
-  filmTaglines
+  filmTaglines,
+  getAllFilmsWithTaglines
   ) where
 
 import Freebase
@@ -17,9 +18,13 @@ import Data.Maybe (fromJust)
 
 data FilmTaglines = FilmTaglines [String]
 
+filmList = "data/filmList.txt"
+
 -- TODO replace with a big list of decent films
-filmTaglines :: FilmTaglines
-filmTaglines = FilmTaglines ["/en/54","/en/10_1979"]
+filmTaglines :: IO FilmTaglines
+filmTaglines = do
+  films <- readFile filmList
+  return (FilmTaglines (read films))
 
 -- TDOO see CapitalQuiz, duplication 
 instance QuestionMaker FilmTaglines where
@@ -37,7 +42,7 @@ hideFilmNames :: [(String,String)] -> [(String,String)]
 hideFilmNames = map redact 
 
 redact :: (String,String) -> (String,String)
-redact (film,tagline) = (film,unwords $ replacer (words film) (words tagline))
+redact (tagline,film) = (unwords $ replacer (words film) (words tagline),film)
 
 replacer :: [String] -> [String] -> [String]
 replacer movieWords = map (redactionReturner movieWords) 
@@ -49,6 +54,16 @@ redactionReturner movieWords taglineWord | tagWord `elem` stopWords = taglineWor
                                            where
                                              mw = map lower movieWords
                                              tagWord = lower taglineWord
+
+getAllFilmsWithTaglines :: IO [String]
+getAllFilmsWithTaglines = do
+  results <- runQueryAndGetResult filmsWithTaglines
+  forM results (\x -> do
+                   filmId <- fromScalar $ fromJust $ fromMapping x >>= lookup (B.pack "id")
+                   return $ fromJsonScalar filmId)
+    
+saveFilmListToDisk :: [String] -> IO ()
+saveFilmListToDisk x = writeFile filmList (show x)
 
 -- TODO This sucks
 getTaglineFilmList :: [String] -> IO [(String,String)]

@@ -73,6 +73,31 @@ tagLineQuery films = wrapInQuery $ toJsonObject $ Mapping [
       ]
   ])]
 
+{-
+  {
+    "id": null,
+    "limit": 5000,
+    "tagline": [
+      {
+        "optional": false,
+        "value": null
+      }
+    ],
+    "type": "/film/film"
+  }
+-}
+filmsWithTaglines :: JsonObject
+filmsWithTaglines = wrapInQuery $ toJsonObject $ Mapping [
+  (B.pack "id", Scalar JsonNull),
+  -- 5000 gave an empty response
+  (B.pack "limit", Scalar $ JsonNumber 4000),
+  (B.pack "type", Scalar $ toJsonScalar "/film/film"),
+  (B.pack "tagline", Sequence [
+      toJsonObject $ Mapping [
+         (B.pack "optional", Scalar $ JsonBoolean False),
+         (B.pack "value", Scalar $ JsonNull)
+      ]
+  ])]      
 
 runQueryAndGetResult :: JsonObject -> IO [Object B.ByteString JsonScalar]
 runQueryAndGetResult query = do
@@ -109,3 +134,21 @@ getBigBudgetFilms queryType = do
             unmappedBudgets <- mapM fromMapping films            
             return (fromJsonScalar filmId :: String,budgets))
 
+
+{-
+
+The following is a query to get all the films that have a valid tagline
+[
+  {
+    "id": null,
+    "limit": 5000,
+    "tagline": [
+      {
+        "optional": false,
+        "value": null
+      }
+    ],
+    "type": "/film/film"
+  }
+]​
+-}
