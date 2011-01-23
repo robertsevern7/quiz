@@ -32,11 +32,11 @@ orderOfService = OrderOfService presidents
 data OrderOfService = OrderOfService [President]
 
 instance QuestionMaker OrderOfService where
-  generateQuestion seed OrderType (OrderOfService presidents) = return (Just (Order desc $ map (\p -> (name p,show $ yearFirstInaugurated p)) sorted))
-    where 
-      pres = rndSelect seed presidents 10
-      sorted = sortBy (comparing yearFirstInaugurated) pres
-      desc = "Put the following Presidents in the order in which they were inaugurated, starting with the earliest"
+  generateQuestion seed OrderType (OrderOfService presidents) = do
+    pres <- rndSelect seed presidents 10
+    let sorted = sortBy (comparing yearFirstInaugurated) pres
+        desc = "Put the following Presidents in the order in which they were inaugurated, starting with the earliest"
+    return (Just (Order desc $ map (\p -> (name p,show $ yearFirstInaugurated p)) sorted))
   generateQuestion _ _ _ = return Nothing
 
 -- Data nabbed from 

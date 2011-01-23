@@ -27,12 +27,13 @@ eightLetterAnagrams :: Anagrams
 eightLetterAnagrams =  Anagrams eightLetterList
 
 instance QuestionMaker Anagrams where
-  generateQuestion seed IdentifyTextType (Anagrams wordList) = return $ Just (IdentifyText desc shuffled word link)
-    where 
-      link = Just ("http://www.google.com/search?q=define:" ++ word)
-      word = head $ rndSelect seed wordList 1
-      shuffled = rndSelect seed word (length word)
-      desc = "Unscramble this word"
+  generateQuestion seed IdentifyTextType (Anagrams wordList) = do
+    wordL <- (rndSelect seed wordList 1) 
+    let word = head wordL
+    shuffled <- rndSelect seed word (length word)
+    let link = Just ("http://www.google.com/search?q=define:" ++ word)
+        desc = "Unscramble this word"
+    return $ Just (IdentifyText desc shuffled word link)
   generateQuestion _ _ _ = return Nothing
 
 allWords = "./AnagramData/allWords.txt"

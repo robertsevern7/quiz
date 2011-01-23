@@ -7,13 +7,13 @@
         %div!class="grid_2 black listheader" ANAGRAMS
         %ul!class="grid_4 noliststyle"
           %li 
-            %a!class=black!href=@(FiveLetterAnagramsR.1).IdentifyTextType@ Five Letter Anagrams
+            %a!class=black!href=@(FiveLetterAnagramsR.index).IdentifyTextType@ Five Letter Anagrams
           %li 
-            %a!class=black!href=@(SixLetterAnagramsR.1).IdentifyTextType@ Six Letter Anagrams
+            %a!class=black!href=@(SixLetterAnagramsR.index).IdentifyTextType@ Six Letter Anagrams
           %li 
-            %a!class=black!href=@(SevenLetterAnagramsR.1).IdentifyTextType@ Seven Letter Anagrams
+            %a!class=black!href=@(SevenLetterAnagramsR.index).IdentifyTextType@ Seven Letter Anagrams
           %li 
-            %a!class=black!href=@(EightLetterAnagramsR.1).IdentifyTextType@ Eight Letter Anagrams
+            %a!class=black!href=@(EightLetterAnagramsR.index).IdentifyTextType@ Eight Letter Anagrams
         .clear
 
 !id="sidebar"!class="grid_4"

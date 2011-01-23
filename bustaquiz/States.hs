@@ -24,9 +24,9 @@ stateFlags :: StateFlags
 stateFlags = StateFlags (map (name &&& flag) states)
 
 instance QuestionMaker StateFlags where
-  generateQuestion seed IdentifyType (StateFlags stateFlags) = return (Just (Identify "Which state has the following flag?" picture state))
-     where
-      (state,picture) = chooseFromList seed stateFlags
+  generateQuestion seed IdentifyType (StateFlags stateFlags) = do
+    (state,picture) <- chooseFromList seed stateFlags
+    return (Just (Identify "Which state has the following flag?" picture state))
   generateQuestion seed _ _ = return Nothing
  
 -- Data source nabbed from:

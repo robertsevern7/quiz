@@ -7,7 +7,7 @@
         %div!class="grid_2 listheader" LYRICS
         %ul!class="grid_4 noliststyle"
           %li
-            %a!class=black!href=@(BeatlesLyricsR.1).AssociateType@ Beatles Lyrics
+            %a!class=black!href=@(BeatlesLyricsR.index).AssociateType@ Beatles Lyrics
         .clear
 
 !id="sidebar"!class="grid_4"

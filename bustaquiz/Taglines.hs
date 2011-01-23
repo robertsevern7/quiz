@@ -29,11 +29,13 @@ filmTaglines = do
 -- TDOO see CapitalQuiz, duplication 
 instance QuestionMaker FilmTaglines where
     generateQuestion seed AssociateType (FilmTaglines films) = do
-      tagLines <- getTaglineFilmList (rndSelect seed films 10)
+      selectedFilms <- rndSelect seed films 10
+      tagLines <- getTaglineFilmList selectedFilms
       let hidden = hideFilmNames tagLines
       return $ Just (Associate "Match the films with their taglines" hidden)        
     generateQuestion seed IdentifyMultipleType (FilmTaglines films) = do
-      tagLines <- getTaglineFilmList (rndSelect seed films 10)
+      selectedFilms <- rndSelect seed films 10
+      tagLines <- getTaglineFilmList selectedFilms    
       let hidden = hideFilmNames tagLines
       return $ Just (Associate "Name the films from the taglines" hidden)
     generateQuestion _ _ _ = return Nothing
