@@ -39,7 +39,14 @@
         %a!class="grid_2 black listheader"!href=@MusicR@ MUSIC
         %ul!class="grid_4 noliststyle"
           %li  
-            %a!class=black!href=@(BeatlesLyricsR.index).AssociateType@ Beatles Lyrics                                
+            %a!class=black!href=@(BeatlesLyricsR.index).AssociateType@ Beatles Lyrics
+        .clear
+
+      %ul!class="noliststyle homepageoptions"
+        !class="grid_2 black listheader" FILM
+        %ul!class="grid_4 noliststyle"
+          %li  
+            %a!class=black!href=@(TaglinesR.index).AssociateType@ Film Taglines
         .clear
               
       %ul!class="noliststyle homepageoptions"
