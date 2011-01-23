@@ -7,7 +7,6 @@
     %p 
       %a!href=@AuthR.LoginR@ Login 
       and pick from one of the following categories to get a randomly selected question.  
-  
       
       %div!class="noliststyle homepageoptions container_6"
         %a!class="grid_2 black listheader"!href=@WordplayR@ WORDPLAY
@@ -20,6 +19,15 @@
             %a!class=black!href=@(SevenLetterAnagramsR.index).IdentifyTextType@ Seven Letter Anagrams
           %li 
             %a!class=black!href=@(EightLetterAnagramsR.index).IdentifyTextType@ Eight Letter Anagrams
+        .clear
+
+      %ul!class="noliststyle homepageoptions"
+        %a!class="grid_2 black listheader"!href=@FilmR@ FILM
+        %ul!class="grid_4 noliststyle"
+          %li  
+            %a!class=black!href=@(TaglinesR.index).AssociateType@ Film Taglines
+          %li  
+            %a!class=black!href=@(TaglinesR.index).IdentifyMultipleType@ Trickier Film Taglines
         .clear
       
       %ul!class="noliststyle homepageoptions"
@@ -42,13 +50,6 @@
             %a!class=black!href=@(BeatlesLyricsR.index).AssociateType@ Beatles Lyrics
         .clear
 
-      %ul!class="noliststyle homepageoptions"
-        !class="grid_2 black listheader" FILM
-        %ul!class="grid_4 noliststyle"
-          %li  
-            %a!class=black!href=@(TaglinesR.index).AssociateType@ Film Taglines
-        .clear
-              
       %ul!class="noliststyle homepageoptions"
         %a!class="grid_2 black listheader"!href=@HistoryR@ HISTORY
         %ul!class="grid_4 noliststyle"

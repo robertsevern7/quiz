@@ -1,0 +1,16 @@
+!class="grid_8"
+  !class="curlycurly"
+    %p Are you feeling lucky, punk?
+
+    %p 
+      %ul!class="noliststyle homepageoptions"
+        %div!class="grid_2 listheader" TAGLINES
+        %ul!class="grid_4 noliststyle"
+          %li
+            %a!class=black!href=@(TaglinesR.index).AssociateType@ Film Taglines
+          %li
+            %a!class=black!href=@(TaglinesR.index).IdentifyMultipleType@ Trickier Film Taglines
+        .clear
+
+!id="sidebar"!class="grid_4"
+    ^loginpanel^    

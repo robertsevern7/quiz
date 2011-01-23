@@ -21,11 +21,17 @@ data FilmTaglines = FilmTaglines [String]
 filmTaglines :: FilmTaglines
 filmTaglines = FilmTaglines ["/en/54","/en/10_1979"]
 
+-- TDOO see CapitalQuiz, duplication 
 instance QuestionMaker FilmTaglines where
     generateQuestion seed AssociateType (FilmTaglines films) = do
       tagLines <- getTaglineFilmList (rndSelect seed films 10)
       let hidden = hideFilmNames tagLines
-      return $ Just (Associate "Name the films from the taglines" hidden)        
+      return $ Just (Associate "Match the films with their taglines" hidden)        
+    generateQuestion seed IdentifyMultipleType (FilmTaglines films) = do
+      tagLines <- getTaglineFilmList (rndSelect seed films 10)
+      let hidden = hideFilmNames tagLines
+      return $ Just (Associate "Name the films from the taglines" hidden)
+    generateQuestion _ _ _ = return Nothing
 
 hideFilmNames :: [(String,String)] -> [(String,String)]
 hideFilmNames = map redact 
@@ -51,7 +57,7 @@ getTaglineFilmList filmIds = do
   forM results (\x -> do
                    name <- fromScalar $ fromJust $ fromMapping x >>= lookup (B.pack "name")
                    tagline <- fromScalar $ snd $ head (head (head (fromSequence $ fromJust $ fromMapping x >>= lookup (B.pack "tagline")) >>= fromMapping)) 
-                   return (fromJsonScalar name, fromJsonScalar tagline))
+                   return (fromJsonScalar tagline, fromJsonScalar name))
 
   
   --let arrayFilmsAndTags = lookupValue response "result"

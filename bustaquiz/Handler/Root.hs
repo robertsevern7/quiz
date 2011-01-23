@@ -63,6 +63,16 @@ getMusicR = do
         addCassius $(cassiusFile "homepage")
         addWidget $(hamletFile "music")
 
+getFilmR :: Handler RepHtml
+getFilmR = do
+    mu <- maybeAuth
+    defaultLayout $ do
+        h2id <- newIdent
+        index <- liftIO getIndex
+        let loginpanel = $(hamletFile "loginpanel")        
+        addCassius $(cassiusFile "homepage")
+        addWidget $(hamletFile "film")
+
 getHistoryR :: Handler RepHtml
 getHistoryR = do
     mu <- maybeAuth
