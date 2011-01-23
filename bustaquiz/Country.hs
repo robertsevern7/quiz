@@ -34,19 +34,19 @@ countryFlagsQuiz :: CountryFlagsQuiz
 countryFlagsQuiz = CountryFlagsQuiz (map (name &&& flag) countries)
 
 instance QuestionMaker CountryFlagsQuiz where
-  generateQuestion seed IdentifyType (CountryFlagsQuiz countryFlags) = return (Just (Identify "Which country has the following flag?" picture country))
-    where
-      (country,picture) = chooseFromList seed countryFlags
+  generateQuestion seed IdentifyType (CountryFlagsQuiz countryFlags) = do
+    (country,picture) <- chooseFromList seed countryFlags
+    return (Just (Identify "Which country has the following flag?" picture country))
   generateQuestion _ _ _ = return Nothing
 
 -- TODO probably insane to keep all the country info for just this - use just name and capital
 instance QuestionMaker CapitalQuiz where
   generateQuestion seed AssociateType (CapitalQuiz countries) = do
-    let match = rndSelect seed (filter (not . null . capital) countries) 10
+    match <- rndSelect seed (filter (not . null . capital) countries) 10
     let capitals = map (name &&& capital) match
     return $ Just (Associate "Match the countries with the capitals" capitals)  
   generateQuestion seed IdentifyMultipleType (CapitalQuiz countries) = do
-    let match = rndSelect seed (filter (not . null . capital) countries) 10
+    match <- rndSelect seed (filter (not . null . capital) countries) 10
     let capitals = map (name &&& capital) match
     return $ Just (Associate "Name the capitals of these countries" capitals) 
   generateQuestion _ _ _ = return Nothing

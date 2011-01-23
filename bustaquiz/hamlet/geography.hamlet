@@ -7,9 +7,9 @@
         %div!class="grid_2 listheader" CAPITALS
         %ul!class="grid_4 noliststyle"
           %li
-            %a!class=black!href=@(CapitalsR.1).AssociateType@ Capitals of the World
+            %a!class=black!href=@(CapitalsR.index).AssociateType@ Capitals of the World
           %li
-            %a!class=black!href=@(CapitalsR.1).IdentifyMultipleType@ Capitals of the World - Trickier
+            %a!class=black!href=@(CapitalsR.index).IdentifyMultipleType@ Capitals of the World - Trickier
         .clear
         
     %p 
@@ -17,9 +17,9 @@
         %div!class="grid_2 listheader" FLAGS
         %ul!class="grid_4 noliststyle"
           %li
-            %a!class=black!href=@(StateFlagsR.1).IdentifyType@ U.S. State Flags
+            %a!class=black!href=@(StateFlagsR.index).IdentifyType@ U.S. State Flags
           %li
-            %a!class=black!href=@(CountryFlagsR.1).IdentifyType@ Flags of the World
+            %a!class=black!href=@(CountryFlagsR.index).IdentifyType@ Flags of the World
         .clear
             
 !id="sidebar"!class="grid_4"

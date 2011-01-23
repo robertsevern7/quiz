@@ -5,12 +5,15 @@ module Logic (
   generateQuestion,
   chooseFromList,
   rndSelect,
-  myKingdomForASeed
+  shuffleIO
   ) where
 
 import Yesod.Helpers.Static -- Too much coupling?
-import System.Random (mkStdGen,random)
-
+import System.Random (mkStdGen,random,getStdRandom,randomR,StdGen)
+import Data.Array.ST
+import Control.Monad
+import Control.Monad.ST
+import Data.STRef
 import Web.Routes.Quasi (SinglePiece,toSinglePiece,fromSinglePiece)
 
 -- TODO This is awful?
@@ -44,32 +47,45 @@ type Description = String
 class QuestionMaker a where 
     generateQuestion :: Int -> QuestionType -> a -> IO (Maybe Question)
     
-mySeeds = [1..10000]
-
-myKingdomForASeed :: Int -> Int
-myKingdomForASeed seed = chooseFromList seed mySeeds 
-
 -- |Choose a random element from a list given a seed
-chooseFromList :: Int -> [a] -> a
-chooseFromList seed xs = head $ rndSelect seed xs 1
-  
+chooseFromList :: Int -> [a] -> IO a
+chooseFromList seed xs = do
+  selection <- rndSelect seed xs 1
+  return (head selection)
+
+-- From http://www.haskell.org/haskellwiki/Random_shuffle
+-- | Randomly shuffle a list without the IO Monad
+--   /O(N)/
+shuffle' :: [a] -> StdGen -> ([a],StdGen)
+shuffle' xs gen = runST (do
+        g <- newSTRef gen
+        let randomRST lohi = do
+              (a,s') <- liftM (randomR lohi) (readSTRef g)
+              writeSTRef g s'
+              return a
+        ar <- newArray n xs
+        xs' <- forM [1..n] $ \i -> do
+                j <- randomRST (i,n)
+                vi <- readArray ar i
+                vj <- readArray ar j
+                writeArray ar j vi
+                return vj
+        gen' <- readSTRef g
+        return (xs',gen'))
+  where
+    n = length xs
+    newArray :: Int -> [a] -> ST s (STArray s Int a)
+    newArray n xs =  newListArray (1,n) xs 
+    
+shuffleIO :: [a] -> IO [a]
+shuffleIO xs = getStdRandom (shuffle' xs)
+
 -- |Given a seed, select n items at random from the supplied list
-rndSelect :: Int -> [a] -> Int -> [a]
+rndSelect :: Int -> [a] -> Int -> IO [a]
 rndSelect seed xs n 
   | n < 0     = error "N must be greater than zero."
-  | otherwise = take n (perm xs r)
-    where
-      g = mkStdGen seed
-      (r,_) = random g
+  | otherwise = do
+    shuffle' <- shuffleIO xs
+    return $ take n shuffle'
+
     
--- The following is based on http://en.literateprograms.org/Kth_permutation_(Haskell)
--- which comes from IVerson's approac
-radixRepresentation :: Int -> Int -> [Int]
-radixRepresentation 0 _ = []
-radixRepresentation n k = k `mod` n : radixRepresentation (n-1) (k `div` n)
-
-dfr :: [Int] -> [Int]
-dfr = foldr (\x rs -> x : [r + (if x <= r then 1 else 0) | r <- rs]) []
-
-perm :: [a] -> Int -> [a]
-perm xs k = [xs !! i | i <- dfr (radixRepresentation (length xs) k)]
