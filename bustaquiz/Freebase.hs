@@ -18,7 +18,6 @@ import Data.Object
 import Data.Object.Json
 import qualified Data.ByteString.Char8 as B
 
-
 import Debug.Trace
 
 touch :: String
@@ -52,6 +51,13 @@ wrapInQuery x = toJsonObject $ Mapping [(B.pack "query", Sequence [x])]
 
 mkSimpleQuery :: [(String,JsonScalar)] -> JsonObject
 mkSimpleQuery = wrapInQuery . mkObject
+
+directorQuery = Mapping [
+  ("id", Scalar JsonNull),
+  ("name", Scalar JsonNull),
+  ("type", Scalar $ toJsonScalar "/film/film"),
+  ("directed_by", Mapping [("id",Scalar $ toJsonScalar "/en/peter_jackson")])
+  ]
 
 -- runSimpleQuery :: String -> String -> String -> JsonScalar -> (JsonScalar -> String) -> IO (String, Result [String])
 -- runSimpleQuery qtype key id_ arr extractor = do

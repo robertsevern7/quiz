@@ -11,7 +11,7 @@ import Exception (QuizException(QuizException))
 import Logic
 import Freebase
 import GenFilms (readDirectorsFromDisk,readActorsFromDisk,readFilmsFromDisk)
-import JsonHelper (lookupValue,getJSValue,getString,mkPath,mkIndex)
+-- import JsonHelper (lookupValue,getJSValue,getString,mkPath,mkIndex)
 
 import Data.Maybe (fromJust)
 import Control.Monad (liftM)
