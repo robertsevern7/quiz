@@ -17,6 +17,7 @@
         !class="grid_12 header"
           !class="menu"
             %a!class="headerlinks white prefix_0"!href=@WordplayR@ Wordplay
+            %a!class="headerlinks white prefix_1"!href=@FilmR@ Film
             %a!class="headerlinks white prefix_1"!href=@GeographyR@ Geography
             %a!class="headerlinks white prefix_1"!href=@MusicR@ Music
             %a!class="headerlinks white prefix_1"!href=@HistoryR@ History

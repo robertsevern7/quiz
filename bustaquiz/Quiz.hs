@@ -110,6 +110,7 @@ mkYesodData "Quiz" [$parseRoutes|
 /music MusicR GET
 /music/lyrics/beatles/#Int/#QuestionType BeatlesLyricsR GET
 
+/film FilmR GET
 /film/taglines/#Int/#QuestionType TaglinesR GET
 
 /history HistoryR GET
