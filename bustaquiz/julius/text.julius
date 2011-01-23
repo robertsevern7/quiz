@@ -15,7 +15,7 @@ function similar(yourAnswer, theAnswer) {
     var sanitisedYourAnswer = sanitise(yourAnswer);
     var sanitisedTheAnswer = sanitise(theAnswer);
     return sanitisedYourAnswer === sanitisedTheAnswer;
-    //return (sanitisedYourAnswer.length >= sanitisedTheAnswer) || levenshtein(sanitisedYourAnswer, sanitisedTheAnswer) < 2;
+    //return (sanitisedYourAnswer.length >= sanitisedTheAnswer) && levenshtein(sanitisedYourAnswer, sanitisedTheAnswer) < 2;
 }
 
 function levenshtein (s1, s2) {
