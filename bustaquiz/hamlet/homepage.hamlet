@@ -13,40 +13,40 @@
         %a!class="grid_2 black listheader"!href=@WordplayR@ WORDPLAY
         %ul!class="grid_4 noliststyle"
           %li 
-            %a!class=black!href=@(FiveLetterAnagramsR.1).IdentifyTextType@ Five Letter Anagrams
+            %a!class=black!href=@(FiveLetterAnagramsR.index).IdentifyTextType@ Five Letter Anagrams
           %li 
-            %a!class=black!href=@(SixLetterAnagramsR.1).IdentifyTextType@ Six Letter Anagrams
+            %a!class=black!href=@(SixLetterAnagramsR.index).IdentifyTextType@ Six Letter Anagrams
           %li 
-            %a!class=black!href=@(SevenLetterAnagramsR.1).IdentifyTextType@ Seven Letter Anagrams
+            %a!class=black!href=@(SevenLetterAnagramsR.index).IdentifyTextType@ Seven Letter Anagrams
           %li 
-            %a!class=black!href=@(EightLetterAnagramsR.1).IdentifyTextType@ Eight Letter Anagrams
+            %a!class=black!href=@(EightLetterAnagramsR.index).IdentifyTextType@ Eight Letter Anagrams
         .clear
       
       %ul!class="noliststyle homepageoptions"
         %a!class="grid_2 black listheader"!href=@GeographyR@ GEOGRAPHY
         %ul!class="grid_4 noliststyle"
           %li
-            %a!class=black!href=@(CapitalsR.1).AssociateType@ Capitals of the World
+            %a!class=black!href=@(CapitalsR.index).AssociateType@ Capitals of the World
           %li
-            %a!class=black!href=@(CapitalsR.1).IdentifyMultipleType@ Capitals of the World Hard
+            %a!class=black!href=@(CapitalsR.index).IdentifyMultipleType@ Capitals of the World Hard
           %li
-            %a!class=black!href=@(StateFlagsR.1).IdentifyType@ U.S. State Flags
+            %a!class=black!href=@(StateFlagsR.index).IdentifyType@ U.S. State Flags
           %li
-            %a!class=black!href=@(CountryFlagsR.1).IdentifyType@ Flags of the World
+            %a!class=black!href=@(CountryFlagsR.index).IdentifyType@ Flags of the World
         .clear
 
       %ul!class="noliststyle homepageoptions"
         %a!class="grid_2 black listheader"!href=@MusicR@ MUSIC
         %ul!class="grid_4 noliststyle"
           %li  
-            %a!class=black!href=@(BeatlesLyricsR.1).AssociateType@ Beatles Lyrics                                
+            %a!class=black!href=@(BeatlesLyricsR.index).AssociateType@ Beatles Lyrics                                
         .clear
               
       %ul!class="noliststyle homepageoptions"
         %a!class="grid_2 black listheader"!href=@HistoryR@ HISTORY
         %ul!class="grid_4 noliststyle"
           %li
-            %a!class=black!href=@(USPresidentsOrderR.1).OrderType@ Order of Inauguration of US Presidents
+            %a!class=black!href=@(USPresidentsOrderR.index).OrderType@ Order of Inauguration of US Presidents
         .clear
             
 !id="sidebar"!class="grid_4"
