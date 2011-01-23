@@ -1,12 +1,4 @@
 module GenFilms where 
-{-(
-   saveDirectorsToDisk,
-   saveActorsToDisk,
-   saveFilmsToDisk,
-   readDirectorsFromDisk,
-   readFilmsFromDisk,
-   readActorsFromDisk
-   ) where -}
 
 import Freebase (runQuery, mkSimpleQuery,wrapInQuery,mkObject)
 import Data.List (sortBy)
