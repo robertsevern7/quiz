@@ -4,7 +4,7 @@ module Controller
     ( withQuiz
     ) where
 
-import Quiz hiding (beatlesLyrics,stateFlags,sixLetter,sevenLetter)
+import Quiz hiding (beatlesLyrics,stateFlags,sixLetter,sevenLetter,filmTaglines)
 import Settings
 import Yesod.Helpers.Static
 import Yesod.Helpers.Auth
@@ -18,6 +18,7 @@ import Handler.BeatlesLyrics
 import Handler.USPresidentsOrder
 import Handler.StateFlags
 import Handler.CountryFlags
+import Handler.Taglines
 
 -- Quiz makers
 import Anagram (fiveLetterAnagrams, sixLetterAnagrams, sevenLetterAnagrams, eightLetterAnagrams)
@@ -25,6 +26,9 @@ import Country (capitalQuiz,countryFlagsQuiz)
 import Lyrics (beatlesLyrics)
 import Presidents (orderOfService)
 import States (stateFlags)
+
+-- TODO declarations
+import Taglines (filmTaglines)
 
 -- This line actually creates our YesodSite instance. It is the second half
 -- of the call to mkYesodData which occurs in Quiz.hs. Please see
@@ -48,7 +52,7 @@ withQuiz f = Settings.withConnectionPool $ \pool -> do
     runConnectionPool (runMigration migrateAll) pool
     -- TODO This all seems a bit nasty - perhaps centralizing this in the data base is a better idea?
     -- TODO Or at least introducing a separate object!
-    let h = Quiz s pool capitalQuiz countryFlagsQuiz beatlesLyrics orderOfService stateFlags fiveLetterAnagrams sixLetterAnagrams sevenLetterAnagrams eightLetterAnagrams
+    let h = Quiz s pool capitalQuiz countryFlagsQuiz beatlesLyrics orderOfService stateFlags fiveLetterAnagrams sixLetterAnagrams sevenLetterAnagrams eightLetterAnagrams filmTaglines
     toWaiApp h >>= f
   where
     s = fileLookupDir Settings.staticdir typeByExt

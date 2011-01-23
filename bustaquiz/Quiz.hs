@@ -42,7 +42,9 @@ import States (StateFlags)
 import Lyrics (BeatlesLyrics)
 import Country
 import Logic (QuestionType)
+import Taglines (FilmTaglines)
 
+-- TODO unacceptable
 data Quiz = Quiz { 
   getStatic :: Static, -- ^ Settings for static file serving.
   connPool :: Settings.ConnectionPool, -- ^ Database connection pool.
@@ -54,7 +56,8 @@ data Quiz = Quiz {
   fiveLetter :: Anagrams,
   sixLetter :: Anagrams,
   sevenLetter :: Anagrams,
-  eightLetter :: Anagrams
+  eightLetter :: Anagrams,
+  filmTaglines :: FilmTaglines
 }
 
 -- | A useful synonym; most of the handler functions in your application
@@ -106,6 +109,8 @@ mkYesodData "Quiz" [$parseRoutes|
 
 /music MusicR GET
 /music/lyrics/beatles/#Int/#QuestionType BeatlesLyricsR GET
+
+/film/taglines/#Int/#QuestionType TaglinesR GET
 
 /history HistoryR GET
 /history/usa/presidents/inauguration/#Int/#QuestionType USPresidentsOrderR GET
