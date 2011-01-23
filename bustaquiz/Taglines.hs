@@ -1,4 +1,7 @@
-module Taglines where
+module Taglines (
+  FilmTaglines,
+  filmTaglines
+  ) where
 
 import Freebase
 import GenFilms
@@ -12,13 +15,17 @@ import Control.Monad
 import Data.Char (toLower)
 import Data.Maybe (fromJust)
 
-data TagLines = TagLines [String]
+data FilmTaglines = FilmTaglines [String]
 
-instance QuestionMaker TagLines where
-    generateQuestion seed AssociateType (TagLines films) = do
+-- TODO replace with a big list of decent films
+filmTaglines :: FilmTaglines
+filmTaglines = FilmTaglines ["/en/54","/en/10_1979"]
+
+instance QuestionMaker FilmTaglines where
+    generateQuestion seed AssociateType (FilmTaglines films) = do
       tagLines <- getTaglineFilmList (rndSelect seed films 10)
       let hidden = hideFilmNames tagLines
-      return $ Just (Associate "Name the films from the taglines" hidden)
+      return $ Just (Associate "Name the films from the taglines" hidden)        
 
 hideFilmNames :: [(String,String)] -> [(String,String)]
 hideFilmNames = map redact 
