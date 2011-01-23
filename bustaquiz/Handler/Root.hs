@@ -14,6 +14,11 @@ import System.Random
 -- functions. You can spread them across multiple files if you are so
 -- inclined, or create a single monolithic file.
 
+-- TODO 
+-- 1) Get rid of index <- liftIO getIndex
+-- 2) Get rid of Bustaquiz
+-- 3) Get rid of loginpanel
+
 getIndex :: IO Int
 getIndex = getStdRandom (randomR (1,2000000))
 
@@ -23,6 +28,7 @@ getRootR = do
     defaultLayout $ do
         h2id <- newIdent
         index <- liftIO getIndex
+        let loginpanel = $(hamletFile "loginpanel")
         setTitle "bustaquiz homepage"
         addCassius $(cassiusFile "homepage")
         addWidget $(hamletFile "homepage")
@@ -33,6 +39,7 @@ getWordplayR = do
     defaultLayout $ do
         h2id <- newIdent
         index <- liftIO getIndex
+        let loginpanel = $(hamletFile "loginpanel")
         addCassius $(cassiusFile "homepage")
         addWidget $(hamletFile "wordplay")
         
@@ -42,6 +49,7 @@ getGeographyR = do
     defaultLayout $ do
         h2id <- newIdent
         index <- liftIO getIndex
+        let loginpanel = $(hamletFile "loginpanel")
         addCassius $(cassiusFile "homepage")
         addWidget $(hamletFile "geography")
         
@@ -51,14 +59,16 @@ getMusicR = do
     defaultLayout $ do
         h2id <- newIdent
         index <- liftIO getIndex
+        let loginpanel = $(hamletFile "loginpanel")        
         addCassius $(cassiusFile "homepage")
         addWidget $(hamletFile "music")
 
 getHistoryR :: Handler RepHtml
 getHistoryR = do
     mu <- maybeAuth
-    defaultLayout $ do
+    defaultLayout $ do      
         h2id <- newIdent
         index <- liftIO getIndex
+        let loginpanel = $(hamletFile "loginpanel")
         addCassius $(cassiusFile "homepage")
         addWidget $(hamletFile "history")
