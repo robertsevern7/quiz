@@ -52,7 +52,8 @@ withQuiz f = Settings.withConnectionPool $ \pool -> do
     runConnectionPool (runMigration migrateAll) pool
     -- TODO This all seems a bit nasty - perhaps centralizing this in the data base is a better idea?
     -- TODO Or at least introducing a separate object!
-    let h = Quiz s pool capitalQuiz countryFlagsQuiz beatlesLyrics orderOfService stateFlags fiveLetterAnagrams sixLetterAnagrams sevenLetterAnagrams eightLetterAnagrams filmTaglines
+    filmTaglines' <- filmTaglines
+    let h = Quiz s pool capitalQuiz countryFlagsQuiz beatlesLyrics orderOfService stateFlags fiveLetterAnagrams sixLetterAnagrams sevenLetterAnagrams eightLetterAnagrams filmTaglines'
     toWaiApp h >>= f
   where
     s = fileLookupDir Settings.staticdir typeByExt
