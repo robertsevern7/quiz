@@ -98,6 +98,43 @@ filmsWithTaglines = wrapInQuery $ toJsonObject $ Mapping [
          (B.pack "value", Scalar $ JsonNull)
       ]
   ])]      
+  
+  {-
+  {
+    "!pd:/award/ranked_list/ranked_list_items": [
+      {
+        "!index": null,
+        "id": "/en/the_movie_list_the_first_9200",
+        "type": "/award/ranked_list"
+      }
+    ],
+    "item": [
+      {
+        "id": null
+      }
+    ],
+    "limit": 60,
+    "sort": "!pd:/award/ranked_list/ranked_list_items.!index",
+    "type": "/award/ranking"
+  }
+  -}
+topFilms :: JsonObject
+topFilms = wrapInQuery $ toJsonObject $ Mapping [
+  (B.pack "type", Scalar $ toJsonScalar "/award/ranking"),
+  (B.pack "limit", Scalar $ JsonNumber 3000),
+  (B.pack "sort", Scalar $ toJsonScalar "!pd:/award/ranked_list/ranked_list_items.!index"),
+  (B.pack "!pd:/award/ranked_list/ranked_list_items", Sequence [
+      toJsonObject $ Mapping [
+         (B.pack "!index", Scalar $ JsonNull),
+         (B.pack "id", Scalar $ toJsonScalar "/en/the_movie_list_the_first_9200"),
+         (B.pack "type", Scalar $ toJsonScalar "/award/ranked_list")
+      ]
+  ]),
+  (B.pack "item", Sequence [
+      toJsonObject $ Mapping [
+         (B.pack "id", Scalar $ JsonNull)
+      ]
+  ])] 
 
 runQueryAndGetResult :: JsonObject -> IO [Object B.ByteString JsonScalar]
 runQueryAndGetResult query = do
