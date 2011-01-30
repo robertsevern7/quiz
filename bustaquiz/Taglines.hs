@@ -9,6 +9,7 @@ import GenFilms
 import Logic
 
 import Data.Object
+import Data.List
 import Data.Object.Json
 import qualified Data.ByteString.Char8 as B
 
@@ -18,12 +19,13 @@ import Data.Maybe (fromJust)
 
 data FilmTaglines = FilmTaglines [String]
 
+editedFilmList = "data/editedFilmList.txt"
 filmList = "data/filmList.txt"
 
 -- TODO replace with a big list of decent films
 filmTaglines :: IO FilmTaglines
 filmTaglines = do
-  films <- readFile filmList
+  films <- readFile editedFilmList
   return (FilmTaglines (read films))
 
 -- TDOO see CapitalQuiz, duplication 
@@ -63,6 +65,21 @@ getAllFilmsWithTaglines = do
   forM results (\x -> do
                    filmId <- fromScalar $ fromJust $ fromMapping x >>= lookup (B.pack "id")
                    return $ fromJsonScalar filmId)
+                  
+getTopFilms :: IO [String]
+getTopFilms = do
+  results <- runQueryAndGetResult topFilms
+  forM results (\x -> do
+                   item <- fromSequence $ fromJust $ fromMapping x >>= lookup (B.pack "item")
+                   id <- fromScalar $ fromJust $ fromMapping (head item) >>= lookup (B.pack "id")
+                   return $ fromJsonScalar id)
+                   
+saveTopFilmListToDisk :: IO()
+saveTopFilmListToDisk = do
+    taglineFilms <- getAllFilmsWithTaglines
+    topFilms <- getTopFilms
+    let list = taglineFilms `intersect` topFilms
+    writeFile filmList (show list)
     
 saveFilmListToDisk :: [String] -> IO ()
 saveFilmListToDisk x = writeFile filmList (show x)
