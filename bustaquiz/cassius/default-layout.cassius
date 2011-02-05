@@ -87,6 +87,9 @@ P
     font-size: 11pt
     list-style: none
     
+.fixedpos
+    position: fixed
+    
 .pointer
     cursor: pointer
 

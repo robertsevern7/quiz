@@ -54,10 +54,9 @@ Associate = {
       if (lhs.attr('title') === rhs.text()) {
           var index = lhs.attr('index'); 
           var rhsNextToSelectedLhs = $($('.rhs')[lhs.attr('index')])         
-          Associate.switchPositions(rhsNextToSelectedLhs, rhs);
+          Associate.switchPositionsAfterCorrectAnswer(rhsNextToSelectedLhs, rhs);
           
           lhs.addClass('answer_correct');
-          rhsNextToSelectedLhs.addClass('answer_correct');
       }
       else {
           lhs.addClass('answer_wrong');
@@ -67,9 +66,53 @@ Associate = {
     }
   },
   
-  switchPositions: function(rhsToSwap, rhsSelected) {
+  switchPositionsAfterCorrectAnswer: function(rhsToSwap, rhsSelected) {
+      var holder = $('.associatelist');
+      var answerFloat = Associate.createFloatingDiv(rhsSelected);
+      answerFloat.addClass('answer_correct');
+      
+      var floatToSwapBack = Associate.createFloatingDiv(rhsToSwap);
+      
+      answerFloat.appendTo(holder);
+
       var text1 = rhsSelected.text();
-      rhsSelected.text(rhsToSwap.text()); 
-      rhsToSwap.text(text1); 
+      var text2 = rhsToSwap.text()
+      rhsSelected.text('');
+      var distanceToMove = rhsToSwap.offset().top - $(rhsSelected).offset().top;
+      answerFloat.animate({
+          top: '+=' + distanceToMove 
+      }, 500, function() {
+          rhsToSwap.text(text1);
+          rhsToSwap.addClass('answer_correct');
+          answerFloat.remove();
+          
+          
+      });
+      
+      floatToSwapBack.appendTo(holder);
+      floatToSwapBack.animate({
+          top: '-=' + distanceToMove
+      }, 500, function() {
+          rhsSelected.text(text2);
+          floatToSwapBack.remove();
+      });
+  },
+  
+  createFloatingDiv: function(toCover) {
+      var floatingDiv = $('<div/>', {
+          text: toCover.text()  
+      });
+      floatingDiv.addClass('answerholder');
+      floatingDiv.addClass('fixedpos');
+      floatingDiv.height(toCover.height());
+      floatingDiv.width(toCover.width());
+      
+      var top = $(toCover).offset().top - $(window).scrollTop();
+      var position = {
+          top: top - 4,  //Not sure why we need -4
+          left: $(toCover).offset().left
+      };
+      floatingDiv.offset(position);
+      return floatingDiv;
   }
 };
