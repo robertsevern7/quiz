@@ -1,0 +1,19 @@
+//e.g
+//var array = [{id: 1, name: 'rob'}, {id: 2, name: 'jeff'}]
+//var removed = array.removeByFn(function(item) {
+//    return item.id === 1;
+//})
+
+Array.prototype.removeByFn = function(fn, scope) {
+    for (var i = 0, len = this.length; i < len; ++i) {
+        if (fn.call(scope, this[i])) {
+            return this.remove(i);
+        }
+    }
+};
+
+Array.prototype.remove = function(from, to) {
+  var rest = this.slice((to || from) + 1 || this.length);
+  this.length = from < 0 ? this.length + from : from;
+  return this.push.apply(this, rest);
+};
