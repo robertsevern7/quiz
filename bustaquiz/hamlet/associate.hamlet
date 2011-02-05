@@ -3,14 +3,15 @@
   !class="curlycurly"
     $description$     
 %br
-.grid_6
-  %ul#lhs 
-    $forall pairs p   
-      %li!class="answerholder pointer" $fst p$
-.grid_6
-  %ul#rhs
-    
-    $forall pairs p
-      %li!class="answerholder pointer" $snd p$
-        %div!class=hidden $fst p$
+  .container_12
+    %ul
+      $forall pairs p  
+        %li!class="noliststyle" 
+          !class="grid_5 lhs answerholder pointer"!title=$snd p$ $fst p$
+          !class="grid_5 rhs answerholder pointer"
+          .clear
+    %ul
+      $forall pairs p
+        %li!class="hidden"
+          !class="mixedup"!title=$snd p$!tagline=$fst p$
 .clear

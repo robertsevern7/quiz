@@ -1,29 +1,17 @@
-Associate = {
-  checkAnswers: function() {
-    var lhs = $('#lhs > .answerselect');
-    var rhs = $('#rhs > .answerselect');
-    
-    if (lhs.size() && rhs.size()) {
-      if (lhs.text() === rhs.children().text()) {
-          $('#lhs').append(lhs);
-          $('#rhs').append(rhs);
-          lhs.addClass('answer_correct');
-          rhs.addClass('answer_correct');
-      }
-      else {
-          lhs.addClass('answer_wrong');
-      }
-      
-      $('.answerholder').removeClass('answerselect');
-    }
-  }
-}
-
 $(document).ready(function() {
-  $('#rhs > li').shuffle();
+  $('.mixedup').shuffle();
+    
+  var rhs = $('.rhs');
+  $('.mixedup').each(function(index, element) {
+      $(rhs[index]).text($(this).attr('title'));
+  })
+  
+  $('.lhs').each(function(index, element) {
+      $(this).attr('index', index);
+  });
 
-  $('#lhs > .answerholder').click(function() {
-    $('#lhs > .answerholder').removeClass('answerselect');
+  $('.lhs').click(function() {
+    $('.lhs').removeClass('answerselect');
     
     if (!$(this).hasClass('answer_wrong')) {
       $(this).addClass('answerselect');
@@ -31,42 +19,57 @@ $(document).ready(function() {
     }
   });
   
-  $('#rhs > .answerholder').click(function() {
-    $('#rhs > .answerholder').removeClass('answerselect');
+  $('.rhs').click(function() {
+    $('.rhs').removeClass('answerselect');
     $(this).addClass('answerselect');
     
-    if (!$('#lhs > .answerselect').hasClass('answer_wrong')) {
-      Associate.checkAnswers();
-    }
+    Associate.checkAnswers();
   });
   
   $('#revealanswers').click(function() {
-    $(this).unbind('click');
-    $('#rhs').children().each(function(index, element) {
-        var lhsToFind = $(this).children().text();
-        
-        var possibleLhsMatches = $("li:contains('" + lhsToFind + "')", "#lhs");
-        
-        var addIfNotAlreadyMarked = function(node) {
-            if (!node.hasClass('answer_wrong') && !node.hasClass('answer_correct')) {
-                node.addClass('answerrevealed');
-                return 'answerrevealed';
-            }
-            
-            return node.hasClass('answer_wrong') ? 'answer_wrong' : 'answer_correct';
-        }
-        
-        var classForRhs;
-        possibleLhsMatches.each(function() {
-            if ($(this).text() === lhsToFind) {
-                $('#lhs').append($(this));
-                classForRhs = addIfNotAlreadyMarked($(this));
-                return false;
-            }
-        });
-        
-        $('#rhs').append(this);
-        $(this).addClass(classForRhs);
-    });
+      $(this).unbind('click');
+      
+      var lhsIncorrect = $('.lhs').filter(function(index) {
+          return !$(this).hasClass('answer_correct');
+      });
+      
+      lhsIncorrect.each(function(index, item) {
+          var rhsNextToLhs = $($('.rhs')[$(this).attr('index')]);
+          rhsNextToLhs.text($(this).attr('title'));
+          
+          var classToAdd = $(this).hasClass('answer_wrong') ? 'answer_wrong' : 'answerrevealed';
+          $(this).addClass(classToAdd);
+          rhsNextToLhs.addClass(classToAdd);
+      });
   });
 });
+
+Associate = {
+  checkAnswers: function() {
+    var lhs = $('.lhs.answerselect');
+    var rhs = $('.rhs.answerselect');
+    
+    if (lhs.size() && rhs.size()) {
+    
+      if (lhs.attr('title') === rhs.text()) {
+          var index = lhs.attr('index'); 
+          var rhsNextToSelectedLhs = $($('.rhs')[lhs.attr('index')])         
+          Associate.switchPositions(rhsNextToSelectedLhs, rhs);
+          
+          lhs.addClass('answer_correct');
+          rhsNextToSelectedLhs.addClass('answer_correct');
+      }
+      else {
+          lhs.addClass('answer_wrong');
+      }
+      
+      $('.answerholder').removeClass('answerselect');
+    }
+  },
+  
+  switchPositions: function(rhsToSwap, rhsSelected) {
+      var text1 = rhsSelected.text();
+      rhsSelected.text(rhsToSwap.text()); 
+      rhsToSwap.text(text1); 
+  }
+};
