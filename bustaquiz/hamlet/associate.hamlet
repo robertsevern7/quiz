@@ -4,8 +4,8 @@
     $description$     
 %br
   .container_12
-    %ul
-      $forall pairs p  
+    %ul!class=associatelist
+      $forall pairs p
         %li!class="noliststyle" 
           !class="grid_5 lhs answerholder pointer"!title=$snd p$ $fst p$
           !class="grid_5 rhs answerholder pointer"
