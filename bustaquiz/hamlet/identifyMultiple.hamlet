@@ -5,7 +5,7 @@
 %br
   .container_12
     %input!type="text"!id="answer_box"!class="allpadding"
-    %ul#lhs 
+    %ul 
       $forall pairs p  
         %li!class="noliststyle" 
           !class="grid_5 answerholder" $fst p$
