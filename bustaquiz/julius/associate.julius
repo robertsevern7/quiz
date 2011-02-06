@@ -3,7 +3,7 @@ $(document).ready(function() {
     
   var rhs = $('.rhs');
   $('.mixedup').each(function(index, element) {
-      $(rhs[index]).text($(this).attr('title'));
+      $(rhs[index]).text($(this).attr('hiddenvalue'));
   })
   
   $('.lhs').each(function(index, element) {
@@ -35,7 +35,7 @@ $(document).ready(function() {
       
       lhsIncorrect.each(function(index, item) {
           var rhsNextToLhs = $($('.rhs')[$(this).attr('index')]);
-          rhsNextToLhs.text($(this).attr('title'));
+          rhsNextToLhs.text($(this).attr('hiddenvalue'));
           
           var classToAdd = $(this).hasClass('answer_wrong') ? 'answer_wrong' : 'answerrevealed';
           $(this).addClass(classToAdd);
@@ -51,7 +51,7 @@ Associate = {
     
     if (lhs.size() && rhs.size()) {
     
-      if (lhs.attr('title') === rhs.text()) {
+      if (lhs.attr('hiddenvalue') === rhs.text()) {
           var index = lhs.attr('index'); 
           var rhsNextToSelectedLhs = $($('.rhs')[lhs.attr('index')])         
           Associate.switchPositionsAfterCorrectAnswer(rhsNextToSelectedLhs, rhs);
@@ -78,6 +78,7 @@ Associate = {
       var text1 = rhsSelected.text();
       var text2 = rhsToSwap.text()
       rhsSelected.text('');
+      rhsToSwap.text('');
       var distanceToMove = rhsToSwap.offset().top - $(rhsSelected).offset().top;
       answerFloat.animate({
           top: '+=' + distanceToMove 
