@@ -24,6 +24,6 @@
         !id="maincontent"
           ^pageBody.pc^
         !class="grid_12 footer"
-          %h1
+          %h1!class="menu"
             %a!class="white prefix_0"!href=@RootR@ bustaquiz
             %a!class="white prefix_7"!href="mailto:busta\@quiz.com" Brought to you by Jeff and Rob industries
