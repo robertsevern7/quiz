@@ -118,7 +118,8 @@ mkYesodData "Quiz" [$parseRoutes|
 /history HistoryR GET
 /history/usa/presidents/inauguration/#Int/#QuestionType USPresidentsOrderR GET
 
-/pubquiz/random/#Int/#QuestionType PubQuizR GET
+/pubquiz PubQuizR GET
+/pubquiz/random/#Int/#QuestionType RandomPubQuizR GET
 |]
 
 -- Please see the documentation for the Yesod typeclass. There are a number

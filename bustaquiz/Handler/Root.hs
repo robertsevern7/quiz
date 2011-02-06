@@ -82,3 +82,13 @@ getHistoryR = do
         let loginpanel = $(hamletFile "loginpanel")
         addCassius $(cassiusFile "homepage")
         addWidget $(hamletFile "history")
+        
+getPubQuizR :: Handler RepHtml
+getPubQuizR = do
+    mu <- maybeAuth
+    defaultLayout $ do      
+        h2id <- newIdent
+        index <- liftIO getIndex
+        let loginpanel = $(hamletFile "loginpanel")
+        addCassius $(cassiusFile "homepage")
+        addWidget $(hamletFile "pubquiz")
