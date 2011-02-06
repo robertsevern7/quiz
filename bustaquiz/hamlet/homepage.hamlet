@@ -36,6 +36,7 @@
         %ul!class="grid_4 noliststyle"
           %li
             %a!class=black!href=@(RandomPubQuizR.index).IdentifyMultipleType@ Random Pub Quiz
+            %a!class=black!href=@(RandomPubQuizR.index).IdentifyTextType@ Pub Quiz Ladder
         .clear
       
       %ul!class="noliststyle homepageoptions"
