@@ -26,7 +26,7 @@ body
     
 .footer
     color: white
-    font-size: 4pt
+    font-size: 4pt!important
     
 .mainname
     font-size: 38px
