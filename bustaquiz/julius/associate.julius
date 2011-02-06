@@ -80,20 +80,20 @@ Associate = {
       rhsSelected.text('');
       rhsToSwap.text('');
       var distanceToMove = rhsToSwap.offset().top - $(rhsSelected).offset().top;
+      var timeToSwap = distanceToMove ? 200 : 0;
+
       answerFloat.animate({
           top: '+=' + distanceToMove 
-      }, 500, function() {
+      }, timeToSwap, function() {
           rhsToSwap.text(text1);
           rhsToSwap.addClass('answer_correct');
-          answerFloat.remove();
-          
-          
+          answerFloat.remove();          
       });
       
       floatToSwapBack.appendTo(holder);
       floatToSwapBack.animate({
           top: '-=' + distanceToMove
-      }, 500, function() {
+      }, timeToSwap, function() {
           rhsSelected.text(text2);
           floatToSwapBack.remove();
       });
