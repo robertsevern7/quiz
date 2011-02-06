@@ -43,6 +43,7 @@ import Lyrics (BeatlesLyrics)
 import Country
 import Logic (QuestionType)
 import Taglines (FilmTaglines)
+import PubQuiz (RandomPubQuiz)
 
 -- TODO unacceptable
 data Quiz = Quiz { 
@@ -57,7 +58,8 @@ data Quiz = Quiz {
   sixLetter :: Anagrams,
   sevenLetter :: Anagrams,
   eightLetter :: Anagrams,
-  filmTaglines :: FilmTaglines
+  filmTaglines :: FilmTaglines,
+  randomPubQuiz :: RandomPubQuiz
 }
 
 -- | A useful synonym; most of the handler functions in your application
@@ -115,6 +117,8 @@ mkYesodData "Quiz" [$parseRoutes|
 
 /history HistoryR GET
 /history/usa/presidents/inauguration/#Int/#QuestionType USPresidentsOrderR GET
+
+/pubquiz/random/#Int/#QuestionType PubQuizR GET
 |]
 
 -- Please see the documentation for the Yesod typeclass. There are a number
