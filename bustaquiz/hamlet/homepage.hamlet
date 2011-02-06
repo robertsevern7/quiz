@@ -32,10 +32,11 @@
         
       
       %ul!class="noliststyle homepageoptions"
-        %a!class="grid_2 black listheader"!href=@PubQuizR@ PUBQUIZ
+        %a!class="grid_2 black listheader"!href=@PubQuizR@ PUB QUIZ
         %ul!class="grid_4 noliststyle"
           %li
             %a!class=black!href=@(RandomPubQuizR.index).IdentifyMultipleType@ Random Pub Quiz
+          %li
             %a!class=black!href=@(RandomPubQuizR.index).IdentifyTextType@ Pub Quiz Ladder
         .clear
       
