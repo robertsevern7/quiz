@@ -16,5 +16,35 @@ $(document).ready(function() {
         });
     });
     
+    $('#nextquestion').click(function() {
+        var totalCorrect = $('.answerholder').hasClass('answer_correct') ? Identify.getTotalCorrect() + 1 : 0;
+        document.cookie="totalCorrect=" + totalCorrect;
+    });
+    
     $('#answer_box').focus();
+
+    $('#totalcount').text($('#totalcount').text() + Identify.getTotalCorrect());
 });
+
+Identify = {
+    getTotalCorrect: function() {
+        if (!document.cookie) {
+            return 0;
+        }
+        
+        var index = document.cookie.indexOf('totalCorrect');
+
+        if (index === -1) {
+            return 0;
+        }
+
+        var nameStart = (document.cookie.indexOf("=", index) + 1);
+        var nameEnd = (document.cookie.indexOf(";", index));
+
+        if (nameEnd === -1) {
+            nameEnd = document.cookie.length;
+        }
+
+        return Number(document.cookie.substring(nameStart, nameEnd));
+    }
+};
