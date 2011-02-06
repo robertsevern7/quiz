@@ -29,6 +29,14 @@
           %li  
             %a!class=black!href=@(TaglinesR.index).IdentifyMultipleType@ Trickier Film Taglines
         .clear
+        
+      
+      %ul!class="noliststyle homepageoptions"
+        %a!class="grid_2 black listheader"!href=@PubQuizR@ PUBQUIZ
+        %ul!class="grid_4 noliststyle"
+          %li
+            %a!class=black!href=@(RandomPubQuizR.index).IdentifyMultipleType@ Random Pub Quiz
+        .clear
       
       %ul!class="noliststyle homepageoptions"
         %a!class="grid_2 black listheader"!href=@GeographyR@ GEOGRAPHY

@@ -6,8 +6,8 @@ import Logic (QuestionType)
 import Handler.Generic (genericRoute)
 import System.Random
 
-getPubQuizR :: Int -> QuestionType ->  Handler RepHtml
-getPubQuizR seed questionType = do
+getRandomPubQuizR :: Int -> QuestionType ->  Handler RepHtml
+getRandomPubQuizR seed questionType = do
   next <- liftIO $ getStdRandom (randomR (1,10000000))
-  genericRoute seed questionType randomPubQuiz (PubQuizR next questionType)
+  genericRoute seed questionType randomPubQuiz (RandomPubQuizR next questionType)
 
