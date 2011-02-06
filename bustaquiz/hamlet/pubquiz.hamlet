@@ -1,0 +1,14 @@
+!class="grid_8"
+  !class="curlycurly"
+    %p A random collection of questions
+
+    %p 
+      %ul!class="noliststyle homepageoptions"
+        %div!class="grid_2 listheader" PUBQUIZ
+        %ul!class="grid_4 noliststyle"
+          %li
+            %a!class=black!href=@(RandomPubQuizR.index).IdentifyMultipleType@ Random Pub Quiz
+        .clear
+            
+!id="sidebar"!class="grid_4"
+    ^loginpanel^    
