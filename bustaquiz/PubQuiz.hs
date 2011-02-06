@@ -19,6 +19,9 @@ instance QuestionMaker RandomPubQuiz where
   generateQuestion seed IdentifyMultipleType (RandomPubQuiz questions) = do
     questionShortlist <- rndSelect seed questions 10
     return $ Just (Associate "Answer these questions" questionShortlist)
+  generateQuestion seed IdentifyTextType (RandomPubQuiz questions) = do
+    question <- chooseFromList seed questions
+    return $ Just (IdentifyText "Answer this question" (fst question) (snd question) Nothing)
   generateQuestion _ _ _ = return Nothing
 
 questions :: [(String, String)]
