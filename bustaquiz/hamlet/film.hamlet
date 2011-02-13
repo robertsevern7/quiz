@@ -12,5 +12,17 @@
             %a!class=black!href=@(TaglinesR.index).IdentifyMultipleType@ Trickier Film Taglines
         .clear
 
+    %p
+      %ul!class="noliststyle homepageoptions"
+        %div!class="grid_2 listheader" QUOTES
+        %ul!class="grid_4 noliststyle"
+          %li
+            %a!class=black!href=@(QuoteSelectionR.index).AssociateType@ Quotes
+          %li
+            %a!class=black!href=@(QuoteSelectionR.index).IdentifyMultipleType@ Trickier Quotes
+          %li
+            %a!class=black!href=@(QuoteSelectionR.index).IdentifyTextType@ Quote Ladder
+        .clear
+
 !id="sidebar"!class="grid_4"
     ^loginpanel^    
