@@ -44,6 +44,7 @@ import Country
 import Logic (QuestionType)
 import Taglines (FilmTaglines)
 import PubQuiz (RandomPubQuiz)
+import MovieQuotes (QuoteSelection)
 
 -- TODO unacceptable
 data Quiz = Quiz { 
@@ -59,7 +60,8 @@ data Quiz = Quiz {
   sevenLetter :: Anagrams,
   eightLetter :: Anagrams,
   filmTaglines :: FilmTaglines,
-  randomPubQuiz :: RandomPubQuiz
+  randomPubQuiz :: RandomPubQuiz,
+  quoteSelection :: QuoteSelection
 }
 
 -- | A useful synonym; most of the handler functions in your application
@@ -114,6 +116,7 @@ mkYesodData "Quiz" [$parseRoutes|
 
 /film FilmR GET
 /film/taglines/#Int/#QuestionType TaglinesR GET
+/film/quotes/#Int/#QuestionType QuoteSelectionR GET
 
 /history HistoryR GET
 /history/usa/presidents/inauguration/#Int/#QuestionType USPresidentsOrderR GET

@@ -4,7 +4,7 @@ module Controller
     ( withQuiz
     ) where
 
-import Quiz hiding (beatlesLyrics,stateFlags,sixLetter,sevenLetter,filmTaglines,randomPubQuiz)
+import Quiz hiding (beatlesLyrics,stateFlags,sixLetter,sevenLetter,filmTaglines,randomPubQuiz,quoteSelection)
 import Settings
 import Yesod.Helpers.Static
 import Yesod.Helpers.Auth
@@ -20,6 +20,7 @@ import Handler.StateFlags
 import Handler.CountryFlags
 import Handler.Taglines
 import Handler.PubQuiz
+import Handler.MovieQuotes
 
 -- Quiz makers
 import Anagram (fiveLetterAnagrams, sixLetterAnagrams, sevenLetterAnagrams, eightLetterAnagrams)
@@ -28,6 +29,7 @@ import Lyrics (beatlesLyrics)
 import Presidents (orderOfService)
 import States (stateFlags)
 import PubQuiz (randomPubQuiz)
+import MovieQuotes (quoteSelection)
 
 -- TODO declarations
 import Taglines (filmTaglines)
@@ -55,7 +57,7 @@ withQuiz f = Settings.withConnectionPool $ \pool -> do
     -- TODO This all seems a bit nasty - perhaps centralizing this in the data base is a better idea?
     -- TODO Or at least introducing a separate object!
     filmTaglines' <- filmTaglines
-    let h = Quiz s pool capitalQuiz countryFlagsQuiz beatlesLyrics orderOfService stateFlags fiveLetterAnagrams sixLetterAnagrams sevenLetterAnagrams eightLetterAnagrams filmTaglines' randomPubQuiz
+    let h = Quiz s pool capitalQuiz countryFlagsQuiz beatlesLyrics orderOfService stateFlags fiveLetterAnagrams sixLetterAnagrams sevenLetterAnagrams eightLetterAnagrams filmTaglines' randomPubQuiz quoteSelection
     toWaiApp h >>= f
   where
     s = fileLookupDir Settings.staticdir typeByExt
