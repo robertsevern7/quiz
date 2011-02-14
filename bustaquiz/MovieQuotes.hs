@@ -24,7 +24,7 @@ instance QuestionMaker QuoteSelection where
     return $ Just (Associate "Name the films from these quotes" quoteList)
   generateQuestion seed IdentifyTextType (QuoteSelection questions) = do
     question <- chooseFromList seed questions
-    return $ Just (IdentifyText "Name the film from the quote" (fst question) (snd question) Nothing)
+    return $ Just (uncurry (IdentifyText "Name the film from the quote") question Nothing)
   generateQuestion _ _ _ = return Nothing
 
 questions :: [(String, String)]
