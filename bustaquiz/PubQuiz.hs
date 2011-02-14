@@ -21,7 +21,7 @@ instance QuestionMaker RandomPubQuiz where
     return $ Just (Associate "Answer these questions" questionShortlist)
   generateQuestion seed IdentifyTextType (RandomPubQuiz questions) = do
     question <- chooseFromList seed questions
-    return $ Just (IdentifyText "Answer this question" (fst question) (snd question) Nothing)
+    return $ Just (uncurry (IdentifyText "Answer this question") question Nothing)
   generateQuestion _ _ _ = return Nothing
 
 questions :: [(String, String)]
