@@ -1,0 +1,16 @@
+!class="clear"
+!class="grid_12"
+  !class="curlycurly"
+    $description$
+  !id="totalcount"!class="curlycurly"
+    Total Correct in a row:
+
+!class="push_2 grid_8 center"
+  !class="puzzle"
+    $question$
+  !class="hidden"
+    $maybe link l
+      %a!class="black"!href=$l$ $answer$
+    $nothing
+      $answer$
+  %input!type="text"!id="answer_box"!class="padding"

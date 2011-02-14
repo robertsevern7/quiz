@@ -1,0 +1,11 @@
+!class="clear"
+!class="grid_12"
+  !class="curlycurly"
+    $description$
+
+!class="push_2 grid_8 center"
+  !class="puzzle"
+    %img!src=@StaticR resource@
+  !class="hidden"
+    $answer$
+  %input!type="text"!id="answer_box"!class="padding"

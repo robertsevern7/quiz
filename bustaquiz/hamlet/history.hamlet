@@ -1,0 +1,14 @@
+!class="grid_8"
+  !class="curlycurly"
+    %p We are history
+
+    %p 
+      %ul!class="noliststyle homepageoptions"
+        %div!class="grid_2 listheader" USA
+        %ul!class="grid_4 noliststyle"
+          %li
+            %a!class=black!href=@(USPresidentsOrderR.index).OrderType@ Order of Inauguration of US Presidents
+        .clear
+            
+!id="sidebar"!class="grid_4"
+  ^loginpanel^  

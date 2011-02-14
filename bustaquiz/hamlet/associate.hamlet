@@ -1,0 +1,17 @@
+.clear
+!class="grid_12"
+  !class="curlycurly"
+    $description$     
+%br
+  .container_12
+    %ul!class=associatelist
+      $forall pairs p
+        %li!class="noliststyle" 
+          !class="grid_5 lhs answerholder pointer"!hiddenvalue=$snd p$ $fst p$
+          !class="grid_5 rhs answerholder pointer"
+          .clear
+    %ul
+      $forall pairs p
+        %li!class="hidden"
+          !class="mixedup"!hiddenvalue=$snd p$
+.clear

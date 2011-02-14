@@ -1,0 +1,19 @@
+h1
+    text-align: center
+h2#$h2id$
+    color: #990
+
+.homepageoptions
+    border-style: solid
+    -moz-border-radius: 10px
+    -webkit-border-radius: 10px
+    padding: 10px
+    font-weight: bold
+    
+.listheader
+    font-weight: bold
+    font-size: 13pt
+    background-color: #6699FF
+    -moz-border-radius: 10px
+    -webkit-border-radius: 10px
+    padding : 5px

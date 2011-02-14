@@ -1,0 +1,13 @@
+!class="clear"
+!class="grid_12"
+  !class="curlycurly"
+    $description$
+
+!class="push_4 grid_8"
+  %ul#ordering
+    $forall ordering p
+      %li!class="answerholder pointer" $fst p$
+        %div!class=hidden $snd p$        
+  %button!id="order_submit"!class="ourbutton" Check
+
+.clear
