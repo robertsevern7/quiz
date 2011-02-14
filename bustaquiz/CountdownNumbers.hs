@@ -11,7 +11,7 @@ smallNumbers :: [Int]
 smallNumbers = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10]
 
 selectNumbers :: Int -> Int -> [Int]
-selectNumbers seed large = concat [(rndSelect seed largeNumbers large), (rndSelect seed smallNumbers (6 - large))]
+selectNumbers seed large = rndSelect seed largeNumbers large ++ rndSelect seed smallNumbers (6 - large)
 
 genResult :: Int -> [Int] -> Result
 genResult seed options = outputResult where
@@ -30,7 +30,7 @@ possiblyCombine seed firstResult remaining =
 generateResult :: Int -> [Int] -> Result
 generateResult seed options = 
     let leftInt = head options
-        rightInt = head (reverse options)
+        rightInt = last options
         left = (Val leftInt)
         right = (Val rightInt)
     in chooseFromList seed (combine' (left, leftInt) (right, rightInt))
@@ -79,12 +79,11 @@ getReadableSolutions = map printExpr
 
 printExpr :: Expr -> String
 printExpr (Val x) = show x
-printExpr (App o l r) = "(" ++ (printExpr l) ++ " " ++ show' o ++ " " ++ (printExpr r) ++ ")"
+printExpr (App o l r) = "(" ++ printExpr l ++ " " ++ show' o ++ " " ++ printExpr r ++ ")"
 
 printResult :: Result -> String
 printResult (Val x, _) = show x
-printResult (App o l r, y) = "(" ++ (printExpr l) ++ " " ++ show' o ++ " " ++ (printExpr r) ++ ")" ++ "=" ++ show y
-
+printResult (App o l r, y) = "(" ++ printExpr l ++ " " ++ show' o ++ " " ++ printExpr r ++ ")" ++ "=" ++ show y
 
 
 --This is to get the solution for a randomly generated case so we don't need it (it is too expensive) Interesting to keep around though
@@ -98,7 +97,7 @@ perms xs = [ x:ps | x <- xs , ps <- perms ( xs\\[x] ) ]
 
 subs :: [a] -> [[a]]
 subs [] = [[]]
-subs (x:xs) = subs xs ++ (map (x:) (subs xs))
+subs (x:xs) = subs xs ++ map (x:) (subs xs)
 
 solution :: Expr -> [Int] -> Int -> Bool
 solution e options target = elem (values e) (subbags options) && eval e == [target]
