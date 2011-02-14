@@ -26,7 +26,7 @@ data QuestionType = AssociateType
                   deriving (Show,Read,Eq)
                            
 instance SinglePiece QuestionType where
-  toSinglePiece x = show x
+  toSinglePiece = show
   -- TODO errr, error handling and important stuff like that?  return (Left x) on error
   fromSinglePiece x = Right (read x)
                                                                
@@ -75,7 +75,7 @@ shuffle' xs gen = runST (do
   where
     n = length xs
     newArray :: Int -> [a] -> ST s (STArray s Int a)
-    newArray n xs =  newListArray (1,n) xs 
+    newArray n =  newListArray (1,n)  
     
 shuffleIO :: [a] -> IO [a]
 shuffleIO xs = getStdRandom (shuffle' xs)
