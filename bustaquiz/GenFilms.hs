@@ -69,7 +69,7 @@ tagLineQuery films = wrapInQuery $ toJsonObject $ Mapping [
   (B.pack "tagline", Sequence [
       toJsonObject $ Mapping [
          (B.pack "limit", Scalar $ JsonNumber 1),
-         (B.pack "value", Scalar $ JsonNull)
+         (B.pack "value", Scalar JsonNull)
       ]
   ])]
 
@@ -95,7 +95,7 @@ filmsWithTaglines = wrapInQuery $ toJsonObject $ Mapping [
   (B.pack "tagline", Sequence [
       toJsonObject $ Mapping [
          (B.pack "optional", Scalar $ JsonBoolean False),
-         (B.pack "value", Scalar $ JsonNull)
+         (B.pack "value", Scalar JsonNull)
       ]
   ])]      
   
@@ -125,14 +125,14 @@ topFilms = wrapInQuery $ toJsonObject $ Mapping [
   (B.pack "sort", Scalar $ toJsonScalar "!pd:/award/ranked_list/ranked_list_items.!index"),
   (B.pack "!pd:/award/ranked_list/ranked_list_items", Sequence [
       toJsonObject $ Mapping [
-         (B.pack "!index", Scalar $ JsonNull),
+         (B.pack "!index", Scalar JsonNull),
          (B.pack "id", Scalar $ toJsonScalar "/en/the_movie_list_the_first_9200"),
          (B.pack "type", Scalar $ toJsonScalar "/award/ranked_list")
       ]
   ]),
   (B.pack "item", Sequence [
       toJsonObject $ Mapping [
-         (B.pack "id", Scalar $ JsonNull)
+         (B.pack "id", Scalar JsonNull)
       ]
   ])] 
 
