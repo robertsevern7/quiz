@@ -85,4 +85,4 @@ clean :: String -> Bool
 clean input = length input > 4 && length input < 9 && map toLower input == input
 
 cleanWords :: [String] -> [String]
-cleanWords words = filter clean words
+cleanWords = filter clean
