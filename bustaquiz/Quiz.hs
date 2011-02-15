@@ -188,12 +188,15 @@ instance YesodAuth Quiz where
         x <- getBy $ UniqueUser $ credsIdent creds
         case x of
             Just (uid, _) -> return $ Just uid
-            Nothing -> fmap Just $ insert $ User (credsIdent creds) Nothing
+            Nothing -> do
+                fmap Just $ insert $ User (credsIdent creds) Nothing
 
     showAuthId _ = showIntegral
     readAuthId _ = readIntegral
 
-    authPlugins = [authOpenId , authEmail]
+    authPlugins = [ authOpenId
+                  , authEmail
+                  ]
 
 instance YesodAuthEmail Quiz where
     type AuthEmailId Quiz = EmailId
@@ -224,17 +227,19 @@ instance YesodAuthEmail Quiz where
                 , ""
                 , "Thank you"
                 ]
+            , partHeaders = []
             }
         htmlPart = Part
             { partType = "text/html; charset=utf-8"
             , partEncoding = None
             , partFilename = Nothing
             , partContent = renderHtml [hamlet|
-%p Please confirm your email address by clicking on the link below.
-%p
-    %a!href=$verurl$ $verurl$
-%p Thank you
+<p>Please confirm your email address by clicking on the link below.
+<p>
+    <a href=#{verurl} #{verurl}
+<p>Thank you
 |]
+            , partHeaders = []
             }
     getVerifyKey = runDB . fmap (join . fmap emailVerkey) . get
     setVerifyKey eid key = runDB $ update eid [EmailVerkey $ Just key]
