@@ -1,4 +1,5 @@
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE TemplateHaskell #-}
 -- | Settings are centralized, as much as possible, into this file. This
 -- includes database connection settings, static file locations, etc.
 -- In addition, you can configure a number of different aspects of Yesod
@@ -24,7 +25,10 @@ import qualified Text.Cassius as H
 import qualified Text.Julius as H
 import Language.Haskell.TH.Syntax
 import Database.Persist.Sqlite
-import Yesod (MonadInvertIO)
+import Yesod (MonadPeelIO, addWidget, addCassius, addJulius)
+import Data.Monoid (mempty)
+import System.Directory (doesFileExist)
+
 
 -- TDO 
 jqueryURL :: String
@@ -115,29 +119,46 @@ connectionCount = 10
 -- used; to get the same auto-loading effect, it is recommended that you
 -- use the devel server.
 
+toHamletFile, toCassiusFile, toJuliusFile :: String -> FilePath
+toHamletFile x = "hamlet/" ++ x ++ ".hamlet"
+toCassiusFile x = "cassius/" ++ x ++ ".cassius"
+toJuliusFile x = "julius/" ++ x ++ ".julius"
+
 hamletFile :: FilePath -> Q Exp
-hamletFile x = H.hamletFile $ "hamlet/" ++ x ++ ".hamlet"
+hamletFile = H.hamletFile . toHamletFile
 
 cassiusFile :: FilePath -> Q Exp
 #ifdef PRODUCTION
-cassiusFile x = H.cassiusFile $ "cassius/" ++ x ++ ".cassius"
+cassiusFile = H.cassiusFile . toCassiusFile
 #else
-cassiusFile x = H.cassiusFileDebug $ "cassius/" ++ x ++ ".cassius"
+cassiusFile = H.cassiusFileDebug . toCassiusFile
 #endif
 
 juliusFile :: FilePath -> Q Exp
 #ifdef PRODUCTION
-juliusFile x = H.juliusFile $ "julius/" ++ x ++ ".julius"
+juliusFile = H.juliusFile . toJuliusFile
 #else
-juliusFile x = H.juliusFileDebug $ "julius/" ++ x ++ ".julius"
+juliusFile = H.juliusFileDebug . toJuliusFile
 #endif
+
+widgetFile :: FilePath -> Q Exp
+widgetFile x = do
+    let h = unlessExists toHamletFile hamletFile
+    let c = unlessExists toCassiusFile cassiusFile
+    let j = unlessExists toJuliusFile juliusFile
+    [|addWidget $h >> addCassius $c >> addJulius $j|]
+  where
+    unlessExists tofn f = do
+        e <- qRunIO $ doesFileExist $ tofn x
+        if e then f x else [|mempty|]
+
 
 -- The next two functions are for allocating a connection pool and running
 -- database actions using a pool, respectively. It is used internally
 -- by the scaffolded application, and therefore you will rarely need to use
 -- them yourself.
-withConnectionPool :: MonadInvertIO m => (ConnectionPool -> m a) -> m a
+withConnectionPool :: MonadPeelIO m => (ConnectionPool -> m a) -> m a
 withConnectionPool = withSqlitePool connStr connectionCount
 
-runConnectionPool :: MonadInvertIO m => SqlPersist m a -> ConnectionPool -> m a
+runConnectionPool :: MonadPeelIO m => SqlPersist m a -> ConnectionPool -> m a
 runConnectionPool = runSqlPool
