@@ -28,10 +28,12 @@ import Database.Persist.GenericSql
 import Settings (hamletFile, cassiusFile, juliusFile)
 import Model
 import Data.Maybe (isJust)
-import Control.Monad (join)
+import Control.Monad (join,unless)
 import Network.Mail.Mime
+import Text.Jasmine (minifym)
 import qualified Data.Text.Lazy
 import qualified Data.Text.Lazy.Encoding
+
 
 import StaticFiles
 
@@ -91,7 +93,7 @@ type Widget = GWidget Quiz Quiz
 -- for our application to be in scope. However, the handler functions
 -- usually require access to the QuizRoute datatype. Therefore, we
 -- split these actions into two functions and place them in separate files.
-mkYesodData "Quiz" [$parseRoutes|                    
+mkYesodData "Quiz" [parseRoutes|                    
 /static StaticR Static getStatic
 /auth   AuthR   Auth   getAuth
 
@@ -139,15 +141,11 @@ instance Yesod Quiz where
             addCassius $(Settings.cassiusFile "default-layout")
             addJulius $(Settings.juliusFile "default-layout")
         hamletToRepHtml $(Settings.hamletFile "default-layout")
-
-    -- This is done to provide an optimization for serving static files from
+    
+-- This is done to provide an optimization for serving static files from
     -- a separate domain. Please see the staticroot setting in Settings.hs
     urlRenderOverride a (StaticR s) =
-        Just $ uncurry (joinPath a Settings.staticroot) $ format s
-      where
-        format = formatPathSegments ss
-        ss :: Site StaticRoute (String -> Maybe (GHandler Static Quiz ChooseRep))
-        ss = getSubSite
+        Just $ uncurry (joinPath a Settings.staticroot) $ renderRoute s
     urlRenderOverride _ _ = Nothing
 
     -- The page to be redirected to when authentication is required.
@@ -159,15 +157,24 @@ instance Yesod Quiz where
     -- users receiving stale content.
     addStaticContent ext' _ content = do
         let fn = base64md5 content ++ '.' : ext'
+        let content' =
+                if ext' == "js"
+                    then case minifym content of
+                            Left _ -> content
+                            Right y -> y
+                    else content
         let statictmp = Settings.staticdir ++ "/tmp/"
         liftIO $ createDirectoryIfMissing True statictmp
-        liftIO $ L.writeFile (statictmp ++ fn) content
+        let fn' = statictmp ++ fn
+        exists <- liftIO $ doesFileExist fn'
+        unless exists $ liftIO $ L.writeFile fn' content'
         return $ Just $ Right (StaticR $ StaticRoute ["tmp", fn] [], [])
 
 -- How to run database actions.
 instance YesodPersist Quiz where
     type YesodDB Quiz = SqlPersist
-    runDB db = fmap connPool getYesod >>= Settings.runConnectionPool db
+    runDB db = liftIOHandler
+             $ fmap connPool getYesod >>= Settings.runConnectionPool db
 
 instance YesodAuth Quiz where
     type AuthId Quiz = UserId
@@ -222,7 +229,7 @@ instance YesodAuthEmail Quiz where
             { partType = "text/html; charset=utf-8"
             , partEncoding = None
             , partFilename = Nothing
-            , partContent = renderHtml [$hamlet|
+            , partContent = renderHtml [hamlet|
 %p Please confirm your email address by clicking on the link below.
 %p
     %a!href=$verurl$ $verurl$
