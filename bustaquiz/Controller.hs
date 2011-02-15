@@ -1,3 +1,4 @@
+{-# LANGUAGE TemplateHaskell, OverloadedStrings, MultiParamTypeClasses #-}
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 module Controller
     ( withQuiz
@@ -8,6 +9,7 @@ import Settings
 import Yesod.Helpers.Static
 import Yesod.Helpers.Auth
 import Database.Persist.GenericSql
+import Data.ByteString (ByteString)
 
 -- Relevant handlers
 import Handler.Root
@@ -42,9 +44,10 @@ mkYesodDispatch "Quiz" resourcesQuiz
 getFaviconR :: Handler ()
 getFaviconR = sendFile "image/x-icon" "favicon.ico"
 
--- TODO Customize the Robots.txt file 
+-- TODO Restrict robots
 getRobotsR :: Handler RepPlain
-getRobotsR = return $ RepPlain $ toContent "User-agent: *"
+getRobotsR = return $ RepPlain $ toContent ("User-agent: *" :: ByteString)
+
 
 -- This function allocates resources (such as a database connection pool),
 -- performs initialization and creates a WAI application. This is also the
@@ -59,4 +62,4 @@ withQuiz f = Settings.withConnectionPool $ \pool -> do
     let h = Quiz s pool capitalQuiz countryFlagsQuiz beatlesLyrics orderOfService stateFlags fiveLetterAnagrams sixLetterAnagrams sevenLetterAnagrams eightLetterAnagrams filmTaglines' randomPubQuiz quoteSelection
     toWaiApp h >>= f
   where
-    s = fileLookupDir Settings.staticdir typeByExt
+    s = static Settings.staticdir -- fileLookupDir Settings.staticdir typeByExt
