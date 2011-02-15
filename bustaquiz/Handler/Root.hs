@@ -26,7 +26,7 @@ getRootR :: Handler RepHtml
 getRootR = do
     mu <- maybeAuth
     defaultLayout $ do
-        h2id <- newIdent
+        h2id <- lift newIdent
         index <- liftIO getIndex
         let loginpanel = $(hamletFile "loginpanel")
         setTitle "bustaquiz homepage"
@@ -37,7 +37,7 @@ getWordplayR :: Handler RepHtml
 getWordplayR = do
     mu <- maybeAuth
     defaultLayout $ do
-        h2id <- newIdent
+        h2id <- lift newIdent
         index <- liftIO getIndex
         let loginpanel = $(hamletFile "loginpanel")
         addCassius $(cassiusFile "homepage")
@@ -47,7 +47,7 @@ getGeographyR :: Handler RepHtml
 getGeographyR = do
     mu <- maybeAuth
     defaultLayout $ do
-        h2id <- newIdent
+        h2id <- lift newIdent
         index <- liftIO getIndex
         let loginpanel = $(hamletFile "loginpanel")
         addCassius $(cassiusFile "homepage")
@@ -57,7 +57,7 @@ getMusicR :: Handler RepHtml
 getMusicR = do
     mu <- maybeAuth
     defaultLayout $ do
-        h2id <- newIdent
+        h2id <- lift newIdent
         index <- liftIO getIndex
         let loginpanel = $(hamletFile "loginpanel")        
         addCassius $(cassiusFile "homepage")
@@ -67,7 +67,7 @@ getFilmR :: Handler RepHtml
 getFilmR = do
     mu <- maybeAuth
     defaultLayout $ do
-        h2id <- newIdent
+        h2id <- lift newIdent
         index <- liftIO getIndex
         let loginpanel = $(hamletFile "loginpanel")        
         addCassius $(cassiusFile "homepage")
@@ -77,7 +77,7 @@ getHistoryR :: Handler RepHtml
 getHistoryR = do
     mu <- maybeAuth
     defaultLayout $ do      
-        h2id <- newIdent
+        h2id <- lift newIdent
         index <- liftIO getIndex
         let loginpanel = $(hamletFile "loginpanel")
         addCassius $(cassiusFile "homepage")
@@ -87,7 +87,7 @@ getPubQuizR :: Handler RepHtml
 getPubQuizR = do
     mu <- maybeAuth
     defaultLayout $ do      
-        h2id <- newIdent
+        h2id <- lift newIdent
         index <- liftIO getIndex
         let loginpanel = $(hamletFile "loginpanel")
         addCassius $(cassiusFile "homepage")
