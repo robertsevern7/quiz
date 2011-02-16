@@ -142,7 +142,7 @@ instance Yesod Quiz where
             addJulius $(Settings.juliusFile "default-layout")
         hamletToRepHtml $(Settings.hamletFile "default-layout")
     
--- This is done to provide an optimization for serving static files from
+    -- This is done to provide an optimization for serving static files from
     -- a separate domain. Please see the staticroot setting in Settings.hs
     urlRenderOverride a (StaticR s) =
         Just $ uncurry (joinPath a Settings.staticroot) $ renderRoute s
