@@ -1,0 +1,119 @@
+$(document).ready(function() {
+  $('.mixedup').shuffle();
+    
+  var rhs = $('.rhs');
+  $('.mixedup').each(function(index, element) {
+      $(rhs[index]).text($(this).attr('hiddenvalue'));
+  })
+  
+  $('.lhs').each(function(index, element) {
+      $(this).attr('index', index);
+  });
+
+  $('.lhs').click(function() {
+    $('.lhs').removeClass('answerselect');
+    
+    if (!$(this).hasClass('answer_wrong')) {
+      $(this).addClass('answerselect');
+      Associate.checkAnswers();
+    }
+  });
+  
+  $('.rhs').click(function() {
+    $('.rhs').removeClass('answerselect');
+    $(this).addClass('answerselect');
+    
+    Associate.checkAnswers();
+  });
+  
+  $('#revealanswers').click(function() {
+      $(this).unbind('click');
+      
+      var lhsIncorrect = $('.lhs').filter(function(index) {
+          return !$(this).hasClass('answer_correct');
+      });
+      
+      lhsIncorrect.each(function(index, item) {
+          var rhsNextToLhs = $($('.rhs')[$(this).attr('index')]);
+          rhsNextToLhs.text($(this).attr('hiddenvalue'));
+          
+          var classToAdd = $(this).hasClass('answer_wrong') ? 'answer_wrong' : 'answerrevealed';
+          $(this).addClass(classToAdd);
+          rhsNextToLhs.addClass(classToAdd);
+      });
+  });
+});
+
+Associate = {
+  checkAnswers: function() {
+    var lhs = $('.lhs.answerselect');
+    var rhs = $('.rhs.answerselect');
+    
+    if (lhs.size() && rhs.size()) {
+    
+      if (lhs.attr('hiddenvalue') === rhs.text()) {
+          var index = lhs.attr('index'); 
+          var rhsNextToSelectedLhs = $($('.rhs')[lhs.attr('index')])         
+          Associate.switchPositionsAfterCorrectAnswer(rhsNextToSelectedLhs, rhs);
+          
+          lhs.addClass('answer_correct');
+      }
+      else {
+          lhs.addClass('answer_wrong');
+      }
+      
+      $('.answerholder').removeClass('answerselect');
+    }
+  },
+  
+  switchPositionsAfterCorrectAnswer: function(rhsToSwap, rhsSelected) {
+      var holder = $('.associatelist');
+      var answerFloat = Associate.createFloatingDiv(rhsSelected);
+      answerFloat.addClass('answer_correct');
+      
+      var floatToSwapBack = Associate.createFloatingDiv(rhsToSwap);
+      
+      answerFloat.appendTo(holder);
+
+      var text1 = rhsSelected.text();
+      var text2 = rhsToSwap.text()
+      rhsSelected.text('');
+      rhsToSwap.text('');
+      var distanceToMove = rhsToSwap.offset().top - $(rhsSelected).offset().top;
+      var timeToSwap = distanceToMove ? 200 : 0;
+
+      answerFloat.animate({
+          top: '+=' + distanceToMove 
+      }, timeToSwap, function() {
+          rhsToSwap.text(text1);
+          rhsToSwap.addClass('answer_correct');
+          answerFloat.remove();          
+      });
+      
+      floatToSwapBack.appendTo(holder);
+      floatToSwapBack.animate({
+          top: '-=' + distanceToMove
+      }, timeToSwap, function() {
+          rhsSelected.text(text2);
+          floatToSwapBack.remove();
+      });
+  },
+  
+  createFloatingDiv: function(toCover) {
+      var floatingDiv = $('<div/>', {
+          text: toCover.text()  
+      });
+      floatingDiv.addClass('answerholder');
+      floatingDiv.addClass('fixedpos');
+      floatingDiv.height(toCover.height());
+      floatingDiv.width(toCover.width());
+      
+      var top = $(toCover).offset().top - $(window).scrollTop();
+      var position = {
+          top: top - 4,  //Not sure why we need -4
+          left: $(toCover).offset().left
+      };
+      floatingDiv.offset(position);
+      return floatingDiv;
+  }
+};

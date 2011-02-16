@@ -1,0 +1,117 @@
+// In order to pick non-retarded colours
+// http://colorschemedesigner.com/#3L31Tw0w0w0w0    
+body
+    font-family: Verdana, Arial, Sans!important
+
+#maincontent
+
+.menu
+    background-color: black
+    text-align: left
+    -moz-border-radius: 10px
+    -webkit-border-radius: 10px
+    margin: 5px
+    padding: 10px
+
+
+.curlycurly
+    background-color: #f8f8ff
+    -moz-border-radius: 10px
+    -webkit-border-radius: 10px
+    padding: 10px
+    margin: 10px
+
+.header
+    font-size: 16pt
+    
+.footer
+    color: white
+    font-size: 4pt!important
+    
+.mainname
+    font-size: 38px
+    
+.headerlinks
+    font-size: 12px
+    
+.small
+    font-size: 8px
+    
+a
+    text-decoration: none
+    
+a:link.white
+    color: white
+a:visited.white
+    color: white
+a:hover.white
+    color: #e6e6e6
+    text-decoration:underline
+a:active.white
+    color: white
+    
+a:link.black
+    color: black
+a:visited.black
+    color: black
+a:hover.black
+    color: black
+    text-decoration:underline
+a:active.black
+    color: black
+    
+#sidebar
+
+P
+    font-size: 11pt
+
+.hidden
+    display: none!important
+    
+.center
+    text-align: center
+    
+.padding
+    margin: 10px 0 10px 0
+
+.allpadding
+    margin: 10px
+    
+.answerholder
+    background-color: #F0F0F0 
+    -moz-border-radius: 10px
+    -webkit-border-radius: 10px
+    padding: 10px
+    margin: 5px 0 5px 0
+    text-align: center
+    font-size: 11pt
+    list-style: none
+    
+.fixedpos
+    position: fixed
+    
+.pointer
+    cursor: pointer
+
+.noliststyle
+    list-style: none
+    
+.answerhover
+    background-color: #E8E8E8 
+
+.answerselect
+    background-color: #E0E0E0
+    
+.answer_correct
+    background-color: #33CC33!important
+    cursor: auto
+
+.answer_wrong
+    background-color: #FF3333!important
+    cursor: auto
+    
+.answerrevealed
+    background-color: #F88017!important
+    cursor: auto
+.ourbutton
+    font-size: 11pt!important

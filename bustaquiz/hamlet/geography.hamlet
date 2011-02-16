@@ -1,0 +1,26 @@
+<div class="grid_8">
+  <div class="curlycurly">
+    <p>I know what an oxbow lake is.
+\
+    <p>
+      <ul class="noliststyle homepageoptions">
+        <div class="grid_2 listheader">CAPITALS
+        <ul class="grid_4 noliststyle">
+          <li>
+            <a class="black" href="@{CapitalsR index AssociateType}">Capitals of the World
+          <li>
+            <a class="black" href="@{CapitalsR index IdentifyMultipleType}">Capitals of the World - Trickier
+        <div .clear>
+        \
+    <p>
+      <ul class="noliststyle homepageoptions">
+        <div class="grid_2 listheader">FLAGS
+        <ul class="grid_4 noliststyle">
+          <li>
+            <a class="black" href="@{StateFlagsR index IdentifyType}">U.S. State Flags
+          <li>
+            <a class="black" href="@{CountryFlagsR index IdentifyType}">Flags of the World
+        <div .clear>
+            \
+<div id="sidebar" class="grid_4">
+    \^{loginpanel}    

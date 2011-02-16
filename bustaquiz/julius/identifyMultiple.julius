@@ -1,0 +1,27 @@
+$(document).ready(function() {
+    $('#answer_box').keyup(function(event) {
+        $('.hidden').each(function(cmp) {
+            if (similar($('#answer_box').val(), $(this).text())) {
+                $(this).removeClass('hidden').addClass('answer_correct');
+                $('#answer_box').attr("value","");
+            }       
+        })
+        
+        if (!$('.hidden').size()) {
+            $(this).unbind('keyup');
+            $('#answer_box').fadeOut();
+        }
+    });
+    
+    $('#revealanswers').click(function() {
+        $('.hidden').each(function(cmp) {
+             $(this).removeClass('hidden').addClass('answerrevealed');
+        })
+        
+        $('#answer_box').attr("value","");
+        $(this).unbind('keyup');
+        $('#answer_box').fadeOut();
+    });
+    
+    $('#answer_box').focus();
+});

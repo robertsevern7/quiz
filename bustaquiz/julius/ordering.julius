@@ -1,0 +1,48 @@
+Ordering = {
+    rightAnswer: [],
+
+    makeObj: function(listItem) {
+      return {
+        name: $(listItem).clone().find("*").remove().end().text(),
+        year: parseInt($(listItem).children().text(), 10)
+      };         
+    },
+    
+    checkAnswers: function() {
+      $('#ordering > li').each(function(i,x) {
+        attemptedAnswer = Ordering.makeObj(x);
+        if (attemptedAnswer.name === Ordering.rightAnswer[i].name || attemptedAnswer.name === Ordering.rightAnswer[i].name + ' - ' + Ordering.rightAnswer[i].year) {
+          $(x).removeClass('answer_wrong');
+          $(x).addClass('answer_correct');
+          $(x).text(Ordering.rightAnswer[i].name + ' - ' + Ordering.rightAnswer[i].year);
+        } else {
+          $(x).removeClass('answer_correct');
+          $(x).addClass('answer_wrong');
+        }
+      });
+    }
+}
+
+$(document).ready(function() {
+  $('#ordering > li').each( function(i,x) {
+    Ordering.rightAnswer.push(Ordering.makeObj(x));
+  });                               
+
+  $('#ordering > li').shuffle(); 
+
+  $('#ordering').sortable();                            
+  $('#ordering').disableSelection(); 
+  
+  $('#order_submit').click(Ordering.checkAnswers);
+
+  $('#revealanswers').click(function() {
+    $(this).unbind('click');
+    $('#ordering > li').remove();
+    
+    for (var i = 0, len = Ordering.rightAnswer.length; i < len; ++i) {
+      $('#ordering').append('<li class=answerholder>' + Ordering.rightAnswer[i].name + '<div class=hidden> ' + Ordering.rightAnswer[i].year + '</div></li>');
+    }
+    
+    Ordering.checkAnswers();
+  });  
+});
