@@ -1,10 +1,9 @@
 <div class="grid_8">
   <div class="curlycurly">
-    <p>So you think you're good with words? Prove it.
-  \    
+    <p>So you think you're good with words? Prove it. 
     <p>
 <div id="sidebar" class="grid_4">
-  \^{loginpanel}
+  ^{loginpanel}
 <div .clear>
 <div .grid_12>
   <ul class="noliststyle homepageoptions">
@@ -19,4 +18,3 @@
       <li>
         <a class="black" href="@{EightLetterAnagramsR index IdentifyTextType}">Eight Letter Anagrams
     <div .clear>
-    \
