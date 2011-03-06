@@ -9,5 +9,5 @@
     <div class="grid_2 listheader">LYRICS
     <ul class="grid_4 noliststyle">
       <li>
-        <a class="black" href="@{BeatlesLyricsR index AssociateType}">Beatles Lyrics
+        <a .black href="@{BeatlesLyricsR index AssociateType}">Beatles Lyrics
     <div .clear>

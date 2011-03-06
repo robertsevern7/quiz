@@ -9,5 +9,5 @@
     <div class="grid_2 listheader">USA
     <ul class="grid_4 noliststyle">
       <li>
-        <a class="black" href="@{USPresidentsOrderR index OrderType}">Order of Inauguration of US Presidents
+        <a .black href="@{USPresidentsOrderR index OrderType}">Order of Inauguration of US Presidents
     <div .clear>
