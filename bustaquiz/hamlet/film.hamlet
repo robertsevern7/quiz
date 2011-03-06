@@ -1,8 +1,7 @@
-<div class="grid_8">
-  <div class="curlycurly">
+<div .grid_8>
+  <div .curlycurly>
     <p>Are you feeling lucky, punk?
-    <p>
-<div id="sidebar" class="grid_4">
+<div #sidebar .grid_4>
   ^{loginpanel}
 <div .clear>
 <div .grid_12>
@@ -10,18 +9,17 @@
     <div class="grid_2 listheader">TAGLINES
     <ul class="grid_4 noliststyle">
       <li>
-        <a class="black" href="@{TaglinesR index AssociateType}">Film Taglines
+        <a .black href="@{TaglinesR index AssociateType}">Film Taglines
       <li>
-        <a class="black" href="@{TaglinesR index IdentifyMultipleType}">Trickier Film Taglines
+        <a .black href="@{TaglinesR index IdentifyMultipleType}">Trickier Film Taglines
     <div .clear>
-    <p>
   <ul class="noliststyle homepageoptions">
     <div class="grid_2 listheader">QUOTES
     <ul class="grid_4 noliststyle">
       <li>
-        <a class="black" href="@{QuoteSelectionR index AssociateType}">Quotes
+        <a .black href="@{QuoteSelectionR index AssociateType}">Quotes
       <li>
-        <a class="black" href="@{QuoteSelectionR index IdentifyMultipleType}">Trickier Quotes
+        <a .black href="@{QuoteSelectionR index IdentifyMultipleType}">Trickier Quotes
       <li>
-        <a class="black" href="@{QuoteSelectionR index IdentifyTextType}">Quote Ladder
+        <a .black href="@{QuoteSelectionR index IdentifyTextType}">Quote Ladder
     <div .clear>

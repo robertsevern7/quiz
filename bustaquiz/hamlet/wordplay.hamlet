@@ -1,8 +1,7 @@
-<div class="grid_8">
-  <div class="curlycurly">
+<div .grid_8>
+  <div .curlycurly>
     <p>So you think you're good with words? Prove it. 
-    <p>
-<div id="sidebar" class="grid_4">
+<div #sidebar .grid_4>
   ^{loginpanel}
 <div .clear>
 <div .grid_12>
@@ -10,11 +9,11 @@
     <div class="grid_2 black listheader">ANAGRAMS
     <ul class="grid_4 noliststyle">
       <li>
-        <a class="black" href="@{FiveLetterAnagramsR index IdentifyTextType}">Five Letter Anagrams
+        <a .black href="@{FiveLetterAnagramsR index IdentifyTextType}">Five Letter Anagrams
       <li>
-        <a class="black" href="@{SixLetterAnagramsR index IdentifyTextType}">Six Letter Anagrams
+        <a .black href="@{SixLetterAnagramsR index IdentifyTextType}">Six Letter Anagrams
       <li>
-        <a class="black" href="@{SevenLetterAnagramsR index IdentifyTextType}">Seven Letter Anagrams
+        <a .black href="@{SevenLetterAnagramsR index IdentifyTextType}">Seven Letter Anagrams
       <li>
-        <a class="black" href="@{EightLetterAnagramsR index IdentifyTextType}">Eight Letter Anagrams
+        <a .black href="@{EightLetterAnagramsR index IdentifyTextType}">Eight Letter Anagrams
     <div .clear>
