@@ -1,16 +1,16 @@
-<div class="grid_8">
-  <div class="curlycurly">
+<div .grid_8>
+  <div .curlycurly>
     <p>A random collection of questions
-\
     <p>
-      <ul class="noliststyle homepageoptions">
-        <div class="grid_2 listheader">PUB QUIZ
-        <ul class="grid_4 noliststyle">
-          <li>
-            <a class="black" href="@{RandomPubQuizR index IdentifyMultipleType}">Random Pub Quiz
-          <li>
-            <a class="black" href="@{RandomPubQuizR index IdentifyTextType}">Pub Quiz Ladder
-        <div .clear>
-            \
-<div id="sidebar" class="grid_4">
-    \^{loginpanel}    
+<div #sidebar .grid_4>
+  ^{loginpanel}
+<div .clear>
+<div .grid_12>
+  <ul class="noliststyle homepageoptions">
+    <div class="grid_2 listheader">PUB QUIZ
+    <ul class="grid_4 noliststyle">
+      <li>
+        <a class="black" href="@{RandomPubQuizR index IdentifyMultipleType}">Random Pub Quiz
+      <li>
+        <a class="black" href="@{RandomPubQuizR index IdentifyTextType}">Pub Quiz Ladder
+    <div .clear>
