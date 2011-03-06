@@ -1,5 +1,5 @@
-<div class="grid_8">
-  <div class="curlycurly">
+<div .grid_8>
+  <div .curlycurly>
     <p>bustaquiz provides a near infinite set of questions to tax your brain.  We cover a huge range of subjects (and if we don't cover something you are interested in then please contact us!).  You can use bustaquiz for a quick quiz, to revise specific subjects, or just to demonstrate that you do know more random trivia than everyone else!
 
     <p>bustaquiz grabs information from various sources all over the web, massages the data and generates questions.  If you've got any ideas for another kind of quiz we can add, then please contact us and we'll see what we can do!
@@ -7,74 +7,65 @@
     <p>
       <a href="@{AuthR LoginR}">Login
       \ and pick from one of the following categories to get a randomly selected question.
-<div id="sidebar" class="grid_4">
-    \^{loginpanel}
+<div #sidebar .grid_4>
+  ^{loginpanel}
 <div .clear>
 <div .grid_12>
   <ul class="noliststyle homepageoptions">
     <a class="grid_2 black listheader" href="@{WordplayR}">WORDPLAY
     <ul class="grid_4 noliststyle">
       <li>
-        <a class="black" href="@{FiveLetterAnagramsR index IdentifyTextType}">Five Letter Anagrams
+        <a .black href="@{FiveLetterAnagramsR index IdentifyTextType}">Five Letter Anagrams
       <li>
-        <a class="black" href="@{SixLetterAnagramsR index IdentifyTextType}">Six Letter Anagrams
+        <a .black href="@{SixLetterAnagramsR index IdentifyTextType}">Six Letter Anagrams
       <li>
-        <a class="black" href="@{SevenLetterAnagramsR index IdentifyTextType}">Seven Letter Anagrams
+        <a .black href="@{SevenLetterAnagramsR index IdentifyTextType}">Seven Letter Anagrams
       <li>
-        <a class="black" href="@{EightLetterAnagramsR index IdentifyTextType}">Eight Letter Anagrams
+        <a .black href="@{EightLetterAnagramsR index IdentifyTextType}">Eight Letter Anagrams
     <div .clear>
-    \
-  \
   <ul class="noliststyle homepageoptions">
     <a class="grid_2 black listheader" href="@{FilmR}">FILM
     <ul class="grid_4 noliststyle">
       <li>
-        <a class="black" href="@{TaglinesR index AssociateType}">Film Taglines
+        <a .black href="@{TaglinesR index AssociateType}">Film Taglines
       <li>
-        <a class="black" href="@{TaglinesR index IdentifyMultipleType}">Trickier Film Taglines
+        <a .black href="@{TaglinesR index IdentifyMultipleType}">Trickier Film Taglines
       <li>
-        <a class="black" href="@{QuoteSelectionR index AssociateType}">Quotes
+        <a .black href="@{QuoteSelectionR index AssociateType}">Quotes
       <li>
-        <a class="black" href="@{QuoteSelectionR index IdentifyMultipleType}">Trickier Quotes
+        <a .black href="@{QuoteSelectionR index IdentifyMultipleType}">Trickier Quotes
       <li>
-        <a class="black" href="@{QuoteSelectionR index IdentifyTextType}">Quote Ladder
+        <a .black href="@{QuoteSelectionR index IdentifyTextType}">Quote Ladder
     <div .clear>
-    \
-  \
   <ul class="noliststyle homepageoptions">
     <a class="grid_2 black listheader" href="@{PubQuizR}">PUB QUIZ
     <ul class="grid_4 noliststyle">
       <li>
-        <a class="black" href="@{RandomPubQuizR index IdentifyMultipleType}">Random Pub Quiz
+        <a .black href="@{RandomPubQuizR index IdentifyMultipleType}">Random Pub Quiz
       <li>
-        <a class="black" href="@{RandomPubQuizR index IdentifyTextType}">Pub Quiz Ladder
+        <a .black href="@{RandomPubQuizR index IdentifyTextType}">Pub Quiz Ladder
     <div .clear>
-  \
   <ul class="noliststyle homepageoptions">
     <a class="grid_2 black listheader" href="@{GeographyR}">GEOGRAPHY
     <ul class="grid_4 noliststyle">
       <li>
-        <a class="black" href="@{CapitalsR index AssociateType}">Capitals of the World
+        <a .black href="@{CapitalsR index AssociateType}">Capitals of the World
       <li>
-        <a class="black" href="@{CapitalsR index IdentifyMultipleType}">Capitals of the World Hard
+        <a .black href="@{CapitalsR index IdentifyMultipleType}">Capitals of the World Hard
       <li>
-        <a class="black" href="@{StateFlagsR index IdentifyType}">U.S. State Flags
+        <a .black href="@{StateFlagsR index IdentifyType}">U.S. State Flags
       <li>
-        <a class="black" href="@{CountryFlagsR index IdentifyType}">Flags of the World
+        <a .black href="@{CountryFlagsR index IdentifyType}">Flags of the World
     <div .clear>
-    \
-  \    
   <ul class="noliststyle homepageoptions">     
     <a class="grid_2 black listheader" href="@{MusicR}">MUSIC
     <ul class="grid_4 noliststyle">       <li>
-      <a class="black" href="@{BeatlesLyricsR index AssociateType}">Beatles Lyrics
+      <li>      
+        <a .black href="@{BeatlesLyricsR index AssociateType}">Beatles Lyrics
     <div .clear>
-    \
-  \
   <ul class="noliststyle homepageoptions">
     <a class="grid_2 black listheader" href="@{HistoryR}">HISTORY
     <ul class="grid_4 noliststyle">
       <li>
-        <a class="black" href="@{USPresidentsOrderR index OrderType}">Order of Inauguration of US Presidents
+        <a .black href="@{USPresidentsOrderR index OrderType}">Order of Inauguration of US Presidents
     <div .clear>
-    \
