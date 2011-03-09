@@ -1,13 +1,11 @@
 <div class="clear">
 <div class="grid_12">
   <div class="curlycurly">
-    \#{description}
-\
+    #{description}
 <div class="push_4 grid_8">
-  <ul id="ordering">
+  <ul #ordering>
     $forall p <- ordering
       <li class="answerholder pointer">#{fst p}
-        <div class="hidden">#{snd p}        
-  <button id="order_submit" class="ourbutton">Check
-\
+        <div .hidden>#{snd p}        
+  <button #order_submit .ourbutton>Check
 <div .clear>
