@@ -3,29 +3,29 @@
 <html>
     <head>
         <title>#{pageTitle pc}
-        \^{pageHead pc}
+        ^{pageHead pc}
         <link rel="stylesheet" href="@{StaticR s960_css}" type="text/css" media="all">
         <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/base/jquery-ui.css" type="text/css" media="all">
     <body>
-      <div class="container_12">
+      <div .container_12>
         <div class="grid_12 header">
-          <div class="menu">
+          <div .menu>
             <a class="mainname white prefix_0" href="@{RootR}">bustaquiz
             <a class="white small" href="@{RootR}">&nbsp&nbsp&nbsp&nbsp Stupid people look away now
             <a class="headerlinks white prefix_4" href="@{RootR}">Home
             <a class="headerlinks white prefix_1" href="mailto:busta@quiz.com">Contact Us
         <div .clear>
         <div class="grid_12 header">
-          <div class="menu">
+          <div .menu>
             <a class="headerlinks white prefix_0" href="@{WordplayR}">Wordplay
             <a class="headerlinks white prefix_1" href="@{FilmR}">Film
             <a class="headerlinks white prefix_1" href="@{PubQuizR}">Pub Quiz
             <a class="headerlinks white prefix_1" href="@{GeographyR}">Geography
             <a class="headerlinks white prefix_1" href="@{MusicR}">Music
             <a class="headerlinks white prefix_1" href="@{HistoryR}">History
-        <div id="maincontent">
-          \^{pageBody pc}
-        <div class="grid_12 footer">
-          <h1 class="menu">
+        <div #maincontent>
+          ^{pageBody pc}
+        <div class="grid_12">
+          <h1 class="footer menu">
             <a class="white prefix_0" href="@{RootR}">bustaquiz
             <a class="white prefix_7" href="mailto:busta@quiz.com">Brought to you by Jeff and Rob industries
