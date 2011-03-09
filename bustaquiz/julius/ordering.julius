@@ -11,10 +11,11 @@ Ordering = {
     checkAnswers: function() {
       $('#ordering > li').each(function(i,x) {
         attemptedAnswer = Ordering.makeObj(x);
-        if (attemptedAnswer.name === Ordering.rightAnswer[i].name || attemptedAnswer.name === Ordering.rightAnswer[i].name + ' - ' + Ordering.rightAnswer[i].year) {
+
+        if (attemptedAnswer.name === Ordering.rightAnswer[i].name || attemptedAnswer.name === Ordering.rightAnswer[i].name + ', ' + Ordering.rightAnswer[i].year) {
           $(x).removeClass('answer_wrong');
           $(x).addClass('answer_correct');
-          $(x).text(Ordering.rightAnswer[i].name + ' - ' + Ordering.rightAnswer[i].year);
+          $(x).text(Ordering.rightAnswer[i].name + ', ' + Ordering.rightAnswer[i].year);
         } else {
           $(x).removeClass('answer_correct');
           $(x).addClass('answer_wrong');
