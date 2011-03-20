@@ -195,7 +195,7 @@ questions = [
   ("My life is as good as an Abba song. It's as good as Dancing Queen.","Muriel's Wedding"),
   ("Guns are for show. Knives are for pros.","Lock, Stock, and Two Smoking Barrels"),
   ("I shall call him Squishy. And he shall be mine. And he shall be MY Squishy.","Finding Nemo"),
-  ("I'll sleep with you for a meatball.","ictor/Victoria"),
+  ("I'll sleep with you for a meatball.","Victor/Victoria"),
   ("Follow me, or perish, sweater monkeys.","ring it On"),
   ("What's a nubian?","Chasing Amy"),
   ("Hokey religions and ancient weapons are no match for a good blaster by your side, kid.","Star Wars"),
