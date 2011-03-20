@@ -57,12 +57,6 @@
       <li>
         <a .black href="@{CountryFlagsR index IdentifyType}">Flags of the World
     <div .clear>
-  <ul class="noliststyle homepageoptions">     
-    <a class="grid_2 black listheader" href="@{MusicR}">MUSIC
-    <ul class="grid_4 noliststyle">
-      <li>      
-        <a .black href="@{BeatlesLyricsR index AssociateType}">Beatles Lyrics
-    <div .clear>
   <ul class="noliststyle homepageoptions">
     <a class="grid_2 black listheader" href="@{HistoryR}">HISTORY
     <ul class="grid_4 noliststyle">
