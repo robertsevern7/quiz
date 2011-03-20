@@ -1,16 +1,14 @@
-<div class="clear">
-<div class="grid_12">
-  <div class="curlycurly">
-    \#{description}
-  <div id="totalcount" class="curlycurly">
-    \Total Correct in a row:
-\
+<div .clear>
+<div .grid_12>
+  <div .curlycurly>
+    #{description}
+  <div #totalcount .curlycurly content="Total Correct in a row:">
 <div class="push_2 grid_8 center">
-  <div class="puzzle">
-    \#{question}
-  <div class="hidden">
+  <div .puzzle>
+    #{question}
+  <div .hidden>
     $maybe l <- link
-      <a class="black" href="#{l}">#{answer}
+      <a .black href="#{l}">#{answer}
     $nothing
-      \#{answer}
-  <input type="text" id="answer_box" class="padding">
+      #{answer}
+  <input type="text" #answer_box .padding>
