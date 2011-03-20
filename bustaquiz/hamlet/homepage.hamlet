@@ -24,12 +24,12 @@
         <a .black href="@{EightLetterAnagramsR index IdentifyTextType}">Eight Letter Anagrams
     <div .clear>
   <ul class="noliststyle homepageoptions">
-    <a class="grid_2 black listheader" href="@{FilmR}">FILM
+    <a class="grid_2 black listheader" href="@{FilmR}">MOVIE
     <ul class="grid_4 noliststyle">
       <li>
-        <a .black href="@{TaglinesR index AssociateType}">Film Taglines
+        <a .black href="@{TaglinesR index AssociateType}">Taglines
       <li>
-        <a .black href="@{TaglinesR index IdentifyMultipleType}">Trickier Film Taglines
+        <a .black href="@{TaglinesR index IdentifyMultipleType}">Trickier Taglines
       <li>
         <a .black href="@{QuoteSelectionR index AssociateType}">Quotes
       <li>
@@ -38,12 +38,12 @@
         <a .black href="@{QuoteSelectionR index IdentifyTextType}">Quote Ladder
     <div .clear>
   <ul class="noliststyle homepageoptions">
-    <a class="grid_2 black listheader" href="@{PubQuizR}">PUB QUIZ
+    <a class="grid_2 black listheader" href="@{PubQuizR}">POT LUCK
     <ul class="grid_4 noliststyle">
       <li>
-        <a .black href="@{RandomPubQuizR index IdentifyMultipleType}">Random Pub Quiz
+        <a .black href="@{RandomPubQuizR index IdentifyMultipleType}">Random Selection
       <li>
-        <a .black href="@{RandomPubQuizR index IdentifyTextType}">Pub Quiz Ladder
+        <a .black href="@{RandomPubQuizR index IdentifyTextType}">Quiz Ladder
     <div .clear>
   <ul class="noliststyle homepageoptions">
     <a class="grid_2 black listheader" href="@{GeographyR}">GEOGRAPHY

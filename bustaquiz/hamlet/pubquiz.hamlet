@@ -6,10 +6,10 @@
 <div .clear>
 <div .grid_12>
   <ul class="noliststyle homepageoptions">
-    <div class="grid_2 listheader">PUB QUIZ
+    <div class="grid_2 listheader">POT LUCK
     <ul class="grid_4 noliststyle">
       <li>
-        <a .black href="@{RandomPubQuizR index IdentifyMultipleType}">Random Pub Quiz
+        <a .black href="@{RandomPubQuizR index IdentifyMultipleType}">Random Selection
       <li>
-        <a .black href="@{RandomPubQuizR index IdentifyTextType}">Pub Quiz Ladder
+        <a .black href="@{RandomPubQuizR index IdentifyTextType}">Quiz Ladder
     <div .clear>

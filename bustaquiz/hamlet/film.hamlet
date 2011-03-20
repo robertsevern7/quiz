@@ -9,17 +9,17 @@
     <div class="grid_2 listheader">TAGLINES
     <ul class="grid_4 noliststyle">
       <li>
-        <a .black href="@{TaglinesR index AssociateType}">Film Taglines
+        <a .black href="@{TaglinesR index AssociateType}">Match the Movie
       <li>
-        <a .black href="@{TaglinesR index IdentifyMultipleType}">Trickier Film Taglines
+        <a .black href="@{TaglinesR index IdentifyMultipleType}">Guess the Movie
     <div .clear>
   <ul class="noliststyle homepageoptions">
     <div class="grid_2 listheader">QUOTES
     <ul class="grid_4 noliststyle">
       <li>
-        <a .black href="@{QuoteSelectionR index AssociateType}">Quotes
+        <a .black href="@{QuoteSelectionR index AssociateType}">Match the Movie
       <li>
-        <a .black href="@{QuoteSelectionR index IdentifyMultipleType}">Trickier Quotes
+        <a .black href="@{QuoteSelectionR index IdentifyMultipleType}">Guess the Movie
       <li>
         <a .black href="@{QuoteSelectionR index IdentifyTextType}">Quote Ladder
     <div .clear>
