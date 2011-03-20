@@ -34,12 +34,17 @@ instance QuestionMaker FilmTaglines where
       selectedFilms <- rndSelect seed films 10
       tagLines <- getTaglineFilmList selectedFilms
       let hidden = hideFilmNames tagLines
-      return $ Just (Associate "Match the films with their taglines" hidden)        
+      return $ Just (Associate "Match the movies with their taglines" hidden)        
     generateQuestion seed IdentifyMultipleType (FilmTaglines films) = do
       selectedFilms <- rndSelect seed films 10
       tagLines <- getTaglineFilmList selectedFilms    
       let hidden = hideFilmNames tagLines
-      return $ Just (Associate "Name the films from the taglines" hidden)
+      return $ Just (Associate "Name the movies from the taglines" hidden)
+    generateQuestion seed IdentifyTextType (FilmTaglines films) = do
+      films <- rndSelect seed films 1
+      tagLines <- getTaglineFilmList films      
+      let hidden = redact $ head tagLines
+      return $ Just (uncurry (IdentifyText "Name the movie from the tagline") hidden Nothing)
     generateQuestion _ _ _ = return Nothing
 
 hideFilmNames :: [(String,String)] -> [(String,String)]

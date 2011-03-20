@@ -12,6 +12,8 @@
         <a .black href="@{TaglinesR index AssociateType}">Match the Movie
       <li>
         <a .black href="@{TaglinesR index IdentifyMultipleType}">Guess the Movie
+      <li>
+        <a .black href="@{TaglinesR index IdentifyTextType}">The Ladder
     <div .clear>
   <ul class="noliststyle homepageoptions">
     <div class="grid_2 listheader">QUOTES
@@ -21,5 +23,5 @@
       <li>
         <a .black href="@{QuoteSelectionR index IdentifyMultipleType}">Guess the Movie
       <li>
-        <a .black href="@{QuoteSelectionR index IdentifyTextType}">Quote Ladder
+        <a .black href="@{QuoteSelectionR index IdentifyTextType}">The Ladder
     <div .clear>
