@@ -106,6 +106,7 @@ instance Yesod Quiz where
             widget
             addScriptRemote Settings.jqueryURL
             addScriptRemote Settings.jqueryUIURL
+            addJulius $(Settings.juliusFile "jquery.cookie")
             addCassius $(Settings.cassiusFile "default-layout")
             addJulius $(Settings.juliusFile "default-layout")
         hamletToRepHtml $(Settings.hamletFile "default-layout")
