@@ -79,7 +79,7 @@ shuffle' xs gen = runST (do
     newArray n =  newListArray (1,n)  
     
 shuffleIO :: Int -> [a] -> IO [a]
-shuffleIO seed xs = getStdRandom (shuffle' xs)
+shuffleIO seed xs = return $ fst $ shuffle' xs (mkStdGen seed)
 
 -- TODO This doesn't use the seed!
 -- |Given a seed, select n items at random from the supplied list
