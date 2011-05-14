@@ -15,6 +15,7 @@ import Control.Monad
 import Control.Monad.ST
 import Data.STRef
 import Web.Routes.Quasi (SinglePiece,toSinglePiece,fromSinglePiece)
+import qualified Data.Text as T
 
 -- TODO This is awful?
 -- The various types of questions that we have
@@ -26,9 +27,9 @@ data QuestionType = AssociateType
                   deriving (Show,Read,Eq)
                            
 instance SinglePiece QuestionType where
-  toSinglePiece = show
+  toSinglePiece = T.pack . show
   -- TODO errr, error handling and important stuff like that?  return (Left x) on error
-  fromSinglePiece x = Right (read x)
+  fromSinglePiece x = Just (read (T.unpack x))
                                                                
 
 -- TODO some of these question types are less than self-explanatory

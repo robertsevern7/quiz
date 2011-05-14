@@ -10,6 +10,7 @@ import Yesod.Helpers.Static
 import Yesod.Helpers.Auth
 import Database.Persist.GenericSql
 import Data.ByteString (ByteString)
+import Data.Dynamic (Dynamic, toDyn)
 
 -- Relevant handlers
 import Handler.Root
@@ -40,7 +41,6 @@ getFaviconR = sendFile "image/x-icon" "favicon.ico"
 getRobotsR :: Handler RepPlain
 getRobotsR = return $ RepPlain $ toContent ("User-agent: *" :: ByteString)
 
-
 -- This function allocates resources (such as a database connection pool),
 -- performs initialization and creates a WAI application. This is also the
 -- place to put your migrate statements to have automatic database
@@ -55,3 +55,6 @@ withQuiz f = Settings.withConnectionPool $ \pool -> do
     toWaiApp h >>= f
   where
     s = static Settings.staticdir -- fileLookupDir Settings.staticdir typeByExt
+
+withDevelApp :: Dynamic
+withDevelApp = toDyn (withQuiz :: (Application -> IO ()) -> IO ())

@@ -7,10 +7,11 @@ module Exception (
 
 import Control.Exception (Exception)
 import Data.Typeable (Typeable)
+import Data.Text (Text)
 
 data QuizException = QuizException {
-  message :: String,
-  internal :: String
+  message :: Text,
+  internal :: Text
 } deriving (Show,Typeable)
 
 instance Exception QuizException

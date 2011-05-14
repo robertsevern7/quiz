@@ -1,4 +1,4 @@
-{-# LANGUAGE QuasiQuotes, TemplateHaskell, TypeFamilies #-}
+{-# LANGUAGE QuasiQuotes, TemplateHaskell, TypeFamilies, OverloadedStrings #-}
 module Quiz
     ( Quiz (..)
     , QuizRoute (..)
@@ -23,7 +23,6 @@ import Yesod.Helpers.Auth.Email
 import qualified Settings
 import System.Directory
 import qualified Data.ByteString.Lazy as L
-import Web.Routes.Site (Site (formatPathSegments))
 import Database.Persist.GenericSql
 import Settings (hamletFile, cassiusFile, juliusFile)
 import Model
@@ -31,6 +30,7 @@ import Data.Maybe (isJust)
 import Control.Monad (join,unless)
 import Network.Mail.Mime
 import Text.Jasmine (minifym)
+import qualified Data.Text as T
 import qualified Data.Text.Lazy
 import qualified Data.Text.Lazy.Encoding
 
@@ -93,39 +93,7 @@ type Widget = GWidget Quiz Quiz
 -- for our application to be in scope. However, the handler functions
 -- usually require access to the QuizRoute datatype. Therefore, we
 -- split these actions into two functions and place them in separate files.
-mkYesodData "Quiz" [parseRoutes|                    
-/static StaticR Static getStatic
-/auth   AuthR   Auth   getAuth
-
-/favicon.ico FaviconR GET
-/robots.txt RobotsR GET
-
-/ RootR GET
-
-/wordplay WordplayR GET
-/wordplay/anagrams/five/#Int/#QuestionType FiveLetterAnagramsR GET
-/wordplay/anagrams/six/#Int/#QuestionType SixLetterAnagramsR GET
-/wordplay/anagrams/seven/#Int/#QuestionType SevenLetterAnagramsR GET
-/wordplay/anagrams/eight/#Int/#QuestionType EightLetterAnagramsR GET
-
-/geography GeographyR GET
-/geography/countries/capitals/#Int/#QuestionType CapitalsR GET
-/geography/countries/flags/#Int/#QuestionType CountryFlagsR GET
-/geography/USA/states/flags/#Int/#QuestionType StateFlagsR GET
-
-/music MusicR GET
-/music/lyrics/beatles/#Int/#QuestionType BeatlesLyricsR GET
-
-/film FilmR GET
-/film/taglines/#Int/#QuestionType TaglinesR GET
-/film/quotes/#Int/#QuestionType QuoteSelectionR GET
-
-/history HistoryR GET
-/history/usa/presidents/inauguration/#Int/#QuestionType USPresidentsOrderR GET
-
-/pubquiz PubQuizR GET
-/pubquiz/random/#Int/#QuestionType RandomPubQuizR GET
-|]
+mkYesodData "Quiz" $(parseRoutesFile "config/routes")
 
 -- Please see the documentation for the Yesod typeclass. There are a number
 -- of settings which can be configured by overriding methods here.
@@ -141,7 +109,7 @@ instance Yesod Quiz where
             addCassius $(Settings.cassiusFile "default-layout")
             addJulius $(Settings.juliusFile "default-layout")
         hamletToRepHtml $(Settings.hamletFile "default-layout")
-    
+        
     -- This is done to provide an optimization for serving static files from
     -- a separate domain. Please see the staticroot setting in Settings.hs
     urlRenderOverride a (StaticR s) =
@@ -156,7 +124,7 @@ instance Yesod Quiz where
     -- expiration dates to be set far in the future without worry of
     -- users receiving stale content.
     addStaticContent ext' _ content = do
-        let fn = base64md5 content ++ '.' : ext'
+        let fn = base64md5 content ++ '.' : T.unpack ext'
         let content' =
                 if ext' == "js"
                     then case minifym content of
@@ -168,7 +136,7 @@ instance Yesod Quiz where
         let fn' = statictmp ++ fn
         exists <- liftIO $ doesFileExist fn'
         unless exists $ liftIO $ L.writeFile fn' content'
-        return $ Just $ Right (StaticR $ StaticRoute ["tmp", fn] [], [])
+        return $ Just $ Right (StaticR $ StaticRoute ["tmp", T.pack fn] [], [])
 
 -- How to run database actions.
 instance YesodPersist Quiz where
@@ -191,18 +159,12 @@ instance YesodAuth Quiz where
             Nothing -> do
                 fmap Just $ insert $ User (credsIdent creds) Nothing
 
-    showAuthId _ = showIntegral
-    readAuthId _ = readIntegral
-
     authPlugins = [ authOpenId
                   , authEmail
                   ]
 
 instance YesodAuthEmail Quiz where
     type AuthEmailId Quiz = EmailId
-
-    showAuthEmailId _ = showIntegral
-    readAuthEmailId _ = readIntegral
 
     addUnverified email verkey =
         runDB $ insert $ Email email Nothing $ Just verkey
@@ -220,10 +182,10 @@ instance YesodAuthEmail Quiz where
             , partEncoding = None
             , partFilename = Nothing
             , partContent = Data.Text.Lazy.Encoding.encodeUtf8
-                          $ Data.Text.Lazy.pack $ unlines
+                          $ Data.Text.Lazy.unlines
                 [ "Please confirm your email address by clicking on the link below."
                 , ""
-                , verurl
+                , Data.Text.Lazy.fromChunks [verurl]
                 , ""
                 , "Thank you"
                 ]
@@ -236,7 +198,7 @@ instance YesodAuthEmail Quiz where
             , partContent = renderHtml [hamlet|
 <p>Please confirm your email address by clicking on the link below.
 <p>
-    <a href=#{verurl} #{verurl}
+    <a href=#{verurl}>#{verurl}
 <p>Thank you
 |]
             , partHeaders = []
