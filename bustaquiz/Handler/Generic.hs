@@ -35,11 +35,11 @@ questionWidget (AssociateType) route (Associate description pairs) = do
   addJulius $(juliusFile "hover")
   addJulius $(juliusFile "text")
   
-  -- Actual code
   addHamlet $(hamletFile "associate")
   addHamlet $(hamletFile "buttons")
   addCassius $(cassiusFile "associate")
   addJulius $(juliusFile "associate")
+  addJulius $(juliusFile "ladder")
   
 questionWidget (OrderType) route (Order description ordering) = do
   addJulius $(juliusFile "shuffle")
@@ -49,6 +49,7 @@ questionWidget (OrderType) route (Order description ordering) = do
   addCassius $(cassiusFile "ordering")
   addJulius $(juliusFile "ordering")
   addJulius $(juliusFile "hover")
+  addJulius $(juliusFile "ladder")
 
 questionWidget (IdentifyType) route (Identify description resource answer) = do
   addJulius $(juliusFile "text")
@@ -57,6 +58,7 @@ questionWidget (IdentifyType) route (Identify description resource answer) = do
   addHamlet $(hamletFile "buttons")
   addCassius $(cassiusFile "identify")
   addJulius $(juliusFile "identify")
+  addJulius $(juliusFile "ladder")
 
 questionWidget (IdentifyTextType) route (IdentifyText description question answer link) = do
   addJulius $(juliusFile "text")
@@ -64,6 +66,7 @@ questionWidget (IdentifyTextType) route (IdentifyText description question answe
   addHamlet $(hamletFile "identifyText")
   addHamlet $(hamletFile "buttons")
   addJulius $(juliusFile "identify")
+  addJulius $(juliusFile "ladder")
   
 questionWidget (IdentifyMultipleType) route (Associate description pairs) = do
   addJulius $(juliusFile "text")
@@ -71,3 +74,4 @@ questionWidget (IdentifyMultipleType) route (Associate description pairs) = do
   addHamlet $(hamletFile "identifyMultiple")
   addHamlet $(hamletFile "buttons")
   addJulius $(juliusFile "identifyMultiple")
+  addJulius $(juliusFile "ladder")
