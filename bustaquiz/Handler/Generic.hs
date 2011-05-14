@@ -1,4 +1,4 @@
-{-# LANGUAGE QuasiQuotes, OverloadedStrings, TemplateHaskell #-}
+{-# LANGUAGE QuasiQuotes, OverloadedStrings, TemplateHaskell, TypeFamilies #-}
 module Handler.Generic (
   runQuestion,
   questionWidget,
@@ -26,11 +26,9 @@ genericRoute seed questionType quizFunc nextFn = do
     -- TODO Push this into the type system?
     (Right Nothing) -> invalidArgs ["Failed to generate a question of the specified type", "Failed to generate question", show questionType]
 
--- TODO Bad things happen if I put a type signature in place here.
--- TODO Not entirely sure why I can't get rid of the repetition here      
--- TODO Something to do with Template Haskell
 -- Display the question as a widget
 --TODO this needs to switch on QuestionType
+questionWidget :: (Monad m, Route master ~ QuizRoute) => QuestionType -> t -> Question -> GGWidget sub master m ()
 questionWidget (AssociateType) route (Associate description pairs) = do
   -- External requirements
   addJulius $(juliusFile "shuffle")
