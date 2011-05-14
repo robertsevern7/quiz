@@ -81,7 +81,6 @@ shuffle' xs gen = runST (do
 shuffleIO :: Int -> [a] -> IO [a]
 shuffleIO seed xs = return $ fst $ shuffle' xs (mkStdGen seed)
 
--- TODO This doesn't use the seed!
 -- |Given a seed, select n items at random from the supplied list
 rndSelect :: Int -> [a] -> Int -> IO [a]
 rndSelect seed xs n 
