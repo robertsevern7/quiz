@@ -9,6 +9,7 @@ import Logic
 import Exception
 import Quiz 
 import System.Random
+import qualified Data.Text as T
 
 runQuestion :: QuestionMaker a => Int -> QuestionType -> a -> IO (Either QuizException (Maybe Question))
 runQuestion seed questionType qm = try (evaluate =<< generateQuestion seed questionType qm)
@@ -24,10 +25,10 @@ genericRoute quizFunc nextFn seed questionType = do
     (Right (Just question)) -> defaultLayout $ addWidget (questionWidget questionType (nextFn next questionType) question)
     -- TODO more information needed?
     -- TODO Push this into the type system?
-    (Right Nothing) -> invalidArgs ["Failed to generate a question of the specified type", "Failed to generate question", show questionType]
+    (Right Nothing) -> invalidArgs ["Failed to generate a question of the specified type", "Failed to generate question", T.pack $ show questionType]
 
 -- Display the question as a widget
-questionWidget :: (Monad m, Route master ~ QuizRoute) => QuestionType -> t -> Question -> GGWidget sub master m ()
+--questionWidget :: (Monad m, Route master ~ QuizRoute) => QuestionType -> t -> Question -> GGWidget sub master m ()
 questionWidget (AssociateType) route (Associate description pairs) = do
   -- External requirements
   addJulius $(juliusFile "shuffle")
