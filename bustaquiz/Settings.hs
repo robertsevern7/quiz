@@ -11,6 +11,7 @@ module Settings
     , cassiusFile
     , juliusFile
     , luciusFile
+    , widgetFile
     , connStr
     , ConnectionPool
     , withConnectionPool
