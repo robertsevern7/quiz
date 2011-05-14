@@ -13,15 +13,7 @@ import Data.ByteString (ByteString)
 
 -- Relevant handlers
 import Handler.Root
-import Handler.Anagrams
-import Handler.Capital
-import Handler.BeatlesLyrics
-import Handler.USPresidentsOrder
-import Handler.StateFlags
-import Handler.CountryFlags
-import Handler.Taglines
-import Handler.PubQuiz
-import Handler.MovieQuotes
+import Handler.Quizzes
 
 -- Quiz makers
 import Anagram (fiveLetterAnagrams, sixLetterAnagrams, sevenLetterAnagrams, eightLetterAnagrams)
