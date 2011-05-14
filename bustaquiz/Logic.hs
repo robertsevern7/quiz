@@ -78,8 +78,8 @@ shuffle' xs gen = runST (do
     newArray :: Int -> [a] -> ST s (STArray s Int a)
     newArray n =  newListArray (1,n)  
     
-shuffleIO :: [a] -> IO [a]
-shuffleIO xs = getStdRandom (shuffle' xs)
+shuffleIO :: Int -> [a] -> IO [a]
+shuffleIO seed xs = getStdRandom (shuffle' xs)
 
 -- TODO This doesn't use the seed!
 -- |Given a seed, select n items at random from the supplied list
@@ -87,5 +87,5 @@ rndSelect :: Int -> [a] -> Int -> IO [a]
 rndSelect seed xs n 
   | n < 0     = error "N must be greater than zero."
   | otherwise = do
-    shuffle' <- shuffleIO xs
+    shuffle' <- shuffleIO seed xs
     return $ take n shuffle'
