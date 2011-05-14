@@ -80,6 +80,7 @@ shuffle' xs gen = runST (do
 shuffleIO :: [a] -> IO [a]
 shuffleIO xs = getStdRandom (shuffle' xs)
 
+-- TODO This doesn't use the seed!
 -- |Given a seed, select n items at random from the supplied list
 rndSelect :: Int -> [a] -> Int -> IO [a]
 rndSelect seed xs n 
@@ -87,5 +88,3 @@ rndSelect seed xs n
   | otherwise = do
     shuffle' <- shuffleIO xs
     return $ take n shuffle'
-
-    
