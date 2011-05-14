@@ -8,18 +8,20 @@ import Control.Exception (try,evaluate)
 import Logic
 import Exception
 import Quiz 
+import System.Random
 
 runQuestion :: QuestionMaker a => Int -> QuestionType -> a -> IO (Either QuizException (Maybe Question))
 runQuestion seed questionType qm = try (evaluate =<< generateQuestion seed questionType qm)
                                              
 -- TODO - Should I try to set the title here?
-genericRoute :: QuestionMaker a => Int -> QuestionType -> (Quiz -> a) -> QuizRoute -> Handler RepHtml
-genericRoute seed questionType quizFunc next = do
+genericRoute :: QuestionMaker a => Int -> QuestionType -> (Quiz -> a) -> (Int -> QuizRoute) -> Handler RepHtml
+genericRoute seed questionType quizFunc nextFn = do
   quiz <- getYesod
   generatedQuestion <- liftIO $ runQuestion seed questionType (quizFunc quiz) 
+  next <- liftIO $ getStdRandom (randomR (1,10000000))
   case generatedQuestion of
     (Left ex) -> invalidArgs ["Failed to generate valid question.", message ex, internal ex]
-    (Right (Just question)) -> defaultLayout $ addWidget (questionWidget questionType next question)
+    (Right (Just question)) -> defaultLayout $ addWidget (questionWidget questionType (nextFn next) question)
     -- TODO more information needed?
     -- TODO Push this into the type system?
     (Right Nothing) -> invalidArgs ["Failed to generate a question of the specified type", "Failed to generate question", show questionType]
