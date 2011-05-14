@@ -5,38 +5,38 @@ import Logic (QuestionType,QuestionMaker)
 import Handler.Generic (genericRoute)
 
 getFiveLetterAnagramsR :: Int -> QuestionType -> Handler RepHtml
-getFiveLetterAnagramsR seed questionType = genericRoute seed questionType fiveLetter (`FiveLetterAnagramsR` questionType)
+getFiveLetterAnagramsR = genericRoute fiveLetter FiveLetterAnagramsR
 
 getSixLetterAnagramsR :: Int -> QuestionType -> Handler RepHtml
-getSixLetterAnagramsR seed questionType = genericRoute seed questionType sixLetter (`SixLetterAnagramsR` questionType)
+getSixLetterAnagramsR = genericRoute sixLetter SixLetterAnagramsR
 
 getSevenLetterAnagramsR :: Int -> QuestionType -> Handler RepHtml
-getSevenLetterAnagramsR seed questionType = genericRoute seed questionType sevenLetter (`SevenLetterAnagramsR` questionType)
+getSevenLetterAnagramsR = genericRoute sevenLetter SevenLetterAnagramsR
 
 getEightLetterAnagramsR :: Int -> QuestionType -> Handler RepHtml
-getEightLetterAnagramsR seed questionType = genericRoute seed questionType eightLetter (`EightLetterAnagramsR` questionType)
+getEightLetterAnagramsR = genericRoute eightLetter EightLetterAnagramsR
 
 getRandomPubQuizR :: Int -> QuestionType ->  Handler RepHtml
-getRandomPubQuizR seed questionType = genericRoute seed questionType randomPubQuiz (`RandomPubQuizR` questionType)
+getRandomPubQuizR = genericRoute randomPubQuiz RandomPubQuizR
 
 getQuoteSelectionR :: Int -> QuestionType ->  Handler RepHtml
-getQuoteSelectionR seed questionType = genericRoute seed questionType quoteSelection (`QuoteSelectionR` questionType)
+getQuoteSelectionR = genericRoute quoteSelection QuoteSelectionR
 
 getStateFlagsR :: Int -> QuestionType -> Handler RepHtml
-getStateFlagsR seed questionType = genericRoute seed questionType stateFlags (`StateFlagsR` questionType)
+getStateFlagsR = genericRoute stateFlags StateFlagsR
 
 getUSPresidentsOrderR :: Int -> QuestionType ->  Handler RepHtml
-getUSPresidentsOrderR seed questionType = genericRoute seed questionType presidentOrder (`USPresidentsOrderR` questionType)
+getUSPresidentsOrderR = genericRoute presidentOrder USPresidentsOrderR
 
 getTaglinesR :: Int -> QuestionType ->  Handler RepHtml
-getTaglinesR seed questionType = genericRoute seed questionType filmTaglines (`TaglinesR` questionType)
+getTaglinesR = genericRoute filmTaglines TaglinesR
 
 getCountryFlagsR :: Int -> QuestionType -> Handler RepHtml
-getCountryFlagsR seed questionType = genericRoute seed questionType countryFlags (`CountryFlagsR` questionType)
+getCountryFlagsR = genericRoute countryFlags CountryFlagsR
 
 getCapitalsR :: Int -> QuestionType -> Handler RepHtml
-getCapitalsR seed questionType = genericRoute seed questionType whichCapital (`CapitalsR` questionType)
+getCapitalsR = genericRoute whichCapital CapitalsR
 
 getBeatlesLyricsR :: Int -> QuestionType -> Handler RepHtml
-getBeatlesLyricsR seed questionType = genericRoute seed questionType beatlesLyrics (`BeatlesLyricsR` questionType)
+getBeatlesLyricsR = genericRoute beatlesLyrics BeatlesLyricsR
     
