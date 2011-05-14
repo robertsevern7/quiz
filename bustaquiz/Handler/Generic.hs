@@ -27,7 +27,6 @@ genericRoute seed questionType quizFunc nextFn = do
     (Right Nothing) -> invalidArgs ["Failed to generate a question of the specified type", "Failed to generate question", show questionType]
 
 -- Display the question as a widget
---TODO this needs to switch on QuestionType
 questionWidget :: (Monad m, Route master ~ QuizRoute) => QuestionType -> t -> Question -> GGWidget sub master m ()
 questionWidget (AssociateType) route (Associate description pairs) = do
   -- External requirements
