@@ -7,6 +7,6 @@ import Handler.Generic (genericRoute)
 import System.Random
 
 getCapitalsR :: Int -> QuestionType -> Handler RepHtml
-getCapitalsR seed questionType = genericRoute seed questionType whichCapital (\x -> CapitalsR x questionType)
+getCapitalsR seed questionType = genericRoute seed questionType whichCapital (`CapitalsR` questionType)
 
 
