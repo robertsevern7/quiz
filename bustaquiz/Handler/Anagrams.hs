@@ -2,26 +2,18 @@
 module Handler.Anagrams where
 
 import Quiz
-import Logic (QuestionType)
+import Logic (QuestionType,QuestionMaker)
 import Handler.Generic (genericRoute)
 import System.Random
 
 getFiveLetterAnagramsR :: Int -> QuestionType -> Handler RepHtml
-getFiveLetterAnagramsR seed questionType = do
-  next <- liftIO $ getStdRandom (randomR (1,10000000))
-  genericRoute seed questionType fiveLetter (FiveLetterAnagramsR next questionType)
+getFiveLetterAnagramsR seed questionType = genericRoute seed questionType fiveLetter (\x -> FiveLetterAnagramsR x questionType)
 
 getSixLetterAnagramsR :: Int -> QuestionType -> Handler RepHtml
-getSixLetterAnagramsR seed questionType = do
-  next <- liftIO $ getStdRandom (randomR (1,10000000))  
-  genericRoute seed questionType sixLetter (SixLetterAnagramsR next questionType)
+getSixLetterAnagramsR seed questionType = genericRoute seed questionType sixLetter (\x -> SixLetterAnagramsR x questionType)
 
 getSevenLetterAnagramsR :: Int -> QuestionType -> Handler RepHtml
-getSevenLetterAnagramsR seed questionType = do
-  next <- liftIO $ getStdRandom (randomR (1,10000000))  
-  genericRoute seed questionType sevenLetter (SevenLetterAnagramsR next questionType)
+getSevenLetterAnagramsR seed questionType = genericRoute seed questionType sevenLetter (\x -> SevenLetterAnagramsR x questionType)
 
 getEightLetterAnagramsR :: Int -> QuestionType -> Handler RepHtml
-getEightLetterAnagramsR seed questionType = do
-  next <- liftIO $ getStdRandom (randomR (1,10000000))
-  genericRoute seed questionType eightLetter (EightLetterAnagramsR next questionType)
+getEightLetterAnagramsR seed questionType = genericRoute seed questionType eightLetter (\x -> EightLetterAnagramsR x questionType)

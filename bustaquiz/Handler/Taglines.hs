@@ -7,7 +7,5 @@ import Handler.Generic (genericRoute)
 import System.Random
 
 getTaglinesR :: Int -> QuestionType ->  Handler RepHtml
-getTaglinesR seed questionType = do
-  next <- liftIO $ getStdRandom (randomR (1,10000000))
-  genericRoute seed questionType filmTaglines (TaglinesR next questionType)
+getTaglinesR seed questionType = genericRoute seed questionType filmTaglines (\x -> TaglinesR x questionType)
 

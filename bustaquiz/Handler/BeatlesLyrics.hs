@@ -7,7 +7,5 @@ import Handler.Generic (genericRoute)
 import System.Random
 
 getBeatlesLyricsR :: Int -> QuestionType -> Handler RepHtml
-getBeatlesLyricsR seed questionType = do
-  next <- liftIO $ getStdRandom (randomR (1,10000000))
-  genericRoute seed questionType beatlesLyrics (BeatlesLyricsR next questionType)
+getBeatlesLyricsR seed questionType = genericRoute seed questionType beatlesLyrics (\x -> BeatlesLyricsR x questionType)
     

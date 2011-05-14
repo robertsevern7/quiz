@@ -7,6 +7,4 @@ import Handler.Generic (genericRoute)
 import System.Random
 
 getStateFlagsR :: Int -> QuestionType -> Handler RepHtml
-getStateFlagsR seed questionType = do
-  next <- liftIO $ getStdRandom (randomR (1,10000000))
-  genericRoute seed questionType stateFlags (StateFlagsR next questionType)
+getStateFlagsR seed questionType = genericRoute seed questionType stateFlags (\x -> StateFlagsR x questionType)

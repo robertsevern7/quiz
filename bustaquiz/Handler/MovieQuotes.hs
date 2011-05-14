@@ -7,6 +7,4 @@ import Handler.Generic (genericRoute)
 import System.Random
 
 getQuoteSelectionR :: Int -> QuestionType ->  Handler RepHtml
-getQuoteSelectionR seed questionType = do
-  next <- liftIO $ getStdRandom (randomR (1,10000000))
-  genericRoute seed questionType quoteSelection (QuoteSelectionR next questionType)
+getQuoteSelectionR seed questionType = genericRoute seed questionType quoteSelection (\x -> QuoteSelectionR x questionType)

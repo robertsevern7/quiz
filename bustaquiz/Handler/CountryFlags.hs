@@ -7,6 +7,4 @@ import Handler.Generic (genericRoute)
 import System.Random
 
 getCountryFlagsR :: Int -> QuestionType -> Handler RepHtml
-getCountryFlagsR seed questionType = do
-  next <- liftIO $ getStdRandom (randomR (1,10000000))
-  genericRoute seed questionType countryFlags (CountryFlagsR next questionType)
+getCountryFlagsR seed questionType = genericRoute seed questionType countryFlags (\x -> CountryFlagsR x questionType)
