@@ -3,14 +3,7 @@ $(document).ready(function() {
   $('ourbutton').button();
 
   $('#nextquestion').click(function() {
-    var currentLocation = window.location.href;
-    var pathName = window.location.pathname.split('/');
-    // TODO Gulp, this is terribly bad..
-    pathName[pathName.length - 2] = parseInt(pathName[pathName.length - 2]) + 1;
-    var newPath = '';
-    for (var i=0;i<pathName.length;++i) {
-      newPath += pathName[i] + '/';
-    }
-    window.location.href = window.location.protocol + "//" + window.location.host + newPath;
+    // Relies on the ladder hamlet being imported
+    window.location.href = $('#nextURL')[0].href;
   });
 });
