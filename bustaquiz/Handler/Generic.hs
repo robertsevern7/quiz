@@ -61,7 +61,6 @@ questionWidget (IdentifyTextType) route (IdentifyText description question answe
   addWidget $(widgetFile "identifyText")
   addWidget $(widgetFile "buttons")
   addJulius $(juliusFile "identify") -- TODO This can't be a widget because it breaks - WHY?
-  addWidget $(widgetFile "ladder")
   
 questionWidget (IdentifyMultipleType) route (Associate description pairs) = do
   addWidget $(widgetFile "text")
