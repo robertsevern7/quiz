@@ -5,6 +5,7 @@ $(document).ready(function() {
             $(this).unbind('keyup');
             $('#answer_box').fadeOut(function() {
                 $('.hidden').removeClass('hidden').addClass('answerholder answer_correct');
+            $('#totalcount').text($('#totalcount').attr('content') + (Identify.getTotalCorrect() + 1));
             });
         }       
     });
@@ -23,7 +24,7 @@ $(document).ready(function() {
     
     $('#answer_box').focus();
 
-    $('#totalcount').text($('#totalcount').text() + Identify.getTotalCorrect());
+    $('#totalcount').text($('#totalcount').attr('content') + Identify.getTotalCorrect());
 });
 
 Identify = {
