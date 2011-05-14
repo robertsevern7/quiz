@@ -31,52 +31,41 @@ genericRoute quizFunc nextFn seed questionType = do
 --questionWidget :: (Monad m, Route master ~ QuizRoute) => QuestionType -> t -> Question -> GGWidget sub master m ()
 questionWidget (AssociateType) route (Associate description pairs) = do
   -- External requirements
-  addJulius $(juliusFile "shuffle")
-  addJulius $(juliusFile "hover")
-  addJulius $(juliusFile "text")
+  addWidget $(widgetFile "shuffle")
+  addWidget $(widgetFile "hover")
+  addWidget $(widgetFile "text")
   
-  addHamlet $(hamletFile "ladder")
-  addHamlet $(hamletFile "associate")
-  addHamlet $(hamletFile "buttons")
-  addCassius $(cassiusFile "associate")
-  addJulius $(juliusFile "associate")
-  addJulius $(juliusFile "ladder")
+  addWidget $(widgetFile "ladder")
+  addWidget $(widgetFile "associate")
+  addWidget $(widgetFile "buttons")
+
   
 questionWidget (OrderType) route (Order description ordering) = do
-  addJulius $(juliusFile "shuffle")
+  addWidget $(widgetFile "shuffle")
 
-  addHamlet $(hamletFile "ladder")
-  addHamlet $(hamletFile "ordering")
-  addHamlet $(hamletFile "buttons")
-  addCassius $(cassiusFile "ordering")
-  addJulius $(juliusFile "ordering")
-  addJulius $(juliusFile "hover")
-  addJulius $(juliusFile "ladder")
+  addWidget $(widgetFile "ladder")
+  addWidget $(widgetFile "ordering")
+  addWidget $(widgetFile "buttons")
+  addWidget $(widgetFile "hover")
 
 questionWidget (IdentifyType) route (Identify description resource answer) = do
-  addJulius $(juliusFile "text")
+  addWidget $(widgetFile "text")
   
-  addHamlet $(hamletFile "ladder")  
-  addHamlet $(hamletFile "identify")
-  addHamlet $(hamletFile "buttons")
-  addCassius $(cassiusFile "identify")
-  addJulius $(juliusFile "identify")
-  addJulius $(juliusFile "ladder")
+  addWidget $(widgetFile "ladder")  
+  addWidget $(widgetFile "identify")
+  addWidget $(widgetFile "buttons")
 
 questionWidget (IdentifyTextType) route (IdentifyText description question answer link) = do
-  addJulius $(juliusFile "text")
-  
-  addHamlet $(hamletFile "ladder")
-  addHamlet $(hamletFile "identifyText")
-  addHamlet $(hamletFile "buttons")
-  addJulius $(juliusFile "identify")
-  addJulius $(juliusFile "ladder")
+  addWidget $(widgetFile "text")
+  addWidget $(widgetFile "ladder")
+  addWidget $(widgetFile "identifyText")
+  addWidget $(widgetFile "buttons")
+  addJulius $(juliusFile "identify") -- TODO This can't be a widget because it breaks - WHY?
+  addWidget $(widgetFile "ladder")
   
 questionWidget (IdentifyMultipleType) route (Associate description pairs) = do
-  addJulius $(juliusFile "text")
+  addWidget $(widgetFile "text")
   
-  addHamlet $(hamletFile "ladder")
-  addHamlet $(hamletFile "identifyMultiple")
-  addHamlet $(hamletFile "buttons")
-  addJulius $(juliusFile "identifyMultiple")
-  addJulius $(juliusFile "ladder")
+  addWidget $(widgetFile "ladder")
+  addWidget $(widgetFile "identifyMultiple")
+  addWidget $(widgetFile "buttons")
