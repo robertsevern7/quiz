@@ -1,0 +1,13 @@
+<div .grid_8>
+  <div .curlycurly>
+    <p>Thank you for the music?
+<div #sidebar .grid_4>
+  ^{loginpanel}
+<div .clear>
+<div .grid_12>
+  <ul class="noliststyle homepageoptions">
+    <div class="grid_2 listheader">LYRICS
+    <ul class="grid_4 noliststyle">
+      <li>
+        <a .black href="@{BeatlesLyricsR index AssociateType}">Beatles Lyrics
+    <div .clear>

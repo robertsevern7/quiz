@@ -1,0 +1,14 @@
+<div .clear>
+<div .grid_12>
+  <div .curlycurly>
+    #{description}
+  <div #totalcount .curlycurly content="Total Correct in a row:">
+<div class="push_2 grid_8 center">
+  <div .puzzle>
+    #{question}
+  <div .hidden>
+    $maybe l <- link
+      <a .black href="#{l}">#{answer}
+    $nothing
+      #{answer}
+  <input type="text" #answer_box .padding>

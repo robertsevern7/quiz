@@ -1,0 +1,27 @@
+<div .grid_8>
+  <div .curlycurly>
+    <p>Are you feeling lucky, punk?
+<div #sidebar .grid_4>
+  ^{loginpanel}
+<div .clear>
+<div .grid_12>
+  <ul class="noliststyle homepageoptions">
+    <div class="grid_2 listheader">TAGLINES
+    <ul class="grid_4 noliststyle">
+      <li>
+        <a .black href="@{TaglinesR index AssociateType}">Match the Movie
+      <li>
+        <a .black href="@{TaglinesR index IdentifyMultipleType}">Guess the Movie
+      <li>
+        <a .black href="@{TaglinesR index IdentifyTextType}">The Ladder
+    <div .clear>
+  <ul class="noliststyle homepageoptions">
+    <div class="grid_2 listheader">QUOTES
+    <ul class="grid_4 noliststyle">
+      <li>
+        <a .black href="@{QuoteSelectionR index AssociateType}">Match the Movie
+      <li>
+        <a .black href="@{QuoteSelectionR index IdentifyMultipleType}">Guess the Movie
+      <li>
+        <a .black href="@{QuoteSelectionR index IdentifyTextType}">The Ladder
+    <div .clear>

@@ -1,0 +1,65 @@
+<div .grid_8>
+  <div .curlycurly>
+    <p>bustaquiz provides a near infinite set of questions to tax your brain.  We cover a huge range of subjects (and if we don't cover something you are interested in then please contact us!).  You can use bustaquiz for a quick quiz, to revise specific subjects, or just to demonstrate that you do know more random trivia than everyone else!
+
+    <p>bustaquiz grabs information from various sources all over the web, massages the data and generates questions.  If you've got any ideas for another kind of quiz we can add, then please contact us and we'll see what we can do!
+
+    <p>
+      <a href="@{AuthR LoginR}">Login
+      \ and pick from one of the following categories to get a randomly selected question.
+<div #sidebar .grid_4>
+  ^{loginpanel}
+<div .clear>
+<div .grid_12>
+  <ul class="noliststyle homepageoptions">
+    <a class="grid_2 black listheader" href="@{WordplayR}">WORDPLAY
+    <ul class="grid_4 noliststyle">
+      <li>
+        <a .black href="@{FiveLetterAnagramsR index IdentifyTextType}">Five Letter Anagrams
+      <li>
+        <a .black href="@{SixLetterAnagramsR index IdentifyTextType}">Six Letter Anagrams
+      <li>
+        <a .black href="@{SevenLetterAnagramsR index IdentifyTextType}">Seven Letter Anagrams
+      <li>
+        <a .black href="@{EightLetterAnagramsR index IdentifyTextType}">Eight Letter Anagrams
+    <div .clear>
+  <ul class="noliststyle homepageoptions">
+    <a class="grid_2 black listheader" href="@{FilmR}">MOVIE
+    <ul class="grid_4 noliststyle">
+      <li>
+        <a .black href="@{TaglinesR index AssociateType}">Taglines
+      <li>
+        <a .black href="@{TaglinesR index IdentifyMultipleType}">Trickier Taglines
+      <li>
+        <a .black href="@{QuoteSelectionR index AssociateType}">Quotes
+      <li>
+        <a .black href="@{QuoteSelectionR index IdentifyMultipleType}">Trickier Quotes
+      <li>
+        <a .black href="@{QuoteSelectionR index IdentifyTextType}">Quote Ladder
+    <div .clear>
+  <ul class="noliststyle homepageoptions">
+    <a class="grid_2 black listheader" href="@{PubQuizR}">POT LUCK
+    <ul class="grid_4 noliststyle">
+      <li>
+        <a .black href="@{RandomPubQuizR index IdentifyMultipleType}">Random Selection
+      <li>
+        <a .black href="@{RandomPubQuizR index IdentifyTextType}">Quiz Ladder
+    <div .clear>
+  <ul class="noliststyle homepageoptions">
+    <a class="grid_2 black listheader" href="@{GeographyR}">GEOGRAPHY
+    <ul class="grid_4 noliststyle">
+      <li>
+        <a .black href="@{CapitalsR index AssociateType}">Capitals of the World
+      <li>
+        <a .black href="@{CapitalsR index IdentifyMultipleType}">Capitals of the World Hard
+      <li>
+        <a .black href="@{StateFlagsR index IdentifyType}">U.S. State Flags
+      <li>
+        <a .black href="@{CountryFlagsR index IdentifyType}">Flags of the World
+    <div .clear>
+  <ul class="noliststyle homepageoptions">
+    <a class="grid_2 black listheader" href="@{HistoryR}">HISTORY
+    <ul class="grid_4 noliststyle">
+      <li>
+        <a .black href="@{USPresidentsOrderR index OrderType}">Order of Inauguration of US Presidents
+    <div .clear>

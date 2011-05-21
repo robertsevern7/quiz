@@ -1,0 +1,19 @@
+<div .grid_8>
+  <div .curlycurly>
+    <p>So you think you're good with words? Prove it. 
+<div #sidebar .grid_4>
+  ^{loginpanel}
+<div .clear>
+<div .grid_12>
+  <ul class="noliststyle homepageoptions">
+    <div class="grid_2 black listheader">ANAGRAMS
+    <ul class="grid_4 noliststyle">
+      <li>
+        <a .black href="@{FiveLetterAnagramsR index IdentifyTextType}">Five Letter Anagrams
+      <li>
+        <a .black href="@{SixLetterAnagramsR index IdentifyTextType}">Six Letter Anagrams
+      <li>
+        <a .black href="@{SevenLetterAnagramsR index IdentifyTextType}">Seven Letter Anagrams
+      <li>
+        <a .black href="@{EightLetterAnagramsR index IdentifyTextType}">Eight Letter Anagrams
+    <div .clear>

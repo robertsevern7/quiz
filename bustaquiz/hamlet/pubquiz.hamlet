@@ -1,0 +1,15 @@
+<div .grid_8>
+  <div .curlycurly>
+    <p>A random collection of questions
+<div #sidebar .grid_4>
+  ^{loginpanel}
+<div .clear>
+<div .grid_12>
+  <ul class="noliststyle homepageoptions">
+    <div class="grid_2 listheader">POT LUCK
+    <ul class="grid_4 noliststyle">
+      <li>
+        <a .black href="@{RandomPubQuizR index IdentifyMultipleType}">Random Selection
+      <li>
+        <a .black href="@{RandomPubQuizR index IdentifyTextType}">Quiz Ladder
+    <div .clear>

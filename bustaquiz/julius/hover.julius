@@ -1,0 +1,8 @@
+$(document).ready(function() {
+  $('.answerholder').hover(function() {
+    $(this).addClass('answerhover');
+  },
+  function() {
+    $(this).removeClass('answerhover');
+  });
+});

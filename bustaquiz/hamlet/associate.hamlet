@@ -1,0 +1,17 @@
+<div .clear>
+<div class="grid_12">
+  <div class="curlycurly">
+    \#{description}     
+<br>
+  <div .container_12>
+    <ul class="associatelist">
+      $forall p <- pairs
+        <li class="noliststyle">
+          <div class="grid_5 lhs answerholder pointer" hiddenvalue="#{snd p}">#{fst p}
+          <div class="grid_5 rhs answerholder pointer">
+          <div .clear>
+    <ul>
+      $forall p <- pairs
+        <li class="hidden">
+          <div class="mixedup" hiddenvalue="#{snd p}">
+<div .clear>

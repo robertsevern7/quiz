@@ -1,0 +1,8 @@
+$(document).ready(function() {
+  $('button').button();
+  $('ourbutton').button();
+
+  $('#nextquestion').click(function() {
+    window.location.href=window.location.href
+  });
+});

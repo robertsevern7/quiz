@@ -1,0 +1,14 @@
+<div .clear>
+<div class="grid_12">
+  <div class="curlycurly">
+    #{description}     
+<br>
+  <div .container_12>
+    <input type="text" #answer_box .allpadding>
+    <ul>
+      $forall p <- pairs
+        <li .noliststyle>
+          <div class="grid_5 answerholder">#{fst p}
+          <div class="grid_5 answerholder hidden">#{snd p}
+          <div .clear>
+<div .clear>

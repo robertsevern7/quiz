@@ -1,0 +1,11 @@
+<div class="clear">
+<div class="grid_12">
+  <div class="curlycurly">
+    #{description}
+<div class="push_4 grid_8">
+  <ul #ordering>
+    $forall p <- ordering
+      <li class="answerholder pointer">#{fst p}
+        <div .hidden>#{snd p}        
+  <button #order_submit .ourbutton>Check
+<div .clear>
