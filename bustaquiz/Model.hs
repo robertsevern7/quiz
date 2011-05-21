@@ -3,7 +3,7 @@ module Model where
 
 import Yesod
 import Database.Persist.TH (share2)
-import Database.Persist.GenericSql (mkMigrate)
+import Database.Persist.GenericSql
 
 -- You can define all of your database entities here. You can find more
 -- information on persistent and how to declare entities at:
