@@ -4,11 +4,13 @@
 
     <p>bustaquiz grabs information from various sources all over the web, massages the data and generates questions.  If you've got any ideas for another kind of quiz we can add, then please contact us and we'll see what we can do!
 
-    <p>
-      <a href="@{AuthR LoginR}">Login and pick from one of the following categories to get a randomly selected question.
+    <p>Login and pick from one of the following categories to get a randomly selected question.
+
 <div #sidebar .grid_4>
   ^{loginpanel}
+
 <div .clear>
+
 <div .grid_12>
   <ul class="noliststyle homepageoptions">
     <a class="grid_2 black listheader" href="@{WordplayR}">WORDPLAY
