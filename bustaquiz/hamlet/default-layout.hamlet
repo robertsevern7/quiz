@@ -21,7 +21,6 @@
             <a class="headerlinks white prefix_1" href="@{FilmR}">Movie
             <a class="headerlinks white prefix_1" href="@{PubQuizR}">Pot Luck
             <a class="headerlinks white prefix_1" href="@{GeographyR}">Geography
-            <a class="headerlinks white prefix_1" href="@{MusicR}">Music
             <a class="headerlinks white prefix_1" href="@{HistoryR}">History
         <div #maincontent>
           ^{pageBody pc}
