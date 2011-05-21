@@ -1,0 +1,31 @@
+/static StaticR Static getStatic
+/auth   AuthR   Auth   getAuth
+
+/favicon.ico FaviconR GET
+/robots.txt RobotsR GET
+
+/ RootR GET
+
+/wordplay WordplayR GET
+/wordplay/anagrams/five/#Int/#QuestionType FiveLetterAnagramsR GET
+/wordplay/anagrams/six/#Int/#QuestionType SixLetterAnagramsR GET
+/wordplay/anagrams/seven/#Int/#QuestionType SevenLetterAnagramsR GET
+/wordplay/anagrams/eight/#Int/#QuestionType EightLetterAnagramsR GET
+
+/geography GeographyR GET
+/geography/countries/capitals/#Int/#QuestionType CapitalsR GET
+/geography/countries/flags/#Int/#QuestionType CountryFlagsR GET
+/geography/USA/states/flags/#Int/#QuestionType StateFlagsR GET
+
+/music MusicR GET
+/music/lyrics/beatles/#Int/#QuestionType BeatlesLyricsR GET
+
+/film FilmR GET
+/film/taglines/#Int/#QuestionType TaglinesR GET
+/film/quotes/#Int/#QuestionType QuoteSelectionR GET
+
+/history HistoryR GET
+/history/usa/presidents/inauguration/#Int/#QuestionType USPresidentsOrderR GET
+
+/pubquiz PubQuizR GET
+/pubquiz/random/#Int/#QuestionType RandomPubQuizR GET

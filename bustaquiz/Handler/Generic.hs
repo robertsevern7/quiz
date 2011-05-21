@@ -1,4 +1,4 @@
-{-# LANGUAGE QuasiQuotes, OverloadedStrings, TemplateHaskell #-}
+{-# LANGUAGE QuasiQuotes, OverloadedStrings, TemplateHaskell, TypeFamilies #-}
 module Handler.Generic (
   runQuestion,
   questionWidget,
@@ -8,66 +8,63 @@ import Control.Exception (try,evaluate)
 import Logic
 import Exception
 import Quiz 
+import System.Random
+import qualified Data.Text as T
 
 runQuestion :: QuestionMaker a => Int -> QuestionType -> a -> IO (Either QuizException (Maybe Question))
 runQuestion seed questionType qm = try (evaluate =<< generateQuestion seed questionType qm)
                                              
 -- TODO - Should I try to set the title here?
-genericRoute :: QuestionMaker a => Int -> QuestionType -> (Quiz -> a) -> QuizRoute -> Handler RepHtml
-genericRoute seed questionType quizFunc next = do
+genericRoute :: QuestionMaker a => (Quiz -> a) -> (Int -> QuestionType -> QuizRoute) -> Int -> QuestionType -> Handler RepHtml
+genericRoute quizFunc nextFn seed questionType = do
   quiz <- getYesod
   generatedQuestion <- liftIO $ runQuestion seed questionType (quizFunc quiz) 
+  next <- liftIO $ getStdRandom (randomR (1,10000000))
   case generatedQuestion of
     (Left ex) -> invalidArgs ["Failed to generate valid question.", message ex, internal ex]
-    (Right (Just question)) -> defaultLayout $ addWidget (questionWidget questionType next question)
+    (Right (Just question)) -> defaultLayout $ addWidget (questionWidget questionType (nextFn next questionType) question)
     -- TODO more information needed?
     -- TODO Push this into the type system?
-    (Right Nothing) -> invalidArgs ["Failed to generate a question of the specified type", "Failed to generate question", show questionType]
+    (Right Nothing) -> invalidArgs ["Failed to generate a question of the specified type", "Failed to generate question", T.pack $ show questionType]
 
--- TODO Bad things happen if I put a type signature in place here.
--- TODO Not entirely sure why I can't get rid of the repetition here      
--- TODO Something to do with Template Haskell
 -- Display the question as a widget
---TODO this needs to switch on QuestionType
+--questionWidget :: (Monad m, Route master ~ QuizRoute) => QuestionType -> t -> Question -> GGWidget sub master m ()
 questionWidget (AssociateType) route (Associate description pairs) = do
   -- External requirements
-  addJulius $(juliusFile "shuffle")
-  addJulius $(juliusFile "hover")
-  addJulius $(juliusFile "text")
+  addWidget $(widgetFile "shuffle")
+  addWidget $(widgetFile "hover")
+  addWidget $(widgetFile "text")
   
-  -- Actual code
-  addHamlet $(hamletFile "associate")
-  addHamlet $(hamletFile "buttons")
-  addCassius $(cassiusFile "associate")
-  addJulius $(juliusFile "associate")
+  addWidget $(widgetFile "ladder")
+  addWidget $(widgetFile "associate")
+  addWidget $(widgetFile "buttons")
+
   
 questionWidget (OrderType) route (Order description ordering) = do
-  addJulius $(juliusFile "shuffle")
+  addWidget $(widgetFile "shuffle")
 
-  addHamlet $(hamletFile "ordering")
-  addHamlet $(hamletFile "buttons")
-  addCassius $(cassiusFile "ordering")
-  addJulius $(juliusFile "ordering")
-  addJulius $(juliusFile "hover")
+  addWidget $(widgetFile "ladder")
+  addWidget $(widgetFile "ordering")
+  addWidget $(widgetFile "buttons")
+  addWidget $(widgetFile "hover")
 
 questionWidget (IdentifyType) route (Identify description resource answer) = do
-  addJulius $(juliusFile "text")
+  addWidget $(widgetFile "text")
   
-  addHamlet $(hamletFile "identify")
-  addHamlet $(hamletFile "buttons")
-  addCassius $(cassiusFile "identify")
-  addJulius $(juliusFile "identify")
+  addWidget $(widgetFile "ladder")  
+  addWidget $(widgetFile "identify")
+  addWidget $(widgetFile "buttons")
 
 questionWidget (IdentifyTextType) route (IdentifyText description question answer link) = do
-  addJulius $(juliusFile "text")
-  
-  addHamlet $(hamletFile "identifyText")
-  addHamlet $(hamletFile "buttons")
-  addJulius $(juliusFile "identify")
+  addWidget $(widgetFile "text")
+  addWidget $(widgetFile "ladder")
+  addWidget $(widgetFile "identifyText")
+  addWidget $(widgetFile "buttons")
+  addJulius $(juliusFile "identify") -- TODO This can't be a widget because it breaks - WHY?
   
 questionWidget (IdentifyMultipleType) route (Associate description pairs) = do
-  addJulius $(juliusFile "text")
+  addWidget $(widgetFile "text")
   
-  addHamlet $(hamletFile "identifyMultiple")
-  addHamlet $(hamletFile "buttons")
-  addJulius $(juliusFile "identifyMultiple")
+  addWidget $(widgetFile "ladder")
+  addWidget $(widgetFile "identifyMultiple")
+  addWidget $(widgetFile "buttons")

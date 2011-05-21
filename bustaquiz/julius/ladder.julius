@@ -3,6 +3,7 @@ $(document).ready(function() {
   $('ourbutton').button();
 
   $('#nextquestion').click(function() {
-    window.location.href=window.location.href
+    // Relies on the ladder hamlet being imported
+    window.location.href = $('#nextURL')[0].href;
   });
 });

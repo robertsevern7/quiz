@@ -15,6 +15,7 @@ import Control.Monad
 import Control.Monad.ST
 import Data.STRef
 import Web.Routes.Quasi (SinglePiece,toSinglePiece,fromSinglePiece)
+import qualified Data.Text as T
 
 -- TODO This is awful?
 -- The various types of questions that we have
@@ -26,9 +27,9 @@ data QuestionType = AssociateType
                   deriving (Show,Read,Eq)
                            
 instance SinglePiece QuestionType where
-  toSinglePiece = show
+  toSinglePiece = T.pack . show
   -- TODO errr, error handling and important stuff like that?  return (Left x) on error
-  fromSinglePiece x = Right (read x)
+  fromSinglePiece x = Just (read (T.unpack x))
                                                                
 
 -- TODO some of these question types are less than self-explanatory
@@ -77,15 +78,13 @@ shuffle' xs gen = runST (do
     newArray :: Int -> [a] -> ST s (STArray s Int a)
     newArray n =  newListArray (1,n)  
     
-shuffleIO :: [a] -> IO [a]
-shuffleIO xs = getStdRandom (shuffle' xs)
+shuffleIO :: Int -> [a] -> IO [a]
+shuffleIO seed xs = return $ fst $ shuffle' xs (mkStdGen seed)
 
 -- |Given a seed, select n items at random from the supplied list
 rndSelect :: Int -> [a] -> Int -> IO [a]
 rndSelect seed xs n 
   | n < 0     = error "N must be greater than zero."
   | otherwise = do
-    shuffle' <- shuffleIO xs
+    shuffle' <- shuffleIO seed xs
     return $ take n shuffle'
-
-    
