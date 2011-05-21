@@ -15,13 +15,7 @@
     <a class="grid_2 black listheader" href="@{WordplayR}">WORDPLAY
     <ul class="grid_4 noliststyle">
       <li>
-        <a .black href="@{FiveLetterAnagramsR index IdentifyTextType}">Five Letter Anagrams
-      <li>
-        <a .black href="@{SixLetterAnagramsR index IdentifyTextType}">Six Letter Anagrams
-      <li>
-        <a .black href="@{SevenLetterAnagramsR index IdentifyTextType}">Seven Letter Anagrams
-      <li>
-        <a .black href="@{EightLetterAnagramsR index IdentifyTextType}">Eight Letter Anagrams
+        <a .black href="@{SixLetterAnagramsR index IdentifyTextType}">Anagrams
     <div .clear>
   <ul class="noliststyle homepageoptions">
     <a class="grid_2 black listheader" href="@{FilmR}">MOVIE
@@ -36,7 +30,9 @@
         <a .black href="@{QuoteSelectionR index IdentifyMultipleType}">Trickier Quotes
       <li>
         <a .black href="@{QuoteSelectionR index IdentifyTextType}">Quote Ladder
+
     <div .clear>
+
   <ul class="noliststyle homepageoptions">
     <a class="grid_2 black listheader" href="@{PubQuizR}">POT LUCK
     <ul class="grid_4 noliststyle">
