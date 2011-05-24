@@ -4,7 +4,6 @@ module Taglines (
   getAllFilmsWithTaglines
   ) where
 
-import Freebase
 import GenFilms
 import Logic
 
@@ -19,7 +18,10 @@ import Data.Maybe (fromJust)
 
 data FilmTaglines = FilmTaglines [String]
 
+editedFilmList :: String
 editedFilmList = "data/editedFilmList.txt"
+
+filmList :: String
 filmList = "data/filmList.txt"
 
 -- TODO replace with a big list of decent films
