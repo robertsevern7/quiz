@@ -1,15 +1,10 @@
 module GenFilms where 
 
-import Freebase (runQuery, mkSimpleQuery,wrapInQuery,mkObject)
-import Data.List (sortBy)
+import Freebase (runQuery,wrapInQuery,mkObject)
 import Control.Monad (liftM,forM)
-import Data.Maybe (fromJust,mapMaybe,listToMaybe)
-
 import Data.Object
 import Data.Object.Json
 import qualified Data.ByteString.Char8 as B
-import Data.Attempt
-import Data.Convertible.Base
 
 directorPath :: FilePath
 directorPath = "data/film/film_directors.txt"
@@ -146,8 +141,8 @@ getActors = do
   result <- runQueryAndGetResult getActorsQuery
   unmapped <- mapM fromMapping result
   elements <- mapM (\a -> fmap head (lookupObject (B.pack "id") a >>= fromSequence)) unmapped
-  result <- mapM fromMapping elements
-  values <- mapM (lookupObject (B.pack "value")) result  
+  result' <- mapM fromMapping elements
+  values <- mapM (lookupObject (B.pack "value")) result'
   z <- mapM fromScalar values
   return $ map fromJsonScalar z
   
@@ -156,36 +151,15 @@ saveActorsToDisk = do
    actors <- getActors
    writeFile actorPath (show actors)
 
--- TODO sum films if we need to
--- getBigBudgetFilms :: String -> IO [(String, Int)] -- [Object B.ByteString JsonScalar])]
+getBigBudgetFilms :: String -> IO [(String, [Object B.ByteString JsonScalar])]
 getBigBudgetFilms queryType = do
    let query = getBigBudgetFilmsQuery queryType
    queryResult <- runQueryAndGetResult query
    unmapped <- mapM fromMapping queryResult
---   return queryResult 
    forM unmapped (\x -> do
             filmId <- lookupObject (B.pack "id") x >>= fromScalar
             films <- lookupObject (B.pack "film") x >>= fromSequence
             unmappedFilms <- mapM fromMapping films
             budgets <- mapM (lookupObject (B.pack "estimated_budget")) unmappedFilms
-            unmappedBudgets <- mapM fromMapping films            
             return (fromJsonScalar filmId :: String,budgets))
 
-
-{-
-
-The following is a query to get all the films that have a valid tagline
-[
-  {
-    "id": null,
-    "limit": 5000,
-    "tagline": [
-      {
-        "optional": false,
-        "value": null
-      }
-    ],
-    "type": "/film/film"
-  }
-]​
--}
