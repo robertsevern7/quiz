@@ -1,5 +1,5 @@
 name:              BustAQuiz
-version:           0.0.0
+version:           0.0.1
 license:           BSD3
 license-file:      LICENSE
 author:            Jeff Foster / Robert Severn
@@ -19,17 +19,6 @@ Flag production
 Flag devel
     Description:   Build for use with "yesod devel"
     Default:       False
-
-library
-    if flag(devel)
-        Buildable: True
-    else
-        Buildable: False
-    exposed-modules: Controller
-    hs-source-dirs: .
-    other-modules:   Settings
-                     StaticFiles
-                     Handler.Root
 
 executable         BustaQuiz
     if flag(devel)
