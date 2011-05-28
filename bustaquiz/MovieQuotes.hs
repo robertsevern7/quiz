@@ -5,24 +5,19 @@ module MovieQuotes (
 
 import Logic
 
-data Quote = Quote {
-    quote :: String
-  , movie :: String
-}
-
 quoteSelection :: QuoteSelection
-quoteSelection = QuoteSelection questions
+quoteSelection = QuoteSelection 
 
-data QuoteSelection = QuoteSelection [(String, String)]
+data QuoteSelection = QuoteSelection
 
 instance QuestionMaker QuoteSelection where
-  generateQuestion seed AssociateType (QuoteSelection questions) = do
+  generateQuestion seed AssociateType QuoteSelection = do
     quoteList <- rndSelect seed questions 10
     return $ Just (Associate "Match these quotes to the film" quoteList)
-  generateQuestion seed IdentifyMultipleType (QuoteSelection questions) = do
+  generateQuestion seed IdentifyMultipleType QuoteSelection = do
     quoteList <- rndSelect seed questions 10
     return $ Just (Associate "Name the films from these quotes" quoteList)
-  generateQuestion seed IdentifyTextType (QuoteSelection questions) = do
+  generateQuestion seed IdentifyTextType QuoteSelection  = do
     question <- chooseFromList seed questions
     return $ Just (uncurry (IdentifyText "Name the film from the quote") question Nothing)
   generateQuestion _ _ _ = return Nothing

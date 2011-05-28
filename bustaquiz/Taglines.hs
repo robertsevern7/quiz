@@ -4,7 +4,6 @@ module Taglines (
   getAllFilmsWithTaglines
   ) where
 
-import Freebase
 import GenFilms
 import Logic
 
@@ -19,7 +18,10 @@ import Data.Maybe (fromJust)
 
 data FilmTaglines = FilmTaglines [String]
 
+editedFilmList :: String
 editedFilmList = "data/editedFilmList.txt"
+
+filmList :: String
 filmList = "data/filmList.txt"
 
 -- TODO replace with a big list of decent films
@@ -41,8 +43,8 @@ instance QuestionMaker FilmTaglines where
       let hidden = hideFilmNames tagLines
       return $ Just (Associate "Name the movies from the taglines" hidden)
     generateQuestion seed IdentifyTextType (FilmTaglines films) = do
-      films <- rndSelect seed films 1
-      tagLines <- getTaglineFilmList films      
+      films' <- rndSelect seed films 1
+      tagLines <- getTaglineFilmList films'
       let hidden = redact $ head tagLines
       return $ Just (uncurry (IdentifyText "Name the movie from the tagline") hidden Nothing)
     generateQuestion _ _ _ = return Nothing
@@ -76,14 +78,14 @@ getTopFilms = do
   results <- runQueryAndGetResult topFilms
   forM results (\x -> do
                    item <- fromSequence $ fromJust $ fromMapping x >>= lookup (B.pack "item")
-                   id <- fromScalar $ fromJust $ fromMapping (head item) >>= lookup (B.pack "id")
-                   return $ fromJsonScalar id)
+                   idn <- fromScalar $ fromJust $ fromMapping (head item) >>= lookup (B.pack "id")
+                   return $ fromJsonScalar idn)
                    
 saveTopFilmListToDisk :: IO()
 saveTopFilmListToDisk = do
     taglineFilms <- getAllFilmsWithTaglines
-    topFilms <- getTopFilms
-    let list = taglineFilms `intersect` topFilms
+    topFilms' <- getTopFilms
+    let list = taglineFilms `intersect` topFilms'
     writeFile filmList (show list)
     
 saveFilmListToDisk :: [String] -> IO ()

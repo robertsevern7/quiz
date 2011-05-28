@@ -124,7 +124,7 @@ connectionCount = 10
 -- used; to get the same auto-loading effect, it is recommended that you
 -- use the devel server.
 
-toHamletFile, toCassiusFile, toJuliusFile :: String -> FilePath
+toHamletFile, toCassiusFile, toJuliusFile, toLuciusFile :: String -> FilePath
 toHamletFile x = "hamlet/" ++ x ++ ".hamlet"
 toCassiusFile x = "cassius/" ++ x ++ ".cassius"
 toJuliusFile x = "julius/" ++ x ++ ".julius"

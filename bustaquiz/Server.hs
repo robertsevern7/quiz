@@ -1,6 +1,4 @@
 {-# LANGUAGE CPP #-}
-module Server where
-
 #if PRODUCTION
 import Controller (withQuiz)
 import Network.Wai.Handler.Warp (run)

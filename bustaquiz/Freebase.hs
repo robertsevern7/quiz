@@ -1,7 +1,6 @@
 module Freebase (
                  mkSimpleQuery
                 ,wrapInQuery
---                ,runSimpleQuery
                 ,runQuery
                 ,touch
                 ,status
@@ -11,7 +10,6 @@ module Freebase (
                 ) where
 
 import Network.HTTP
-import Control.Monad
 import Control.Arrow ((***))
 
 import Data.Object
@@ -52,6 +50,7 @@ wrapInQuery x = toJsonObject $ Mapping [(B.pack "query", Sequence [x])]
 mkSimpleQuery :: [(String,JsonScalar)] -> JsonObject
 mkSimpleQuery = wrapInQuery . mkObject
 
+directorQuery :: Object String JsonScalar
 directorQuery = Mapping [
   ("id", Scalar JsonNull),
   ("name", Scalar JsonNull),

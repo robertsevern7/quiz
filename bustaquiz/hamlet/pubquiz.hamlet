@@ -1,8 +1,6 @@
 <div .grid_8>
   <div .curlycurly>
     <p>A random collection of questions
-<div #sidebar .grid_4>
-  ^{loginpanel}
 <div .clear>
 <div .grid_12>
   <ul class="noliststyle homepageoptions">
