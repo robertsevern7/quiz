@@ -32,6 +32,7 @@ getRootR = do
         setTitle "bustaquiz homepage"
         addCassius $(cassiusFile "homepage")
         addWidget $(hamletFile "homepage")
+        addJulius $(juliusFile "quizMenu")
 
 getWordplayR :: Handler RepHtml
 getWordplayR = do

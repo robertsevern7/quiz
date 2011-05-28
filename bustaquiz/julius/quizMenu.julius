@@ -1,0 +1,29 @@
+$(document).ready(function() {
+
+  $('.quizlink').hover(function() {
+    var that = $(this);
+    that.addClass('waiting');
+    setTimeout(function() {
+      setHref('.ladderlink', 'ladder', that);
+      setHref('.matchlink', 'match', that);
+      setHref('.multilink', 'multi', that);
+      setHref('.orderlink', 'order', that);
+
+      $('.quizmenu').removeClass('hidden'); 
+      $('.quizlink.waiting').removeClass('waiting');
+    }, 600);
+
+    function setHref(linkClass, attribute, hoverNode) {
+      var value = hoverNode.attr(attribute);
+
+      if (value) {
+        $(linkClass).attr('href', value);
+        $(linkClass).show();  
+      }
+      else {
+        $(linkClass).hide();
+      }
+        
+    }
+  });
+});
