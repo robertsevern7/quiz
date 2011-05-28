@@ -19,21 +19,13 @@
     <div .clear>
   <ul class="noliststyle homepageoptions">
     <a class="grid_2 black listheader" href="@{FilmR}">MOVIE
-    <ul class="grid_4 noliststyle">
+    <ul class="grid_4 noliststyle quizholder">
       <li>
         <a class="black quizlink" href=# ladder="@{TaglinesR index IdentifyTextType}" match="@{TaglinesR index AssociateType}" multi="@{TaglinesR index IdentifyMultipleType}">Taglines
       <li>
         <a class="black quizlink" href=# ladder="@{QuoteSelectionR index IdentifyTextType}" match="@{QuoteSelectionR index AssociateType}" multi="@{QuoteSelectionR index IdentifyMultipleType}">Quotes
 
-    <ul class="grid_2 noliststyle quizmenu hidden">
-      <li>
-        <a class="black ladderlink" href="#">The Ladder
-      <li>
-        <a class="black matchlink" href="#">Match Up
-      <li> 
-        <a class="black multilink" href="#">MultiQuiz
-      <li> 
-        <a class="black orderlink" href="#">Reorder
+   <!--menu here-->
 
     <div .clear>
 
