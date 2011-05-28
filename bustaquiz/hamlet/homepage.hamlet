@@ -21,15 +21,19 @@
     <a class="grid_2 black listheader" href="@{FilmR}">MOVIE
     <ul class="grid_4 noliststyle">
       <li>
-        <a .black href="@{TaglinesR index AssociateType}">Taglines
+        <a class="black quizlink" href=# ladder="@{TaglinesR index IdentifyTextType}" match="@{TaglinesR index AssociateType}" multi="@{TaglinesR index IdentifyMultipleType}">Taglines
       <li>
-        <a .black href="@{TaglinesR index IdentifyMultipleType}">Trickier Taglines
+        <a class="black quizlink" href=# ladder="@{QuoteSelectionR index IdentifyTextType}" match="@{QuoteSelectionR index AssociateType}" multi="@{QuoteSelectionR index IdentifyMultipleType}">Quotes
+
+    <ul class="grid_2 noliststyle quizmenu hidden">
       <li>
-        <a .black href="@{QuoteSelectionR index AssociateType}">Quotes
+        <a class="black ladderlink" href="#">The Ladder
       <li>
-        <a .black href="@{QuoteSelectionR index IdentifyMultipleType}">Trickier Quotes
-      <li>
-        <a .black href="@{QuoteSelectionR index IdentifyTextType}">Quote Ladder
+        <a class="black matchlink" href="#">Match Up
+      <li> 
+        <a class="black multilink" href="#">MultiQuiz
+      <li> 
+        <a class="black orderlink" href="#">Reorder
 
     <div .clear>
 
