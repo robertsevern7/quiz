@@ -4,7 +4,6 @@ $(document).ready(function() {
     var that = $(this);
     that.addClass('waiting');
     setTimeout(function() {
-      //$(^{quizmenu}).insertAfter(that.parents('.quizholder'));
 
       setHref('.ladderlink', 'ladder', that);
       setHref('.matchlink', 'match', that);
