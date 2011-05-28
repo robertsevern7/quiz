@@ -1,8 +1,6 @@
 <div .grid_8>
   <div .curlycurly>
     <p>So you think you're good with words? Prove it. 
-<div #sidebar .grid_4>
-  ^{loginpanel}
 <div .clear>
 <div .grid_12>
   <ul class="noliststyle homepageoptions">

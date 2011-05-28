@@ -6,28 +6,23 @@
 import Logic
 import Data.Char
 
-data PubQuestion = PubQuestion {
-    question :: String
-  , answer :: String
-}
-
 randomPubQuiz :: RandomPubQuiz
-randomPubQuiz = RandomPubQuiz questions
+randomPubQuiz = RandomPubQuiz 
 
-data RandomPubQuiz = RandomPubQuiz [(String, String)]
+data RandomPubQuiz = RandomPubQuiz
 
 instance QuestionMaker RandomPubQuiz where
-  generateQuestion seed IdentifyMultipleType (RandomPubQuiz questions) = do
+  generateQuestion seed IdentifyMultipleType RandomPubQuiz = do
     questionShortlist <- rndSelect seed questions 10
     return $ Just (Associate "Answer these questions" questionShortlist)
-  generateQuestion seed IdentifyTextType (RandomPubQuiz questions) = do
+  generateQuestion seed IdentifyTextType RandomPubQuiz = do
     question <- chooseFromList seed questions
     return $ Just (uncurry (IdentifyText "Answer this question") question Nothing)
   generateQuestion _ _ _ = return Nothing
 
 correctQuestionsCase :: [(String,String)] -> IO()
-correctQuestionsCase questions = do 
-    let corrected = map caseTuple questions
+correctQuestionsCase q = do 
+    let corrected = map caseTuple q
     writeFile "data/correctedPubQuiz.txt" (show corrected)
 
 caseTuple :: (String, String) -> (String,String)

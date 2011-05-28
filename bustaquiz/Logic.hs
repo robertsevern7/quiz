@@ -9,8 +9,8 @@ module Logic (
   ) where
 
 import Yesod.Helpers.Static -- Too much coupling?
-import System.Random (mkStdGen,random,getStdRandom,randomR,StdGen)
-import Data.Array.ST
+import System.Random (mkStdGen,randomR,StdGen)
+import Data.Array.ST (readArray,writeArray,STArray,newListArray)
 import Control.Monad
 import Control.Monad.ST
 import Data.STRef
@@ -76,7 +76,7 @@ shuffle' xs gen = runST (do
   where
     n = length xs
     newArray :: Int -> [a] -> ST s (STArray s Int a)
-    newArray n =  newListArray (1,n)  
+    newArray x =  newListArray (1,x)  
     
 shuffleIO :: Int -> [a] -> IO [a]
 shuffleIO seed xs = return $ fst $ shuffle' xs (mkStdGen seed)

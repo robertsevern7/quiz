@@ -1,7 +1,7 @@
 module Handler.Quizzes where
 
 import Quiz
-import Logic (QuestionType,QuestionMaker)
+import Logic (QuestionType)
 import Handler.Generic (genericRoute)
 
 getFiveLetterAnagramsR :: Int -> QuestionType -> Handler RepHtml
