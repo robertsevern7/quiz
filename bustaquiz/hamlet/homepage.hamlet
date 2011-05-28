@@ -6,9 +6,6 @@
 
     <p>Login and pick from one of the following categories to get a randomly selected question.
 
-<div #sidebar .grid_4>
-  ^{loginpanel}
-
 <div .clear>
 
 <div .grid_12>

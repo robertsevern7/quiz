@@ -24,71 +24,50 @@ getIndex = getStdRandom (randomR (1,2000000))
 
 getRootR :: Handler RepHtml
 getRootR = do
-    mu <- maybeAuth
     defaultLayout $ do
-        h2id <- lift newIdent
         index <- liftIO getIndex
-        let loginpanel = $(hamletFile "loginpanel")
         setTitle "bustaquiz homepage"
         addCassius $(cassiusFile "homepage")
         addWidget $(hamletFile "homepage")
 
 getWordplayR :: Handler RepHtml
 getWordplayR = do
-    mu <- maybeAuth
     defaultLayout $ do
-        h2id <- lift newIdent
         index <- liftIO getIndex
-        let loginpanel = $(hamletFile "loginpanel")
         addCassius $(cassiusFile "homepage")
         addWidget $(hamletFile "wordplay")
         
 getGeographyR :: Handler RepHtml
 getGeographyR = do
-    mu <- maybeAuth
     defaultLayout $ do
-        h2id <- lift newIdent
         index <- liftIO getIndex
-        let loginpanel = $(hamletFile "loginpanel")
         addCassius $(cassiusFile "homepage")
         addWidget $(hamletFile "geography")
         
 getMusicR :: Handler RepHtml
 getMusicR = do
-    mu <- maybeAuth
     defaultLayout $ do
-        h2id <- lift newIdent
         index <- liftIO getIndex
-        let loginpanel = $(hamletFile "loginpanel")        
         addCassius $(cassiusFile "homepage")
         addWidget $(hamletFile "music")
 
 getFilmR :: Handler RepHtml
 getFilmR = do
-    mu <- maybeAuth
     defaultLayout $ do
-        h2id <- lift newIdent
         index <- liftIO getIndex
-        let loginpanel = $(hamletFile "loginpanel")        
         addCassius $(cassiusFile "homepage")
         addWidget $(hamletFile "film")
 
 getHistoryR :: Handler RepHtml
 getHistoryR = do
-    mu <- maybeAuth
     defaultLayout $ do      
-        h2id <- lift newIdent
         index <- liftIO getIndex
-        let loginpanel = $(hamletFile "loginpanel")
         addCassius $(cassiusFile "homepage")
         addWidget $(hamletFile "history")
         
 getPubQuizR :: Handler RepHtml
 getPubQuizR = do
-    mu <- maybeAuth
     defaultLayout $ do      
-        h2id <- lift newIdent
         index <- liftIO getIndex
-        let loginpanel = $(hamletFile "loginpanel")
         addCassius $(cassiusFile "homepage")
         addWidget $(hamletFile "pubquiz")
