@@ -25,6 +25,7 @@ getRootR :: Handler RepHtml
 getRootR = do
     defaultLayout $ do
         index <- liftIO getIndex
+        let quizmenu = $(hamletFile "quizMenu")
         setTitle "bustaquiz homepage"
         addCassius $(cassiusFile "homepage")
         addWidget $(hamletFile "homepage")
