@@ -1,9 +1,11 @@
 $(document).ready(function() {
 
-  $('.quizlink').hover(function() {
+  $('.quizlink').mouseover(function() {
     var that = $(this);
     that.addClass('waiting');
     setTimeout(function() {
+
+
       setHref('.ladderlink', 'ladder', that);
       setHref('.matchlink', 'match', that);
       setHref('.multilink', 'multi', that);
