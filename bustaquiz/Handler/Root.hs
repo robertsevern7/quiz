@@ -17,7 +17,6 @@ import System.Random
 -- TODO 
 -- 1) Get rid of index <- liftIO getIndex
 -- 2) Get rid of Bustaquiz
--- 3) Get rid of loginpanel
 
 getIndex :: IO Int
 getIndex = getStdRandom (randomR (1,2000000))
@@ -29,6 +28,12 @@ getRootR = do
         setTitle "bustaquiz homepage"
         addCassius $(cassiusFile "homepage")
         addWidget $(hamletFile "homepage")
+
+getAcknowledgementsR :: Handler RepHtml
+getAcknowledgementsR = do
+  defaultLayout $ do
+    setTitle "bustaquiz Acknowledgements"
+    addWidget $(hamletFile "acknowledgements")
 
 getWordplayR :: Handler RepHtml
 getWordplayR = do
