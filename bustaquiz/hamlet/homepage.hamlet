@@ -32,13 +32,9 @@
     <div .clear>
   <ul class="noliststyle homepageoptions">
     <a class="grid_2 black listheader" href="@{GeographyR}">GEOGRAPHY
-    <ul class="grid_4 noliststyle">
+    <ul class="grid_4 noliststyle quizholder">
       <li>
-        <a .black href="@{CapitalsR index AssociateType}">Capitals of the World
-      <li>
-        <a .black href="@{CapitalsR index IdentifyMultipleType}">Capitals of the World Hard
-      <li>
-        <a .black href="@{StateFlagsR index IdentifyType}">U.S. State Flags
+        <a class="black quizlink" href=# ladder="@{CapitalsR index IdentifyTextType}" match="@{CapitalsR index AssociateType}" multi="@{CapitalsR index IdentifyMultipleType}">Capitals
       <li>
         <a .black href="@{CountryFlagsR index IdentifyType}">Flags of the World
     <div .clear>
