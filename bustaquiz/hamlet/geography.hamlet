@@ -12,9 +12,7 @@
     <div .clear>
   <ul class="noliststyle homepageoptions">
     <div class="grid_2 listheader">FLAGS
-    <ul class="grid_4 noliststyle">
+    <ul class="grid_4 noliststyle quizholder">
       <li>
-        <a .black href="@{StateFlagsR index IdentifyType}">U.S. State Flags
-      <li>
-        <a .black href="@{CountryFlagsR index IdentifyType}">Flags of the World
+        <a class="black quizlink" href=# ladder="@{CountryFlagsR index IdentifyType}">Flags of the World
     <div .clear>
