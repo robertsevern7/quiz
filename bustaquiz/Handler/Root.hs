@@ -47,34 +47,44 @@ getWordplayR = do
 getGeographyR :: Handler RepHtml
 getGeographyR = do
     defaultLayout $ do
+        let quizmenu = $(hamletFile "quizMenu")
         index <- liftIO getIndex
         addCassius $(cassiusFile "homepage")
         addWidget $(hamletFile "geography")
+        addJulius $(juliusFile "quizMenu")
         
 getMusicR :: Handler RepHtml
 getMusicR = do
     defaultLayout $ do
+        let quizmenu = $(hamletFile "quizMenu")
         index <- liftIO getIndex
         addCassius $(cassiusFile "homepage")
         addWidget $(hamletFile "music")
+        addJulius $(juliusFile "quizMenu")
 
 getFilmR :: Handler RepHtml
 getFilmR = do
     defaultLayout $ do
+        let quizmenu = $(hamletFile "quizMenu")
         index <- liftIO getIndex
         addCassius $(cassiusFile "homepage")
         addWidget $(hamletFile "film")
+        addJulius $(juliusFile "quizMenu")
 
 getHistoryR :: Handler RepHtml
 getHistoryR = do
     defaultLayout $ do      
+        let quizmenu = $(hamletFile "quizMenu")
         index <- liftIO getIndex
         addCassius $(cassiusFile "homepage")
         addWidget $(hamletFile "history")
+        addJulius $(juliusFile "quizMenu")
         
 getPubQuizR :: Handler RepHtml
 getPubQuizR = do
     defaultLayout $ do      
+        let quizmenu = $(hamletFile "quizMenu")
         index <- liftIO getIndex
         addCassius $(cassiusFile "homepage")
         addWidget $(hamletFile "pubquiz")
+        addJulius $(juliusFile "quizMenu")
