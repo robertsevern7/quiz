@@ -6,7 +6,7 @@
 <div .grid_12>
   <ul class="noliststyle homepageoptions">
     <div class="grid_2 listheader">USA
-    <ul class="grid_4 noliststyle">
+    <ul class="grid_4 noliststyle quizholder">
       <li>
-        <a .black href="@{USPresidentsOrderR index OrderType}">Order of Inauguration of US Presidents
+        <a class="black quizlink" href=# order="@{USPresidentsOrderR index OrderType}">Order of Inauguration of US Presidents
     <div .clear>
