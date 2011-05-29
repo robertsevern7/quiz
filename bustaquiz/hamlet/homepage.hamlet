@@ -26,11 +26,9 @@
 
   <ul class="noliststyle homepageoptions">
     <a class="grid_2 black listheader" href="@{PubQuizR}">POT LUCK
-    <ul class="grid_4 noliststyle">
+    <ul class="grid_4 noliststyle quizholder">
       <li>
-        <a .black href="@{RandomPubQuizR index IdentifyMultipleType}">Random Selection
-      <li>
-        <a .black href="@{RandomPubQuizR index IdentifyTextType}">Quiz Ladder
+        <a class="black quizlink" href=# ladder="@{RandomPubQuizR index IdentifyTextType}" multi="@{RandomPubQuizR index IdentifyMultipleType}">Pub Quiz
     <div .clear>
   <ul class="noliststyle homepageoptions">
     <a class="grid_2 black listheader" href="@{GeographyR}">GEOGRAPHY
