@@ -22,9 +22,6 @@
         <a class="black quizlink" href=# ladder="@{TaglinesR index IdentifyTextType}" match="@{TaglinesR index AssociateType}" multi="@{TaglinesR index IdentifyMultipleType}">Taglines
       <li>
         <a class="black quizlink" href=# ladder="@{QuoteSelectionR index IdentifyTextType}" match="@{QuoteSelectionR index AssociateType}" multi="@{QuoteSelectionR index IdentifyMultipleType}">Quotes
-
-   <!--menu here-->
-
     <div .clear>
 
   <ul class="noliststyle homepageoptions">
