@@ -3,19 +3,20 @@ $(document).ready(function() {
   $('.quizlink').mouseover(function() {
     var that = $(this);
     that.addClass('waiting');
-    setTimeout(function() {
-      $('.quizmenu').remove();
-      var menu = $('.quizmenutemplate').clone().removeClass('quizmenutemplate').removeClass('hidden').addClass('quizmenu')
-      menu.insertAfter(that.parents('.quizholder'));
 
-      setHref('.ladderlink', 'ladder', that);
-      setHref('.matchlink', 'match', that);
-      setHref('.multilink', 'multi', that);
-      setHref('.orderlink', 'order', that);
+    $('.quizmenu').remove();
+    $('.quizmenudecoration').removeClass('quizmenudecoration');
+    that.addClass('quizmenudecoration');
+    var menu = $('.quizmenutemplate').clone().removeClass('quizmenutemplate').removeClass('hidden').addClass('quizmenu').addClass('quizmenudecoration');
+    menu.insertAfter(that.parents('.quizholder'));
 
-      $('.quizmenu').removeClass('hidden'); 
-      $('.quizlink.waiting').removeClass('waiting');
-    }, 600);
+    setHref('.ladderlink', 'ladder', that);
+    setHref('.matchlink', 'match', that);
+    setHref('.multilink', 'multi', that);
+    setHref('.orderlink', 'order', that);
+
+    $('.quizmenu').removeClass('hidden'); 
+    $('.quizlink.waiting').removeClass('waiting');
 
     function setHref(linkClass, attribute, hoverNode) {
       var value = hoverNode.attr(attribute);

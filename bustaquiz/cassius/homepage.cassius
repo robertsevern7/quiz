@@ -17,3 +17,8 @@ h2#$h2id$
     -moz-border-radius: 10px
     -webkit-border-radius: 10px
     padding : 5px
+
+.quizmenudecoration
+    background-color: #99CCFF
+    -moz-border-radius: 10px
+    -webkit-border-radius: 10px
