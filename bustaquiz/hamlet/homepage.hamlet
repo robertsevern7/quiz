@@ -36,7 +36,7 @@
       <li>
         <a class="black quizlink" href=# ladder="@{CapitalsR index IdentifyTextType}" match="@{CapitalsR index AssociateType}" multi="@{CapitalsR index IdentifyMultipleType}">Capitals
       <li>
-        <a .black href="@{CountryFlagsR index IdentifyType}">Flags of the World
+        <a class="black quizlink" href=# ladder="@{CountryFlagsR index IdentifyType}">Flags of the World
     <div .clear>
   <ul class="noliststyle homepageoptions">
     <a class="grid_2 black listheader" href="@{HistoryR}">HISTORY
