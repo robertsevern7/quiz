@@ -11,6 +11,7 @@ $(document).ready(function() {
     });
     
     $('#revealanswers').click(function() {
+        $.cookie('totalCorrect', 0, { path: '/' });
         $(this).unbind('click');
         $('#answer_box').fadeOut(function() {
             $('.hidden').removeClass('hidden').addClass('answerholder answerrevealed');
