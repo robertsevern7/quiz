@@ -15,7 +15,7 @@ function similar(yourAnswer, theAnswer) {
     var sanitisedYourAnswer = sanitise(yourAnswer);
     var sanitisedTheAnswer = sanitise(theAnswer);
     //return sanitisedYourAnswer === sanitisedTheAnswer;
-    var inaccuracyAllowed = 2;
+    var inaccuracyAllowed = Number(#{sloppinessFactor});
     
     //Don't want to return too early. If the user is typing the word correctly it is annoying if you say the answer is correct 2 letters before they are done.
     if (sanitisedYourAnswer.length < sanitisedTheAnswer.length) {
