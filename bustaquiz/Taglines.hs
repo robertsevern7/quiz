@@ -46,7 +46,7 @@ instance QuestionMaker FilmTaglines where
       films' <- rndSelect seed films 1
       tagLines <- getTaglineFilmList films'
       let hidden = redact $ head tagLines
-      return $ Just (uncurry (IdentifyText "Name the movie from the tagline") hidden Nothing)
+      return $ Just (uncurry (IdentifyText "Name the movie from the tagline") hidden Nothing 2)
     generateQuestion _ _ _ = return Nothing
 
 hideFilmNames :: [(String,String)] -> [(String,String)]
