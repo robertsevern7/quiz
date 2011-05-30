@@ -1,11 +1,11 @@
 ^{quizmenu}
 <div .grid_8>
   <div .curlycurly>
-    <p>bustaquiz provides a near infinite set of questions to tax your brain.  We cover a huge range of subjects (and if we don't cover something you are interested in then please contact us!).  You can use bustaquiz for a quick quiz, to revise specific subjects, or just to demonstrate that you do know more random trivia than everyone else!
+    <p>Bustaquiz seizes facts from across the web and serves them up as brain-teasers for your trivia delight. 
 
-    <p>bustaquiz grabs information from various sources all over the web, massages the data and generates questions.  If you've got any ideas for another kind of quiz we can add, then please contact us and we'll see what we can do!
+    <p>Because they're not written exclusively by puny humans, our questions are wide-ranging and randomly generated for a new kind of quiz. Try a burst of potluck, hold your nerve on 'the ladder', or just choose your favourite topic from an ever-growing list and jump on in. 
 
-    <p>Login and pick from one of the following categories to get a randomly selected question.
+    <p>Bustaquiz lives to serve your thirst for triva, so if you've got an idea for a quiz topic or theme, we want to hear it. In the meantime: get wasting time.
 <div .clear>
 
 <div .grid_12>
