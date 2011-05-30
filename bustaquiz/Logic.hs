@@ -29,17 +29,21 @@ data QuestionType = AssociateType
 instance SinglePiece QuestionType where
   toSinglePiece = T.pack . show
   fromSinglePiece x = Just (read (T.unpack x))
+  
+type Tolerance = Int
 
 -- TODO some of these question types are less than self-explanatory
 -- |All the different types of questions
-data Question = Associate Description [(String, String)] -- ^ Associates of LHS to RHS
-                -- ^ An ordering of the first element, with supporting information in the second
-              | Order Description [(String, String)] 
-                -- ^ Identify some static resource as a string
-              | Identify Description StaticRoute String
-                 -- ^ Straight question and answer with optional link for answer and a tolerance
-              | IdentifyText Description String String (Maybe String) Int
-              deriving Show
+data Question = 
+  -- ^ Associates of LHS to RHS.  A given tolerance
+  Associate Description [(String, String)] Tolerance 
+  -- ^ An ordering of the first element, with supporting information in the second
+  | Order Description [(String, String)] 
+    -- ^ Identify some static resource as a string
+  | Identify Description StaticRoute String
+    -- ^ Straight question and answer with optional link for answer and a tolerance
+  | IdentifyText Description String String (Maybe String) Tolerance
+  deriving Show
 
 -- |May want to change this to something "formattable"
 type Description = String

@@ -44,11 +44,11 @@ instance QuestionMaker CapitalQuiz where
   generateQuestion seed AssociateType (CapitalQuiz countries) = do
     match <- rndSelect seed (filter (not . null . capital) countries) 10
     let capitals = map (name &&& capital) match
-    return $ Just (Associate "Match the countries with the capitals" capitals)  
+    return $ Just (Associate "Match the countries with the capitals" capitals 2)  
   generateQuestion seed IdentifyMultipleType (CapitalQuiz countries) = do
     match <- rndSelect seed (filter (not . null . capital) countries) 10
     let capitals = map (name &&& capital) match
-    return $ Just (Associate "Name the capitals of these countries" capitals)
+    return $ Just (Associate "Name the capitals of these countries" capitals 2)
   generateQuestion seed IdentifyTextType (CapitalQuiz countries) = do
     match <- chooseFromList seed (filter (not . null . capital) countries)
     return $ Just (uncurry (IdentifyText "Name the capital") ((name &&& capital) match) Nothing 2)

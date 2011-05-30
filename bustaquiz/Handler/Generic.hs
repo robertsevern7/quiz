@@ -30,11 +30,14 @@ genericRoute quizFunc nextFn seed questionType sloppinessFactor = do
 
 -- Display the question as a widget
 --questionWidget :: (Monad m, Route master ~ QuizRoute) => QuestionType -> t -> Question -> GGWidget sub master m ()
-questionWidget (AssociateType) route (Associate description pairs) = do
+questionWidget (AssociateType) route (Associate description pairs tolerance) = do
+  let sloppinessFactor = show tolerance
+  
   -- External requirements
   addWidget $(widgetFile "shuffle")
   addWidget $(widgetFile "hover")
   addWidget $(widgetFile "text")
+  addWidget $(widgetFile "sloppy")
   
   addWidget $(widgetFile "ladder")
   addWidget $(widgetFile "associate")
@@ -56,8 +59,8 @@ questionWidget (IdentifyType) route (Identify description resource answer) = do
   addWidget $(widgetFile "identify")
   addWidget $(widgetFile "buttons")
 
-questionWidget (IdentifyTextType) route (IdentifyText description question answer link sloppinessFactorInt) = do
-  let sloppinessFactor = show sloppinessFactorInt
+questionWidget (IdentifyTextType) route (IdentifyText description question answer link tolerance) = do
+  let sloppinessFactor = show tolerance
   addWidget $(widgetFile "text")
   addWidget $(widgetFile "sloppy")
   addWidget $(widgetFile "ladder")
@@ -65,9 +68,10 @@ questionWidget (IdentifyTextType) route (IdentifyText description question answe
   addWidget $(widgetFile "buttons")
   addJulius $(juliusFile "identify") -- TODO This can't be a widget because it breaks - WHY?
   
-questionWidget (IdentifyMultipleType) route (Associate description pairs) = do
+questionWidget (IdentifyMultipleType) route (Associate description pairs tolerance) = do
+  let sloppinessFactor = show tolerance
   addWidget $(widgetFile "text")
-  
+  addWidget $(widgetFile "sloppy")  
   addWidget $(widgetFile "ladder")
   addWidget $(widgetFile "identifyMultiple")
   addWidget $(widgetFile "buttons")

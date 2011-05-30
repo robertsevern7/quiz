@@ -14,7 +14,7 @@ data RandomPubQuiz = RandomPubQuiz
 instance QuestionMaker RandomPubQuiz where
   generateQuestion seed IdentifyMultipleType RandomPubQuiz = do
     questionShortlist <- rndSelect seed questions 10
-    return $ Just (Associate "Answer these questions" questionShortlist)
+    return $ Just (Associate "Answer these questions" questionShortlist 2)
   generateQuestion seed IdentifyTextType RandomPubQuiz = do
     question <- chooseFromList seed questions
     return $ Just (uncurry (IdentifyText "Answer this question") question Nothing 2)
