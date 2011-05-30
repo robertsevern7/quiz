@@ -1,3 +1,9 @@
-<h1>Acknowledgements
+<div .grid_12
+  <div .curlycurly>
+    <h3>Acknowledgements
 
-This web site could not have been created without the following people.
+    This web site could not have been created without the following people and sites:
+    <ul>
+      <li><a href="http://www.yesodweb.com/">Yesod</a> - the web framework used to create this site
+      <li><a href="http://www.freebase.com">Freebase</a> - a massive supply of queryable online data
+      <li>Paul Beecher - who provided a massive chunk of the Pot Luck questions
