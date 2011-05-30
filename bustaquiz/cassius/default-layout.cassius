@@ -39,7 +39,7 @@ body
     font-size: 12px
     
 .small
-    font-size: 8px
+    font-size: 10px
     
 a
     text-decoration: none
