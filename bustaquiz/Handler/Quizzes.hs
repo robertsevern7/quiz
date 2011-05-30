@@ -5,38 +5,37 @@ import Logic (QuestionType)
 import Handler.Generic (genericRoute)
 
 getFiveLetterAnagramsR :: Int -> QuestionType -> Handler RepHtml
-getFiveLetterAnagramsR = genericRoute fiveLetter FiveLetterAnagramsR
+getFiveLetterAnagramsR index questionType = genericRoute fiveLetter FiveLetterAnagramsR index questionType "1"
 
 getSixLetterAnagramsR :: Int -> QuestionType -> Handler RepHtml
-getSixLetterAnagramsR = genericRoute sixLetter SixLetterAnagramsR
+getSixLetterAnagramsR index questionType = genericRoute sixLetter SixLetterAnagramsR index questionType "1"
 
 getSevenLetterAnagramsR :: Int -> QuestionType -> Handler RepHtml
-getSevenLetterAnagramsR = genericRoute sevenLetter SevenLetterAnagramsR
+getSevenLetterAnagramsR index questionType = genericRoute sevenLetter SevenLetterAnagramsR index questionType "1"
 
 getEightLetterAnagramsR :: Int -> QuestionType -> Handler RepHtml
-getEightLetterAnagramsR = genericRoute eightLetter EightLetterAnagramsR
+getEightLetterAnagramsR index questionType = genericRoute eightLetter EightLetterAnagramsR index questionType "1"
 
 getRandomPubQuizR :: Int -> QuestionType ->  Handler RepHtml
-getRandomPubQuizR = genericRoute randomPubQuiz RandomPubQuizR
+getRandomPubQuizR index questionType = genericRoute randomPubQuiz RandomPubQuizR index questionType "2"
 
 getQuoteSelectionR :: Int -> QuestionType ->  Handler RepHtml
-getQuoteSelectionR = genericRoute quoteSelection QuoteSelectionR
+getQuoteSelectionR index questionType = genericRoute quoteSelection QuoteSelectionR index questionType "2"
 
 getStateFlagsR :: Int -> QuestionType -> Handler RepHtml
-getStateFlagsR = genericRoute stateFlags StateFlagsR
+getStateFlagsR index questionType = genericRoute stateFlags StateFlagsR index questionType "2"
 
 getUSPresidentsOrderR :: Int -> QuestionType ->  Handler RepHtml
-getUSPresidentsOrderR = genericRoute presidentOrder USPresidentsOrderR
+getUSPresidentsOrderR index questionType = genericRoute presidentOrder USPresidentsOrderR index questionType "2"
 
 getTaglinesR :: Int -> QuestionType ->  Handler RepHtml
-getTaglinesR = genericRoute filmTaglines TaglinesR
+getTaglinesR index questionType = genericRoute filmTaglines TaglinesR index questionType "2"
 
 getCountryFlagsR :: Int -> QuestionType -> Handler RepHtml
-getCountryFlagsR = genericRoute countryFlags CountryFlagsR
+getCountryFlagsR index questionType = genericRoute countryFlags CountryFlagsR index questionType "2"
 
 getCapitalsR :: Int -> QuestionType -> Handler RepHtml
-getCapitalsR = genericRoute whichCapital CapitalsR
+getCapitalsR index questionType = genericRoute whichCapital CapitalsR index questionType "2"
 
 getBeatlesLyricsR :: Int -> QuestionType -> Handler RepHtml
-getBeatlesLyricsR = genericRoute beatlesLyrics BeatlesLyricsR
-    
+getBeatlesLyricsR index questionType = genericRoute beatlesLyrics BeatlesLyricsR index questionType "2"
