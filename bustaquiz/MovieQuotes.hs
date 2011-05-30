@@ -13,10 +13,10 @@ data QuoteSelection = QuoteSelection
 instance QuestionMaker QuoteSelection where
   generateQuestion seed AssociateType QuoteSelection = do
     quoteList <- rndSelect seed questions 10
-    return $ Just (Associate "Match these quotes to the film" quoteList)
+    return $ Just (Associate "Match these quotes to the film" quoteList 2)
   generateQuestion seed IdentifyMultipleType QuoteSelection = do
     quoteList <- rndSelect seed questions 10
-    return $ Just (Associate "Name the films from these quotes" quoteList)
+    return $ Just (Associate "Name the films from these quotes" quoteList 2)
   generateQuestion seed IdentifyTextType QuoteSelection  = do
     question <- chooseFromList seed questions
     return $ Just (uncurry (IdentifyText "Name the film from the quote") question Nothing 2)

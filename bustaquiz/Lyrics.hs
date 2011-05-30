@@ -46,7 +46,7 @@ instance QuestionMaker BeatlesLyrics where
     associations <- forM match (\s@(Song song) -> do
                                    lyrics <- getLyrics beatles s
                                    return (song,fromJust lyrics))
-    return (Just (Associate "Match the songs with the lyrics" associations))
+    return (Just (Associate "Match the songs with the lyrics" associations 2))
   generateQuestion _ _ _ = return Nothing
     
 -- The beatles did a lot of songs         
