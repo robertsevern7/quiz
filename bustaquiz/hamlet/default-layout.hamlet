@@ -11,7 +11,7 @@
         <div class="grid_12 header">
           <div .menu>
             <a class="mainname white prefix_0" href="@{RootR}">bustaquiz
-            <a class="white small" href="@{RootR}">&nbsp&nbsp&nbsp&nbsp Stupid people look away now
+            <a class="white small" href="@{RootR}">&nbsp&nbsp&nbsp&nbsp Quiz me, web
             <a class="headerlinks white prefix_1" href="@{RootR}">Home
             <a class="headerlinks white prefix_1" href="@{AcknowledgementsR}">Acknowledgements
             <a class="headerlinks white prefix_1" href="mailto:busta@quiz.com">Contact Us
