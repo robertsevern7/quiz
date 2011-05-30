@@ -23,14 +23,14 @@ genericRoute quizFunc nextFn seed questionType sloppinessFactor = do
   next <- liftIO $ getStdRandom (randomR (1,10000000))
   case generatedQuestion of
     (Left ex) -> invalidArgs ["Failed to generate valid question.", message ex, internal ex]
-    (Right (Just question)) -> defaultLayout $ addWidget (questionWidget questionType (nextFn next questionType) question sloppinessFactor)
+    (Right (Just question)) -> defaultLayout $ addWidget (questionWidget questionType (nextFn next questionType) question)
     -- TODO more information needed?
     -- TODO Push this into the type system?
     (Right Nothing) -> invalidArgs ["Failed to generate a question of the specified type", "Failed to generate question", T.pack $ show questionType]
 
 -- Display the question as a widget
 --questionWidget :: (Monad m, Route master ~ QuizRoute) => QuestionType -> t -> Question -> GGWidget sub master m ()
-questionWidget (AssociateType) route (Associate description pairs) sloppinessFactor = do
+questionWidget (AssociateType) route (Associate description pairs) = do
   -- External requirements
   addWidget $(widgetFile "shuffle")
   addWidget $(widgetFile "hover")
@@ -41,7 +41,7 @@ questionWidget (AssociateType) route (Associate description pairs) sloppinessFac
   addWidget $(widgetFile "buttons")
 
   
-questionWidget (OrderType) route (Order description ordering) sloppinessFactor = do
+questionWidget (OrderType) route (Order description ordering) = do
   addWidget $(widgetFile "shuffle")
 
   addWidget $(widgetFile "ladder")
@@ -49,21 +49,23 @@ questionWidget (OrderType) route (Order description ordering) sloppinessFactor =
   addWidget $(widgetFile "buttons")
   addWidget $(widgetFile "hover")
 
-questionWidget (IdentifyType) route (Identify description resource answer) sloppinessFactor = do
+questionWidget (IdentifyType) route (Identify description resource answer) = do
   addWidget $(widgetFile "text")
   
   addWidget $(widgetFile "ladder")  
   addWidget $(widgetFile "identify")
   addWidget $(widgetFile "buttons")
 
-questionWidget (IdentifyTextType) route (IdentifyText description question answer link) sloppinessFactor = do
+questionWidget (IdentifyTextType) route (IdentifyText description question answer link sloppinessFactorInt) = do
+  let sloppinessFactor = show sloppinessFactorInt
   addWidget $(widgetFile "text")
+  addWidget $(widgetFile "sloppy")
   addWidget $(widgetFile "ladder")
   addWidget $(widgetFile "identifyText")
   addWidget $(widgetFile "buttons")
   addJulius $(juliusFile "identify") -- TODO This can't be a widget because it breaks - WHY?
   
-questionWidget (IdentifyMultipleType) route (Associate description pairs) sloppinessFactor = do
+questionWidget (IdentifyMultipleType) route (Associate description pairs) = do
   addWidget $(widgetFile "text")
   
   addWidget $(widgetFile "ladder")

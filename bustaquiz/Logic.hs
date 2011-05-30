@@ -28,23 +28,24 @@ data QuestionType = AssociateType
                            
 instance SinglePiece QuestionType where
   toSinglePiece = T.pack . show
-  -- TODO errr, error handling and important stuff like that?  return (Left x) on error
   fromSinglePiece x = Just (read (T.unpack x))
-                                                               
 
 -- TODO some of these question types are less than self-explanatory
 -- |All the different types of questions
 data Question = Associate Description [(String, String)] -- ^ Associates of LHS to RHS
-              | Order Description [(String, String)] -- ^ An ordering of the first element, with supporting information in the second
-              | Identify Description StaticRoute String -- ^ Identify some static resource as a string
-              | IdentifyText Description String String (Maybe String)-- ^ Straight question and answer with optional link for answer
+                -- ^ An ordering of the first element, with supporting information in the second
+              | Order Description [(String, String)] 
+                -- ^ Identify some static resource as a string
+              | Identify Description StaticRoute String
+                 -- ^ Straight question and answer with optional link for answer and a tolerance
+              | IdentifyText Description String String (Maybe String) Int
               deriving Show
 
 -- |May want to change this to something "formattable"
 type Description = String
 
 -- |A question maker uses some logic to generate questions given the requests question type
--- |An integer is used to provide variation
+-- |An integer is used to provide variation.
 class QuestionMaker a where 
     generateQuestion :: Int -> QuestionType -> a -> IO (Maybe Question)
     

@@ -33,7 +33,7 @@ instance QuestionMaker Anagrams where
     shuffled <- rndSelect seed word (length word)
     let link = Just ("http://www.google.com/search?q=define:" ++ word)
         desc = "Unscramble this word"
-    return $ Just (IdentifyText desc shuffled word link)
+    return $ Just (IdentifyText desc shuffled word link 1)
   generateQuestion _ _ _ = return Nothing
 
 allWords = "./AnagramData/allWords.txt"

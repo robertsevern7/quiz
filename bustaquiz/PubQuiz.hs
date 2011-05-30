@@ -17,7 +17,7 @@ instance QuestionMaker RandomPubQuiz where
     return $ Just (Associate "Answer these questions" questionShortlist)
   generateQuestion seed IdentifyTextType RandomPubQuiz = do
     question <- chooseFromList seed questions
-    return $ Just (uncurry (IdentifyText "Answer this question") question Nothing)
+    return $ Just (uncurry (IdentifyText "Answer this question") question Nothing 2)
   generateQuestion _ _ _ = return Nothing
 
 correctQuestionsCase :: [(String,String)] -> IO()

@@ -51,7 +51,7 @@ instance QuestionMaker CapitalQuiz where
     return $ Just (Associate "Name the capitals of these countries" capitals)
   generateQuestion seed IdentifyTextType (CapitalQuiz countries) = do
     match <- chooseFromList seed (filter (not . null . capital) countries)
-    return $ Just (uncurry (IdentifyText "Name the capital") ((name &&& capital) match) Nothing)
+    return $ Just (uncurry (IdentifyText "Name the capital") ((name &&& capital) match) Nothing 2)
   generateQuestion _ _ _ = return Nothing
                     
 countries :: [CountryInfo]
