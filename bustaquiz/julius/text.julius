@@ -1,21 +1,33 @@
 // Note the double escaping of the caret
 function sanitise(input) {
     var theRemoved = input.toLowerCase().replace(/[\s]the/g, "");
-    var theStartRemoved = theRemoved.replace(/^^the/g, "");
-    var theEndRemoved = theStartRemoved.replace(/the$/g, "");
+    var theStartRemoved = theRemoved.replace(/^^the\s/g, "");
+    var theEndRemoved = theStartRemoved.replace(/\sthe$/g, "");
     
     var aRemoved = theEndRemoved.replace(/[\s]a/g, "");
-    var theStartRemoved = aRemoved.replace(/^^a/g, "");
-    var theEndRemoved = theStartRemoved.replace(/a$/g, "");
+    var theStartRemoved = aRemoved.replace(/^^a\s/g, "");
+    var theEndRemoved = theStartRemoved.replace(/\sa$/g, "");
     
-	return theEndRemoved.replace(/[^^0-9A-Za-z]/g, "");
+    return theEndRemoved.replace(/[^^0-9A-Za-z]/g, "");
 }
 
 function similar(yourAnswer, theAnswer) {
     var sanitisedYourAnswer = sanitise(yourAnswer);
     var sanitisedTheAnswer = sanitise(theAnswer);
-    return sanitisedYourAnswer === sanitisedTheAnswer;
-    //return (sanitisedYourAnswer.length >= sanitisedTheAnswer) && levenshtein(sanitisedYourAnswer, sanitisedTheAnswer) < 2;
+    //return sanitisedYourAnswer === sanitisedTheAnswer;
+    var inaccuracyAllowed = 2;
+    
+    //Don't want to return too early. If the user is typing the word correctly it is annoying if you say the answer is correct 2 letters before they are done.
+    if (sanitisedYourAnswer.length < sanitisedTheAnswer.length) {
+      for (var i = 0; i < inaccuracyAllowed; ++i) {
+        var substring = sanitisedTheAnswer.substring(0, sanitisedTheAnswer.length - i);
+        if (substring === sanitisedYourAnswer) {
+          return false;
+        }
+      }
+    }
+
+    return levenshtein(sanitisedYourAnswer, sanitisedTheAnswer) < inaccuracyAllowed;
 }
 
 function levenshtein (s1, s2) {
