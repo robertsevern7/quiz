@@ -61,9 +61,7 @@ groupWords words = groupBy cond (sortKeys words)
         cond x y = fst x == fst y
         
 sortKeys :: [String] -> [(String, String)]
-sortKeys words = sortBy cmp (createMap words)
-  where cmp :: (String,String) -> (String,String) -> Ordering
-        cmp = comparing fst
+sortKeys words = sortBy (comparing fst) (createMap words)
         
 filterRepeats :: [(String,String)] -> Bool
 filterRepeats input = length input == 1
