@@ -27,12 +27,12 @@ data President = President {
 
 
 orderOfService :: OrderOfService
-orderOfService = OrderOfService presidents
+orderOfService = OrderOfService 
 
-data OrderOfService = OrderOfService [President]
+data OrderOfService = OrderOfService
 
 instance QuestionMaker OrderOfService where
-  generateQuestion seed OrderType (OrderOfService presidents) = do
+  generateQuestion seed OrderType OrderOfService = do
     pres <- rndSelect seed presidents 10
     let sorted = sortBy (comparing yearFirstInaugurated) pres
         desc = "Put the following Presidents in the order in which they were inaugurated, starting with the earliest"
