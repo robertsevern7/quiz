@@ -47,7 +47,7 @@ sortOutRawInput = do
   writeFile popularWordsFiltered (unlines (sortBy (comparing length) (intersectLists (lines allFileContent) (cleanWords (lines popularFileContent)))))
 
 orderLetters :: String -> String
-orderLetters = sort. map toLower
+orderLetters = sort . map toLower
 
 createKey :: String -> (String, String)
 createKey input = (orderLetters input, input)
@@ -67,15 +67,13 @@ filterRepeats :: [(String,String)] -> Bool
 filterRepeats input = length input == 1
         
 retrieveWord :: [(String,String)] -> String
-retrieveWord input = snd (head input)
+retrieveWord = snd . head
         
 stripOutAnagrams :: [String] -> [String]
 stripOutAnagrams words = map retrieveWord (filter filterRepeats (groupWords words))
 
 intersectLists :: [String] -> [String] -> [String]
-intersectLists fullList popularWords = filter containedBy (stripOutAnagrams fullList)
-  where containedBy :: String -> Bool
-        containedBy word = word `elem` popularWords
+intersectLists fullList popularWords = stripOutAnagrams fullList `intersect` popularWords
 
 clean :: String -> Bool
 clean input = length input > 4 && length input < 9 && all isLower input
