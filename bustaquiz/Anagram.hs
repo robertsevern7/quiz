@@ -45,8 +45,6 @@ sortOutRawInput = do
   popularFileContent <- readFile popularWords
   allFileContent <- readFile allWords
   writeFile popularWordsFiltered (unlines (sortBy (comparing length) (intersectLists (lines allFileContent) (cleanWords (lines popularFileContent)))))
-    --where stringLength :: String -> String -> Ordering
-    --      stringLength = comparing length
 
 orderLetters :: String -> String
 orderLetters = sort. map toLower
@@ -82,7 +80,7 @@ intersectLists fullList popularWords = filter containedBy (stripOutAnagrams full
         containedBy word = word `elem` popularWords
 
 clean :: String -> Bool
-clean input = length input > 4 && length input < 9 && map toLower input == input
+clean input = length input > 4 && length input < 9 && all isLower input
 
 cleanWords :: [String] -> [String]
 cleanWords = filter clean
