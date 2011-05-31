@@ -23,19 +23,16 @@ data CountryInfo = CountryInfo {
 }
 
 data CapitalQuiz = CapitalQuiz 
-
 capitalQuiz :: CapitalQuiz
 capitalQuiz = CapitalQuiz 
 
--- TODO there is some duplication here with the questions regarding states
-data CountryFlagsQuiz = CountryFlagsQuiz [(String,StaticRoute)]
-
+data CountryFlagsQuiz = CountryFlagsQuiz
 countryFlagsQuiz :: CountryFlagsQuiz
-countryFlagsQuiz = CountryFlagsQuiz (map (name &&& flag) countries)
+countryFlagsQuiz = CountryFlagsQuiz 
 
 instance QuestionMaker CountryFlagsQuiz where
-  generateQuestion seed IdentifyType (CountryFlagsQuiz countryFlags) = do
-    (country,picture) <- chooseFromList seed countryFlags
+  generateQuestion seed IdentifyType CountryFlagsQuiz = do
+    (country,picture) <- chooseFromList seed (map (name &&& flag) countries)
     return (Just (Identify "Which country has the following flag?" picture country))
   generateQuestion _ _ _ = return Nothing
 
