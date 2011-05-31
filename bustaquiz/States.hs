@@ -18,14 +18,14 @@ data State = State {
   , flag :: StaticRoute
 }
 
-data StateFlags = StateFlags [(String,StaticRoute)]
+data StateFlags = StateFlags
 
 stateFlags :: StateFlags
-stateFlags = StateFlags (map (name &&& flag) states)
+stateFlags = StateFlags
 
 instance QuestionMaker StateFlags where
-  generateQuestion seed IdentifyType (StateFlags stateFlags) = do
-    (state,picture) <- chooseFromList seed stateFlags
+  generateQuestion seed IdentifyType StateFlags = do
+    (state,picture) <- chooseFromList seed (map (name &&& flag) states)
     return (Just (Identify "Which state has the following flag?" picture state))
   generateQuestion seed _ _ = return Nothing
  
