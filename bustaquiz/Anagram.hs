@@ -11,6 +11,7 @@ import Data.Char
 import Data.List
 import Data.Ord (comparing)
 import AnagramData.WordLists (fiveLetterList,sixLetterList,sevenLetterList,eightLetterList)
+import Control.Monad (liftM)
   
 data Anagrams = Anagrams [String]
 
@@ -28,8 +29,7 @@ eightLetterAnagrams =  Anagrams eightLetterList
 
 instance QuestionMaker Anagrams where
   generateQuestion seed IdentifyTextType (Anagrams wordList) = do
-    wordL <- (rndSelect seed wordList 1) 
-    let word = head wordL
+    word <- liftM head (rndSelect seed wordList 1) 
     shuffled <- rndSelect seed word (length word)
     let link = Just ("http://www.google.com/search?q=define:" ++ word)
         desc = "Unscramble this word"
