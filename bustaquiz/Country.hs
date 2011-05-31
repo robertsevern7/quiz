@@ -22,10 +22,10 @@ data CountryInfo = CountryInfo {
   flag :: StaticRoute
 }
 
-data CapitalQuiz = CapitalQuiz [CountryInfo]
+data CapitalQuiz = CapitalQuiz 
 
 capitalQuiz :: CapitalQuiz
-capitalQuiz = CapitalQuiz countries
+capitalQuiz = CapitalQuiz 
 
 -- TODO there is some duplication here with the questions regarding states
 data CountryFlagsQuiz = CountryFlagsQuiz [(String,StaticRoute)]
@@ -41,15 +41,15 @@ instance QuestionMaker CountryFlagsQuiz where
 
 -- TODO probably insane to keep all the country info for just this - use just name and capital
 instance QuestionMaker CapitalQuiz where
-  generateQuestion seed AssociateType (CapitalQuiz countries) = do
+  generateQuestion seed AssociateType CapitalQuiz = do
     match <- rndSelect seed (filter (not . null . capital) countries) 10
     let capitals = map (name &&& capital) match
     return $ Just (Associate "Match the countries with the capitals" capitals 2)  
-  generateQuestion seed IdentifyMultipleType (CapitalQuiz countries) = do
+  generateQuestion seed IdentifyMultipleType CapitalQuiz = do
     match <- rndSelect seed (filter (not . null . capital) countries) 10
     let capitals = map (name &&& capital) match
     return $ Just (Associate "Name the capitals of these countries" capitals 2)
-  generateQuestion seed IdentifyTextType (CapitalQuiz countries) = do
+  generateQuestion seed IdentifyTextType CapitalQuiz = do
     match <- chooseFromList seed (filter (not . null . capital) countries)
     return $ Just (uncurry (IdentifyText "Name the capital") ((name &&& capital) match) Nothing 2)
   generateQuestion _ _ _ = return Nothing
