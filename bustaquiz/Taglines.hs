@@ -30,7 +30,7 @@ filmTaglines = do
   films <- readFile editedFilmList
   return (FilmTaglines (read films))
 
--- TDOO see CapitalQuiz, duplication 
+-- TODO see CapitalQuiz, duplication 
 instance QuestionMaker FilmTaglines where
     generateQuestion seed AssociateType (FilmTaglines films) = do
       selectedFilms <- rndSelect seed films 10
@@ -100,9 +100,6 @@ getTaglineFilmList filmIds = do
                    tagline <- fromScalar $ snd $ head (head (head (fromSequence $ fromJust $ fromMapping x >>= lookup (B.pack "tagline")) >>= fromMapping)) 
                    return (fromJsonScalar tagline, fromJsonScalar name))
 
-  
-  --let arrayFilmsAndTags = lookupValue response "result"
-  --return (fmap getTaglineFilmPairs arrayFilmsAndTags)
   
 lower :: String -> String
 lower = map toLower
