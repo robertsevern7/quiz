@@ -35,14 +35,14 @@ getLyrics artist song = do
   x <- getLyrics' artist song
   if x == "Not Found" then return Nothing else return (Just x)
          
-data BeatlesLyrics = BeatlesLyrics [Song]  
+data BeatlesLyrics = BeatlesLyrics 
 
 beatlesLyrics :: BeatlesLyrics
-beatlesLyrics = BeatlesLyrics beatlesSongs
+beatlesLyrics = BeatlesLyrics 
   
 instance QuestionMaker BeatlesLyrics where
-  generateQuestion seed AssociateType (BeatlesLyrics songs) = do
-    match <- rndSelect seed songs 3
+  generateQuestion seed AssociateType BeatlesLyrics = do
+    match <- rndSelect seed beatlesSongs 3
     associations <- forM match (\s@(Song song) -> do
                                    lyrics <- getLyrics beatles s
                                    return (song,fromJust lyrics))
