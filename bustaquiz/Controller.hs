@@ -51,10 +51,9 @@ withQuiz f = Settings.withConnectionPool $ \pool -> do
     -- TODO This all seems a bit nasty - perhaps centralizing this in the data base is a better idea?
     -- TODO Or at least introducing a separate object!
     filmTaglines' <- filmTaglines
+    s <- static "/" staticdir
     let h = Quiz s pool capitalQuiz countryFlagsQuiz beatlesLyrics orderOfService stateFlags fiveLetterAnagrams sixLetterAnagrams sevenLetterAnagrams eightLetterAnagrams filmTaglines' randomPubQuiz quoteSelection
     toWaiApp h >>= f
-  where
-    s = static Settings.staticdir -- fileLookupDir Settings.staticdir typeByExt
 
 withDevelApp :: Dynamic
 withDevelApp = toDyn (withQuiz :: (Application -> IO ()) -> IO ())
