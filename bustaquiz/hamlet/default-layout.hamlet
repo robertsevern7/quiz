@@ -7,10 +7,12 @@
         <link rel="stylesheet" href="@{StaticR s960_css}" type="text/css" media="all">
         <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/base/jquery-ui.css" type="text/css" media="all">
     <body>
-      <div .container_12>
-        <div class="grid_12 header">
-          <div #navigation>
-            <ul>
+      <header>
+        <div class="container_12 clearfix">
+          <div .grid_12>
+            <h1 #header>bustaquiz
+            <div #navigation>
+              <ul>
               <li>
                 <a href="@{RootR}">bustaquiz
               <li>
@@ -21,25 +23,26 @@
                 <a href="@{AcknowledgementsR}">Acknowledgements
               <li>
                 <a href="mailto:busta@quiz.com">Contact Us
-        <div .clear>
-        <div class="grid_12 header">
-          <div #questionCategories>
-            <ul>
-              <li>
-                <a href="@{WordplayR}">Wordplay
-              <li>
-                <a href="@{FilmR}">Movie
-              <li>
-                <a href="@{PubQuizR}">Pot Luck
-              <li>
-                <a href="@{GeographyR}">Geography
-              <li>
-                <a href="@{HistoryR}">History
-        <div #maincontent>
-          ^{pageBody pc}
-        <div #footer class="grid_12">
+      
+      <div .clear>
+      <div class="grid_12 header">
+        <div #questionCategories>
           <ul>
             <li>
-              <a href="@{RootR}">bustaquiz
+              <a href="@{WordplayR}">Wordplay
             <li>
-              <a href="mailto:busta@quiz.com">Brought to you by Jeff and Rob industries
+              <a href="@{FilmR}">Movie
+            <li>
+              <a href="@{PubQuizR}">Pot Luck
+            <li>
+              <a href="@{GeographyR}">Geography
+            <li>
+              <a href="@{HistoryR}">History
+      <div #maincontent>
+        ^{pageBody pc}
+      <div #footer class="grid_12">
+        <ul>
+          <li>
+            <a href="@{RootR}">bustaquiz
+          <li>
+            <a href="mailto:busta@quiz.com">Brought to you by Jeff and Rob industries
