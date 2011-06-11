@@ -26,6 +26,6 @@
         <div #maincontent>
           ^{pageBody pc}
         <div class="grid_12">
-          <h1 class="footer menu">
+          <p class="footer menu">
             <a class="white prefix_0" href="@{RootR}">bustaquiz
             <a class="white prefix_7" href="mailto:busta@quiz.com">Brought to you by Jeff and Rob industries
