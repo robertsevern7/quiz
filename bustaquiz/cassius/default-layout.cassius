@@ -1,5 +1,3 @@
-// In order to pick non-retarded colours
-// http://colorschemedesigner.com/#3L31Tw0w0w0w0    
 body
     font-family: Verdana, Arial, Sans!important
 
@@ -46,21 +44,27 @@ a
     
 a:link.white
     color: white
+
 a:visited.white
     color: white
+
 a:hover.white
     color: #e6e6e6
     text-decoration:underline
+
 a:active.white
     color: white
     
 a:link.black
     color: black
+
 a:visited.black
     color: black
+
 a:hover.black
     color: black
     text-decoration:underline
+
 a:active.black
     color: black
     
@@ -119,5 +123,6 @@ P
 .answerrevealed
     background-color: #F88017!important
     cursor: auto
+
 .ourbutton
     font-size: 11pt!important
