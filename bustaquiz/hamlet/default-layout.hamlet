@@ -9,7 +9,7 @@
     <body>
       <div .container_12>
         <div class="grid_12 header">
-          <div .menu>
+          <div #navigation>
             <ul>
               <li>
                 <a href="@{RootR}">bustaquiz
@@ -23,7 +23,7 @@
                 <a href="mailto:busta@quiz.com">Contact Us
         <div .clear>
         <div class="grid_12 header">
-          <div .menu>
+          <div #questionCategories>
             <ul>
               <li>
                 <a href="@{WordplayR}">Wordplay
@@ -37,7 +37,7 @@
                 <a href="@{HistoryR}">History
         <div #maincontent>
           ^{pageBody pc}
-        <div class="grid_12">
+        <div #footer class="grid_12">
           <ul>
             <li>
               <a href="@{RootR}">bustaquiz

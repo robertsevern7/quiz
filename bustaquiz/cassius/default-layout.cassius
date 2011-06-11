@@ -1,46 +1,14 @@
 body
-    font-family: Verdana, Arial, Sans!important
     background-color: #708090
 
-.menu
-    text-align: left
-    -moz-border-radius: 10px
-    -webkit-border-radius: 10px
-    -khtml-border-radius: 20px
-    border-radius: 20px;
-    margin: 5px
-    padding: 10px
+#navigation
 
-.curlycurly
-    -moz-border-radius: 10px
-    -webkit-border-radius: 10px
-    -khtml-border-radius: 20px
-    border-radius: 20px
-    padding: 10px
-    margin: 10px
+#questionCategories
 
-.header
-    
-.footer
-    color: white
-    
-.mainname
-    
-.headerlinks
-    
-.small
-    
+#footer
+
 .hidden
     display: none!important
-    
-.center
-    text-align: center
-    
-.padding
-    margin: 10px 0 10px 0
-
-.allpadding
-    margin: 10px
     
 .answerholder
     -moz-border-radius: 10px
