@@ -1,6 +1,17 @@
 body
     background-color: #708090
 
+header
+    background-color: #000000
+    padding: 15px 0
+
+#header
+    float: left
+    height: 40px
+    overflow: hidden
+    width: 180px
+    color: white
+
 #navigation
 
 #questionCategories
