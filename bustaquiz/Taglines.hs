@@ -13,7 +13,7 @@ import Data.Object.Json
 import qualified Data.ByteString.Char8 as B
 
 import Control.Monad
-import Data.Char (toLower)
+import Data.Char (toLower,isAlpha)
 import Data.Maybe (fromJust)
 
 data FilmTaglines = FilmTaglines [String]
@@ -63,8 +63,8 @@ redactionReturner movieWords taglineWord | tagWord `elem` stopWords = taglineWor
                                          | tagWord `elem` mw = "_____"
                                          | otherwise = taglineWord 
                                            where
-                                             mw = map lower movieWords
-                                             tagWord = lower taglineWord
+                                             mw = map (filter isAlpha) $ map lower movieWords
+                                             tagWord = filter isAlpha $ lower taglineWord
 
 getAllFilmsWithTaglines :: IO [String]
 getAllFilmsWithTaglines = do
