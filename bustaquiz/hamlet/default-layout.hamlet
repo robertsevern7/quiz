@@ -10,22 +10,36 @@
       <div .container_12>
         <div class="grid_12 header">
           <div .menu>
-            <a class="mainname white prefix_0" href="@{RootR}">bustaquiz
-            <a class="white small" href="@{RootR}">Quiz me, web
-            <a class="headerlinks white prefix_1" href="@{RootR}">Home
-            <a class="headerlinks white prefix_1" href="@{AcknowledgementsR}">Acknowledgements
-            <a class="headerlinks white prefix_1" href="mailto:busta@quiz.com">Contact Us
+            <ul>
+              <li>
+                <a href="@{RootR}">bustaquiz
+              <li>
+                <a href="@{RootR}">Quiz me, web
+              <li>
+                <a href="@{RootR}">Home
+              <li>
+                <a href="@{AcknowledgementsR}">Acknowledgements
+              <li>
+                <a href="mailto:busta@quiz.com">Contact Us
         <div .clear>
         <div class="grid_12 header">
           <div .menu>
-            <a class="headerlinks white prefix_0" href="@{WordplayR}">Wordplay
-            <a class="headerlinks white prefix_1" href="@{FilmR}">Movie
-            <a class="headerlinks white prefix_1" href="@{PubQuizR}">Pot Luck
-            <a class="headerlinks white prefix_1" href="@{GeographyR}">Geography
-            <a class="headerlinks white prefix_1" href="@{HistoryR}">History
+            <ul>
+              <li>
+                <a href="@{WordplayR}">Wordplay
+              <li>
+                <a href="@{FilmR}">Movie
+              <li>
+                <a href="@{PubQuizR}">Pot Luck
+              <li>
+                <a href="@{GeographyR}">Geography
+              <li>
+                <a href="@{HistoryR}">History
         <div #maincontent>
           ^{pageBody pc}
         <div class="grid_12">
-          <p class="footer menu">
-            <a class="white prefix_0" href="@{RootR}">bustaquiz
-            <a class="white prefix_6" href="mailto:busta@quiz.com">Brought to you by Jeff and Rob industries
+          <ul>
+            <li>
+              <a href="@{RootR}">bustaquiz
+            <li>
+              <a href="mailto:busta@quiz.com">Brought to you by Jeff and Rob industries
