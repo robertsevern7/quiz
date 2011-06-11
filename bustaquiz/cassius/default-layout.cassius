@@ -2,10 +2,7 @@ body
     font-family: Verdana, Arial, Sans!important
     background-color: #708090
 
-#maincontent
-
 .menu
-    background-color: black
     text-align: left
     -moz-border-radius: 10px
     -webkit-border-radius: 10px
@@ -14,9 +11,7 @@ body
     margin: 5px
     padding: 10px
 
-
 .curlycurly
-    background-color: #f8f8ff
     -moz-border-radius: 10px
     -webkit-border-radius: 10px
     -khtml-border-radius: 20px
@@ -40,35 +35,6 @@ body
 .small
     font-size: 10px
     
-a
-    text-decoration: none
-    
-a:link.white
-    color: white
-
-a:visited.white
-    color: white
-
-a:hover.white
-    color: #e6e6e6
-    text-decoration:underline
-
-a:active.white
-    color: white
-    
-a:link.black
-    color: black
-
-a:visited.black
-    color: black
-
-a:hover.black
-    color: black
-    text-decoration:underline
-
-a:active.black
-    color: black
-    
 #sidebar
 
 P
@@ -87,7 +53,6 @@ P
     margin: 10px
     
 .answerholder
-    background-color: #F0F0F0 
     -moz-border-radius: 10px
     -webkit-border-radius: 10px
     -khtml-border-radius: 20px
