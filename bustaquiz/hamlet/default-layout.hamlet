@@ -14,10 +14,6 @@
             <div #navigation>
               <ul>
               <li>
-                <a href="@{RootR}">bustaquiz
-              <li>
-                <a href="@{RootR}">Quiz me, web
-              <li>
                 <a href="@{RootR}">Home
               <li>
                 <a href="@{AcknowledgementsR}">Acknowledgements

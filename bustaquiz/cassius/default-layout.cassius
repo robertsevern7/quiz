@@ -13,6 +13,26 @@ header
     color: white
 
 #navigation
+    display: block
+    float: right
+    margin: 1px 0 0;
+
+#navigation ul
+    list-style: none outside node            
+
+#navigation li
+    display: list-item
+    float: left      
+    margin-left: 0      
+
+#navigation a
+    text-decoration: none
+    outline: 0 none
+    padding: 4px 10px
+    overflow: visible
+    font-weight: bold
+    float: left
+    color: #FFFFFF            
 
 #questionCategories
 
