@@ -1,9 +1,12 @@
 body
     background-color: #708090
+    margin: 0 0 0 0
+    padding: 0 0 0 0
 
 header
     background-color: #000000
     padding: 15px 0
+    font-family: 'Fontdiner Swanky', arial, serif
 
 #header
     float: left
@@ -37,6 +40,7 @@ header
 #questionCategories
 
 #footer
+    font-family: 'FontDiner Swanky', arial, serif
     padding: 30px 0
     color: white
     background: #222

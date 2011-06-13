@@ -2,10 +2,12 @@
 
 <html>
     <head>
+        <link href="http://fonts.googleapis.com/css?family=Fontdiner+Swanky" rel="stylesheet" type="text/css">
         <title>#{pageTitle pc}
         ^{pageHead pc}
         <link rel="stylesheet" href="@{StaticR s960_css}" type="text/css" media="all">
-        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/base/jquery-ui.css" type="text/css" media="all">
+        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/base/jquery-ui.css" type="text/css" media="all">      
+
     <body>
       <header>
         <div class="container_12 clearfix">
