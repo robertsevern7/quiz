@@ -36,9 +36,13 @@
               <a href="@{HistoryR}">History
       <div #maincontent>
         ^{pageBody pc}
-      <div #footer class="grid_12">
-        <ul>
-          <li>
-            <a href="@{RootR}">bustaquiz
-          <li>
-            <a href="mailto:busta@quiz.com">Brought to you by Jeff and Rob industries
+
+      <div .clear>
+      <div #footer>
+        <div class="container_12 clearfix">
+          <div class="clearfix">
+            <ul>
+              <li>
+                <a href="@{RootR}">bustaquiz
+              <li>
+                <a href="mailto:busta@quiz.com">Brought to you by Jeff and Rob industries

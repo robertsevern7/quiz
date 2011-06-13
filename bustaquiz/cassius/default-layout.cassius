@@ -18,7 +18,7 @@ header
     margin: 1px 0 0;
 
 #navigation ul
-    list-style: none outside node            
+    list-style: none outside none            
 
 #navigation li
     display: list-item
@@ -37,6 +37,26 @@ header
 #questionCategories
 
 #footer
+    padding: 30px 0
+    color: white
+    background: #222
+
+#footer ul
+    list-style: none outside none
+
+#footer li
+    display: list-item
+    float: left      
+    margin-left: 0      
+
+#footer a
+    text-decoration: none
+    outline: 0 none
+    padding: 4px 50px
+    overflow: visible
+    font-weight: bold
+    float: right
+    color: #FFFFFF            
 
 .hidden
     display: none!important
