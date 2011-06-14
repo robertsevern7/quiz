@@ -5,42 +5,4 @@
 
     <p>Because they're not written exclusively by puny humans, our questions are wide-ranging and randomly generated for a new kind of quiz. Try a burst of potluck, hold your nerve on 'the ladder', or just choose your favourite topic from an ever-growing list and jump on in. 
 
-    <p>Bustaquiz lives to serve your thirst for triva, so if you've got an idea for a quiz topic or theme, we want to hear it. In the meantime: get wasting time.
-<div .clear>
-
-<div .grid_12>
-  <ul class="noliststyle homepageoptions">
-    <a class="grid_2 black listheader" href="@{WordplayR}">WORDPLAY
-    <ul class="grid_4 noliststyle">
-      <li>
-        <a .black href="@{SixLetterAnagramsR index IdentifyTextType}">Anagrams
-    <div .clear>
-  <ul class="noliststyle homepageoptions">
-    <a class="grid_2 black listheader" href="@{FilmR}">MOVIE
-    <ul class="grid_4 noliststyle quizholder">
-      <li>
-        <a class="black quizlink" href=# ladder="@{TaglinesR index IdentifyTextType}" match="@{TaglinesR index AssociateType}" multi="@{TaglinesR index IdentifyMultipleType}">Taglines
-      <li>
-        <a class="black quizlink" href=# ladder="@{QuoteSelectionR index IdentifyTextType}" match="@{QuoteSelectionR index AssociateType}" multi="@{QuoteSelectionR index IdentifyMultipleType}">Quotes
-    <div .clear>
-
-  <ul class="noliststyle homepageoptions">
-    <a class="grid_2 black listheader" href="@{PubQuizR}">POT LUCK
-    <ul class="grid_4 noliststyle quizholder">
-      <li>
-        <a class="black quizlink" href=# ladder="@{RandomPubQuizR index IdentifyTextType}" multi="@{RandomPubQuizR index IdentifyMultipleType}">Pub Quiz
-    <div .clear>
-  <ul class="noliststyle homepageoptions">
-    <a class="grid_2 black listheader" href="@{GeographyR}">GEOGRAPHY
-    <ul class="grid_4 noliststyle quizholder">
-      <li>
-        <a class="black quizlink" href=# ladder="@{CapitalsR index IdentifyTextType}" match="@{CapitalsR index AssociateType}" multi="@{CapitalsR index IdentifyMultipleType}">Capitals
-      <li>
-        <a class="black quizlink" href=# ladder="@{CountryFlagsR index IdentifyType}">Flags of the World
-    <div .clear>
-  <ul class="noliststyle homepageoptions">
-    <a class="grid_2 black listheader" href="@{HistoryR}">HISTORY
-    <ul class="grid_4 noliststyle quizholder">
-      <li>
-        <a class="black quizlink" href=# order="@{USPresidentsOrderR index OrderType}">Order of Inauguration of US Presidents
-    <div .clear>
+    <p>Bustaquiz lives to serve your thirst for triva, so if you've got an idea for a quiz topic or theme, we want to hear it.  Select a topic from the menu above and get wasting time!
