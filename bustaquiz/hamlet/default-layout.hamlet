@@ -23,7 +23,7 @@
                 <a href="mailto:busta@quiz.com">Contact Us
       
       <div .clear>
-      <div class="grid_12 header">
+      <div class="container_8 header categoryHeader">
         <div #questionCategories>
           <ul>
             <li>
@@ -36,6 +36,8 @@
               <a href="@{GeographyR}">Geography
             <li>
               <a href="@{HistoryR}">History
+      
+      <div .clear>
       <div #maincontent>
         ^{pageBody pc}
 

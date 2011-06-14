@@ -1,12 +1,14 @@
 body
     background-color: #708090
-    margin: 0 0 0 0
-    padding: 0 0 0 0
 
 header
     background-color: #000000
     padding: 15px 0
     font-family: 'Fontdiner Swanky', arial, serif
+
+#maincontent
+    padding: 35px 35px 35px 35px
+    margin: 10px 10px 10px 10px
 
 #header
     float: left
@@ -18,7 +20,7 @@ header
 #navigation
     display: block
     float: right
-    margin: 1px 0 0;
+    margin: 1px 0 0
 
 #navigation ul
     list-style: none outside none            
@@ -35,9 +37,22 @@ header
     overflow: visible
     font-weight: bold
     float: left
-    color: #FFFFFF            
+    color: #FFFFFF 
 
-#questionCategories
+#questionCategories 
+    display: block
+    float: right
+    width: 100%
+    background-color: #773377
+    padding: 0 0 0 0
+
+#questionCategories ul
+    list-style: none outside none
+
+#questionCategories li
+    display: list-item
+    float: left
+    padding: 0 25px 0 25px
 
 #footer
     font-family: 'FontDiner Swanky', arial, serif
